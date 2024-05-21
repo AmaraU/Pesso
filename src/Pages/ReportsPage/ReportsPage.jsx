@@ -183,7 +183,7 @@ export const ReportsPage = () => {
                 <tbody>
                     {reports
                         .filter((row) =>
-                            !searchedVal.length || row.name || row.acctType || row.invstType
+                            !searchedVal.length || row.name
                             .toString()
                             .toLowerCase()
                             .includes(searchedVal.toString().toLowerCase()) 
