@@ -1,0 +1,107 @@
+.header {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    background: #FFF;
+}
+
+.logo {
+    height: 100%;
+    width: 232px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-right: 1px solid #E5E7EB;
+}
+.logo a {
+    width: 232px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo a img {
+    width: 40%;
+    height: auto;
+}
+
+.leftRight {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.header img {
+    width: 24px;
+    height: 24px;
+}
+
+.header a img {
+    margin-right: 16px;
+}
+
+.headerLeft {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerSearch {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 16px;
+}
+.headerSearch input {
+    border: none;
+    outline: none;
+    margin-left: 8px;
+}
+.headerSearch input::placeholder {
+    font-size: 14px;
+    color: #A4A4B1;
+}
+
+.languageDiv {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 16px;
+}
+.languageDiv select {
+    border: none;
+}
+
+.headerRight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerLeft h2 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+    color: #374151;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.links a {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #9CA3AF;
+    margin-right: 16px;
+    text-decoration: none;
+}
+.links a:hover {
+    color: #1C6BFF;
+    text-decoration: underline;
+}
+

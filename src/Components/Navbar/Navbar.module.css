@@ -1,0 +1,34 @@
+.theWhole {
+    border-right: 1px solid #E5E7EB;
+    width: 232px;
+}
+
+
+.linkList {
+    display: flex;
+    flex-direction: column;
+    margin-top: 110px;
+    width: 232px;
+}
+
+.linkList a {
+    padding: 8px 16px;
+    margin-bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+    color: #9CA3AF;
+    gap: 8px;
+}
+.linkList a:hover {
+    background-color: #E5E7EB;
+    color: #7E8491;
+}
+
+.theWhole a img {
+    width: 24px;
+    height: 24px;
+}

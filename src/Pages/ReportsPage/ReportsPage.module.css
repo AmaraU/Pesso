@@ -1,0 +1,213 @@
+.whole {
+    padding: 32px 40px;
+    overflow-y: auto;
+    margin-top: 80px;
+    width: 100%;
+}
+
+
+.searchButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.searchBar {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 16px;
+}
+.searchBar img {
+    width: 18px;
+    height: 18px;
+}
+.searchBar input {
+    border: none;
+    outline: none;
+    margin-left: 8px;
+}
+.searchBar input::placeholder {
+    font-size: 14px;
+    color: #A4A4B1;
+}
+
+.buttonOne {
+    padding: 8px 12px;
+    background-color: #F0F5FD;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 16px;
+}
+.buttonOne img,
+.buttonTwo img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+.buttonOne select {
+    color: #1C6BFF;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    text-decoration: none;
+}
+
+.buttonTwo {
+    padding: 8px 12px;
+    background-color: #1C6BFF;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    color: #FFF;
+    text-decoration: none;
+}
+
+
+
+
+.graphs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7%;
+    margin-bottom: 24px;
+}
+
+.graphHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.graphHeader select {
+    border-radius: 10px;
+    padding: 10px 16px;
+    background-color: #F8F8FF;
+    border: none;
+    outline: none;
+}
+
+.graphHeaderText h5 {
+    font-size: 18px;
+    color: #9291A5;
+    font-weight: 400;
+}
+
+.graphHeaderText h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1E1B39;    
+}
+
+.graphOne .line,
+.graphTwo .line {
+    width: 95%;
+    border: 0.5px solid #E5E5EF;
+    margin-top: 22px;
+    align-self: center;
+}
+
+.graphs img {
+    margin-top: 16px;
+    width: 100%;
+    height: auto;
+}
+
+.graphOne,
+.graphTwo {
+    padding: 24px 32px;
+    border-radius: 20px;
+    border: 0.5px solid #C4C4C4;
+    flex: 50%;
+    display: flex;
+    flex-direction: column;    
+}
+
+
+
+
+
+.reportTable table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.reportTable th {
+    background-color: #F9FAFB;
+    color: #374151;
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.reportTable td {
+    padding: 8px 12px;
+    color: #374151;
+    font-size: 12px;
+}
+
+.reportTable td img {
+    width: 18px;
+    height: 18px;
+}
+.reportTable .action {
+    text-align: center;
+}
+.reportTable .action button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.actionsClosed {
+    display: none;
+}
+
+.theActions {
+    display: block;
+    text-align: left;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    box-shadow: 0px 4px 12px 0px #9CA3AF33;
+    border-radius: 8px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 5;
+}
+.theActions ul {
+    padding: 0 16px;
+}
+.theActions p {
+    padding: 8px 16px;
+    border-bottom: 1px solid #F9FAFB;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 600;
+    color: #4B5563;
+}
+.theActions li {
+    list-style: none;
+    padding: 12px 16px;
+    border-bottom: 1px solid transparent;
+    width: 100%;
+}
+.theActions ul .view {
+    border-bottom: 1px solid #F3F4F6;
+}
+.theActions li a {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: #4B5563;
+    width: 100%;
+}
+
+.theActions li:hover {
+    background-color: #F0F5FD;
+    border-bottom: 1px solid #A4C4FF;
+}
