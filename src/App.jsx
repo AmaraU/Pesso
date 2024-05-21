@@ -12,7 +12,7 @@ function App() {
 
   switch (window.location.pathname) {
     case "/":
-      Component = Dashboard
+      Component = ReportsPage
       break
     case "/investments":
       Component = InvestmentsPage
