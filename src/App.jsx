@@ -11,6 +11,9 @@ function App() {
   let Component
 
   switch (window.location.pathname) {
+    case "/":
+      Component = Dashboard
+      break
     case "/investments":
       Component = InvestmentsPage
       break
