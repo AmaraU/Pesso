@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'WorkSans';
+    src: url('../fonts/Work-Sans/static/WorkSans-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;

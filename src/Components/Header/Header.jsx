@@ -1,23 +1,112 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Header.module.css";
 import { getImageUrl } from "../../../utils";
 
 export const Header = () => {
+
+    let PageTitle;
+    let linkList = [];
+
+    switch (window.location.pathname) {
+        case "/":
+            PageTitle = "Dashboard";
+            break;
+        
+        case "/transactions":
+            PageTitle = "Transactions";
+            linkList = [
+                {title: "History", link: "/transactions"},
+                {title: "Transfer", link: "/transactions/transfer"}
+            ];
+            break;
+        case "/transactions/transfer":
+            PageTitle = "Transactions";
+            linkList = [
+                {title: "History", link: "/transactions"},
+                {title: "Transfer", link: "/transactions/transfer"}
+            ];
+            break;
+        
+        case "/accounts":
+            PageTitle = "Accounts";
+            break;
+        
+        case "/cashflow":
+            PageTitle = "Cashflow";
+            linkList = [
+                {title: "Inflow", link: "/cashflow"},
+                {title: "Outflow", link: "/cashflow/outflow"}
+            ];
+            break;
+        case "/cashflow/outflow":
+            PageTitle = "Cashflow";
+            linkList = [
+                {title: "Inflow", link: "/cashflow"},
+                {title: "Outflow", link: "/cashflow/outflow"}
+            ];
+            break;
+        
+        case "/loans":
+            PageTitle = "Loans";
+            break;
+        
+        case "/investments":
+            PageTitle = "Investments";
+            break;
+        
+        case "/bulktransfer":
+            PageTitle = "Bulk Transfer";
+            break;
+        
+        case "/budget":
+            PageTitle = "Budget";
+            break;
+        
+        case "/reconciliation":
+            PageTitle = "Reconciliation";
+            break;
+        
+        case "/reports":
+            PageTitle = "Reports";
+            linkList = [
+                {title: "Financial Health Indicator", link: "/reports"},
+                {title: "History", link: "/reports"}
+            ];
+            break;
+        
+        case "/audittrails":
+            PageTitle = "Audit Trails";
+            break;
+        
+        case "/users":
+            PageTitle = "Users";
+            linkList = [
+                {title: "Members", link: "/users"},
+                {title: "Roles & Permissions", link: "/users"}
+            ];
+            break;
+        
+        case "/setting":
+            PageTitle = "Settings";
+            break;
+    }
+
     return (
         <div className={styles.header}>
 
             <div className={styles.logo} >
-                <a href="/dashboard"><img src={getImageUrl("logos/CMLogo.png")} alt="Cash Management" /></a>
+                <a href="/"><img src={getImageUrl("logos/PessoLogo.png")} alt="PESSO" /></a>
             </div>
 
             <div className={styles.leftRight}>
 
                 <div className={styles.headerLeft}>
-                    <h2>Reports</h2>
+
+                    <h2>{PageTitle}</h2>
                     <div className={styles.links}>
-                        <a href="">Financial Health Indicator</a>
-                        <a href="">History</a>
-                        <a href="">History</a>
+                        {linkList.map(({ title, link }, index) => (
+                            <a key={index} href={link}>{title}</a>
+                        ))}
                     </div>
                 </div>
 

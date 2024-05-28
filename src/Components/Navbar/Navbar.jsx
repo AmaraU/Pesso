@@ -8,7 +8,7 @@ export const Navbar = () => {
 
       <div className={styles.linkList}>
 
-        <a href="/dashboard">
+        <a href="/">
           <img src={getImageUrl("icons/Dashboard.png")} />
           Dashboard
         </a>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from "./ReportsPage.module.css";
 import { getImageUrl } from '../../../utils';
 
@@ -83,25 +83,75 @@ export const ReportsPage = () => {
             currBal: "N300,000",
         },
     ]
+    
+    const [ search, setSearch] = useState("");
+    const [ actionsOpen, setActionsOpen ] = useState({});
+    const [ currentPage, setCurrentPage ] = useState(1);
+    const itemsPerPage = 10;
 
-    const [searchedVal, setSearchedVal] = useState("");
-    const [ actionsOpen, setActionsOpen ] = useState(false);
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
+        setCurrentPage(1);
+    };
 
-    // $('tbody .action').onClick(function () {
-    //     $(this).find('.theActions').setActionsOpen(!actionsOpen);
-    // });
 
-    // function handleClick(e) {
-    //     if (!e.target.closest(".theActions") && actionsOpen) {
-    //         setActionsOpen(false);
-    //     }
-    // }
-    // React.useEffect(() => {
-    //     document.addEventListener("click", handleClick);
-    //     return () => {
-    //         document.removeEventListener("click", handleClick);
-    //     };
-    // });
+    const filteredReports = reports.filter(report => {
+        const searchLower = search.toLowerCase();
+        return (
+            report.date.toLowerCase().includes(searchLower) ||
+            report.acctNumber.toLowerCase().includes(searchLower) ||
+            report.acctName.toLowerCase().includes(searchLower) ||
+            report.acctBal.toLowerCase().includes(searchLower) ||
+            report.currBal.toLowerCase().includes(searchLower)
+        );
+    });
+
+
+    const toggleAction = (index) => {
+        setActionsOpen(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
+    };
+
+    
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentReports = filteredReports.slice(indexOfFirstItem, indexOfLastItem);
+
+    const totalPages = Math.ceil(filteredReports.length / itemsPerPage);
+
+    const handleNextPage = () => {
+        if (currentPage < Math.ceil(filteredReports.length / itemsPerPage)) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handlePageClick = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    }
+    
+
+    const popupRef = useRef(null);
+
+    const handleClickOutside = (event) => {
+        if (popupRef.current && !popupRef.current.contains(event.target)) {
+            setActionsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, []);
 
 
 
@@ -110,7 +160,7 @@ export const ReportsPage = () => {
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
                     <img src={getImageUrl("icons/search.png")} />
-                    <input type="text" onChange={(e) => setSearchedVal(e.target.value)} placeholder='Search reports' />
+                    <input id="search" type="text" onChange={handleSearch} placeholder='Search reports' />
                 </div>
 
                 <div className={styles.buttons}>
@@ -158,6 +208,9 @@ export const ReportsPage = () => {
                         </div>
                         <select name="" id="">
                             <option value="">Weekly</option>
+                            <option value="">Daily</option>
+                            <option value="">Monthly</option>
+                            <option value="">Yearly</option>
                         </select>
                     </div>
 
@@ -181,39 +234,47 @@ export const ReportsPage = () => {
                 </thead>
 
                 <tbody>
-                    {reports
-                        .filter((row) =>
-                            !searchedVal.length || row.name
-                            .toString()
-                            .toLowerCase()
-                            .includes(searchedVal.toString().toLowerCase()) 
-                        )
-                        
-                        .map((report, index) => (
-                            <tr>
-                                <td className={styles.checkbox}><input type="checkbox"id="" /></td>
-                                <td className={styles.date}>{report.date}</td>
-                                <td className={styles.acctNumber}>{report.acctNumber}</td>
-                                <td className={styles.acctName}>{report.acctName}</td>
-                                <td className={styles.acctBal}>{report.acctBal}</td>
-                                <td className={styles.currBal}>{report.currBal}</td>
-                                <td className={styles.action}>
-                                    <button onClick={() => setActionsOpen(!actionsOpen)}><img src={getImageUrl("icons/action.png")} /></button>
-                                    <div className={`${styles.actionsClosed} ${actionsOpen && styles.theActions}`} >
-                                        <p>ACTION</p>
-                                        <ul>
-                                            <li className={styles.view} ><a href="">View</a></li>
-                                            <li><a href="">Download pdf</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                    {currentReports.map((report, index) => (
+                        <tr key={index}>
+                            <td className={styles.checkbox}><input type="checkbox" /></td>
+                            <td className={styles.date}>{report.date}</td>
+                            <td className={styles.acctNumber}>{report.acctNumber}</td>
+                            <td className={styles.acctName}>{report.acctName}</td>
+                            <td className={styles.acctBal}>{report.acctBal}</td>
+                            <td className={styles.currBal}>{report.currBal}</td>
+                            <td className={styles.action}>
+                                <button onClick={() => toggleAction(index)}>
+                                    <img src={getImageUrl("icons/action.png")} />
+                                </button>
+                                <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef} >
+                                    <p>ACTION</p>
+                                    <ul>
+                                        <li className={styles.view} ><a href="">View</a></li>
+                                        <li><a href="">Download pdf</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
 
                 </tbody>
-
-                
             </table>
+
+            <div className={styles.pagination}>
+                <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
+                    <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                    Previous
+                </button>
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
+                        0{index + 1}
+                    </button>
+                ))}
+                <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
+                    Next
+                    <img src={getImageUrl("icons/greyRightAngle.png")} />
+                </button>
+            </div>
         </div>
     )
 }
