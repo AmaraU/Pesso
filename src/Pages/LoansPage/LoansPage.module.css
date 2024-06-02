@@ -1,0 +1,249 @@
+.whole {
+    padding: 32px 40px;
+    overflow-y: auto;
+    margin-top: 80px;
+    width: 100%;
+}
+
+
+.searchButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.searchBar {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 16px;
+    flex: 1;
+}
+.searchBar img {
+    width: 18px;
+    height: 18px;
+}
+.searchBar input {
+    border: none;
+    outline: none;
+    margin-left: 8px;
+    width: 100%;
+}
+.searchBar input::placeholder {
+    font-size: 14px;
+    color: #A4A4B1;
+}
+
+
+
+.loanDivs {
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    gap: 24px;
+}
+
+
+
+.nothingBigDiv {
+    display: grid;
+    width: 100%;
+}
+.nothingFound {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    text-align: center;
+    align-items: center;
+}
+.nothingFound img {
+    width: 100%;
+    height: auto;
+}
+.nothingFound h2 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    color: #000000;
+}
+.nothingFound p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #000000;
+}
+
+
+
+
+
+.loanDiv {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+}
+.loanHeader {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F3F4F6;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1F2937;
+    padding: 8px 16px;
+    margin-bottom: 8px;
+}
+.loanHeader button {
+    display: inline-flex;
+    align-items: center;
+    background-color: #1C6BFF;
+    color: #FFFFFF;
+    padding: 4px 8px;
+    border-radius: 4px;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    border: none;
+}
+.loanHeader button img {
+    width: 14px;
+    height: 14px;
+}
+
+.loanDiv .row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 400;
+    color: #6B7280;
+    align-items: center;
+    padding: 8px 16px;
+}
+.loanDiv .info {
+    font-size: 12px;
+    font-weight: 500;
+    color: #374151;
+}
+
+
+.loanDiv .paid {
+    padding: 5px 10px;
+    border-radius: 230px;
+    width: fit-content;
+    background-color: #E3FFE0;
+    color: #0E801A;
+    font-size: 12px;
+    font-weight: 500;
+}
+.loanDiv .pending {
+    padding: 5px 10px;
+    border-radius: 230px;
+    width: fit-content;
+    background-color: #FFFCDC;
+    color: #DAD106;
+    font-size: 12px;
+    font-weight: 500;
+}
+.loanDiv .overdue {
+    padding: 5px 10px;
+    border-radius: 230px;
+    width: fit-content;
+    background-color: #FFD4D4;
+    color: #EF1C1C;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+
+
+
+.dimmer {
+    display: none;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+}
+
+.dim {
+    display: block;
+    z-index: 11;
+    pointer-events: none;
+}
+
+
+.viewPopup {
+    width: 40%;
+    max-height: 70%;
+    overflow: hidden;
+    overflow-y: scroll;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    padding: 0 24px 24px 24px;
+    transition: 0.5s;
+    z-index: 100;
+    border-radius: 8px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.viewPopup::-webkit-scrollbar {
+    display: none;
+}
+
+.viewPopup .header {
+    display: flex;
+    padding: 10px 0;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #49505B;
+    position: sticky;
+    top: 0;
+    background-color: #FFFFFF;
+}
+.close img {
+    width: 24px;
+    height: 24px;
+}
+
+.darkGrey,
+.lightGrey {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.viewPopup .right {
+    text-align: right;
+}
+.viewPopup .center {
+    background-color: #FBFBFB;
+    padding: 10px;
+    text-align: center;
+}
+
+.viewPopup h5 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+.viewPopup p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #6B7280;
+    margin-bottom: 8px;
+}
+
+.lightGrey {background-color: #FBFBFB;}
+.darkGrey {background-color: #F3F3F3;}
+.green {color: #19D821;}

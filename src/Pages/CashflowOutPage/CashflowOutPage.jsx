@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./CashflowOutPage.module.css";
 import { getImageUrl } from '../../../utils';
+import classNames from 'classnames';
 
 
 
@@ -531,8 +532,6 @@ export const CashflowOutPage = () => {
             <button onClick={() => toggleSingleOff()}>View Payments</button>
         </div>
 
-
-
         <div className={styles.bulkDiv} id='bulkpopup'>
             <div className={styles.bulkHeader}>
                 <h4>Bulk Payment</h4>
@@ -559,7 +558,6 @@ export const CashflowOutPage = () => {
 
         </div>
 
-        
         <div className={styles.dimmer} id='dimmer'></div>
 
 
@@ -635,92 +633,108 @@ export const CashflowOutPage = () => {
                     </div>
                 </div>
 
-                {/* <TreeMap /> */}
-                <div className={styles.outflowTreemap}>
-                    <div className={styles.treemapRow}>
-                        <div className={`${styles.treemapBox} ${styles.darkest}`}>45%<br />UTILITIES (N234)</div>
+                {currentHistoryOutflows.length === 0 ? (
+                    <div className={styles.nothingBigDiv}>
+                        <div className={styles.nothingFound}>
+                            <img src={getImageUrl("nothing.png")} />
+                            <h2>No Outflow Data</h2>
+                            <p>We cannot seem to find any outflow data, your transaction information will appear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
+                    <>
+
+
+
+                    {/* <TreeMap /> */}
+                    <div className={styles.outflowTreemap}>
+                        <div className={styles.treemapRow}>
+                            <div className={`${styles.treemapBox} ${styles.darkest}`}>45%<br />UTILITIES (N234)</div>
+                            <div className={styles.treemapColumn}>
+                                <div className={`${styles.treemapBox} ${styles.darker}`}>45%<br />UTILITIES (N234)</div>
+                                <div className={`${styles.treemapBox} ${styles.dark}`}>45%<br />UTILITIES (N234)</div>
+                            </div>
+                        </div>
                         <div className={styles.treemapColumn}>
-                            <div className={`${styles.treemapBox} ${styles.darker}`}>45%<br />UTILITIES (N234)</div>
-                            <div className={`${styles.treemapBox} ${styles.dark}`}>45%<br />UTILITIES (N234)</div>
+                            <div className={styles.treemapRow}>
+                                <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
+                                <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
+                                <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
+                            </div>
+                            <div className={styles.treemapRow}>
+                                <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
+                                <div className={`${styles.treemapBox} ${styles.blue}`}>10%<br />UTILITIES (N234)</div>
+                                <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
+                                <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
+                            </div>
+                            <div className={styles.treemapRow}>
+                                <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />UTILITIES (N14)</div>
+                                <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />EQUIPMENT (N14)</div>
+                                <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />EQUIPMENT (N14)</div>
+                            </div>
                         </div>
                     </div>
-                    <div className={styles.treemapColumn}>
-                        <div className={styles.treemapRow}>
-                            <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
-                            <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
-                            <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
-                        </div>
-                        <div className={styles.treemapRow}>
-                            <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
-                            <div className={`${styles.treemapBox} ${styles.blue}`}>10%<br />UTILITIES (N234)</div>
-                            <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
-                            <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
-                        </div>
-                        <div className={styles.treemapRow}>
-                            <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />UTILITIES (N14)</div>
-                            <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />EQUIPMENT (N14)</div>
-                            <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />EQUIPMENT (N14)</div>
-                        </div>
-                    </div>
-                </div>
 
-                <table className={styles.outflowTable}>
-                    <thead>
-                        <th><input type="checkbox" id="selectAll" /></th>
-                        <th>Reference Number</th>
-                        <th>Title</th>
-                        <th>Payment Type</th>
-                        <th>Amount</th>
-                        <th>Date; Time</th>
-                        <th>Category</th>
-                        <th className={styles.action}>Action</th>
-                    </thead>
+                    <table className={styles.outflowTable}>
+                        <thead>
+                            <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
+                            <th>Reference Number</th>
+                            <th>Title</th>
+                            <th>Payment Type</th>
+                            <th>Amount</th>
+                            <th>Date; Time</th>
+                            <th>Category</th>
+                            <th className={styles.action}>Action</th>
+                        </thead>
 
-                    <tbody>
-                        {currentHistoryOutflows.map((outflow, index) => (
-                            <tr key={index}>
-                                <td className={styles.checkbox}><input type="checkbox" /></td>
-                                <td>{outflow.refNo}</td>
-                                <td>{outflow.title}</td>
-                                <td>{outflow.type}</td>
-                                <td>{outflow.amount}</td>
-                                <td>{outflow.dateTime}</td>
-                                <td>{outflow.category}</td>
-                                <td className={styles.action}>
-                                    <button onClick={() => toggleAction(index)}>
-                                        <img src={getImageUrl("icons/action.png")} />
-                                    </button>
-                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} >
-                                        <p>ACTION</p>
-                                        <ul>
-                                            <li><a href="">Approve</a></li>
-                                            <li><a href="">Reject</a></li>
-                                            <li><a href="">Hold</a></li>
-                                            <li><a href="">Download Receipt</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                        <tbody>
+                            {currentHistoryOutflows.map((outflow, index) => (
+                                <tr key={index}>
+                                    <td className={styles.tableCheckbox}><input type="checkbox" /></td>
+                                    <td>{outflow.refNo}</td>
+                                    <td>{outflow.title}</td>
+                                    <td>{outflow.type}</td>
+                                    <td>{outflow.amount}</td>
+                                    <td>{outflow.dateTime}</td>
+                                    <td>{outflow.category}</td>
+                                    <td className={styles.action}>
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} >
+                                            <p>ACTION</p>
+                                            <ul>
+                                                <li><a href="">Approve</a></li>
+                                                <li><a href="">Reject</a></li>
+                                                <li><a href="">Hold</a></li>
+                                                <li><a href="">Download Receipt</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-                <div className={styles.pagination}>
-                    <button onClick={handlePreviousPage1} disabled={currentHistoryPage === 1} className={styles.move}>
-                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                        Previous
-                    </button>
-                    {Array.from({ length: totalHistoryPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => handlePageClick1(index + 1)} className={currentHistoryPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                            0{index + 1}
+                    <div className={styles.pagination}>
+                        <button onClick={handlePreviousPage1} disabled={currentHistoryPage === 1} className={styles.move}>
+                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                            Previous
                         </button>
-                    ))}
-                    <button onClick={handleNextPage1} disabled={currentHistoryPage === totalHistoryPages} className={styles.move}>
-                        Next
-                        <img src={getImageUrl("icons/greyRightAngle.png")} />
-                    </button>
-                </div>
+                        {Array.from({ length: totalHistoryPages }, (_, index) => (
+                            <button key={index + 1} onClick={() => handlePageClick1(index + 1)} className={currentHistoryPage === index + 1 ? styles.activePage : styles.gotToPage}>
+                                0{index + 1}
+                            </button>
+                        ))}
+                        <button onClick={handleNextPage1} disabled={currentHistoryPage === totalHistoryPages} className={styles.move}>
+                            Next
+                            <img src={getImageUrl("icons/greyRightAngle.png")} />
+                        </button>
+                    </div>
+                    </>
+                )}
             </div>
 
 
@@ -741,63 +755,85 @@ export const CashflowOutPage = () => {
                     </div>
                 </div>
 
-                <table className={styles.outflowTable}>
-                    <thead>
-                        <th><input type="checkbox" id="selectAll" /></th>
-                        <th>Reference Number</th>
-                        <th>TItle</th>
-                        <th>Payment Type</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Category</th>
-                        <th className={styles.action}>Action</th>
-                    </thead>
+                {currentPendingOutflows.length === 0 ? (
+                    <div className={styles.nothingBigDiv}>
+                        <div className={styles.nothingFound}>
+                            <img src={getImageUrl("nothing.png")} />
+                            <h2>No Outflow Data</h2>
+                            <p>We cannot seem to find any outflow data, your transaction information will appear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
+                    <>
 
-                    <tbody>
-                        {currentPendingOutflows.map((outflow, index) => (
-                            <tr key={index}>
-                                <td className={styles.checkbox}><input type="checkbox" /></td>
-                                <td>{outflow.refNo}</td>
-                                <td>{outflow.title}</td>
-                                <td>{outflow.type}</td>
-                                <td>{outflow.amount}</td>
-                                <td>{outflow.status}</td>
-                                <td>{outflow.date}</td>
-                                <td>{outflow.category}</td>
-                                <td className={styles.action}>
-                                    <button onClick={() => toggleAction(index)}>
-                                        <img src={getImageUrl("icons/action.png")} />
-                                    </button>
-                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} >
-                                        <p>ACTION</p>
-                                        <ul>
-                                            <li><a href="">Hold</a></li>
-                                            <li><a href="">Retry</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                    <table className={styles.outflowTable}>
+                        <thead>
+                            <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
+                            <th>Reference Number</th>
+                            <th>TItle</th>
+                            <th>Payment Type</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th className={styles.action}>Action</th>
+                        </thead>
 
-                    </tbody>
-                </table>
+                        <tbody>
+                            {currentPendingOutflows.map((outflow, index) => (
+                                <tr key={index}>
+                                    <td className={styles.tableCheckbox}><input type="checkbox" /></td>
+                                    <td>{outflow.refNo}</td>
+                                    <td>{outflow.title}</td>
+                                    <td>{outflow.type}</td>
+                                    <td>{outflow.amount}</td>
+                                    <td className={styles.status}>
+                                        <div className={classNames({
+                                            [styles.paid]: outflow.status.toLowerCase().includes('paid'),
+                                            [styles.pending]: outflow.status.toLowerCase().includes('pending'),
+                                            [styles.overdue]: outflow.status.toLowerCase().includes('overdue'),
+                                        })}>
+                                            {outflow.status}
+                                        </div>
+                                    </td>
+                                    <td>{outflow.date}</td>
+                                    <td>{outflow.category}</td>
+                                    <td className={styles.action}>
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} >
+                                            <p>ACTION</p>
+                                            <ul>
+                                                <li><a href="">Hold</a></li>
+                                                <li><a href="">Retry</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
 
-                <div className={styles.pagination}>
-                    <button onClick={handlePreviousPage2} disabled={currentPendingPage === 1} className={styles.move}>
-                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                        Previous
-                    </button>
-                    {Array.from({ length: totalPendingPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => handlePageClick2(index + 1)} className={currentPendingPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                            0{index + 1}
+                        </tbody>
+                    </table>
+
+                    <div className={styles.pagination}>
+                        <button onClick={handlePreviousPage2} disabled={currentPendingPage === 1} className={styles.move}>
+                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                            Previous
                         </button>
-                    ))}
-                    <button onClick={handleNextPage2} disabled={currentPendingPage === totalPendingPages} className={styles.move}>
-                        Next
-                        <img src={getImageUrl("icons/greyRightAngle.png")} />
-                    </button>
-                </div>
+                        {Array.from({ length: totalPendingPages }, (_, index) => (
+                            <button key={index + 1} onClick={() => handlePageClick2(index + 1)} className={currentPendingPage === index + 1 ? styles.activePage : styles.gotToPage}>
+                                0{index + 1}
+                            </button>
+                        ))}
+                        <button onClick={handleNextPage2} disabled={currentPendingPage === totalPendingPages} className={styles.move}>
+                            Next
+                            <img src={getImageUrl("icons/greyRightAngle.png")} />
+                        </button>
+                    </div>
+                    </>
+                )}
             </div>
         </div>
         </>

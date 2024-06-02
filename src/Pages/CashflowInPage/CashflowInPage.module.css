@@ -163,11 +163,102 @@ button, a {
 
 
 
+.nothingBigDiv {
+    display: grid;
+    width: 100%;
+}
+.nothingFound {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    text-align: center;
+    align-items: center;
+}
+.nothingFound img {
+    width: 100%;
+    height: auto;
+}
+.nothingFound h2 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    color: #000000;
+}
+.nothingFound p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #000000;
+}
+
+
+
+
+.inflowTreemap {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    margin-bottom: 72px;
+}
+.inflowTreemap div {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.treemapColumn  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 5px;
+}
+.treemapRow {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.treemapBox {
+    text-align: center;
+    color: #FFF;
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.3s ease;
+}
+.treemapBox:hover {
+    transform: scale(1.1);
+}
+
+.darkest { background-color: #0A275D;}
+.darker {background-color: #143167;}
+.dark {background-color: #324F85;}
+.blue {background-color: #144EBA;}
+.navy {background-color: #1244A1;}
+.light {background-color: #7595FF;}
+
+
+
+
+
+
+
+
+
+
 
 .inflowTable {
     border-collapse: collapse;
     width: 100%;
-    /* table-layout: fixed; */
+    white-space: nowrap;
+    table-layout: fixed;
 }
 
 .inflowTable th {
@@ -178,18 +269,65 @@ button, a {
     line-height: 16px;
     font-weight: 600;
     text-align: left;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .inflowTable td {
     padding: 8px 12px;
     color: #374151;
     font-size: 12px;
+    border-bottom: 1px solid #F3F4F6;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .inflowTable td img {
     width: 18px;
     height: 18px;
 }
+
+
+.inflowTable .credit {color: #1C6BFF;}
+.inflowTable .debit {color: #EF4444;}
+
+.inflowTable .status {
+    padding: 3px 12px;
+}
+
+.inflowTable .paid {
+    padding: 5px 10px;
+    border-radius: 230px;
+    width: fit-content;
+    background-color: #E3FFE0;
+    color: #0E801A;
+    font-size: 12px;
+    font-weight: 500;
+}
+.inflowTable .pending {
+    padding: 5px 10px;
+    border-radius: 230px;
+    width: fit-content;
+    background-color: #FFFCDC;
+    color: #DAD106;
+    font-size: 12px;
+    font-weight: 500;
+}
+.inflowTable .overdue {
+    padding: 5px 10px;
+    border-radius: 230px;
+    width: fit-content;
+    background-color: #FFD4D4;
+    color: #EF1C1C;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
 
 
 
@@ -271,7 +409,7 @@ button, a {
 
 .popup {
     width: 30%;
-    height: 70%;
+    max-height: 70%;
     overflow: hidden;
     overflow-y: scroll;
     position: fixed;
@@ -371,6 +509,7 @@ button, a {
 
 .successPopup {
     width: 30%;
+    max-height: 70%;
     position: fixed;
     display: flex;
     flex-direction: column;

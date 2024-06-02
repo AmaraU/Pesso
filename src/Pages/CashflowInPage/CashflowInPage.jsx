@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./CashflowInPage.module.css";
 import { getImageUrl } from '../../../utils';
-
+import classNames from 'classnames';
 
 
 export const CashflowInPage = () => {
@@ -12,6 +12,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Paid",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -22,6 +23,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Paid",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -32,6 +34,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Paid",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -42,6 +45,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Paid",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -52,6 +56,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Paid",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -62,6 +67,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Pending",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -72,6 +78,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Pending",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -82,6 +89,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Pending",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -92,6 +100,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Overdue",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -102,6 +111,7 @@ const inflows = [
         invoiceNo: "235GDBH7",
         createdDate: "July 22, 2022; 4:24pm",
         dueDate: "July 22, 2023; 4:24pm",
+        acctNo: "235GDBH7",
         status: "Overdue",
         phoneNo: "08064538759",
         email: "Abolajiadewale@gmail.com",
@@ -126,6 +136,7 @@ const inflows = [
             inflow.invoiceNo.toLowerCase().includes(searchLower) ||
             inflow.createdDate.toLowerCase().includes(searchLower) ||
             inflow.dueDate.toLowerCase().includes(searchLower) ||
+            inflow.acctNo.toLowerCase().includes(searchLower) ||
             inflow.status.toLowerCase().includes(searchLower) ||
             inflow.phoneNo.toLowerCase().includes(searchLower) ||
             inflow.email.toLowerCase().includes(searchLower) ||
@@ -202,8 +213,6 @@ const inflows = [
             document.removeEventListener('click', handleClickOutside, true);
         };
     }, []);
-
-
 
 
     return (
@@ -291,49 +300,106 @@ const inflows = [
                 </div>
             </div>
 
-            <table className={styles.inflowTable}>
-                <thead>
-                    <th>Invoice Number</th>
-                    <th>Date Created</th>
-                    <th>Due Date</th>
-                    <th>Status</th>
-                    <th>Phone Number</th>
-                    <th>Email Address</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                </thead>
+            
 
-                <tbody>
-                    {currentInflows.map((inflow, index) => (
-                        <tr key={index}>
-                            <td>{inflow.invoiceNo}</td>
-                            <td>{inflow.createdDate}</td>
-                            <td>{inflow.dueDate}</td>
-                            <td>{inflow.status}</td>
-                            <td>{inflow.phoneNo}</td>
-                            <td>{inflow.email}</td>
-                            <td>{inflow.description}</td>
-                            <td>{inflow.amount}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {currentInflows.length === 0 ? (
+                <div className={styles.nothingBigDiv}>
+                    <div className={styles.nothingFound}>
+                        <img src={getImageUrl("nothing.png")} />
+                        <h2>No Inflow Data</h2>
+                        <p>We cannot seem to find any inflow data, your transaction information will appear here.</p>
+                    </div>
+                </div>
+                
+            ) : (
+                <>
 
-            <div className={styles.pagination}>
-                <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                    <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                    Previous
-                </button>
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                        0{index + 1}
+                <div className={styles.inflowTreemap}>
+                    <div className={styles.treemapRow}>
+                        <div className={`${styles.treemapBox} ${styles.darkest}`}>45%<br />UTILITIES (N234)</div>
+                        <div className={styles.treemapColumn}>
+                            <div className={`${styles.treemapBox} ${styles.darker}`}>45%<br />UTILITIES (N234)</div>
+                            <div className={`${styles.treemapBox} ${styles.dark}`}>45%<br />UTILITIES (N234)</div>
+                        </div>
+                    </div>
+                    <div className={styles.treemapColumn}>
+                        <div className={styles.treemapRow}>
+                            <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
+                            <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
+                            <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
+                        </div>
+                        <div className={styles.treemapRow}>
+                            <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
+                            <div className={`${styles.treemapBox} ${styles.blue}`}>10%<br />UTILITIES (N234)</div>
+                            <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
+                            <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
+                        </div>
+                        <div className={styles.treemapRow}>
+                            <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />UTILITIES (N14)</div>
+                            <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />EQUIPMENT (N14)</div>
+                            <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />EQUIPMENT (N14)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <table className={styles.inflowTable}>
+                    <thead>
+                        <th>Invoice Number</th>
+                        <th>Date Created</th>
+                        <th>Due Date</th>
+                        <th>Account Number</th>
+                        <th>Phone Number</th>
+                        <th>Email Address</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </thead>
+
+                    <tbody>
+                        {currentInflows.map((inflow, index) => (
+                            
+                            <tr key={index}>
+                                <td>{inflow.invoiceNo}</td>
+                                <td>{inflow.createdDate}</td>
+                                <td>{inflow.dueDate}</td>
+                                <td>{inflow.acctNo}</td>
+                                <td>{inflow.phoneNo}</td>
+                                <td>{inflow.email}</td>
+                                <td>{inflow.description}</td>
+                                <td className={inflow.amount.startsWith("+") ? styles.credit : styles.debit}>
+                                    {inflow.amount}
+                                </td>
+                                <td className={styles.status}>
+                                    <div className={classNames({
+                                        [styles.paid]: inflow.status.toLowerCase().includes('paid'),
+                                        [styles.pending]: inflow.status.toLowerCase().includes('pending'),
+                                        [styles.overdue]: inflow.status.toLowerCase().includes('overdue'),
+                                    })}>
+                                        {inflow.status}
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+                <div className={styles.pagination}>
+                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
+                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                        Previous
                     </button>
-                ))}
-                <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                    Next
-                    <img src={getImageUrl("icons/greyRightAngle.png")} />
-                </button>
-            </div>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
+                            0{index + 1}
+                        </button>
+                    ))}
+                    <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
+                        Next
+                        <img src={getImageUrl("icons/greyRightAngle.png")} />
+                    </button>
+                </div>
+                </>
+            )}
         </div>
 
         </>

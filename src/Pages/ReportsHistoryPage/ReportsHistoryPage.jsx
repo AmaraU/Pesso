@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from "./ReportsPage.module.css";
+import styles from "./ReportsHistoryPage.module.css";
 import { getImageUrl } from '../../../utils';
 
-export const ReportsPage = () => {
+export const ReportsHistoryPage = () => {
 
     const reports = [
         {
@@ -167,7 +167,7 @@ export const ReportsPage = () => {
                     <div className={styles.buttonOne}>
                         <img src={getImageUrl("icons/slides.png")} alt="" />
                         <select name="accounts" >
-                            <option value="">All Accounts</option>
+                            <option value="">Current Day</option>
                         </select>
                     </div>
                     <a href="" className={styles.buttonTwo}>
@@ -178,103 +178,74 @@ export const ReportsPage = () => {
                 </div>
             </div>
 
-            <div className={styles.graphs}>
-
-                <div className={styles.graphOne}>
-                    <div className={styles.graphHeader}>
-                        <div className={styles.graphHeaderText}>
-                            <h5>Activity</h5>
-                            <h3>Financial Health Index</h3>
-                        </div>
-                        <select name="" id="">
-                            <option value="">Weekly</option>
-                            <option value="">Daily</option>
-                            <option value="">Monthly</option>
-                            <option value="">Yearly</option>
-                        </select>
+            {currentReports.length === 0 ? (
+                <div className={styles.nothingBigDiv}>
+                    <div className={styles.nothingFound}>
+                        <img src={getImageUrl("nothing.png")} />
+                        <h2>No Report Data</h2>
+                        <p>We cannot seem to find any report data, your transaction information will appear here.</p>
                     </div>
-
-                    <div className={styles.line}></div>
-
-                    <img src={getImageUrl("chart.png")} alt="" />
                 </div>
+                
+            ) : (
 
+                <>
 
-                <div className={styles.graphTwo}>
-                    <div className={styles.graphHeader}>
-                        <div className={styles.graphHeaderText}>
-                            <h5>Activity</h5>
-                            <h3>Financial Health Index</h3>
-                        </div>
-                        <select name="" id="">
-                            <option value="">Weekly</option>
-                            <option value="">Daily</option>
-                            <option value="">Monthly</option>
-                            <option value="">Yearly</option>
-                        </select>
-                    </div>
+                <table className={styles.reportTable}>
+                    <thead>
+                        <th><input type="checkbox" id="selectAll" /></th>
+                        <th>Date</th>
+                        <th>Account Number</th>
+                        <th>Account Name</th>
+                        <th>Account Balance</th>
+                        <th>Current Balance</th>
+                        <th className={styles.action}>Action</th>
+                    </thead>
 
-                    <div className={styles.line}></div>
+                    <tbody>
+                        {currentReports.map((report, index) => (
+                            <tr key={index}>
+                                <td className={styles.checkbox}><input type="checkbox" /></td>
+                                <td className={styles.date}>{report.date}</td>
+                                <td className={styles.acctNumber}>{report.acctNumber}</td>
+                                <td className={styles.acctName}>{report.acctName}</td>
+                                <td className={styles.acctBal}>{report.acctBal}</td>
+                                <td className={styles.currBal}>{report.currBal}</td>
+                                <td className={styles.action}>
+                                    <button onClick={() => toggleAction(index)}>
+                                        <img src={getImageUrl("icons/action.png")} />
+                                    </button>
+                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef} >
+                                        <p>ACTION</p>
+                                        <ul>
+                                            <li className={styles.view} ><a href="">View</a></li>
+                                            <li><a href="">Download pdf</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
 
-                    <img src={getImageUrl("barChart.PNG")} alt="" />
+                    </tbody>
+                </table>
 
-                </div>
-
-            </div>
-
-            <table className={styles.reportTable}>
-                <thead>
-                    <th><input type="checkbox" id="selectAll" /></th>
-                    <th>Date</th>
-                    <th>Account Number</th>
-                    <th>Account Name</th>
-                    <th>Account Balance</th>
-                    <th>Current Balance</th>
-                    <th className={styles.action}>Action</th>
-                </thead>
-
-                <tbody>
-                    {currentReports.map((report, index) => (
-                        <tr key={index}>
-                            <td className={styles.checkbox}><input type="checkbox" /></td>
-                            <td className={styles.date}>{report.date}</td>
-                            <td className={styles.acctNumber}>{report.acctNumber}</td>
-                            <td className={styles.acctName}>{report.acctName}</td>
-                            <td className={styles.acctBal}>{report.acctBal}</td>
-                            <td className={styles.currBal}>{report.currBal}</td>
-                            <td className={styles.action}>
-                                <button onClick={() => toggleAction(index)}>
-                                    <img src={getImageUrl("icons/action.png")} />
-                                </button>
-                                <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef} >
-                                    <p>ACTION</p>
-                                    <ul>
-                                        <li className={styles.view} ><a href="">View</a></li>
-                                        <li><a href="">Download pdf</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-
-                </tbody>
-            </table>
-
-            <div className={styles.pagination}>
-                <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                    <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                    Previous
-                </button>
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                        0{index + 1}
+                <div className={styles.pagination}>
+                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
+                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                        Previous
                     </button>
-                ))}
-                <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                    Next
-                    <img src={getImageUrl("icons/greyRightAngle.png")} />
-                </button>
-            </div>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
+                            0{index + 1}
+                        </button>
+                    ))}
+                    <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
+                        Next
+                        <img src={getImageUrl("icons/greyRightAngle.png")} />
+                    </button>
+                </div>
+                </>
+            )}
         </div>
     )
 }

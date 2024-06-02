@@ -4,21 +4,16 @@ import { getImageUrl } from "../../../utils";
 
 export const Header = () => {
 
+    let currentPath = window.location.pathname;
     let PageTitle;
     let linkList = [];
 
-    switch (window.location.pathname) {
+    switch (currentPath) {
         case "/":
             PageTitle = "Dashboard";
             break;
         
         case "/transactions":
-            PageTitle = "Transactions";
-            linkList = [
-                {title: "History", link: "/transactions"},
-                {title: "Transfer", link: "/transactions/transfer"}
-            ];
-            break;
         case "/transactions/transfer":
             PageTitle = "Transactions";
             linkList = [
@@ -32,12 +27,6 @@ export const Header = () => {
             break;
         
         case "/cashflow":
-            PageTitle = "Cashflow";
-            linkList = [
-                {title: "Inflow", link: "/cashflow"},
-                {title: "Outflow", link: "/cashflow/outflow"}
-            ];
-            break;
         case "/cashflow/outflow":
             PageTitle = "Cashflow";
             linkList = [
@@ -67,10 +56,11 @@ export const Header = () => {
             break;
         
         case "/reports":
+        case "/reports/history":
             PageTitle = "Reports";
             linkList = [
                 {title: "Financial Health Indicator", link: "/reports"},
-                {title: "History", link: "/reports"}
+                {title: "History", link: "/reports/history"}
             ];
             break;
         
@@ -79,15 +69,23 @@ export const Header = () => {
             break;
         
         case "/users":
+        case "/users/roles":
             PageTitle = "Users";
             linkList = [
                 {title: "Members", link: "/users"},
-                {title: "Roles & Permissions", link: "/users"}
+                {title: "Roles & Permissions", link: "/users/roles"}
             ];
             break;
         
-        case "/setting":
+        case "/settings":
+        case "/settings/account":
+        case "/settings/workflow":
             PageTitle = "Settings";
+            linkList = [
+                {title: "Profile", link: "/settings"},
+                {title: "Account", link: "/settings/account"},
+                {title: "Workflow", link: "/settings/workflow"}
+            ];
             break;
     }
 

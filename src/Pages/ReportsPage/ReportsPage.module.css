@@ -17,6 +17,7 @@
     display: inline-flex;
     align-items: center;
     margin-right: 16px;
+    flex: 1;
 }
 .searchBar img {
     width: 18px;
@@ -26,6 +27,7 @@
     border: none;
     outline: none;
     margin-left: 8px;
+    width: 100%;
 }
 .searchBar input::placeholder {
     font-size: 14px;
@@ -66,14 +68,54 @@
 }
 
 
+.nothingBigDiv {
+    display: grid;
+    width: 100%;
+}
+.nothingFound {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    text-align: center;
+}
+.nothingFound img {
+    width: 100%;
+    height: auto;
+}
+.nothingFound h2 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    color: #000000;
+}
+.nothingFound p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #000000;
+}
 
 
-.graphs {
+
+
+.twoGraphs {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 7%;
     margin-bottom: 24px;
+}
+
+.graphOne,
+.graphTwo,
+.graphThree {
+    padding: 24px 32px;
+    border-radius: 20px;
+    border: 0.5px solid #C4C4C4;
+    flex: 50%;
+    display: flex;
+    flex-direction: column;    
 }
 
 .graphHeader {
@@ -102,8 +144,7 @@
     color: #1E1B39;    
 }
 
-.graphOne .line,
-.graphTwo .line {
+.graphs .line {
     width: 95%;
     border: 0.5px solid #E5E5EF;
     margin-top: 22px;
@@ -116,154 +157,8 @@
     height: auto;
 }
 
-.graphOne,
-.graphTwo {
-    padding: 24px 32px;
-    border-radius: 20px;
-    border: 0.5px solid #C4C4C4;
-    flex: 50%;
-    display: flex;
-    flex-direction: column;    
+.graphThree img {
+    width: 50%;
 }
 
 
-
-
-
-.reportTable {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.reportTable th {
-    background-color: #F9FAFB;
-    color: #374151;
-    padding: 8px 12px;
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 600;
-    text-align: left;
-}
-
-.reportTable td {
-    padding: 8px 12px;
-    color: #374151;
-    font-size: 12px;
-}
-
-.reportTable td img {
-    width: 18px;
-    height: 18px;
-}
-.reportTable .action {
-    text-align: center;
-}
-.reportTable .action button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.actionsClosed {
-    display: none;
-}
-
-.theActions {
-    display: block;
-    text-align: left;
-    background-color: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    box-shadow: 0px 4px 12px 0px #9CA3AF33;
-    border-radius: 8px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 5;
-    width: 15%;
-    right: 2%;
-}
-.theActions ul {
-    padding: 0 16px;
-}
-.theActions p {
-    padding: 8px 16px;
-    border-bottom: 1px solid #F9FAFB;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 600;
-    color: #4B5563;
-}
-.theActions li {
-    list-style: none;
-    padding: 12px 16px;
-    border-bottom: 1px solid transparent;
-    width: 100%;
-}
-.theActions ul .view {
-    border-bottom: 1px solid #F3F4F6;
-}
-.theActions li a {
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 500;
-    color: #4B5563;
-    width: 100%;
-}
-
-.theActions li:hover {
-    background-color: #F0F5FD;
-    border-bottom: 1px solid #A4C4FF;
-}
-
-
-.pagination {
-    margin-top: 24px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-}
-
-.pagination button {
-    cursor: pointer;
-}
-.pagination button:disabled,
-.pagination button[disabled] {
-    pointer-events: none;
-    font-weight: 400;
-}
-
-.pagination .move {
-    border: none;
-    background-color: transparent;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: #9CA3AF;
-    font-weight: 500;
-}
-
-.pagination .move img {
-    width: 18px;
-    height: 18px;
-}
-
-.activePage {
-    padding: 8px;
-    background-color: #F0F5FD;
-    border: 1px solid #A4C4FF;
-    color: #1C6BFF;
-    font-size: 14px;
-    font-weight: 500;
-    pointer-events: none;
-}
-
-.gotToPage {
-    border: none;
-    background-color: transparent;
-    padding: 8px;
-    color: #9CA3AF;
-    font-size: 14px;
-    font-weight: 500;
-}

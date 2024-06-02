@@ -1,0 +1,92 @@
+.whole {
+    padding: 32px 40px;
+    overflow-y: auto;
+    margin-top: 80px;
+    width: 100%;
+}
+
+
+
+/* const investments = [
+        {
+            acctType: "Savings",
+            invstType: "Stocks",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "6 months",
+            percentage: "5%",
+        },
+        {
+            acctType: "Current",
+            invstType: "Bonds",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "6 months",
+            percentage: "7.5%",
+        },
+        {
+            acctType: "Savings",
+            invstType: "Stocks",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "6 months",
+            percentage: "15%",
+        },
+        {
+            acctType: "Current",
+            invstType: "Mutaul funds",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "1 year",
+            percentage: "5%",
+        },
+        {
+            acctType: "Savings",
+            invstType: "Options",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "6 months",
+            percentage: "10%",
+        },
+        {
+            acctType: "Savings",
+            invstType: "Current",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "6 months",
+            percentage: "7%",
+        },
+        {
+            acctType: "Current",
+            invstType: "Retirement",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "1 year",
+            percentage: "3.8%",
+        },
+        {
+            acctType: "Current",
+            invstType: "Stocks",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "1 year",
+            percentage: "5%",
+        },
+        {
+            acctType: "Savings",
+            invstType: "Annuities",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "1 year",
+            percentage: "3.6%",
+        },
+        {
+            acctType: "Current",
+            invstType: "Stocks",
+            name: "Aura",
+            amount: "N300,000",
+            invstTenure: "1 year",
+            percentage: "8%",
+        }
+    ]
+ */

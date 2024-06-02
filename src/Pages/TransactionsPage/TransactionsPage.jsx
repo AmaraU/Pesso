@@ -151,6 +151,8 @@ export const TransactionsPage = () => {
             ...prevState,
             [index]: !prevState[index]
         }));
+        setOpenFilter(false);
+        setOpenDownload(false);
     };
 
     const handleCategorySelection = (index, category) => {
@@ -168,13 +170,26 @@ export const TransactionsPage = () => {
     const [ openFilter, setOpenFilter ] = useState(false);
     const [ openDownload, setOpenDownload ] = useState(false);
 
+    const handleFilterToggle = () => {
+        setOpenFilter(!openFilter);
+        setOpenDownload(false);
+        setOpenCategories({});
+    };
 
-    const popupRef = useRef(null);
+    const handleDownloadToggle = () => {
+        setOpenDownload(!openDownload);
+        setOpenFilter(false);
+        setOpenCategories({});
+    };
+
+
+    const containerRef = useRef(null);
 
     const handleClickOutside = (event) => {
-        if (popupRef.current && !popupRef.current.contains(event.target)) {
+        if (containerRef.current && !containerRef.current.contains(event.target)) {
             setOpenFilter(false);
             setOpenDownload(false);
+            // setOpenCategories({});
         }
     };
 
@@ -187,9 +202,6 @@ export const TransactionsPage = () => {
 
 
 
-
-
-
     return (
         <div className={styles.whole}>
             <div className={styles.searchButtons}>
@@ -199,12 +211,12 @@ export const TransactionsPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <button className={styles.buttonOne} onClick={() => setOpenFilter(!openFilter)}>
+                    <button className={styles.buttonOne} onClick={handleFilterToggle}>
                         <img src={getImageUrl("icons/slides.png")} />
                         Filter
                         <img src={getImageUrl("icons/blueDownAngle.png")} />
                     </button>
-                    <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={popupRef}>
+                    <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={containerRef}>
                         <p>FILTER</p>
                         <a href="">Last 7 days</a>
                         <a href="">Last 15 days</a>
@@ -219,11 +231,11 @@ export const TransactionsPage = () => {
                         <a className={styles.reset} href="">Reset All</a>
                     </div>
 
-                    <button className={styles.buttonTwo} onClick={() => setOpenDownload(!openDownload)}>
+                    <button className={styles.buttonTwo} onClick={handleDownloadToggle}>
                         <img src={getImageUrl("icons/whiteDownArrow.png")} />
                         Download
                     </button>
-                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} ref={popupRef}>
+                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} >
                         <p>DOWNLOAD</p>
                         <a href="">
                             <img src={getImageUrl("icons/pdf.png")} />
@@ -239,69 +251,84 @@ export const TransactionsPage = () => {
                 </div>
             </div>
 
-            <table className={styles.transactionTable}>
-                <thead>
-                    <th>Date Created</th>
-                    <th>Reference No.</th>
-                    <th>Description</th>
-                    <th>Account</th>
-                    <th className={styles.categoryHeader}>Category</th>
-                    <th>Amount</th>
-                    <th>Balance</th>
-                </thead>
+            {currentTransactions.length === 0 ? (
+                <div className={styles.nothingBigDiv}>
+                    <div className={styles.nothingFound}>
+                        <img src={getImageUrl("nothing.png")} />
+                        <h2>No Transaction Data</h2>
+                        <p>We cannot seem to find any transaction data, your transaction information will appear here.</p>
+                    </div>
+                </div>
+                
+            ) : (
+                <>
+                <table className={styles.transactionTable}>
+                    <thead>
+                        <th>Date Created</th>
+                        <th>Reference No.</th>
+                        <th>Description</th>
+                        <th>Account</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Balance</th>
+                    </thead>
 
-                <tbody>
-                    {currentTransactions.map((transaction, index) => (
-                        <tr key={index}>
-                            <td>{transaction.date}</td>
-                            <td>{transaction.refNo}</td>
-                            <td>{transaction.description}</td>
-                            <td>{transaction.account}</td>
-                            <td className={styles.category}>
-                                <button className={styles.categoriesButton} onClick={() => toggleCategories(index)}>
-                                    {selectedCategory[index] || "Select Category"}
-                                    <img src={getImageUrl("icons/blackDownAngle.png")} />
-                                </button>
+                    <tbody>
+                        {currentTransactions.map((transaction, index) => (
+                            <tr key={index}>
+                                <td>{transaction.date}</td>
+                                <td>{transaction.refNo}</td>
+                                <td>{transaction.description}</td>
+                                <td>{transaction.account}</td>
+                                <td className={styles.category}>
+                                    <button className={styles.categoriesButton} onClick={() => toggleCategories(index)}>
+                                        <p>{selectedCategory[index] || "Salaries and wage"}</p>
+                                        <img src={getImageUrl("icons/blackDownAngle.png")} />
+                                    </button>
 
-                                {openCategories[index] && (
-                                    <div className={styles.theCategories} >
-                                        <p>CATEGORY</p>
-                                        <div className={styles.categorySearch}>
-                                            <img src={getImageUrl("icons/search.png")} />
-                                            <input id="search" type="text" onChange={handleSearchCategories} placeholder='Search for Category' />
+                                    {openCategories[index] && (
+                                        <div className={styles.theCategories}>
+                                            <p>CATEGORY</p>
+                                            <div className={styles.categorySearch}>
+                                                <img src={getImageUrl("icons/search.png")} />
+                                                <input id="search" type="text" onChange={handleSearchCategories} placeholder='Search for Category' />
+                                            </div>
+
+                                            <ul>
+                                                {filteredCategories.map((category, catIndex) => (
+                                                    <li key={catIndex}><a onClick={() => handleCategorySelection(index, category)} href='#'>{category}</a></li>
+                                                ))}
+                                            </ul>
                                         </div>
+                                    )}
+                                    
+                                </td>
+                                <td className={transaction.amount.startsWith("+") ? styles.credit : styles.debit}>
+                                    {transaction.amount}
+                                </td>
+                                <td>{transaction.balance}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
-                                        <ul>
-                                            {filteredCategories.map((category, catIndex) => (
-                                                <li key={catIndex}><a onClick={() => handleCategorySelection(index, category)} href='#'>{category}</a></li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-                                
-                            </td>
-                            <td>{transaction.amount}</td>
-                            <td>{transaction.balance}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-
-            <div className={styles.pagination}>
-                <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                    <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                    Previous
-                </button>
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                        0{index + 1}
+                <div className={styles.pagination}>
+                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
+                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                        Previous
                     </button>
-                ))}
-                <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                    Next
-                    <img src={getImageUrl("icons/greyRightAngle.png")} />
-                </button>
-            </div>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
+                            0{index + 1}
+                        </button>
+                    ))}
+                    <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
+                        Next
+                        <img src={getImageUrl("icons/greyRightAngle.png")} />
+                    </button>
+                </div>
+                </>
+            )}
         </div>
     )
 }

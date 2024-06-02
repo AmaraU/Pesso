@@ -232,12 +232,14 @@ export const TransactionsTransferPage = () => {
     const [ frequencyFilter, setFrequencyFilter ] = useState("");
     const [ search, setSearch] = useState("");
     const [ actionsOpen, setActionsOpen ] = useState({});
-    const [ currentPage, setCurrentPage ] = useState(1);
+    const [ currentPage1, setCurrentPage1 ] = useState(1);
+    const [ currentPage2, setCurrentPage2 ] = useState(1);
     const itemsPerPage = 10;
 
     const handleSearch = (event) => {
         setSearch(event.target.value);
-        setCurrentPage(1);
+        setCurrentPage1(1);
+        setCurrentPage2(1);
     };
 
     const handleFrequencyChange = (event) => {
@@ -283,42 +285,48 @@ export const TransactionsTransferPage = () => {
     };
 
     
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const indexOfLastItem1 = currentPage1 * itemsPerPage;
+    const indexOfLastItem2 = currentPage2 * itemsPerPage;
 
-    const currentPendingTransfers = filteredPendingTransfers.slice(indexOfFirstItem, indexOfLastItem);
-    const currentCompletedTransfers = filteredCompletedTransfers.slice(indexOfFirstItem, indexOfLastItem);
+    const indexOfFirstItem1 = indexOfLastItem1 - itemsPerPage;
+    const indexOfFirstItem2 = indexOfLastItem2 - itemsPerPage;
+
+    const currentPendingTransfers = filteredPendingTransfers.slice(indexOfFirstItem1, indexOfLastItem1);
+    const currentCompletedTransfers = filteredCompletedTransfers.slice(indexOfFirstItem2, indexOfLastItem2);
 
     const totalPendingPages = Math.ceil(filteredPendingTransfers.length / itemsPerPage);
     const totalCompletedPages = Math.ceil(filteredCompletedTransfers.length / itemsPerPage);
 
     const handleNextPage1 = () => {
-        if (currentPage < Math.ceil(filteredPendingTransfers.length / itemsPerPage)) {
-            setCurrentPage(currentPage + 1);
+        if (currentPage1 < Math.ceil(filteredPendingTransfers.length / itemsPerPage)) {
+            setCurrentPage1(currentPage1 + 1);
         }
     };
 
     const handlePreviousPage1 = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
+        if (currentPage1 > 1) {
+            setCurrentPage1(currentPage1 - 1);
         }
     };
 
 
     const handleNextPage2 = () => {
-        if (currentPage < Math.ceil(filteredCompletedTransfers.length / itemsPerPage)) {
-            setCurrentPage(currentPage + 1);
+        if (currentPage2 < Math.ceil(filteredCompletedTransfers.length / itemsPerPage)) {
+            setCurrentPage2(currentPage2 + 1);
         }
     };
 
     const handlePreviousPage2 = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
+        if (currentPage2 > 1) {
+            setCurrentPage2(currentPage2 - 1);
         }
     };
 
-    const handlePageClick = (pageNumber) => {
-        setCurrentPage(pageNumber);
+    const handlePageClick1 = (pageNumber) => {
+        setCurrentPage1(pageNumber);
+    }
+    const handlePageClick2 = (pageNumber) => {
+        setCurrentPage2(pageNumber);
     }
 
 
@@ -333,7 +341,10 @@ export const TransactionsTransferPage = () => {
     const [ activeButton, setActiveButton ] = useState(1);
 
     function changeTables(buttonNumber) {
+
         setActiveButton(buttonNumber);
+        setSearch("");
+
         var table1 = document.getElementById('table1');
         var table2 = document.getElementById('table2');
 
@@ -423,7 +434,7 @@ export const TransactionsTransferPage = () => {
                     </div>
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className={styles.checkFormGroup}>
                     <input type="checkbox" name="" id="" />
                     <label htmlFor="fromAcct">Recurring</label>
                 </div>
@@ -472,63 +483,78 @@ export const TransactionsTransferPage = () => {
                     </div>
                 </div>
 
-                <table className={styles.transferTable}>
-                    <thead>
-                        <th><input type="checkbox" id="selectAll" /></th>
-                        <th>From Accout</th>
-                        <th>To Account</th>
-                        <th>Transfer Type</th>
-                        <th>Amount</th>
-                        <th>Frequency</th>
-                        <th>Scheduled Date</th>
-                        <th>Description</th>
-                        <th className={styles.action}>Action</th>
-                    </thead>
+                {currentPendingTransfers.length === 0 ? (
+                    <div className={styles.nothingBigDiv}>
+                        <div className={styles.nothingFound}>
+                            <img src={getImageUrl("nothing.png")} />
+                            <h2>No Transaction Data</h2>
+                            <p>We cannot seem to find any transaction data, your transaction information will appear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
 
-                    <tbody>
-                        {currentPendingTransfers.map((transfer, index) => (
-                            <tr key={index}>
-                                <td className={styles.checkbox}><input type="checkbox" /></td>
-                                <td>{transfer.fromAcct}</td>
-                                <td>{transfer.toAcct}</td>
-                                <td>{transfer.type}</td>
-                                <td>{transfer.amount}</td>
-                                <td>{transfer.frequency}</td>
-                                <td>{transfer.scheduleDate}</td>
-                                <td>{transfer.description}</td>
-                                <td className={styles.action}>
-                                    <button onClick={() => toggleAction(index)}>
-                                        <img src={getImageUrl("icons/action.png")} />
-                                    </button>
-                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
-                                        <ul>
-                                            <li><a href="">View</a></li>
-                                            <li><a href="">Edit</a></li>
-                                            <li className={styles.delete}><a href="">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                    <>
+                    <table className={styles.transferTable}>
+                        <thead>
+                            <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
+                            <th>From Accout</th>
+                            <th>To Account</th>
+                            <th>Transfer Type</th>
+                            <th>Amount</th>
+                            <th>Frequency</th>
+                            <th>Scheduled Date</th>
+                            <th>Description</th>
+                            <th className={styles.action}>Action</th>
+                        </thead>
 
-                    </tbody>
-                </table>
+                        <tbody>
+                            {currentPendingTransfers.map((transfer, index) => (
+                                <tr key={index}>
+                                    <td><input type="checkbox" /></td>
+                                    <td>{transfer.fromAcct}</td>
+                                    <td>{transfer.toAcct}</td>
+                                    <td>{transfer.type}</td>
+                                    <td>{transfer.amount}</td>
+                                    <td>{transfer.frequency}</td>
+                                    <td>{transfer.scheduleDate}</td>
+                                    <td>{transfer.description}</td>
+                                    <td className={styles.action}>
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                            <ul>
+                                                <li><a href="">View</a></li>
+                                                <li><a href="">Edit</a></li>
+                                                <li className={styles.delete}><a href="">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
 
-                <div className={styles.pagination}>
-                    <button onClick={handlePreviousPage1} disabled={currentPage === 1} className={styles.move}>
-                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                        Previous
-                    </button>
-                    {Array.from({ length: totalPendingPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                            0{index + 1}
+                        </tbody>
+                    </table>
+
+                    <div className={styles.pagination}>
+                        <button onClick={handlePreviousPage1} disabled={currentPage1 === 1} className={styles.move}>
+                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                            Previous
                         </button>
-                    ))}
-                    <button onClick={handleNextPage1} disabled={currentPage === totalPendingPages} className={styles.move}>
-                        Next
-                        <img src={getImageUrl("icons/greyRightAngle.png")} />
-                    </button>
-                </div>
+                        {Array.from({ length: totalPendingPages }, (_, index) => (
+                            <button key={index + 1} onClick={() => handlePageClick1(index + 1)} className={currentPage1 === index + 1 ? styles.activePage : styles.gotToPage}>
+                                0{index + 1}
+                            </button>
+                        ))}
+                        <button onClick={handleNextPage1} disabled={currentPage1 === totalPendingPages} className={styles.move}>
+                            Next
+                            <img src={getImageUrl("icons/greyRightAngle.png")} />
+                        </button>
+                    </div>
+
+                    </>
+                )}
             </div>
 
 
@@ -554,69 +580,85 @@ export const TransactionsTransferPage = () => {
 
                         <button className={styles.buttonTwo} onClick={() => toggle()}>
                             Schedule Transfer
-                            <img src={getImageUrl("icons/send")} />
+                            <img src={getImageUrl("icons/send.png")} />
                         </button>
 
                     </div>
                 </div>
 
-                <table className={styles.completedTransferTable}>
-                    <thead>
-                        <th><input type="checkbox" id="selectAll" /></th>
-                        <th>From Accout</th>
-                        <th>To Account</th>
-                        <th>Transfer Type</th>
-                        <th>Amount</th>
-                        <th>Frequency</th>
-                        <th>Scheduled Date</th>
-                        <th>Description</th>
-                        <th className={styles.action}>Action</th>
-                    </thead>
 
-                    <tbody>
-                        {currentCompletedTransfers.map((transfer, index) => (
-                            <tr key={index}>
-                                <td className={styles.checkbox}><input type="checkbox" /></td>
-                                <td>{transfer.fromAcct}</td>
-                                <td>{transfer.toAcct}</td>
-                                <td>{transfer.type}</td>
-                                <td>{transfer.amount}</td>
-                                <td>{transfer.frequency}</td>
-                                <td>{transfer.scheduleDate}</td>
-                                <td>{transfer.description}</td>
-                                <td className={styles.action}>
-                                    <button onClick={() => toggleAction(index)}>
-                                        <img src={getImageUrl("icons/action.png")} />
-                                    </button>
-                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
-                                        <ul>
-                                            <li><a href="">View</a></li>
-                                            <li><a href="">Edit</a></li>
-                                            <li className={styles.delete}><a href="">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                {currentCompletedTransfers.length === 0 ? (
+                    <div className={styles.nothingBigDiv}>
+                        <div className={styles.nothingFound}>
+                            <img src={getImageUrl("nothing.png")} />
+                            <h2>No Transaction Data</h2>
+                            <p>We cannot seem to find any transaction data, your transaction information will appear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
 
-                    </tbody>
-                </table>
+                    <>
 
-                <div className={styles.pagination}>
-                    <button onClick={handlePreviousPage2} disabled={currentPage === 1} className={styles.move}>
-                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                        Previous
-                    </button>
-                    {Array.from({ length: totalCompletedPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                            0{index + 1}
+                    <table className={styles.transferTable}>
+                        <thead>
+                            <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
+                            <th>From Accout</th>
+                            <th>To Account</th>
+                            <th>Transfer Type</th>
+                            <th>Amount</th>
+                            <th>Frequency</th>
+                            <th>Scheduled Date</th>
+                            <th>Description</th>
+                            <th className={styles.action}>Action</th>
+                        </thead>
+
+                        <tbody>
+                            {currentCompletedTransfers.map((transfer, index) => (
+                                <tr key={index}>
+                                    <td><input type="checkbox" /></td>
+                                    <td>{transfer.fromAcct}</td>
+                                    <td>{transfer.toAcct}</td>
+                                    <td>{transfer.type}</td>
+                                    <td>{transfer.amount}</td>
+                                    <td>{transfer.frequency}</td>
+                                    <td>{transfer.scheduleDate}</td>
+                                    <td>{transfer.description}</td>
+                                    <td className={styles.action}>
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                            <ul>
+                                                <li><a href="">View</a></li>
+                                                <li><a href="">Edit</a></li>
+                                                <li className={styles.delete}><a href="">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+
+                        </tbody>
+                    </table>
+
+                    <div className={styles.pagination}>
+                        <button onClick={handlePreviousPage2} disabled={currentPage2 === 1} className={styles.move}>
+                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                            Previous
                         </button>
-                    ))}
-                    <button onClick={handleNextPage2} disabled={currentPage === totalCompletedPages} className={styles.move}>
-                        Next
-                        <img src={getImageUrl("icons/greyRightAngle.png")} />
-                    </button>
-                </div>
+                        {Array.from({ length: totalCompletedPages }, (_, index) => (
+                            <button key={index + 1} onClick={() => handlePageClick2(index + 1)} className={currentPage2 === index + 1 ? styles.activePage : styles.gotToPage}>
+                                0{index + 1}
+                            </button>
+                        ))}
+                        <button onClick={handleNextPage2} disabled={currentPage2 === totalCompletedPages} className={styles.move}>
+                            Next
+                            <img src={getImageUrl("icons/greyRightAngle.png")} />
+                        </button>
+                    </div>
+                    </>
+                )}
             </div>            
         </div>
         </>

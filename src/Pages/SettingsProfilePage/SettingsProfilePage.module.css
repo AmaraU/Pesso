@@ -1,0 +1,69 @@
+.theWhole {
+    padding: 32px 40px;
+    overflow-y: auto;
+    margin-top: 80px;
+    width: 100%;
+}
+
+.profilePic {
+    margin-bottom: 40px;
+}
+.profilePic .thePic {
+    width: 64px;
+    height: 64px;
+    border-radius: 50px;
+    background-color: #1C6BFF;    
+    color: #FFFFFF;
+    display: flex;
+    font-size: 35px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+.profilePic button {
+    display: inline-flex;
+    align-items: center;
+    color: #1C6BFF;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: transparent;
+    border: none;
+    gap: 8px;
+}
+.profilePic button:hover {
+    text-decoration: underline;
+}
+.profilePic button img {
+    width: 16px;
+    height: 16px;
+}
+
+
+.theWhole h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1C6BFF;
+    margin-bottom: 16px;
+}
+
+.profileTable {
+    table-layout: fixed;
+}
+.profileTable tr {
+    padding-bottom: 12px;
+}
+.profileTable th {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 400;
+    color: #374151;
+    padding-bottom: 12px;
+}
+.profileTable td {
+    margin-left: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #6B7280;
+    padding-bottom: 12px;
+    padding-left: 40px;
+}

@@ -212,9 +212,44 @@ button, a {
 
 
 
+.nothingBigDiv {
+    display: grid;
+    width: 100%;
+}
+.nothingFound {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    text-align: center;
+    align-items: center;
+}
+.nothingFound img {
+    width: 100%;
+    height: auto;
+}
+.nothingFound h2 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    color: #000000;
+}
+.nothingFound p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #000000;
+}
+
+
+
+
+
+
 .transactionTable {
     border-collapse: collapse;
     width: 100%;
+    white-space: nowrap;
     table-layout: fixed;
 }
 
@@ -232,17 +267,15 @@ button, a {
     padding: 8px 12px;
     color: #374151;
     font-size: 12px;
-    /* overflow: hidden;
-    white-space: nowrap; */
+    
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .transactionTable td img {
     width: 18px;
     height: 18px;
-}
-
-.categoryHeader {
-    width: 150px;
 }
 
 .category {
@@ -251,6 +284,7 @@ button, a {
 
 
 .categoriesButton {
+    width: 100%;
     border: 0.5px solid #B3B3B3;
     outline: none;
     border-radius: 6px;
@@ -259,6 +293,14 @@ button, a {
     background-color: transparent;
     display: inline-flex;
     align-items: center;
+    justify-content: space-between;
+}
+.categoriesButton p {
+    font-size: 12px;
+    color: #374151;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .categoriesButton img {
     width: 16px;
@@ -329,6 +371,10 @@ button, a {
     background-color: #F0F5FD;
     border-bottom: 1px solid #A4C4FF;
 }
+
+
+.transactionTable .credit {color: #1C6BFF;}
+.transactionTable .debit {color: #EF4444;}
 
 
 

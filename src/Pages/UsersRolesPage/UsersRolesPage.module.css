@@ -1,0 +1,292 @@
+.whole {
+    padding: 32px 40px;
+    overflow-y: auto;
+    margin-top: 80px;
+    width: 100%;
+}
+
+
+.backDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.backButton {
+    background-color: transparent;
+    color: #374151;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+.backButton img {
+    width: 24px;
+    height: 24px;
+}
+
+
+.addButton {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #1C6BFF;
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+}
+.addButton img {
+    width: 16px;
+    height: 16px;
+}
+
+
+
+.roles {
+    display: flex;
+    gap: 5%;
+}
+
+.rolesNav {flex: 25%;}
+.info {flex: 75%;}
+
+.rolesNav h4 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 24px;
+}
+.rolesNav li {
+    list-style: none;
+    border-bottom: 1px solid #C8C8C8;
+}
+.rolesNav li button {
+    padding: 16px 10px;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    color: #808080;
+}
+.rolesNav li .active,
+.rolesNav li:hover {
+    background-color: #E3ECFD;
+}
+
+.rolesNav li button .active,
+.rolesNav li button:hover {
+    color: #1F2937;
+}
+
+
+
+
+.infoHeader {
+    margin-left: 5%;
+}
+.infoHeader h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: #1F2937;
+}
+.infoHeader .desc {
+    padding: 14px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #848484;
+}
+.infoHeader ul {
+    border-top: 1px solid #ECECEC;
+    border-bottom: 1px solid #ECECEC;
+    list-style: none;
+}
+.infoHeader li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #848484;
+}
+.infoHeader .greyCircle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50px;
+    background-color: #D9D9D9;
+}
+
+
+
+.accessNoAccess {
+    display: flex;
+    gap: 5%;
+    margin-top: 32px;
+}
+
+.access {
+    border: 1px solid #BACFB8;
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+}
+.noAccess {
+    border: 1px solid #CF7B7B;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+}
+
+.accessHeader {
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #86BC6E;
+    background-color: #DFEFD8;
+}
+
+.noAccessHeader {
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #CF7B7B;
+    background-color: #F2DEDE;
+}
+
+.access ul,
+.noAccess ul {
+    padding: 0 18px;
+}
+
+.accessNoAccess li,
+.accessNoAccess p {
+    list-style: none;
+    padding: 18px 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #525252;
+}
+
+.access li {
+    border-bottom: 0.5px solid #DFEFD8;
+}
+
+
+
+.dimmer {
+    display: none;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+}
+
+.dim {
+    display: block;
+    z-index: 11;
+}
+
+
+.popup {
+    width: 35%;
+    max-height: 70%;
+    overflow: hidden;
+    overflow-y: scroll;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 24px;
+    background-color: #FFFFFF;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+    z-index: 100;
+    border-radius: 8px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.popped {
+    background: #FFF;
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.popup .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    position: static;
+}
+
+.close img {
+    width: 24px;
+    height: 24px;
+}
+
+.popup form {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #F3F4F6;
+}
+
+.popup .formGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.formGroup label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4B5563;
+    margin-bottom: 8px;
+}
+
+.formGroup input,
+.formGroup select {
+    width: 100%;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #9CA3AF;
+    padding: 10px 12px;
+    outline: none;
+}
+
+.popup button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background-color: #1C6BFF;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    margin-top: 12px;
+    align-self: end;
+}

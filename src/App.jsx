@@ -1,13 +1,21 @@
 import styles from './App.module.css';
 import { Header } from './Components/Header/Header';
 import { Navbar } from './Components/Navbar/Navbar';
+import { BlankPage } from './Pages/BlankPage';
+import { BudgetPage } from './Pages/BudgetPage/BudgetPage';
 import { CashflowInPage } from './Pages/CashflowInPage/CashflowInPage';
 import { CashflowOutPage } from './Pages/CashflowOutPage/CashflowOutPage';
 import { InvestmentsPage } from './Pages/InvestmentsPage/InvestmentsPage'
-import { ReportsPage } from './Pages/ReportsPage/ReportsPage';
+import { LoansPage } from './Pages/LoansPage/LoansPage';
+import { ReportsHistoryPage } from './Pages/ReportsHistoryPage/ReportsHistoryPage';
+import { ReportsPage } from './Pages/ReportsPage/ReportstPage';
+import { SettingsAccountPage } from './Pages/SettingsAccountPage/SettingsAccountPage';
+import { SettingsProfilePage } from './Pages/SettingsProfilePage/SettingsProfilePage';
+import { SettingsWorkflowPage } from './Pages/SettingsWorkflowPage/SettingsWorkflowPage';
 import { TransactionsPage } from './Pages/TransactionsPage/TransactionsPage';
 import { TransactionsTransferPage } from './Pages/TransactionsTransferPage/TransactionsTransferPage';
 import { UsersPage } from './Pages/UsersPage/UsersPage';
+import { UsersRolesPage } from './Pages/UsersRolesPage/UsersRolesPage';
 
 function App() {
 
@@ -15,13 +23,16 @@ function App() {
 
   switch (window.location.pathname) {
     case "/":
-      Component = ReportsPage;
+      Component = BlankPage;
       break;
     case "/transactions":
       Component = TransactionsPage;
       break;
+    case "/transactions/transfer":
+      Component = TransactionsTransferPage;
+      break;
     case "/accounts":
-      Component = ReportsPage;
+      Component = BlankPage;
       break;
     case "/cashflow":
       Component = CashflowInPage;
@@ -30,35 +41,46 @@ function App() {
       Component = CashflowOutPage;
       break;
     case "/loans":
-      Component = ReportsPage;
+      Component = LoansPage;
       break;
     case "/investments":
-      Component = InvestmentsPage;
+      Component = BlankPage;
       break;
     case "/bulktransfer":
-      Component = ReportsPage;
+      Component = BlankPage;
       break;
     case "/budget":
-      Component = ReportsPage;
+      Component = BudgetPage;
       break;
     case "/reconciliation":
-      Component = ReportsPage;
+      Component = BlankPage;
       break;
     case "/reports":
       Component = ReportsPage;
       break;
+    case "/reports/history":
+      Component = ReportsHistoryPage;
+      break;
     case "/audittrails":
-      Component = ReportsPage;
+      Component = BlankPage;
       break;
     case "/users":
       Component = UsersPage;
       break;
-    case "/setting":
-      Component = ReportsPage;
+    case "/users/roles":
+        Component = UsersRolesPage;
+        break;
+    case "/settings":
+      Component = SettingsProfilePage;
       break;
-    case "/transactions/transfer":
-      Component = TransactionsTransferPage;
+    case "/settings/account":
+      Component = SettingsAccountPage;
       break;
+    case "/settings/workflow":
+      Component = SettingsWorkflowPage;
+      break;
+
+      
   }
 
   return (

@@ -43,6 +43,7 @@
 .header img {
     width: 24px;
     height: 24px;
+    margin-right: 7%;
 }
 
 .header a img {
@@ -50,7 +51,7 @@
 }
 
 .headerLeft {
-    flex: 1;
+    flex: 60%;
     display: flex;
     align-items: center;
 }
@@ -73,14 +74,14 @@
 .languageDiv {
     display: inline-flex;
     align-items: center;
-    margin-right: 16px;
+    margin-right: 7%;
 }
 .languageDiv select {
     border: none;
 }
 
 .headerRight {
-    flex: 1;
+    flex: 40%;
     display: flex;
     justify-content: right;
     align-items: center;
@@ -94,13 +95,15 @@
     margin-right: 7%;
     margin-left: 7%;
 }
-
+.links {
+    width: 100%;
+}
 .links a {
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
     color: #9CA3AF;
-    margin-right: 16px;
+    margin-right: 7%;
     text-decoration: none;
 }
 .links a:hover {
