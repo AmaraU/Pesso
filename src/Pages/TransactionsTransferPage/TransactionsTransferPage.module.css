@@ -2,6 +2,7 @@
     padding: 32px 40px;
     overflow-y: auto;
     margin-top: 80px;
+    margin-left: 232px;
     width: 100%;
 }
 
@@ -149,7 +150,6 @@
     border-collapse: collapse;
     width: 100%;
     white-space: nowrap;
-    /* table-layout: fixed; */
 }
 
 .transferTable .tableCheckbox {width: 5%;}

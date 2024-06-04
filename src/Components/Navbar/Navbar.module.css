@@ -1,6 +1,15 @@
 .theWhole {
     border-right: 1px solid #E5E7EB;
     width: 232px;
+    height: 100%;
+    position: fixed;
+    overflow: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.theWhole::-webkit-scrollbar {
+    display: none;
 }
 
 
@@ -22,13 +31,30 @@
     font-weight: 500;
     color: #9CA3AF;
     gap: 8px;
+    border-left: 2px solid transparent;
 }
 .linkList a:hover {
     background-color: #E5E7EB;
     color: #7E8491;
 }
+.linkList a.active {
+    background-color: #F0F5FD;
+    color: #1C6BFF;
+    border-left: 2px solid #1C6BFF;
+}
 
 .theWhole a img {
     width: 24px;
     height: 24px;
+}
+
+.linkList a .blue {
+    display: none;
+}
+
+.linkList a.active .blue {
+    display: block;
+}
+.linkList a.active .grey {
+    display: none;
 }

@@ -8,7 +8,7 @@ import { CashflowOutPage } from './Pages/CashflowOutPage/CashflowOutPage';
 import { InvestmentsPage } from './Pages/InvestmentsPage/InvestmentsPage'
 import { LoansPage } from './Pages/LoansPage/LoansPage';
 import { ReportsHistoryPage } from './Pages/ReportsHistoryPage/ReportsHistoryPage';
-import { ReportsPage } from './Pages/ReportsPage/ReportstPage';
+import { ReportsPage } from './Pages/ReportsPage/ReportsPage';
 import { SettingsAccountPage } from './Pages/SettingsAccountPage/SettingsAccountPage';
 import { SettingsProfilePage } from './Pages/SettingsProfilePage/SettingsProfilePage';
 import { SettingsWorkflowPage } from './Pages/SettingsWorkflowPage/SettingsWorkflowPage';
@@ -44,7 +44,7 @@ function App() {
       Component = LoansPage;
       break;
     case "/investments":
-      Component = BlankPage;
+      Component = InvestmentsPage;
       break;
     case "/bulktransfer":
       Component = BlankPage;
@@ -78,9 +78,7 @@ function App() {
       break;
     case "/settings/workflow":
       Component = SettingsWorkflowPage;
-      break;
-
-      
+      break;   
   }
 
   return (

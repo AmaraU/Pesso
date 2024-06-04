@@ -2,6 +2,7 @@
     padding: 32px 40px;
     overflow-y: auto;
     margin-top: 80px;
+    margin-left: 232px;
     width: 100%;
 }
 
@@ -427,6 +428,9 @@ button, a {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+.popup::-webkit-scrollbar {
+    display: none;
+}
 .popped {
     top: 50%;
     visibility: visible;
@@ -525,6 +529,9 @@ button, a {
     justify-content: center;
     align-items: center;
     padding: 24px;
+}
+.successPopup::-webkit-scrollbar {
+    display: none;
 }
 
 .successPopped {
