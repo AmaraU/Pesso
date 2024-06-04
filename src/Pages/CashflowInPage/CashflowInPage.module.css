@@ -15,7 +15,6 @@
 }
 
 .searchBar {
-    flex: 1;
     display: inline-flex;
     align-items: center;
     margin-right: 16px;
@@ -35,10 +34,6 @@
     color: #A4A4B1;
 }
 
-.buttons {
-    flex: 1;
-    text-align: right;
-}
 
 button, a {
     cursor: pointer;

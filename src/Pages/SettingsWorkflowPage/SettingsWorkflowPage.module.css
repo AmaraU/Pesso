@@ -18,7 +18,6 @@
     display: inline-flex;
     align-items: center;
     margin-right: 16px;
-    flex: 1;
 }
 .searchBar img {
     width: 18px;
@@ -28,7 +27,7 @@
     border: none;
     outline: none;
     margin-left: 8px;
-    width: 100%;
+    /* width: 100%; */
 }
 .searchBar input::placeholder {
     font-size: 14px;

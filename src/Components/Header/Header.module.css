@@ -105,9 +105,13 @@
     color: #9CA3AF;
     margin-right: 7%;
     text-decoration: none;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
 }
-.links a:hover {
+.links a.inactiveLink:hover {
+    color: #7E8491;
+}
+.links .activeLink {
     color: #1C6BFF;
-    text-decoration: underline;
+    border-bottom: 2px solid #1C6BFF;
 }
-

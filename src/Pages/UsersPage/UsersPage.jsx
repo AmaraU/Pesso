@@ -145,12 +145,31 @@ export const UsersPage = () => {
     }
 
 
-    function toggle() {        
+    function userPopup() {        
         var popup = document.getElementById('popup');
-        popup.classList.toggle(`${styles.popped}`);
+        popup.classList.add(`${styles.popped}`);
 
         var dimmer = document.getElementById('dimmer');
-        dimmer.classList.toggle(`${styles.dim}`);
+        dimmer.classList.add(`${styles.dim}`);
+    }
+
+    function sentPopup() {        
+        var popup = document.getElementById('popup');
+        popup.classList.remove(`${styles.popped}`);
+
+        var sent = document.getElementById('invite');
+        sent.classList.add(`${styles.popped}`);
+    }
+
+    function closePopups() {        
+        var popup = document.getElementById('popup');
+        popup.classList.remove(`${styles.popped}`);
+
+        var sent = document.getElementById('invite');
+        sent.classList.remove(`${styles.popped}`);
+
+        var dimmer = document.getElementById('dimmer');
+        dimmer.classList.remove(`${styles.dim}`);
     }
 
 
@@ -176,7 +195,7 @@ export const UsersPage = () => {
         <div className={styles.popup} id='popup'>
             <div className={styles.header}>
                 <h3>Add User</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={() => toggle()} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); closePopups()}} /></a>
             </div>
             
             <form action="">
@@ -200,11 +219,17 @@ export const UsersPage = () => {
                     </select>
                 </div>
 
-                <button>Send Invite</button>
+                <button onClick={(e) => {e.preventDefault(); sentPopup()}}>Send Invite</button>
             </form>
         </div>
 
-        
+        <div className={styles.sentPopup} id="invite">
+            <div className={styles.header}>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); closePopups()}} /></a>
+            </div>
+            <img src={getImageUrl("invite.png")} />
+            <h3>Invite Sent</h3>
+        </div>
 
         <div className={styles.dimmer} id='dimmer'></div>
 
@@ -237,7 +262,7 @@ export const UsersPage = () => {
                             ))}
                         </select>
                     </label>
-                    <a onClick={() => toggle()} className={styles.buttonThree}>
+                    <a onClick={(e) => {e.preventDefault(); userPopup()}} className={styles.buttonThree}>
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                         Add User
                     </a>

@@ -103,7 +103,9 @@ export const Header = () => {
                     <h2>{PageTitle}</h2>
                     <div className={styles.links}>
                         {linkList.map(({ title, link }, index) => (
-                            <a key={index} href={link}>{title}</a>
+                            <a key={index} href={link} className={currentPath === link ? styles.activeLink : styles.inactiveLink}>
+                                {title}
+                            </a>
                         ))}
                     </div>
                 </div>

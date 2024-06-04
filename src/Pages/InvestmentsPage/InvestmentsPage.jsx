@@ -179,7 +179,7 @@ export const InvestmentsPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <a onClick={() => toggle()} className={styles.buttonThree}>
+                    <a onClick={() => toggle()} className={styles.buttonOne}>
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                         Add Investment
                     </a>

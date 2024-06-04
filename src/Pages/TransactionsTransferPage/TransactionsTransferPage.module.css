@@ -43,7 +43,6 @@
 }
 
 .searchBar {
-    flex: 1;
     display: inline-flex;
     align-items: center;
     margin-right: 16px;
@@ -56,17 +55,13 @@
     border: none;
     outline: none;
     margin-left: 8px;
-    width: 80%;
+    /* width: 80%; */
 }
 .searchBar input::placeholder {
     font-size: 14px;
     color: #A4A4B1;
 }
 
-.buttons {
-    flex: 1;
-    text-align: right;
-}
 
 .buttonOne {
     display: inline-flex;

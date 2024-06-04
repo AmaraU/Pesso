@@ -15,7 +15,6 @@
 }
 
 .searchBar {
-    flex: 1;
     display: inline-flex;
     align-items: center;
     margin-right: 16px;
@@ -28,19 +27,13 @@
     border: none;
     outline: none;
     margin-left: 8px;
-    width: 80%;
 }
 .searchBar input::placeholder {
     font-size: 14px;
     color: #A4A4B1;
 }
 
-.buttons {
-    flex: 1;
-    text-align: right;
-}
-
-.buttonThree {
+.buttonOne {
     padding: 8px 12px;
     border-radius: 8px;
     background-color: #1C6BFF;
@@ -53,7 +46,7 @@
     font-weight: 500;
     cursor: pointer;
 }
-.buttonThree img {
+.buttonOne img {
     width: 16px;
     height: 16px;
 }
@@ -237,8 +230,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
-    position: static;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #F3F4F6;
 }
 
 .close img {
