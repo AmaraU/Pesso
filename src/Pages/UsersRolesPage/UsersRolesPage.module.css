@@ -83,13 +83,15 @@
     font-weight: 400;
     color: #808080;
 }
-.rolesNav li .active,
-.rolesNav li:hover {
-    background-color: #E3ECFD;
+
+.rolesNav li.inactive button:hover {
+    background-color: #E5E7EB;
+    color: #7E8491;
 }
 
-.rolesNav li button .active,
-.rolesNav li button:hover {
+.rolesNav li.active button {
+    background-color: #E3ECFD;
+    font-weight: 500;
     color: #1F2937;
 }
 
@@ -135,16 +137,18 @@
 
 .accessNoAccess {
     display: flex;
-    gap: 5%;
+    gap: 3%;
     margin-top: 32px;
 }
 
 .access {
+    flex: 1;
     border: 1px solid #BACFB8;
     border-radius: 10px 10px 0 0;
     border-bottom: none;
 }
 .noAccess {
+    flex: 1;
     border: 1px solid #CF7B7B;
     border-bottom: none;
     border-radius: 10px 10px 0 0;
@@ -184,6 +188,9 @@
 
 .access li {
     border-bottom: 0.5px solid #DFEFD8;
+}
+.access li:last-child {
+    border-bottom: none;
 }
 
 

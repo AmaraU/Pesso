@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./ReportsPage.module.css";
 import { getImageUrl } from '../../../utils';
+import BarChart from '../../Components/BarChart';
 
 export const ReportsPage = () => {
     
@@ -9,16 +10,65 @@ export const ReportsPage = () => {
         setSearch(event.target.value);
     };
 
+    const financialHealth = {
+        labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+        datasets: [
+            {
+            data: [1803, 866, 1876, 1023, 2313, 550, 1500],
+            backgroundColor: [
+                '#F99BAB',
+                '#FFB44F',
+                '#9BDFC4',
+                '#62B2FD',
+                '#1C6BFF',
+                '#9F97F7',
+                '#0D7FE9'
+            ],
+            borderRadius: 10,
+            },
+        ],
+    };
 
-    // const filteredBudgets = budgets.filter(budget => {
-    //     const searchLower = search.toLowerCase();
-    //     return (
-    //         budget.title.toLowerCase().includes(searchLower) ||
-    //         budget.total.toLowerCase().includes(searchLower) ||
-    //         budget.assignee.toLowerCase().includes(searchLower) ||
-    //         budget.categories.some(category => category.toLowerCase().includes(searchLower))
-    //     );
-    // });
+    const burnRate = {
+        labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+        datasets: [
+            {
+            data: [1803, 866, 1876, 1023, 2313, 550, 1500],
+            backgroundColor: [
+                '#F99BAB',
+                '#FFB44F',
+                '#9BDFC4',
+                '#62B2FD',
+                '#1C6BFF',
+                '#9F97F7',
+                '#0D7FE9'
+            ],
+            borderRadius: 20,
+            },
+        ],
+    };
+    
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false,
+            },
+        },
+
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                grid: {
+                    borderDash: [5, 5],
+                },
+            },
+        }
+    };
 
 
 
@@ -82,7 +132,8 @@ export const ReportsPage = () => {
                             </select>
                         </div>
                         <div className={styles.line}></div>
-                        <img src={getImageUrl("barChart.PNG")} alt="" />
+                        <BarChart className={styles.barchart} data={financialHealth} options={options} />
+                        {/* <img src={getImageUrl("barChart.PNG")} alt="" /> */}
                     </div>
 
                 </div>
@@ -101,7 +152,8 @@ export const ReportsPage = () => {
                         </select>
                     </div>
                     <div className={styles.line}></div>
-                    <img src={getImageUrl("barChart.PNG")} alt="" />
+                    <BarChart className={styles.barchart} data={burnRate} options={options} />
+                    {/* <img src={getImageUrl("barChart.PNG")} alt="" /> */}
                 </div>
                 
 
