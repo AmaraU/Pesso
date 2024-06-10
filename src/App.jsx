@@ -5,6 +5,7 @@ import { BlankPage } from './Pages/BlankPage';
 import { BudgetPage } from './Pages/BudgetPage/BudgetPage';
 import { CashflowInPage } from './Pages/CashflowInPage/CashflowInPage';
 import { CashflowOutPage } from './Pages/CashflowOutPage/CashflowOutPage';
+import { Overview } from './Pages/DashboardPage/Overview';
 import { InvestmentsPage } from './Pages/InvestmentsPage/InvestmentsPage'
 import { LoansPage } from './Pages/LoansPage/LoansPage';
 import { ReportsHistoryPage } from './Pages/ReportsHistoryPage/ReportsHistoryPage';
@@ -22,61 +23,66 @@ function App() {
   let Component
 
   switch (window.location.pathname) {
+
     case "/":
-      Component = BlankPage;
+    case "/dashboard":
+      window.location.pathname = "/dashboard/overview";
       break;
-    case "/transactions":
+    case "/dashboard/overview":
+      Component = Overview;
+      break;
+    case "/dashboard/transactions":
       Component = TransactionsPage;
       break;
-    case "/transactions/transfer":
+    case "/dashboard/transactions/transfer":
       Component = TransactionsTransferPage;
       break;
-    case "/accounts":
+    case "/dashboard/accounts":
       Component = BlankPage;
       break;
-    case "/cashflow":
+    case "/dashboard/cashflow":
       Component = CashflowInPage;
       break;
-    case "/cashflow/outflow":
+    case "/dashboard/cashflow/outflow":
       Component = CashflowOutPage;
       break;
-    case "/loans":
+    case "/dashboard/loans":
       Component = LoansPage;
       break;
-    case "/investments":
+    case "/dashboard/investments":
       Component = InvestmentsPage;
       break;
-    case "/bulktransfer":
+    case "/dashboard/bulktransfer":
       Component = BlankPage;
       break;
-    case "/budget":
+    case "/dashboard/budget":
       Component = BudgetPage;
       break;
-    case "/reconciliation":
+    case "/dashboard/reconciliation":
       Component = BlankPage;
       break;
-    case "/reports":
+    case "/dashboard/reports":
       Component = ReportsPage;
       break;
-    case "/reports/history":
+    case "/dashboard/reports/history":
       Component = ReportsHistoryPage;
       break;
-    case "/audittrails":
+    case "/dashboard/audittrails":
       Component = BlankPage;
       break;
-    case "/users":
+    case "/dashboard/users":
       Component = UsersPage;
       break;
-    case "/users/roles":
+    case "/dashboard/users/roles":
         Component = UsersRolesPage;
         break;
-    case "/settings":
+    case "/dashboard/settings":
       Component = SettingsProfilePage;
       break;
-    case "/settings/account":
+    case "/dashboard/settings/account":
       Component = SettingsAccountPage;
       break;
-    case "/settings/workflow":
+    case "/dashboard/settings/workflow":
       Component = SettingsWorkflowPage;
       break;   
   }

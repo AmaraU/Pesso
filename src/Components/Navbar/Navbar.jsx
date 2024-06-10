@@ -11,71 +11,71 @@ export const Navbar = () => {
 
       <div className={styles.linkList}>
 
-        <a href="/" className={currentPath === "/" ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Dashboard.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueDashboard.png")} />
+        <a href="/dashboard/overview" className={currentPath === "/dashboard/overview" ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/dashboardWhite.png")} />
+          <img className={styles.red} src={getImageUrl("icons/dashboardRed.png")} />
           Dashboard
         </a>
-        <a href="/transactions" className={currentPath.includes("/transactions") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Transactions.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueTransactions.png")} />
+        <a href="/dashboard/transactions" className={currentPath.includes("/dashboard/transactions") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/transactionsWhite.png")} />
+          <img className={styles.red} src={getImageUrl("icons/transactionsRed.png")} />
           Transactions
         </a>
-        <a href="/accounts" className={currentPath.includes("/accounts") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Accounts.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueAccounts.png")} />
+        <a href="/dashboard/accounts" className={currentPath.includes("/dashboard/accounts") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/accountsWhite.png")} />
+          <img className={styles.red} src={getImageUrl("icons/accountsRed.png")} />
           Accounts
         </a>
-        <a href="/cashflow" className={currentPath.includes("/cashflow") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Cashflow.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueCashflow.png")} />
+        <a href="/dashboard/cashflow" className={currentPath.includes("/dashboard/cashflow") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/cashflowWhite.png")} />
+          <img className={styles.red} src={getImageUrl("icons/cashflowRed.png")} />
           Cashflow
         </a>
-        <a href="/loans" className={currentPath.includes("/loans") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Loans.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueLoans.png")} />
+        <a href="/dashboard/loans" className={currentPath.includes("/dashboard/loans") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/loansWhite.png")} />
+          <img className={styles.red} src={getImageUrl("icons/loansRed.png")} />
           Loans
         </a>
-        <a href="/investments" className={currentPath.includes("/investments") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Investments.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueInvestments.png")} />
+        {/* <a href="/dashboard/investments" className={currentPath.includes("/dashboard/investments") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/Investments.png")} />
+          <img className={styles.red} src={getImageUrl("icons/blueInvestments.png")} />
           Investments
-        </a>
-        <a href="/bulktransfer" className={currentPath.includes("/bulktransfer") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/BulkTransfer.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueBulkTransfer.png")} />
+        </a> */}
+        {/* <a href="/dashboard/bulktransfer" className={currentPath.includes("/dashboard/bulktransfer") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/BulkTransfer.png")} />
+          <img className={styles.red} src={getImageUrl("icons/blueBulkTransfer.png")} />
           Bulk transfer
-        </a>
-        <a href="/budget" className={currentPath.includes("/budget") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Budget.png")} alt="" />
-          <img className={styles.blue} src={getImageUrl("icons/blueBudget.png")} alt="" />
+        </a> */}
+        <a href="/dashboard/budget" className={currentPath.includes("/dashboard/budget") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/budgetWhite.png")} alt="" />
+          <img className={styles.red} src={getImageUrl("icons/budgetRed.png")} alt="" />
           Budget
         </a>
-        <a href="/reconciliations" className={currentPath.includes("/reconciliations") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Reconciliations.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueReconciliations.png")} />
+        {/* <a href="/dashboard/reconciliations" className={currentPath.includes("/dashboard/reconciliations") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/Reconciliations.png")} />
+          <img className={styles.red} src={getImageUrl("icons/blueReconciliations.png")} />
           Reconciliations
-        </a>
-        <a href="/reports" className={currentPath.includes("/reports") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Reports.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueReports.png")} />
+        </a> */}
+        <a href="/dashboard/reports" className={currentPath.includes("/dashboard/reports") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/reportsWhite.png")} />
+          <img className={styles.red} src={getImageUrl("icons/reportsRed.png")} />
           Reports
         </a>
-        <a href="/audittrails" className={currentPath.includes("/audittrails") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/AuditTrails.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueAuditTrails.png")} />
+        <a href="/dashboard/audittrails" className={currentPath.includes("/dashboard/audittrails") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/auditTrailsWhite.png")} />
+          <img className={styles.red} src={getImageUrl("icons/auditTrailsRed.png")} />
           Audit Trails
         </a>
-        <a href="/users" className={currentPath.includes("/users") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Users.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueUsers.png")} />
+        <a href="/dashboard/users" className={currentPath.includes("/dashboard/users") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/usersWhite.png")} />
+          <img className={styles.red} src={getImageUrl("icons/usersRed.png")} />
           Users
         </a>
-        <a href="/settings" className={currentPath.includes("/settings") ? styles.active : ""}>
-          <img className={styles.grey} src={getImageUrl("icons/Settings.png")} />
-          <img className={styles.blue} src={getImageUrl("icons/blueSettings.png")} />
+        {/* <a href="/dashboard/settings" className={currentPath.includes("/dashboard/settings") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/Settings.png")} />
+          <img className={styles.red} src={getImageUrl("icons/blueSettings.png")} />
           Settings
-        </a>
+        </a> */}
       </div>
     </div>
   )

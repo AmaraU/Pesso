@@ -37,7 +37,7 @@
 
 .buttonOne {
     padding: 8px 12px;
-    background-color: #F0F5FD;
+    background-color: #FBE6EA;
     border-radius: 8px;
     display: inline-flex;
     align-items: center;
@@ -50,7 +50,7 @@
     margin-right: 8px;
 }
 .buttonOne select {
-    color: #1C6BFF;
+    color: #D2042D;
     background-color: transparent;
     border: none;
     outline: none;
@@ -59,7 +59,7 @@
 
 .buttonTwo {
     padding: 8px 12px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     border-radius: 8px;
     display: inline-flex;
     align-items: center;

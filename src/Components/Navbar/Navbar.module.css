@@ -1,4 +1,5 @@
 .theWhole {
+    background-color: #0D0D0D;
     border-right: 1px solid #E5E7EB;
     width: 232px;
     height: 100%;
@@ -16,7 +17,8 @@
 .linkList {
     display: flex;
     flex-direction: column;
-    margin-top: 110px;
+    /* margin-top: 110px; */
+    margin-top: 80px;
     width: 232px;
 }
 
@@ -29,18 +31,17 @@
     font-size: 14px;
     line-height: 18px;
     font-weight: 500;
-    color: #9CA3AF;
+    color: #FFFFFF;
     gap: 8px;
     border-left: 2px solid transparent;
 }
 .linkList a:hover {
-    background-color: #E5E7EB;
-    color: #7E8491;
+    background-color: #7E8491;
 }
 .linkList a.active {
-    background-color: #F0F5FD;
-    color: #1C6BFF;
-    border-left: 2px solid #1C6BFF;
+    background-color: #F6CDD5;
+    color: #D2042D;
+    border-left: 2px solid #A80324;
 }
 
 .theWhole a img {
@@ -48,13 +49,13 @@
     height: 24px;
 }
 
-.linkList a .blue {
+.linkList a .red {
     display: none;
 }
 
-.linkList a.active .blue {
+.linkList a.active .red {
     display: block;
 }
-.linkList a.active .grey {
+.linkList a.active .white {
     display: none;
 }

@@ -9,82 +9,85 @@ export const Header = () => {
     let linkList = [];
 
     switch (currentPath) {
+
         case "/":
+        case "/dashboard":
+        case "/dashboard/overview":
             PageTitle = "Dashboard";
             break;
         
-        case "/transactions":
-        case "/transactions/transfer":
+        case "/dashboard/transactions":
+        case "/dashboard/transactions/transfer":
             PageTitle = "Transactions";
             linkList = [
-                {title: "History", link: "/transactions"},
-                {title: "Transfer", link: "/transactions/transfer"}
+                {title: "History", link: "/dashboard/transactions"},
+                {title: "Transfer", link: "/dashboard/transactions/transfer"}
             ];
             break;
         
-        case "/accounts":
+        case "/dashboard/accounts":
             PageTitle = "Accounts";
             break;
         
-        case "/cashflow":
-        case "/cashflow/outflow":
+        case "/dashboard/cashflow":
+        case "/dashboard/cashflow/outflow":
             PageTitle = "Cashflow";
             linkList = [
-                {title: "Inflow", link: "/cashflow"},
-                {title: "Outflow", link: "/cashflow/outflow"}
+                {title: "Inflow", link: "/dashboard/cashflow"},
+                {title: "Outflow", link: "/dashboard/cashflow/outflow"}
             ];
             break;
         
-        case "/loans":
+        case "/dashboard/loans":
             PageTitle = "Loans";
             break;
         
-        case "/investments":
+        case "/dashboard/investments":
             PageTitle = "Investments";
             break;
         
-        case "/bulktransfer":
+        case "/dashboard/bulktransfer":
             PageTitle = "Bulk Transfer";
             break;
         
-        case "/budget":
+        case "/dashboard/budget":
             PageTitle = "Budget";
             break;
         
-        case "/reconciliation":
+        case "/dashboard/reconciliation":
             PageTitle = "Reconciliation";
             break;
         
-        case "/reports":
-        case "/reports/history":
+        case "/dashboard/reports":
+        case "/dashboard/reports/history":
             PageTitle = "Reports";
             linkList = [
-                {title: "Financial Health Indicator", link: "/reports"},
-                {title: "History", link: "/reports/history"}
+                {title: "Financial Health Indicator", link: "/dashboard/reports"},
+                {title: "History", link: "/dashboard/reports/history"}
             ];
             break;
         
-        case "/audittrails":
+        case "/dashboard/audittrails":
             PageTitle = "Audit Trails";
             break;
         
-        case "/users":
-        case "/users/roles":
+        case "/dashboard/users":
+        case "/dashboard/users/roles":
             PageTitle = "Users";
             linkList = [
-                {title: "Members", link: "/users"},
-                {title: "Roles & Permissions", link: "/users/roles"}
+                {title: "Members", link: "/dashboard/users"},
+                {title: "Roles & Permissions", link: "/dashboard/users/roles"}
             ];
             break;
         
-        case "/settings":
-        case "/settings/account":
-        case "/settings/workflow":
+        case "/dashboard/settings":
+        case "/dashboard/settings/account":
+        case "/dashboard/settings/workflow":
             PageTitle = "Settings";
             linkList = [
-                {title: "Profile", link: "/settings"},
-                {title: "Account", link: "/settings/account"},
-                {title: "Workflow", link: "/settings/workflow"}
+                {title: "Profile", link: "/dashboard/settings"},
+                {title: "Account", link: "/dashboard/settings/account"},
+                {title: "Workflow", link: "/dashboard/settings/workflow"}
             ];
             break;
     }
@@ -93,7 +96,7 @@ export const Header = () => {
         <div className={styles.header}>
 
             <div className={styles.logo} >
-                <a href="/"><img src={getImageUrl("logos/PessoLogo.png")} alt="PESSO" /></a>
+                <a href="/"><img src={getImageUrl("logos/pessoLogo.png")} alt="PESSO" /></a>
             </div>
 
             <div className={styles.leftRight}>

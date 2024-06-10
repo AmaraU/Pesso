@@ -10,11 +10,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@mono.co/connect.js": "^2.0.2",
+    "axios": "^1.7.2",
     "chart.js": "^4.4.3",
     "classnames": "^2.5.1",
+    "country-flag-icons": "^1.5.12",
+    "dayjs": "^1.11.11",
+    "export-to-csv": "^1.3.0",
+    "material-react-table": "^2.13.0",
+    "moment-timezone": "^0.5.45",
     "react": "^18.2.0",
+    "react-calendar": "^5.0.0",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.2.1",
+    "react-router-dom": "^6.23.1",
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
