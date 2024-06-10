@@ -96,7 +96,7 @@ export const Header = () => {
         <div className={styles.header}>
 
             <div className={styles.logo} >
-                <a href="/"><img src={getImageUrl("logos/pessoLogo.png")} alt="PESSO" /></a>
+                <a href="/"><img src={getImageUrl("logos/whiteLogo.png")} alt="PESSO" /></a>
             </div>
 
             <div className={styles.leftRight}>
