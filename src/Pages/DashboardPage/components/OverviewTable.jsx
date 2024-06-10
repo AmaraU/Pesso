@@ -540,13 +540,13 @@ export const OverviewTable = () => {
                 <Stack direction={"row"} justify={"space-between"}>
                     <Tabs>
                         <TabList gap={24}>
-                            <Tab selected onClick={() => receivalesTable()} p={8} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#1C6BFF', borderBottom: '2px solid #1C6BFF', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
+                            <Tab selected onClick={() => receivalesTable()} p={8} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#D2042D', borderBottom: '2px solid #D2042D', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
                                 <Text fontWeight={500}>Receivables</Text>
                             </Tab>
-                            <Tab onClick={() => paymentsTable()}  p={8} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#1C6BFF', borderBottom: '2px solid #1C6BFF', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
+                            <Tab onClick={() => paymentsTable()}  p={8} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#D2042D', borderBottom: '2px solid #D2042D', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
                                 <Text fontWeight={500}>Payments</Text>
                             </Tab>
-                            <Tab onClick={() => loansTable()}  p={8} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#1C6BFF', borderBottom: '2px solid #1C6BFF', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
+                            <Tab onClick={() => loansTable()}  p={8} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#D2042D', borderBottom: '2px solid #D2042D', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
                                 <Text fontWeight={500}>Loans</Text>
                             </Tab>
                         </TabList>
