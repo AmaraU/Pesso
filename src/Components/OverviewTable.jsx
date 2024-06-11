@@ -1,13 +1,11 @@
 
 import React, { useState } from "react";
-import { Tab, TabList, TabPanel, TabPanels, Tabs, Box, HStack, Icon, Text, Stack } from "@chakra-ui/react";
-// import { loanFields, paymentFields, receivableFields } from "../../../models/data";
-// import Table from "../../../Components/Table";
+import { Tab, TabList, Tabs, Box, HStack, Icon, Text, Stack } from "@chakra-ui/react";
 import { NG } from 'country-flag-icons/react/3x2'
 import { SlRefresh } from "react-icons/sl";
 
-import styles from "../css/styling.module.css";
-import { getImageUrl } from "../../../../utils";
+import styles from "./css/styling.module.css";
+import { getImageUrl } from "../../utils";
 
 
 export const OverviewTable = () => {

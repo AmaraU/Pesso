@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs, Box, HStack, Icon, Text, Stack } from "@chakra-ui/react";
 import { NG } from 'country-flag-icons/react/3x2'
-import Table from "../../../Components/Table";
-import { loanFields, paymentFields, receivableFields } from "../../../models/data";
+import Table from "./Table";
+import { loanFields, paymentFields, receivableFields } from "../models/data";
 import { SlRefresh } from "react-icons/sl";
 
 const DataWidget = ({ entries = [], fields = [], isLoading = false, fileName = "data", fieldFontSize = "14px", entryFontSize = "14px", type = "" }) => {

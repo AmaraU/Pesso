@@ -1,20 +1,20 @@
 import { Stack, SimpleGrid, Grid, GridItem, useToast } from "@chakra-ui/react";
-import { OverallBalance } from "./components/OverallBalance";
-import { Ads } from "./components/Ads";
-import { Account } from "./components/Account";
-import { Cashflow } from "./components/Cashflow";
-import { RecentTransactions } from "./components/TransactionTable";
-import { OverviewTable } from "./components/OverviewTable";
-import { ScheduleCalendar } from "./components/Calendar";
-import { ExchangeRates } from "./components/ExchangeRates";
+import { OverallBalance } from "../../Components/OverallBalance";
+import { Ads } from "../../Components/Ads";
+import { Account } from "../../Components/Account";
+import { Cashflow } from "../../Components/Cashflow";
+import { RecentTransactions } from "../../Components/TransactionTable";
+import { OverviewTable } from "../../Components/OverviewTable";
+import { ScheduleCalendar } from "../../Components/Calendar";
+import { ExchangeRates } from "../../Components/ExchangeRates";
 import { useEffect, useState } from "react";
-import ConnectWidget from "./components/ConnectWidget";
+import ConnectWidget from "../../Components/ConnectWidget";
 import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
 import { DEFAULT_ACCOUNT_DETAILS_ALL_ERR_MSG, DEFAULT_ACCOUNT_DETAILS_ERR_MSG, DEFAULT_ACCOUNT_ID_ERR_MSG, DEFAULT_CASHFLOW_SUMMARY_ERR_MSG, getAPIEndpoint } from '../../../config';
 import { auditLog, logger } from '../../models/logging';
 
-import styles from "./css/styling.module.css";
+import styles from "../../Components/css/styling.module.css";
 
 export const Overview = () => {
     const [accounts, setAccounts] = useState([]);

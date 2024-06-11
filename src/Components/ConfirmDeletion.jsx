@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { Button, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogCloseButton, AlertDialogBody, AlertDialogFooter, useToast } from '@chakra-ui/react';
 import { getAPIEndpoint } from "../../../config";
 import axios from "axios";
-import { auditLog } from "../../../models/logging";
+import { auditLog } from "../models/logging";
 
 export const ConfirmDeletion = ({ isOpen, onClose, dataset = [], flag = 0, flagTitle = "", refreshData, postDelete = null }) => {
     const cancelRef = useRef();

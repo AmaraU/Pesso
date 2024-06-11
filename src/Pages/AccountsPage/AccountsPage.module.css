@@ -1,0 +1,283 @@
+.whole {
+    padding: 32px 40px;
+    overflow-y: auto;
+    margin-top: 80px;
+    margin-left: 232px;
+    width: 100%;
+    /* background-color: #F9FAFB; */
+}
+
+
+.accountsDiv {
+    width: 100%;
+    overflow: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-bottom: 56px;
+}
+.accountsDiv::-webkit-scrollbar {
+    display: none;
+}
+
+
+.line {
+    width: 100%;
+    border: 0.5px solid #E5E7EB;
+    margin: 8px 0 16px 0;
+}
+
+
+
+
+.nothingBigDiv {
+    display: grid;
+    width: 100%;
+}
+.nothingFound {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    text-align: center;
+}
+.nothingFound img {
+    width: 100%;
+    height: auto;
+}
+.nothingFound h2 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    color: #000000;
+}
+.nothingFound p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #000000;
+}
+
+
+
+
+
+
+
+
+
+
+
+.buttons {
+    text-align: right;
+}
+
+
+.buttonOne {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #A80324;
+    background-color: #FBE6EA;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    gap: 8px;
+}
+
+.buttonTwo {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #D2042D;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    gap: 8px;
+}
+
+.buttonOne img {
+    width: 16px;
+    height: 16px;
+}
+.buttonTwo img {
+    width: 16px;
+    height: 16px;
+}
+
+.filterClosed {
+    display: none;
+}
+.filter {
+    display: block;
+    right: 3%;
+    width: 25%;
+    text-align: left;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px 0px #9CA3AF33;
+    padding: 8px;
+    position: absolute;
+    z-index: 5;
+    margin-top: 5px;
+}
+.filter p {
+    padding: 4px 8px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4B5563;
+}
+.filter a {
+    display: block;
+    padding: 12px 16px;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 12px;
+    font-weight: 500;
+    color: #4B5563;
+    text-decoration: none;
+}
+.filter a:hover,
+.download a:hover {
+    background-color: #F0F5FD;
+    border-bottom: 1px solid #A4C4FF;
+}
+.filter .customFilter {
+    margin-top: 16px;
+    padding: 4px 8px;
+    margin-bottom: 16px;
+    width: 100%;
+}
+.filter .customFilter p {
+    font-size: 10px;
+}
+.customFilter .startEnd {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+}
+.customFilter .startEnd input {
+    outline: none;
+    text-align: center;
+    padding: 12px 16px;
+    width: 45%;
+}
+.customFilter .startEnd input::placeholder {
+    font-size: 14px;
+    color: #4B5563;
+}
+
+.filter .reset {
+    padding: 16px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1C6BFF;
+    border-top: 1px solid #F3F4F6;
+    border-bottom: none;
+}
+.filter .reset:hover {
+    background-color: #F0F5FD;
+    border-bottom: none;
+    border-top: 1px solid #A4C4FF;
+}
+
+
+
+
+.hide {
+    display: none;
+}
+
+
+
+.accountsTable {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.accountsTable th {
+    background-color: #F9FAFB;
+    color: #374151;
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.accountsTable td {
+    padding: 8px 12px;
+    color: #374151;
+    font-size: 12px;
+    border-bottom: 1px solid #F3F4F6;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+
+
+.pagination {
+    margin-top: 24px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.pagination button {
+    cursor: pointer;
+}
+.pagination button:disabled,
+.pagination button[disabled] {
+    pointer-events: none;
+    font-weight: 400;
+}
+
+.pagination .move {
+    border: none;
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #9CA3AF;
+    font-weight: 500;
+}
+
+.pagination .move img {
+    width: 18px;
+    height: 18px;
+}
+
+.activePage {
+    padding: 8px;
+    background-color: #FBE6EA;
+    border: 1px solid #ED9BAB;
+    color: #D2042D;
+    font-size: 14px;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.gotToPage {
+    border: none;
+    background-color: transparent;
+    padding: 8px;
+    color: #9CA3AF;
+    font-size: 14px;
+    font-weight: 500;
+}

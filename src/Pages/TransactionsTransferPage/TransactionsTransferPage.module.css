@@ -23,7 +23,7 @@
 }
 
 .switchButton.active {
-    background-color: #1C6BFF;
+    background-color: #0D0D0D;
     color: #FFFFFF;
     pointer-events: none;
 }
@@ -55,7 +55,6 @@
     border: none;
     outline: none;
     margin-left: 8px;
-    /* width: 80%; */
 }
 .searchBar input::placeholder {
     font-size: 14px;

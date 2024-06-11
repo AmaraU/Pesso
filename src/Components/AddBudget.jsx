@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { DEFAULT_CREATE_BUDGET_ERR_MSG, getAPIEndpoint } from '../../../config';
 import axios from 'axios';
-import { auditLog, logger } from '../../../models/logging';
+import { auditLog, logger } from '../models/logging';
 
 export const AddBudget = ({ isOpen, onClose, banks = [], categories = [], dataset = [], isEdit = false, resetEdit, refreshData }) => {
     const [isLoading, setIsLoading] = useState(false);

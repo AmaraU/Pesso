@@ -124,7 +124,7 @@ export const LoansPage = () => {
                         <div className={styles.loanDiv} id={index}>
                             <div className={styles.loanHeader}>
                                 {loan.title}
-                                <button onClick={() => editPopup(index)}>
+                                <button onClick={(e) => {e.preventDefault(); () => editPopup(index)}}>
                                     <img src={getImageUrl("icons/edit.png")} />
                                     View Details
                                 </button>

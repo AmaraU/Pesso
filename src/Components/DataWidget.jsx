@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
-import Table from "../../Table";
-import TableCRUD from "../../TableCRUD";
+import Table from "./Table";
+import TableCRUD from "./TableCRUD";
 
 export const DataWidget = ({ entries = [], fields = [], isLoading = false, fileName = "data", fieldFontSize = "12px", entryFontSize = "13px", type = "", initSortingField = "", noDataText = "", showHideColumns = {}, isCrud = false, editHandler = null, deleteHandler = null }) => {
     const screenWidth = window.screen.availWidth;

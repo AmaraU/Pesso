@@ -11,9 +11,9 @@ import {
 import { useEffect, useState } from "react";
 import { DEFAULT_USER_ROLE_ASSIGN_ERR_MSG, getAPIEndpoint } from '../../../config';
 import axios from 'axios';
-import { auditLog, logger } from '../../../models/logging';
+import { auditLog, logger } from '../models/logging';
 import EmailValidator from "email-validator";
-import { personalEmailDomains } from '../../../models/providers';
+import { personalEmailDomains } from '../models/providers';
 
 export const AddUser = ({ isOpen, onClose, roles = [], dataset = [], isEdit = false, resetEdit, refreshData }) => {
     const [isLoading, setIsLoading] = useState(false);

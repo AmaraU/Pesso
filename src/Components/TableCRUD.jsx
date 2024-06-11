@@ -1,4 +1,4 @@
-import { MaterialReactTable, MRT_FullScreenToggleButton, MRT_ToggleFiltersButton } from 'material-react-table';
+import { MaterialReactTable, MRT_ToggleFiltersButton } from 'material-react-table';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box, Center, Stack, Text, IconButton, HStack } from '@chakra-ui/react';
 import { download, mkConfig, generateCsv } from 'export-to-csv';
@@ -120,7 +120,7 @@ const TableCRUD = ({ data = [], columns = [], isLoading = false, tableHeader = "
                             <PiDownloadSimple />
                         </IconButton>
                         <MRT_ToggleFiltersButton table={table} />
-                        <MRT_FullScreenToggleButton table={table} />
+                        {/* <MRT_FullScreenToggleButton table={table} /> */}
                     </>
 
                 )}

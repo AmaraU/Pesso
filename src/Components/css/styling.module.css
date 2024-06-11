@@ -5,12 +5,8 @@
     width: 100%;
 }
 
-.balanceAccount {
-    display: flex;
-    /* justify-content: space-between; */
-    width: 100%;
-    gap: 5%;
-}
+
+
 
 .selectDiv {
     display: inline-flex;

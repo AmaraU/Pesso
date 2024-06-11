@@ -2,7 +2,7 @@ import { Box, HStack, Stack, Text } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
 import { SimpleLine } from "./Chart";
 
-import styles from "../css/styling.module.css";
+import styles from "./css/styling.module.css";
 
 export const Cashflow = ({ data = [] }) => {
     return (

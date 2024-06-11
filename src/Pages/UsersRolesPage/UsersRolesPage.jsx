@@ -101,7 +101,7 @@ export const UsersRolesPage = () => {
         <div className={styles.popup} id='popup'>
             <div className={styles.header}>
                 <h3>Create Role</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={() => toggle()} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggle()}} /></a>
             </div>
             
             <form action="">
@@ -115,7 +115,7 @@ export const UsersRolesPage = () => {
                     <input type="email" name="email" id="" />
                 </div>
 
-                <button>Send Invite</button>
+                <button onClick={(e) => {e.preventDefault(); toggle()}}>Send Invite</button>
             </form>
         </div>
 

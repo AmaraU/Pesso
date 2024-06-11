@@ -1,5 +1,5 @@
 import { Box, Image } from "@chakra-ui/react";
-import ad from '../../../../assets/images/ads_1.png';
+import ad from '../../assets/images/ads_1.png';
 
 export const Ads = () => {
     return (

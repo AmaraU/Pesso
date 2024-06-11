@@ -1,6 +1,7 @@
 import styles from './App.module.css';
 import { Header } from './Components/Header/Header';
 import { Navbar } from './Components/Navbar/Navbar';
+import { AccountsPage } from './Pages/AccountsPage/AccountsPage';
 import { BlankPage } from './Pages/BlankPage';
 import { BudgetPage } from './Pages/BudgetPage/BudgetPage';
 import { CashflowInPage } from './Pages/CashflowInPage/CashflowInPage';
@@ -38,7 +39,7 @@ function App() {
       Component = TransactionsTransferPage;
       break;
     case "/dashboard/accounts":
-      Component = BlankPage;
+      Component = AccountsPage;
       break;
     case "/dashboard/cashflow":
       Component = CashflowInPage;

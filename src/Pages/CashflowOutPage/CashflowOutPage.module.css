@@ -23,7 +23,7 @@
 }
 
 .switchButton.active {
-    background-color: #D2042D;
+    background-color: #0D0D0D;
     color: #FFFFFF;
     pointer-events: none;
 }
@@ -72,7 +72,7 @@
     margin-right: 16px;
     font-size: 12px;
     font-weight: 500;
-    color: #D2042D;
+    color: #A80324;
     background-color: #FBE6EA;
     border: none;
     border-radius: 6px;

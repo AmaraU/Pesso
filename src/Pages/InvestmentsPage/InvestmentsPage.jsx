@@ -149,7 +149,7 @@ export const InvestmentsPage = () => {
         <div className={styles.popup} id='popup'>
             <div className={styles.header}>
                 <h3>Add User</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={() => toggle()} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggle()}} /></a>
             </div>
             
             <form action="">
@@ -163,7 +163,7 @@ export const InvestmentsPage = () => {
                     <input type="email" name="email" id="" />
                 </div>
 
-                <button>Send Invite</button>
+                <button onClick={(e) => {e.preventDefault(); toggle()}}>Send Invite</button>
             </form>
         </div>
 
@@ -179,7 +179,7 @@ export const InvestmentsPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <a onClick={() => toggle()} className={styles.buttonOne}>
+                    <a onClick={(e) => {e.preventDefault(); () => toggle()}} className={styles.buttonOne}>
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                         Add Investment
                     </a>

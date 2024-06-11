@@ -74,7 +74,7 @@ export const BudgetPage = () => {
         <div className={styles.popup} id="popup">
             <div className={styles.header}>
                 <h3>Budget</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={() => toggle()} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggle()}} /></a>
             </div>
 
             <form action="">
@@ -118,7 +118,7 @@ export const BudgetPage = () => {
             </form>
 
             <div className={styles.submitButton}>
-                <button>Submit</button>
+                <button onClick={(e) => {e.preventDefault(); toggle()}}>Submit</button>
             </div>
         </div>
 
@@ -135,7 +135,7 @@ export const BudgetPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <button className={styles.buttonOne} onClick={() => toggle()}>
+                    <button className={styles.buttonOne} onClick={(e) => {e.preventDefault(); () => toggle()}}>
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                         Create Budget
                     </button>

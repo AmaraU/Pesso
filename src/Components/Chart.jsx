@@ -1,6 +1,6 @@
 import React from 'react';
 import { Line, XAxis, Tooltip, Legend, ResponsiveContainer, YAxis, LineChart } from 'recharts';
-import styles from "../css/default.module.css";
+import styles from "./css/default.module.css";
 
 const formatAmount = (amount, currency) => {
     let unit = "";

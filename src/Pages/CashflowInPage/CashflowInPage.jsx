@@ -221,7 +221,7 @@ const inflows = [
         <div className={styles.popup} id="popup">
             <div className={styles.header}>
                 <h3>Generate Invoice</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={() => toggleOff()} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggleOff()}} /></a>
             </div>
 
             <form action="">
@@ -252,14 +252,14 @@ const inflows = [
             </form>
 
             <div className={styles.generateButton}>
-                <button onClick={() => successToggle()}>Generate Invoice</button>
+                <button onClick={(e) => {e.preventDefault(); () => successToggle()}}>Generate Invoice</button>
             </div>
         </div>
 
         <div className={styles.successPopup} id='successpopup'>
             <img src={getImageUrl("success.png")} />
             <h4>Invoice Added</h4>
-            <button onClick={() => toggleOff()}>Continue</button>
+            <button onClick={(e) => {e.preventDefault(); () => toggleOff()}}>Continue</button>
         </div>
 
         <div className={styles.dimmer} id='dimmer'></div>
@@ -275,7 +275,7 @@ const inflows = [
                     <button className={styles.buttonOne} onClick={() => setOpenFilter(!openFilter)}>
                         <img src={getImageUrl("icons/slides.png")} />
                         Filter
-                        <img src={getImageUrl("icons/blueDownAngle.png")} />
+                        <img src={getImageUrl("icons/redDownAngle.png")} />
                     </button>
                     <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={popupRef}>
                         <p>FILTER</p>
@@ -292,7 +292,7 @@ const inflows = [
                         <a className={styles.reset} href="">Reset All</a>
                     </div>
 
-                    <button className={styles.buttonTwo} onClick={() => toggleOn()}>
+                    <button className={styles.buttonTwo} onClick={(e) => {e.preventDefault(); () => toggleOn()}}>
                         Generate Invoice
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                     </button>

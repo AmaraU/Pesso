@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import { DEFAULT_ADD_ROLE_ERR_MSG, getAPIEndpoint } from '../../../config';
 import axios from 'axios';
-import { auditLog, logger } from '../../../models/logging';
+import { auditLog, logger } from '../models/logging';
 
 export const AddRole = ({ isOpen, onClose, isEdit = false, refreshData }) => {
     const [isLoading, setIsLoading] = useState(false);

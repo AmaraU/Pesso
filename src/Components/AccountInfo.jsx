@@ -18,11 +18,11 @@ import { BiHide, BiShow } from 'react-icons/bi';
 import { TbCurrencyNaira } from 'react-icons/tb';
 import { DataWidget } from './DataWidget';
 import axios from 'axios';
-import { DEFAULT_ACCOUNT_UNLINK_ERR_MSG, DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../../config';
-import { auditLog, logger } from '../../../models/logging';
+import { DEFAULT_ACCOUNT_UNLINK_ERR_MSG, DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../config';
+import { auditLog, logger } from '../models/logging';
 import { CiBank } from 'react-icons/ci';
-import { trxnFields } from '../../../models/data';
-import { useNavigate } from 'react-router-dom';
+import { trxnFields } from '../models/data';
+// import { useNavigate } from 'react-router-dom';
 
 const hideBalance = () => {
     return "******";
@@ -39,7 +39,7 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
     const [isUnlinkLoading, setIsUnlinkloading] = useState(false);
     const [trxns, setTrxns] = useState([]);
     const toast = useToast();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         if (dataset) {

@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import "../../../App.css"
+import "../App.css"
 
 export const ScheduleCalendar = () => {
     const [date, setDate] = useState(new Date());

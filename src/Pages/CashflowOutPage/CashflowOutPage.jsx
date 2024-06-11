@@ -454,16 +454,16 @@ export const CashflowOutPage = () => {
 
             <div className={styles.header}>
                 <h3>Select payment type</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={() => toggle()} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggle()}} /></a>
             </div>
 
             <div className={styles.singleBulk}>
-                <button onClick={() => toggleSingle()}>
+                <button onClick={(e) => {e.preventDefault(); () => toggleSingle()}}>
                     <img src={getImageUrl("single.png")} />
                     Single payment
                 </button>
 
-                <button onClick={() => toggleBulk()}>
+                <button onClick={(e) => {e.preventDefault(); () => toggleBulk()}}>
                     <img src={getImageUrl("bulk.png")} />
                     Bulk payment
                 </button>
@@ -474,7 +474,7 @@ export const CashflowOutPage = () => {
 
             <div className={styles.singleHeader}>
                 <h3>Single Payment</h3>
-                <a onClick={() => toggleSingleOff()}><img src={getImageUrl("icons/greyClose.png")} alt="" /></a>
+                <a onClick={(e) => {e.preventDefault(); () => toggleSingleOff()}}><img src={getImageUrl("icons/greyClose.png")} alt="" /></a>
             </div>
 
             <form action="">
@@ -522,20 +522,20 @@ export const CashflowOutPage = () => {
             </form>
 
             <div className={styles.singleButton}>
-                <button onClick={() => transferSuccess()}>Transfer</button>
+                <button onClick={(e) => {e.preventDefault(); () => transferSuccess()}}>Transfer</button>
             </div>
         </div>
 
         <div className={styles.paymentSuccessPopup} id='paysuccesspopup'>
             <img src={getImageUrl("success.png")} />
             <h4>Successfully Exported</h4>
-            <button onClick={() => toggleSingleOff()}>View Payments</button>
+            <button onClick={(e) => {e.preventDefault(); () => toggleSingleOff()}}>View Payments</button>
         </div>
 
         <div className={styles.bulkDiv} id='bulkpopup'>
             <div className={styles.bulkHeader}>
                 <h4>Bulk Payment</h4>
-                <a href=""><img src={getImageUrl("icons/greyClose.png")} alt="" /></a>
+                <a href="" onClick={(e) => {e.preventDefault(); toggleBulkOff()}}><img src={getImageUrl("icons/greyClose.png")} alt="" /></a>
             </div>
 
             <div className={styles.bulkForm}>
@@ -552,7 +552,7 @@ export const CashflowOutPage = () => {
             </div>
 
             <div className={styles.bulkButton}>
-                <button onClick={() => toggleBulkOff()}>Upload</button>
+                <button onClick={(e) => {e.preventDefault(); () => toggleBulkOff()}}>Upload</button>
             </div>
             
 
@@ -580,7 +580,7 @@ export const CashflowOutPage = () => {
                         <button className={styles.buttonOne} onClick={handleFilterClick}>
                             <img src={getImageUrl("icons/slides.png")} />
                             Filter
-                            <img src={getImageUrl("icons/blueDownAngle.png")} />
+                            <img src={getImageUrl("icons/redDownAngle.png")} />
                         </button>
                         <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={popupRef}>
                             <p>FILTER</p>
@@ -622,13 +622,13 @@ export const CashflowOutPage = () => {
                                 </div>
                             </div>
                             <div className={styles.exportButton}>
-                                <button onClick={() => toggleSuccess()}>Export</button>
+                                <button onClick={(e) => {e.preventDefault(); () => toggleSuccess()}}>Export</button>
                             </div>
                         </div>
                         <div className={styles.successPopup} id='successpopup'>
                             <img src={getImageUrl("success.png")} />
                             <h4>Successfully Exported</h4>
-                            <button onClick={() => toggleSuccess()}>Continue</button>
+                            <button onClick={(e) => {e.preventDefault(); () => toggleSuccess()}}>Continue</button>
                         </div>
                     </div>
                 </div>
@@ -748,7 +748,7 @@ export const CashflowOutPage = () => {
                     </div>
 
                     <div className={styles.buttons}>
-                        <button className={styles.buttonTwo} onClick={() => toggleSingleBulk()}>
+                        <button className={styles.buttonTwo} onClick={(e) => {e.preventDefault(); () => toggleSingleBulk()}}>
                             New Payment
                             <img src={getImageUrl("icons/send.png")} />
                         </button>

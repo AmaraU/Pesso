@@ -376,7 +376,7 @@ export const TransactionsTransferPage = () => {
 
             <div className={styles.header}>
                 <h3>Schedule Transfer</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={() => toggle()} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggle()}} /></a>
             </div>
             
             <form action="">
@@ -442,7 +442,7 @@ export const TransactionsTransferPage = () => {
             </form>
 
             <div className={styles.transferButton}>
-                <button>Transfer</button>
+                <button onClick={(e) => {e.preventDefault(); toggle()}}>Transfer</button>
             </div>
         </div>
 
@@ -475,7 +475,7 @@ export const TransactionsTransferPage = () => {
                             </select>
                         </label>
 
-                        <button className={styles.buttonTwo} onClick={() => toggle()}>
+                        <button className={styles.buttonTwo} onClick={(e) => {e.preventDefault(); () => toggle()}}>
                             Schedule Transfer
                             <img src={getImageUrl("icons/send.png")} />
                         </button>

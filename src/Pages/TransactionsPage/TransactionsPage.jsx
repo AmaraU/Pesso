@@ -214,7 +214,7 @@ export const TransactionsPage = () => {
                     <button className={styles.buttonOne} onClick={handleFilterToggle}>
                         <img src={getImageUrl("icons/slides.png")} />
                         Filter
-                        <img src={getImageUrl("icons/blueDownAngle.png")} />
+                        <img src={getImageUrl("icons/redDownAngle.png")} />
                     </button>
                     <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={containerRef}>
                         <p>FILTER</p>
