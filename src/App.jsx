@@ -2,6 +2,7 @@ import styles from './App.module.css';
 import { Header } from './Components/Header/Header';
 import { Navbar } from './Components/Navbar/Navbar';
 import { AccountsPage } from './Pages/AccountsPage/AccountsPage';
+import { AuditTrailsPage } from './Pages/AuditTrailsPage/AuditTrailsPage';
 import { BlankPage } from './Pages/BlankPage';
 import { BudgetPage } from './Pages/BudgetPage/BudgetPage';
 import { CashflowInPage } from './Pages/CashflowInPage/CashflowInPage';
@@ -69,7 +70,7 @@ function App() {
       Component = ReportsHistoryPage;
       break;
     case "/dashboard/audittrails":
-      Component = BlankPage;
+      Component = AuditTrailsPage;
       break;
     case "/dashboard/users":
       Component = UsersPage;
