@@ -339,9 +339,8 @@ export const AccountsPage = () => {
                                 </div>
                             </div>
                             :
-                            <>
                             <div style={{ overflow: "auto" }} className={styles.accountsDiv}>
-                                <Stack direction={"row"} spacing={24}>
+                                <Stack direction={"row"} spacing={24} mb={12}>
                                     {
                                         accounts.map((e, k) =>
                                             <Box key={k} rounded={8} px={16} py={24} bg={accountColors[k % accountColors.length]} cursor={"pointer"} border={"1px solid #F3F4F6"} _hover={{ bg: accountColors[k % accountColors.length] }} onClick={() => handleAccountView(e)}>
@@ -392,26 +391,25 @@ export const AccountsPage = () => {
                                     }
                                 </Stack>
                             </div>
-
-
-                            <Box px={6} py={4} bg={"white"} mt={24}>
-                                <Stack>
-                                    {
-                                        isLoading ? <Spinner h={20} w={20} /> :
-                                            <Box px={4}>
-                                                <DataWidget entries={accounts} fields={accountFields} fileName="Accounts" initSortingField="updated_at" />
-                                            </Box>
-                                    }
-                                </Stack>
-
-                            </Box>
-
-                            <ConnectWidget onSuccess={onSuccess} onClose={onClose} isOpen={connectWidgetIsOpen} />
-                            {/* <AccountInfo isOpen={isOpenAccountInfo} onClose={onCloseAccountInfo} flag={new Date()} dataset={selectedAccount} refreshAccounts={getAllAccounts} /> */}
-                            </>
                 }
 
             </Box>
+
+
+            <Box px={6} py={4} bg={"white"} mt={24}>
+                <Stack>
+                    {
+                        isLoading ? <Spinner h={20} w={20} /> :
+                            <Box px={4}>
+                                <DataWidget entries={accounts} fields={accountFields} fileName="Accounts" initSortingField="updated_at" />
+                            </Box>
+                    }
+                </Stack>
+
+            </Box>
+
+            <ConnectWidget onSuccess={onSuccess} onClose={onClose} isOpen={connectWidgetIsOpen} />
+            {/* <AccountInfo isOpen={isOpenAccountInfo} onClose={onCloseAccountInfo} flag={new Date()} dataset={selectedAccount} refreshAccounts={getAllAccounts} /> */}
             
         </div>
     )

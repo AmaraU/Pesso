@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Tab, TabList, Tabs, Box, HStack, Icon, Text, Stack } from "@chakra-ui/react";
-import { NG } from 'country-flag-icons/react/3x2'
-import { SlRefresh } from "react-icons/sl";
+import { Tab, TabList, Tabs, Box, HStack, Text, Stack } from "@chakra-ui/react";
 
 import styles from "./AccountsPage.module.css";
 import { getImageUrl } from "../../../utils";
@@ -110,43 +108,56 @@ export const AccountsTable = () => {
     
         return (
             <div id="currentTable">
-                <table className={styles.accountsTable}>
-                    <thead>
-                        <th>Account</th>
-                        <th>Account No.</th>
-                        <th>Opening Available</th>
-                        <th>Principal Loan Balance</th>
-                        <th>Date; Time</th>
-                    </thead>
-    
-                    <tbody>
-                        {currentCurrents.map((current, index) => (
-                            <tr key={index}>
-                                <td>{current.account}</td>
-                                <td>{current.acctNo}</td>
-                                <td>{current.available}</td>
-                                <td>{current.prinLoanBal}</td>
-                                <td>{current.dateTime}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-    
-                <div className={styles.pagination}>
-                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                        Previous
-                    </button>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                            0{index + 1}
+                {currentCurrents.length === 0 ? (
+                    <div className={styles.nothingBigDivTable}>
+                        <div className={styles.nothingFoundTable}>
+                            <h2>No Account Summary</h2>
+                            <p>We cannot seem to find any account summary data, your account summary will apear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
+                    <>
+
+                    <table className={styles.accountsTable}>
+                        <thead>
+                            <th>Account</th>
+                            <th>Account No.</th>
+                            <th>Opening Available</th>
+                            <th>Principal Loan Balance</th>
+                            <th>Date; Time</th>
+                        </thead>
+        
+                        <tbody>
+                            {currentCurrents.map((current, index) => (
+                                <tr key={index}>
+                                    <td>{current.account}</td>
+                                    <td>{current.acctNo}</td>
+                                    <td>{current.available}</td>
+                                    <td>{current.prinLoanBal}</td>
+                                    <td>{current.dateTime}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    <div className={styles.pagination}>
+                        <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
+                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                            Previous
                         </button>
-                    ))}
-                    <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                        Next
-                        <img src={getImageUrl("icons/greyRightAngle.png")} />
-                    </button>
-                </div>
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
+                                0{index + 1}
+                            </button>
+                        ))}
+                        <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
+                            Next
+                            <img src={getImageUrl("icons/greyRightAngle.png")} />
+                        </button>
+                    </div>
+                    </>
+                )}
             </div>
         )
     }
@@ -254,43 +265,56 @@ export const AccountsTable = () => {
     
         return (
             <div id="previousTable" className={styles.hide}>
-                <table className={styles.accountsTable}>
-                    <thead>
-                        <th>Account</th>
-                        <th>Account No.</th>
-                        <th>Opening Available</th>
-                        <th>Principal Loan Balance</th>
-                        <th>Date; Time</th>
-                    </thead>
-    
-                    <tbody>
-                        {currentPrevious.map((previous, index) => (
-                            <tr key={index}>
-                                <td>{previous.account}</td>
-                                <td>{previous.acctNo}</td>
-                                <td>{previous.available}</td>
-                                <td>{previous.prinLoanBal}</td>
-                                <td>{previous.dateTime}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-    
-                <div className={styles.pagination}>
-                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                        Previous
-                    </button>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                            0{index + 1}
+                {currentPrevious.length === 0 ? (
+                    <div className={styles.nothingBigDivTable}>
+                        <div className={styles.nothingFoundTable}>
+                            <h2>No Account Summary</h2>
+                            <p>We cannot seem to find any account summary data, your account summary will apear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
+                    <>
+
+                    <table className={styles.accountsTable}>
+                        <thead>
+                            <th>Account</th>
+                            <th>Account No.</th>
+                            <th>Opening Available</th>
+                            <th>Principal Loan Balance</th>
+                            <th>Date; Time</th>
+                        </thead>
+        
+                        <tbody>
+                            {currentPrevious.map((previous, index) => (
+                                <tr key={index}>
+                                    <td>{previous.account}</td>
+                                    <td>{previous.acctNo}</td>
+                                    <td>{previous.available}</td>
+                                    <td>{previous.prinLoanBal}</td>
+                                    <td>{previous.dateTime}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    <div className={styles.pagination}>
+                        <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
+                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
+                            Previous
                         </button>
-                    ))}
-                    <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                        Next
-                        <img src={getImageUrl("icons/greyRightAngle.png")} />
-                    </button>
-                </div>
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
+                                0{index + 1}
+                            </button>
+                        ))}
+                        <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
+                            Next
+                            <img src={getImageUrl("icons/greyRightAngle.png")} />
+                        </button>
+                    </div>
+                    </>
+                )}
             </div>
         )
     }

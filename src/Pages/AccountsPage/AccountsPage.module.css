@@ -4,7 +4,6 @@
     margin-top: 80px;
     margin-left: 232px;
     width: 100%;
-    /* background-color: #F9FAFB; */
 }
 
 
@@ -12,13 +11,33 @@
     width: 100%;
     overflow: hidden;
     overflow-x: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
     margin-bottom: 56px;
 }
+
 .accountsDiv::-webkit-scrollbar {
-    display: none;
+    height: 8px;
 }
+
+.accountsDiv::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.accountsDiv::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.accountsDiv::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+
+
+
+
+
 
 
 .line {
@@ -26,6 +45,8 @@
     border: 0.5px solid #E5E7EB;
     margin: 8px 0 16px 0;
 }
+
+
 
 
 
@@ -60,6 +81,33 @@
 
 
 
+
+
+.nothingBigDivTable {
+    margin-top: 24px;
+    display: grid;
+    width: 100%;
+}
+.nothingFoundTable {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    text-align: center;
+}
+.nothingFoundTable h2 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    color: #000000;
+}
+.nothingFoundTable p {
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #000000;
+}
 
 
 
