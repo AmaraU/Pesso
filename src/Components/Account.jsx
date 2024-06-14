@@ -20,7 +20,7 @@ export const Account = ({ accts = [], link, isLoading = false }) => {
     }, [accts])
 
     return (
-        <Box py={32} px={16} bg={"#16A34A"} rounded={8}>
+        <Box py={"32px"} px={"16px"} bg={"#16A34A"} rounded={8}>
                 {
                 isLoading ? <Spinner color="white" /> :
                     <Stack w={"100%"}>
@@ -29,7 +29,7 @@ export const Account = ({ accts = [], link, isLoading = false }) => {
                             <Stack direction={"row"} alignItems={"center"} justify={"space-between"}>
 
                                 <HStack justify={"space-between"}>
-                                    <Box display={"flex"} rounded={50} p={8} bg={"#FFFFFF33"}  alignItems={"center"} justifyContent={"center"}>
+                                    <Box display={"flex"} rounded={50} p={"8px"} bg={"#FFFFFF33"}  alignItems={"center"} justifyContent={"center"}>
                                         <CiBank color="white" size={"24px"} />
                                     </Box>
                                     <Box mr={-5} display={"none"}>
@@ -42,7 +42,7 @@ export const Account = ({ accts = [], link, isLoading = false }) => {
                                 </Box>
                             </Stack>
 
-                            <Text marginBottom={6} fontSize={"24px"} fontWeight={600} color={"white"}>{accounts.length > 0 ? currentAccount.account_number : "N/A"}</Text>
+                            <Text marginBottom={"6px"} fontSize={"24px"} fontWeight={600} color={"white"}>{accounts.length > 0 ? currentAccount.account_number : "N/A"}</Text>
                         </Stack>
                         {
                             accounts.length > 0 ?

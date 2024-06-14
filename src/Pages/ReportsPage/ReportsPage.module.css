@@ -3,7 +3,6 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
 }
 
 
@@ -43,6 +42,9 @@
     align-items: center;
     margin-right: 16px;
 }
+.buttonOne:hover {
+    background-color: #F4E0E4;
+}
 .buttonOne img,
 .buttonTwo img {
     width: 16px;
@@ -66,6 +68,9 @@
     font-size: 12px;
     color: #FFF;
     text-decoration: none;
+}
+.buttonTwo:hover {
+    background-color: #BD0429;
 }
 
 

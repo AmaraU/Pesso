@@ -3,7 +3,6 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
 }
 
 
@@ -31,6 +30,10 @@
 .switchButton:not(.active) {
     color: #9CA3AF;
     background-color: #F3F4F6;
+}
+.switchButton:not(.active):hover {
+    color: #878C95;
+    background-color: #E2E2E3;
 }
 
 
@@ -79,6 +82,10 @@
     padding: 8px 12px;
     gap: 8px;
 }
+.buttonOne:hover {
+    background-color: #F4E0E4;
+}
+
 
 .buttonTwo {
     display: inline-flex;
@@ -91,6 +98,9 @@
     border-radius: 6px;
     padding: 10px 16px;
     gap: 8px;
+}
+.buttonTwo:hover {
+    background-color: #BD0429;
 }
 
 .buttonOne img,
@@ -112,6 +122,9 @@
     border-radius: 6px;
     padding: 10px 16px;
     gap: 8px;
+}
+.buttonThree:hover {
+    background-color: #BD0429;
 }
 
 .buttonThree img {
@@ -252,7 +265,7 @@
 .exportButton button {
     width: 100%;
     padding: 14px 20px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 500;
@@ -260,7 +273,7 @@
     border-radius: 8px;
 }
 .exportButton button:hover {
-    background-color: #2265e1;
+    background-color: #BD0429;
 }
 
 
@@ -557,7 +570,7 @@
     width: 100%;
     padding: 14px 20px;
     border-radius: 8px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 500;
@@ -565,7 +578,7 @@
     align-self: end;
 }
 .successPopup button:hover {
-    background-color: #2265e1;
+    background-color: #BD0429;
 }
 
 
@@ -599,6 +612,10 @@
     color: #9CA3AF;
     font-weight: 500;
 }
+.pagination .move:hover {
+    color: #878C95;
+}
+
 
 .pagination .move img {
     width: 18px;
@@ -623,7 +640,9 @@
     font-size: 14px;
     font-weight: 500;
 }
-
+.gotToPage:hover {
+    color: #878C95;
+}
 
 
 
@@ -808,12 +827,15 @@
     width: 100%;
     padding: 14px 20px;
     border-radius: 8px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 500;
     border: none;
     align-self: end;
+}
+.singleButton button:hover {
+    background-color: #BD0429;
 }
 
 
@@ -862,13 +884,17 @@
     width: 100%;
     padding: 14px 20px;
     border-radius: 8px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 500;
     border: none;
     align-self: end;
 }
+.paymentSuccessPopup button:hover {
+    background-color: #BD0429;
+}
+
 
 
 .bulkDiv {
@@ -953,13 +979,16 @@
 }
 .csvUpload button {
     padding: 8px 12px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: 500;
     border-radius: 8px;
     border: none;
     margin-top: 24px;
+}
+.csvUpload button:hover {
+    background-color: #BD0429;
 }
 
 .bulkButton {
@@ -975,12 +1004,15 @@
     width: 100%;
     padding: 14px 20px;
     border-radius: 8px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 500;
     border: none;
     align-self: end;
+}
+.bulkButton button:hover {
+    background-color: #BD0429;
 }
 
 

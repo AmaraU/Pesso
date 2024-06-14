@@ -359,17 +359,17 @@ export const AccountsTable = () => {
 
     return (
         <>
-        <Box bg={'white'} p={16}>
-            <Stack spacing={16}>
+        <Box bg={'white'} p={"16px"}>
+            <Stack spacing={"16px"}>
                 <Stack direction={"row"} justify={"space-between"}>
-                    <HStack spacing={24}>
+                    <HStack spacing={"24px"}>
                         <Text fontSize={"16px"} fontWeight={600} color={"#374151"}>Account Summary</Text>
                         <Tabs borderLeft={"2px solid #D1D5DB"}>
-                            <TabList gap={16} ml={24}>
-                                <Tab selected onClick={() => currentTable()} p={8} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#D2042D', borderBottom: '2px solid #D2042D', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
+                            <TabList gap={"16px"} ml={"24px"} border={"none"}>
+                                <Tab selected onClick={() => currentTable()} p={"8px"} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#D2042D', borderBottom: '2px solid #D2042D', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
                                     <Text fontWeight={500}>Current Day</Text>
                                 </Tab>
-                                <Tab onClick={() => previousTable()}  p={8} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#D2042D', borderBottom: '2px solid #D2042D', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
+                                <Tab onClick={() => previousTable()}  p={"8px"} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#D2042D', borderBottom: '2px solid #D2042D', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
                                     <Text fontWeight={500}>Previous Day</Text>
                                 </Tab>
                             </TabList>

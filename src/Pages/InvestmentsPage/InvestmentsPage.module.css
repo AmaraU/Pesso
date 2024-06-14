@@ -3,7 +3,6 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
 }
 
 
@@ -45,6 +44,9 @@
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
+}
+.buttonOne:hover {
+    background-color: #BD0429;
 }
 .buttonOne img {
     width: 16px;
@@ -149,6 +151,10 @@
     color: #9CA3AF;
     font-weight: 500;
 }
+.pagination .move:hover {
+    color: #878C95;
+}
+
 
 .pagination .move img {
     width: 18px;
@@ -172,6 +178,9 @@
     color: #9CA3AF;
     font-size: 14px;
     font-weight: 500;
+}
+.gotToPage:hover {
+    color: #878C95;
 }
 
 
@@ -278,11 +287,14 @@
 .popup button {
     padding: 10px 16px;
     border-radius: 8px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 14px;
     font-weight: 500;
     border: none;
     margin-top: 12px;
     align-self: end;
+}
+.popup button:hover {
+    background-color: #BD0429;
 }

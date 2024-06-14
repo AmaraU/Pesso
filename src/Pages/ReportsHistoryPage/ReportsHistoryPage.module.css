@@ -3,7 +3,6 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
 }
 
 
@@ -41,6 +40,9 @@
     align-items: center;
     margin-right: 16px;
 }
+.buttonOne:hover {
+    background-color: #F4E0E4;
+}
 .buttonOne img,
 .buttonTwo img {
     width: 16px;
@@ -65,7 +67,9 @@
     color: #FFF;
     text-decoration: none;
 }
-
+.buttonTwo:hover {
+    background-color: #BD0429;
+}
 
 
 
@@ -218,7 +222,9 @@
     color: #9CA3AF;
     font-weight: 500;
 }
-
+.pagination .move:hover {
+    background-color: #878C95;
+}
 .pagination .move img {
     width: 18px;
     height: 18px;
@@ -241,4 +247,7 @@
     color: #9CA3AF;
     font-size: 14px;
     font-weight: 500;
+}
+.gotToPage:hover {
+    background-color: #878C95;
 }

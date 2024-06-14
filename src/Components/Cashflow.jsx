@@ -6,7 +6,7 @@ import styles from "./css/styling.module.css";
 
 export const Cashflow = ({ data = [] }) => {
     return (
-        <Box bg={"white"} rounded={10} border={"1px solid #F3F4F6"} p={16}>
+        <Box bg={"white"} rounded={10} border={"1px solid #F3F4F6"} p={"16px"}>
             <Stack justify={"space-between"} h={"100%"}>
                 <Stack direction={"row"} justify={"space-between"}>
                     <Stack direction={"row"} display={"inline-flex"} alignItems={"center"}>
@@ -27,7 +27,7 @@ export const Cashflow = ({ data = [] }) => {
                                 <option value="">Monthly</option>
                             </select>
                         </div>
-                        <Box pl={4}>
+                        <Box pl={"4px"}>
                             <SlRefresh size={"14px"} />
                         </Box>
                     </HStack>

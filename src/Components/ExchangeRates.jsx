@@ -36,17 +36,17 @@ export const ExchangeRates = () => {
         }
     ]
     return (
-        <Box bg={"white"} rounded={10} border={"1px solid #F3F4F6"} p={16}>
-            <Stack spacing={5}>
-                <Stack direction={"row"} justify={"space-between"} marginBottom={24}>
+        <Box bg={"white"} rounded={10} border={"1px solid #F3F4F6"} p={"16px"}>
+            <Stack>
+                <Stack direction={"row"} justify={"space-between"} marginBottom={"24px"}>
                     <Text fontSize={"20px"} fontWeight={500} color={"#374151"}>Exchange Rates</Text>
-                    <HStack spacing={8}>
-                        <Box pr={2}>
+                    <HStack spacing={"8px"}>
+                        <Box pr={"2px"}>
                             <SlRefresh size={"15px"} />
                         </Box>
-                        <HStack spacing={3}>
-                            <Icon rounded={80} boxSize={"20px"} as={NG} />
-                            <Text pt={0.5} fontSize={"xs"}>NGN</Text>
+                        <HStack spacing={"3px"}>
+                            <Icon rounded={"80px"} boxSize={"20px"} as={NG} />
+                            <Text pt={"0.5px"} fontSize={"xs"}>NGN</Text>
                         </HStack>
                     </HStack>
                 </Stack>
@@ -59,7 +59,7 @@ export const ExchangeRates = () => {
                     <Divider />
                     {
                         currencies.map((v, k) =>
-                            <HStack key={k} justify={"space-between"} pb={1.5} borderBottom={"1px solid #F3F4F6"} py={16} px={0}>
+                            <HStack key={k} justify={"space-between"} pb={"1.5px"} borderBottom={"1px solid #F3F4F6"} py={"16px"} px={0}>
                                 <HStack>
                                     {v.icon}
                                     <Text fontSize={"14"} color={"#6B7280"} fontWeight={600}>{v.name}</Text>

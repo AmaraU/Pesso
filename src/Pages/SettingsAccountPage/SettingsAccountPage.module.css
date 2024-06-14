@@ -82,17 +82,20 @@
     font-size: 12px;
     font-weight: 500;
     color: #FFFFFF;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     border: none;
     display: inline-flex;
     align-items: center;
+}
+.theDiv .divHeader button {
+    background-color: #BD0429;
 }
 .theDiv .divHeader button img {
     width: 16px;
     height: 16px;
 }
 .theDiv span {
-    color: #1C6BFF;
+    color: #D2042D;
     text-decoration: underline;
 }
 

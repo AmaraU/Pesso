@@ -7,7 +7,7 @@ import "../App.css"
 export const ScheduleCalendar = () => {
     const [date, setDate] = useState(new Date());
     return (
-        <Box rounded={10} border={"1px solid #F3F4F6"} p={16}>
+        <Box rounded={10} border={"1px solid #F3F4F6"} p={"16px"}>
             <Calendar onChange={setDate} value={date} />
         </Box>
     );

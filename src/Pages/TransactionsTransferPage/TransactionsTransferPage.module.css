@@ -3,7 +3,7 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
+    /* width: 100%; */
 }
 
 
@@ -31,6 +31,10 @@
 .switchButton:not(.active) {
     color: #9CA3AF;
     background-color: #F3F4F6;
+}
+.switchButton:not(.active):hover {
+    color: #878C95;
+    background-color: #E2E2E3;
 }
 
 
@@ -93,6 +97,9 @@
     font-weight: 500;
     cursor: pointer;
     border: none;
+}
+.buttonTwo:hover {
+    background: #BD0429;
 }
 .buttonTwo img {
     width: 16px;
@@ -267,7 +274,9 @@
     color: #9CA3AF;
     font-weight: 500;
 }
-
+.pagination .move:hover {
+    color: #878C95;
+}
 .pagination .move img {
     width: 18px;
     height: 18px;
@@ -291,7 +300,9 @@
     font-size: 14px;
     font-weight: 500;
 }
-
+.gotToPage:hover {
+    color: #878C95;
+}
 
 
 
@@ -425,10 +436,13 @@
     width: 100%;
     padding: 14px 20px;
     border-radius: 8px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 500;
     border: none;
     align-self: end;
+}
+.transferButton button {
+    background-color: #BD0429;
 }

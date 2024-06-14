@@ -3,7 +3,6 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
 }
 
 
@@ -103,6 +102,9 @@
     font-size: 10px;
     font-weight: 500;
     border: none;
+}
+.loanHeader button:hover {
+    background-color: #6A0317;
 }
 .loanHeader button img {
     width: 14px;

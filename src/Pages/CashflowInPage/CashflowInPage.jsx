@@ -315,12 +315,10 @@ const inflows = [
                 <>
 
                 <div className={styles.inflowTreemap}>
-                    <div className={styles.treemapRow}>
-                        <div className={`${styles.treemapBox} ${styles.darkest}`}>45%<br />UTILITIES (N234)</div>
-                        <div className={styles.treemapColumn}>
-                            <div className={`${styles.treemapBox} ${styles.darker}`}>45%<br />UTILITIES (N234)</div>
-                            <div className={`${styles.treemapBox} ${styles.dark}`}>45%<br />UTILITIES (N234)</div>
-                        </div>
+                    <div className={`${styles.treemapBox} ${styles.darkest}`}>45%<br />UTILITIES (N234)</div>
+                    <div className={styles.treemapColumn}>
+                        <div className={`${styles.treemapBox} ${styles.darker}`}>45%<br />UTILITIES (N234)</div>
+                        <div className={`${styles.treemapBox} ${styles.dark}`}>45%<br />UTILITIES (N234)</div>
                     </div>
                     <div className={styles.treemapColumn}>
                         <div className={styles.treemapRow}>

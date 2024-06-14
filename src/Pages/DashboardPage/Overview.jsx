@@ -3,14 +3,14 @@ import { OverallBalance } from "../../Components/OverallBalance";
 import { Ads } from "../../Components/Ads";
 import { Account } from "../../Components/Account";
 import { Cashflow } from "../../Components/Cashflow";
-import { RecentTransactions } from "../../Components/TransactionTable";
+// import { RecentTransactions } from "../../Components/TransactionTable";
 import { OverviewTable } from "../../Components/OverviewTable";
 import { ScheduleCalendar } from "../../Components/Calendar";
 import { ExchangeRates } from "../../Components/ExchangeRates";
 import { useEffect, useState } from "react";
 import ConnectWidget from "../../Components/ConnectWidget";
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DEFAULT_ACCOUNT_DETAILS_ALL_ERR_MSG, DEFAULT_ACCOUNT_DETAILS_ERR_MSG, DEFAULT_ACCOUNT_ID_ERR_MSG, DEFAULT_CASHFLOW_SUMMARY_ERR_MSG, getAPIEndpoint } from '../../../config';
 import { auditLog, logger } from '../../models/logging';
 
@@ -24,12 +24,12 @@ export const Overview = () => {
     const [accountId, setAccountId] = useState();
     const [cashflowSummary, setCashflowSummary] = useState([]);
     const toast = useToast()
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // if (!sessionStorage.getItem("id")) {
-        //     // navigate("/signin");
-        // }
+        if (!sessionStorage.getItem("id")) {
+            navigate("/signin");
+        }
         log();
         getAllAccounts();
         getCashflowSummary();
@@ -307,8 +307,8 @@ export const Overview = () => {
 
     return (
         <div className={styles.whole}>
-            <SimpleGrid templateColumns={"1fr 300px"} spacing={24}>
-                <Grid h={0} gridTemplateColumns={"1fr 1fr"} gap={24}>
+            <SimpleGrid templateColumns={"1fr 300px"} spacing={"24px"}>
+                <Grid h={0} gridTemplateColumns={"1fr 1fr"} gap={"24px"}>
                     <GridItem colSpan={1}>
                         <OverallBalance accts={accounts} />
                     </GridItem>
@@ -323,7 +323,7 @@ export const Overview = () => {
                         {/* <RecentTransactions /> */}
                     </GridItem>
                 </Grid>
-                <Stack spacing={24}>
+                <Stack spacing={"24px"}>
                     <ScheduleCalendar />
                     <ExchangeRates />
                     <Ads />

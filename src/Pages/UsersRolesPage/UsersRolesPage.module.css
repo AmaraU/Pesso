@@ -3,7 +3,7 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
+    /* width: 100%; */
 }
 
 
@@ -44,6 +44,9 @@
     font-weight: 500;
     cursor: pointer;
     border: none;
+}
+.addButton:hover {
+    background-color: #BD0429;
 }
 .addButton img {
     width: 16px;
@@ -290,11 +293,14 @@
 .popup button {
     padding: 10px 16px;
     border-radius: 8px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 14px;
     font-weight: 500;
     border: none;
     margin-top: 12px;
     align-self: end;
+}
+.popup button:hover {
+    background-color: #BD0429;
 }

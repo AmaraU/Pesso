@@ -2,7 +2,6 @@
     padding: 32px 40px;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
 }
 
 
@@ -124,6 +123,9 @@
     color: #9CA3AF;
     font-weight: 500;
 }
+.pagination .move:hover {
+    color: #878C95;
+}
 
 .pagination .move img {
     width: 18px;
@@ -147,4 +149,7 @@
     color: #9CA3AF;
     font-size: 14px;
     font-weight: 500;
+}
+.gotToPage:hover {
+    color: #878C95;
 }

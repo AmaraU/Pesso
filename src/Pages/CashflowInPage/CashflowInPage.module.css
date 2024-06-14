@@ -3,8 +3,8 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
 }
+
 
 
 .searchButtons {
@@ -35,8 +35,14 @@
 }
 
 
+
 button, a {
     cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
 }
 
 .buttonOne {
@@ -52,6 +58,10 @@ button, a {
     padding: 8px 12px;
     gap: 8px;
 }
+.buttonOne:hover {
+    background-color: #F4E0E4;
+}
+
 
 .buttonTwo {
     display: inline-flex;
@@ -64,6 +74,9 @@ button, a {
     border-radius: 6px;
     padding: 10px 16px;
     gap: 8px;
+}
+.buttonTwo:hover {
+    background-color: #BD0429;
 }
 
 .buttonOne img {
@@ -224,7 +237,7 @@ button, a {
 .treemapBox {
     text-align: center;
     color: #FFF;
-    padding: 30px;
+    padding: 25px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -357,6 +370,9 @@ button, a {
     color: #9CA3AF;
     font-weight: 500;
 }
+.pagination .move:hover {
+    color: #878C95;
+}
 
 .pagination .move img {
     width: 18px;
@@ -380,6 +396,9 @@ button, a {
     color: #9CA3AF;
     font-size: 14px;
     font-weight: 500;
+}
+.gotToPage:hover {
+    color: #878C95;
 }
 
 
@@ -497,13 +516,17 @@ button, a {
     width: 100%;
     padding: 14px 20px;
     border-radius: 8px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 500;
     border: none;
     align-self: end;
 }
+.generateButton button {
+    background-color: #BD0429;
+}
+
 
 
 
@@ -555,10 +578,13 @@ button, a {
     width: 100%;
     padding: 14px 20px;
     border-radius: 8px;
-    background-color: #1C6BFF;
+    background-color: #D2042D;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 500;
     border: none;
     align-self: end;
+}
+.successPopup button {
+    background-color: #BD0429;
 }

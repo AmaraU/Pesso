@@ -6,7 +6,7 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import ConnectWidget from "../../Components/ConnectWidget";
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DEFAULT_ACCOUNT_DETAILS_ALL_ERR_MSG, DEFAULT_ACCOUNT_DETAILS_ERR_MSG, DEFAULT_ACCOUNT_ID_ERR_MSG, getAPIEndpoint } from '../../../config';
 import { auditLog, logger } from '../../models/logging';
 import { accountFields } from "../../models/data";
@@ -26,7 +26,7 @@ const DataWidget = ({ entries = [], fields = [], isLoading = false, fileName = "
             {
                 entries.length > 0 ?
                     <AccountsTable /> :
-                    <Box pb={10}>
+                    <Box pb={"10px"}>
                         <Text fontSize={{ base: 'xs', md: 'sm' }} color={'gray.500'} textAlign={'center'}>You do not have account data yet.</Text>
                     </Box>
             }
@@ -54,11 +54,11 @@ export const AccountsPage = () => {
     const [linkedAcctDetails, setLinkedAcctDetails] = useState({});
 
     const toast = useToast()
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!sessionStorage.getItem("id")) {
-            // navigate("/signin");
+            navigate("/signin");
         }
         log("Viewed all accounts and summary", "Accounts");
         getAllAccounts();
@@ -297,21 +297,20 @@ export const AccountsPage = () => {
     return (
         <div className={styles.whole}>
             <Box bg={"white"}>
-                <Stack direction={"row"} justify={"space-between"} pb={4}>
+                <Stack direction={"row"} justify={"space-between"} pb={"4px"}>
                     <Stack spacing={1}>
                         <Text fontSize={"16px"} color={"#6B7280"} fontWeight={500}>Total balance</Text>
                         {
-                            isLoading ? <Spinner w={20} h={20}/> :
-                                <HStack ml={-1} spacing={0}>
-                                    <HStack spacing={0} ml={-1} alignItems={"flex-start"}>
-                                        <Box fontSize={"36px"}>
-                                            <TbCurrencyNaira />
-                                        </Box>
-                                        <Text fontSize={"32px"} fontWeight={600} >{totalBalanceVisible ? Intl.NumberFormat('en-us', {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2,
-                                        }).format(accounts.length > 0 ? accounts.map(e => e.account_balance).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) : 0) : hideBalance()}</Text>
-                                    </HStack>
+                            isLoading ? <Spinner w={"20px"} h={"20px"}/> :
+                                <HStack ml={"-1px"} spacing={0}>
+                                    <Box fontSize={"36px"}>
+                                        <TbCurrencyNaira />
+                                    </Box>
+                                    <Text fontSize={"32px"} fontWeight={600} >{totalBalanceVisible ? Intl.NumberFormat('en-us', {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2,
+                                    }).format(accounts.length > 0 ? accounts.map(e => e.account_balance).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) : 0) : hideBalance()}</Text>
+                                    
                                     <Box pl={3} cursor={"pointer"}>
                                         {
                                             totalBalanceVisible && <BiShow fontSize={"xs"} color={"#374151"} onClick={() => setTotalBalanceVisible(!totalBalanceVisible)} />
@@ -325,11 +324,11 @@ export const AccountsPage = () => {
 
                     </Stack>
                     <Box>
-                        <Button border={"none"} rounded={8} fontSize={"12px"} fontWeight={500} px={12} py={8} bg={"#D2042D"} color={"white"} _hover={{ bg: "#D2042DDD" }} onClick={openConnectWidget}>Link Bank Account</Button>
+                        <Button border={"none"} rounded={8} fontSize={"12px"} fontWeight={500} px={"12px"} py={"8px"} bg={"#D2042D"} color={"white"} _hover={{ bg: "#BD0429" }} onClick={openConnectWidget}>Link Bank Account</Button>
                     </Box>
                 </Stack>
                 {
-                    isLoading ? <Center><Spinner h={20} w={20}/></Center> :
+                    isLoading ? <Center><Spinner h={"20px"} w={"20px"}/></Center> :
                         accounts.length === 0 ?
                             <div className={styles.nothingBigDiv}>
                                 <div className={styles.nothingFound}>
@@ -340,25 +339,23 @@ export const AccountsPage = () => {
                             </div>
                             :
                             <div style={{ overflow: "auto" }} className={styles.accountsDiv}>
-                                <Stack direction={"row"} spacing={24} mb={12}>
+                                <Stack direction={"row"} spacing={"24px"} mb={"12px"}>
                                     {
                                         accounts.map((e, k) =>
-                                            <Box key={k} rounded={8} px={16} py={24} bg={accountColors[k % accountColors.length]} cursor={"pointer"} border={"1px solid #F3F4F6"} _hover={{ bg: accountColors[k % accountColors.length] }} onClick={() => handleAccountView(e)}>
-                                                <Stack w={"340px"} direction={"row"} alignItems={"center"} justify={"space-between"} pb={1.5}>
+                                            <Box key={k} rounded={"8px"} px={"16px"} py={"24px"} bg={accountColors[k % accountColors.length]} cursor={"pointer"} border={"1px solid #F3F4F6"} _hover={{ bg: accountColors[k % accountColors.length] }} onClick={() => handleAccountView(e)}>
+                                                <Stack w={"340px"} direction={"row"} alignItems={"center"} justify={"space-between"} pb={"1.5px"}>
                                                     <Stack spacing={1}>
                                                         <Text fontSize={"10px"} fontWeight={500} color={"#6B7280"}>Account Balance</Text>
-                                                        <HStack spacing={0} ml={-3} mt={3}>
-                                                            <HStack alignItems={"flex-start"} spacing={0}>
-                                                                <Box fontSize={"20px"} color={"#374151"}>
-                                                                    <TbCurrencyNaira />
-                                                                </Box>
-                                                                <Text fontSize={"16px"} fontWeight={600} color={"#374151"}>{e.show_balance ? Intl.NumberFormat('en-us', {
-                                                                    minimumFractionDigits: 2,
-                                                                    maximumFractionDigits: 2,
-                                                                }).format(parseFloat(e.account_balance)) : hideBalance()}</Text>
-                                                            </HStack>
+                                                        <HStack spacing={0} ml={"-3px"} mt={"3px"}>
+                                                            <Box fontSize={"20px"} color={"#374151"}>
+                                                                <TbCurrencyNaira />
+                                                            </Box>
+                                                            <Text fontSize={"16px"} fontWeight={600} color={"#374151"}>{e.show_balance ? Intl.NumberFormat('en-us', {
+                                                                minimumFractionDigits: 2,
+                                                                maximumFractionDigits: 2,
+                                                            }).format(parseFloat(e.account_balance)) : hideBalance()}</Text>
                                                             
-                                                            <Box ml={3} cursor={"pointer"}>
+                                                            <Box ml={"3px"} cursor={"pointer"}>
                                                                 {
                                                                     e.show_balance && <BiShow fontSize={"xs"} color={"#9CA3AF"} onClick={() => toggleBalanceVisibility(e)} />
                                                                 }
@@ -368,18 +365,18 @@ export const AccountsPage = () => {
                                                             </Box>
                                                         </HStack>
                                                     </Stack>
-                                                    <Box px={12} py={8} bg={"#FFFBEB"} rounded={8}>
+                                                    <Box px={"12px"} py={"8px"} bg={"#FFFBEB"} rounded={"8px"}>
                                                         <Text fontSize={"12px"} fontWeight={500} color={"#F59E0B"}>{toTitleCase(e.account_type.replace("_account", ""))}</Text>
                                                     </Box>
                                                 </Stack>
                                                 <div className={styles.line}></div>
                                                 <Stack direction={"row"} alignItems={"center"}>
-                                                    <Box padding={6} bg={"#F9FAFB"} rounded={"50px"} display={"flex"} alignItems={"center"}>
+                                                    <Box padding={"6px"} bg={"#F9FAFB"} rounded={"50px"} display={"flex"} alignItems={"center"}>
                                                         <CiBank size={"20px"} color="#F59E0B"/>
                                                     </Box>
                                                     <Stack spacing={0.5}>
                                                         <Text fontSize={"16px"} fontWeight={600} color={"#374151"}>{e.institution_name}</Text>
-                                                        <HStack mt={5} spacing={2}>
+                                                        <HStack mt={"5px"} spacing={"2px"}>
                                                             <Text fontSize={"10px"} color={"#6B7280"}>{e.account_number}</Text>
                                                             <RxDotFilled size={"10px"} color={"#6B7280"} />
                                                             <Text fontSize={"10px"} textOverflow={"ellipsis"} color={"#6B7280"}>{e.account_name}</Text>
@@ -396,11 +393,11 @@ export const AccountsPage = () => {
             </Box>
 
 
-            <Box px={6} py={4} bg={"white"} mt={24}>
+            <Box px={"6px"} py={"4px"} bg={"white"} mt={"24px"}>
                 <Stack>
                     {
-                        isLoading ? <Spinner h={20} w={20} /> :
-                            <Box px={4}>
+                        isLoading ? <Spinner h={"20px"} w={"20px"} /> :
+                            <Box px={"4px"}>
                                 <DataWidget entries={accounts} fields={accountFields} fileName="Accounts" initSortingField="updated_at" />
                             </Box>
                     }
