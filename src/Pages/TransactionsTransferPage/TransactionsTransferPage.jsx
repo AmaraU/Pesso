@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./TransactionsTransferPage.module.css";
 import { getImageUrl } from '../../../utils';
+import { Button } from "@chakra-ui/react";
+import { SlRefresh } from "react-icons/sl";
 
 
 
@@ -465,6 +467,9 @@ export const TransactionsTransferPage = () => {
                     </div>
 
                     <div className={styles.buttons}>
+                        <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
+                            <SlRefresh size={"24px"}/>
+                        </Button>
                         <label className={styles.buttonOne}>
                             Frequency:
                             <select value={frequencyFilter} onChange={handleFrequencyChange}>
@@ -568,6 +573,9 @@ export const TransactionsTransferPage = () => {
                     </div>
 
                     <div className={styles.buttons}>
+                        <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
+                            <SlRefresh size={"24px"}/>
+                        </Button>
                         <label className={styles.buttonOne}>
                             Frequency:
                             <select value={frequencyFilter} onChange={handleFrequencyChange}>

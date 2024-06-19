@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from "./ReportsPage.module.css";
 import { getImageUrl } from '../../../utils';
 import BarChart from '../../Components/BarChart';
+import { Button } from "@chakra-ui/react";
+import { SlRefresh } from "react-icons/sl";
 
 export const ReportsPage = () => {
     
@@ -82,6 +84,9 @@ export const ReportsPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
+                    <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
+                        <SlRefresh size={"24px"}/>
+                    </Button>
                     <div className={styles.buttonOne}>
                         <img src={getImageUrl("icons/slides.png")} alt="" />
                         <select name="accounts" >

@@ -143,8 +143,8 @@
 .userTable .action {width: 7%;}
 
 
-.userTable .approved {color: #1C6BFF;}
-.userTable .pending {color: #F59E0B;}
+.userTable .active {color: #1C6BFF;}
+.userTable .inactive {color: #F59E0B;}
 
 
 .userTable td img {

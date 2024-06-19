@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from "./CashflowOutPage.module.css";
 import { getImageUrl } from '../../../utils';
 import classNames from 'classnames';
+import { Button } from "@chakra-ui/react";
+import { SlRefresh } from "react-icons/sl";
 
 
 
@@ -577,6 +579,9 @@ export const CashflowOutPage = () => {
                     </div>
 
                     <div className={styles.buttons}>
+                        <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
+                            <SlRefresh size={"24px"} />
+                        </Button>
                         <button className={styles.buttonOne} onClick={handleFilterClick}>
                             <img src={getImageUrl("icons/slides.png")} />
                             Filter
@@ -649,29 +654,27 @@ export const CashflowOutPage = () => {
 
                     {/* <TreeMap /> */}
                     <div className={styles.outflowTreemap}>
-                        <div className={styles.treemapRow}>
-                            <div className={`${styles.treemapBox} ${styles.darkest}`}>45%<br />UTILITIES (N234)</div>
-                            <div className={styles.treemapColumn}>
-                                <div className={`${styles.treemapBox} ${styles.darker}`}>45%<br />UTILITIES (N234)</div>
-                                <div className={`${styles.treemapBox} ${styles.dark}`}>45%<br />UTILITIES (N234)</div>
-                            </div>
+                        <div className={`${styles.treemapBox} ${styles.darkest}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
+                        <div className={styles.treemapColumn}>
+                            <div className={`${styles.treemapBox} ${styles.darker}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
+                            <div className={`${styles.treemapBox} ${styles.dark}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
                         </div>
                         <div className={styles.treemapColumn}>
                             <div className={styles.treemapRow}>
-                                <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
-                                <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
-                                <div className={`${styles.treemapBox} ${styles.blue}`}>20%<br />SALARIES AND WAGES (N234)</div>
+                                <div className={`${styles.treemapBox} ${styles.blue}`}><h5>20%</h5><p>SALARIES AND WAGES (N234)</p></div>
+                                <div className={`${styles.treemapBox} ${styles.blue}`}><h5>20%</h5><p>SALARIES AND WAGES (N234)</p></div>
+                                <div className={`${styles.treemapBox} ${styles.blue}`}><h5>20%</h5><p>SALARIES AND WAGES (N234)</p></div>
                             </div>
                             <div className={styles.treemapRow}>
-                                <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
-                                <div className={`${styles.treemapBox} ${styles.blue}`}>10%<br />UTILITIES (N234)</div>
-                                <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
-                                <div className={`${styles.treemapBox} ${styles.navy}`}>10%<br />SUPPLIES (N234)</div>
+                                <div className={`${styles.treemapBox} ${styles.navy}`}><h5>10%</h5><p>SUPPLIES (N234)</p></div>
+                                <div className={`${styles.treemapBox} ${styles.blue}`}><h5>10%</h5><p>UTILITIES (N234)</p></div>
+                                <div className={`${styles.treemapBox} ${styles.navy}`}><h5>10%</h5><p>SUPPLIES (N234)</p></div>
+                                <div className={`${styles.treemapBox} ${styles.navy}`}><h5>10%</h5><p>SUPPLIES (N234)</p></div>
                             </div>
                             <div className={styles.treemapRow}>
-                                <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />UTILITIES (N14)</div>
-                                <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />EQUIPMENT (N14)</div>
-                                <div className={`${styles.treemapBox} ${styles.light}`}>5%<br />EQUIPMENT (N14)</div>
+                                <div className={`${styles.treemapBox} ${styles.light}`}><h5>5%</h5><p>UTILITIES (N14)</p></div>
+                                <div className={`${styles.treemapBox} ${styles.light}`}><h5>5%</h5><p>EQUIPMENT (N14)</p></div>
+                                <div className={`${styles.treemapBox} ${styles.light}`}><h5>5%</h5><p>EQUIPMENT (N14)</p></div>
                             </div>
                         </div>
                     </div>
@@ -748,6 +751,9 @@ export const CashflowOutPage = () => {
                     </div>
 
                     <div className={styles.buttons}>
+                        <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
+                            <SlRefresh size={"24px"}/>
+                        </Button>
                         <button className={styles.buttonTwo} onClick={(e) => {e.preventDefault(); () => toggleSingleBulk()}}>
                             New Payment
                             <img src={getImageUrl("icons/send.png")} />

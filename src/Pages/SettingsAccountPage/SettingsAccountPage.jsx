@@ -7,25 +7,25 @@ export const SettingsAccountPage = () => {
     function securityPage() {
         var greyS = document.getElementById('greySecurity');
         greyS.classList.add(`${styles.hide}`);
-        var blueS = document.getElementById('blueSecurity');
-        blueS.classList.remove(`${styles.hide}`);
+        var redS = document.getElementById('redSecurity');
+        redS.classList.remove(`${styles.hide}`);
 
         var greyA = document.getElementById('greyAlerts');
         greyA.classList.remove(`${styles.hide}`);
-        var blueA = document.getElementById('blueAlerts');
-        blueA.classList.add(`${styles.hide}`);
+        var redA = document.getElementById('redAlerts');
+        redA.classList.add(`${styles.hide}`);
 
         var greyD = document.getElementById('greyDisplay');
         greyD.classList.remove(`${styles.hide}`);
-        var blueD = document.getElementById('blueDisplay');
-        blueD.classList.add(`${styles.hide}`);
+        var redD = document.getElementById('redDisplay');
+        redD.classList.add(`${styles.hide}`);
 
         var navS = document.getElementById('securityNav');
-        navS.classList.add(`${styles.blue}`);
+        navS.classList.add(`${styles.red}`);
         var navA = document.getElementById('alertsNav');
-        navA.classList.remove(`${styles.blue}`);
+        navA.classList.remove(`${styles.red}`);
         var navD = document.getElementById('displayNav');
-        navD.classList.remove(`${styles.blue}`);
+        navD.classList.remove(`${styles.red}`);
 
         var pageS = document.getElementById('security');
         pageS.classList.remove(`${styles.hideDiv}`);
@@ -38,25 +38,25 @@ export const SettingsAccountPage = () => {
     function alertsPage() {
         var greyS = document.getElementById('greySecurity');
         greyS.classList.remove(`${styles.hide}`);
-        var blueS = document.getElementById('blueSecurity');
-        blueS.classList.add(`${styles.hide}`);
+        var redS = document.getElementById('redSecurity');
+        redS.classList.add(`${styles.hide}`);
 
         var greyA = document.getElementById('greyAlerts');
         greyA.classList.add(`${styles.hide}`);
-        var blueA = document.getElementById('blueAlerts');
-        blueA.classList.remove(`${styles.hide}`);
+        var redA = document.getElementById('redAlerts');
+        redA.classList.remove(`${styles.hide}`);
 
         var greyD = document.getElementById('greyDisplay');
         greyD.classList.remove(`${styles.hide}`);
-        var blueD = document.getElementById('blueDisplay');
-        blueD.classList.add(`${styles.hide}`);
+        var redD = document.getElementById('redDisplay');
+        redD.classList.add(`${styles.hide}`);
 
         var navS = document.getElementById('securityNav');
-        navS.classList.remove(`${styles.blue}`);
+        navS.classList.remove(`${styles.red}`);
         var navA = document.getElementById('alertsNav');
-        navA.classList.add(`${styles.blue}`);
+        navA.classList.add(`${styles.red}`);
         var navD = document.getElementById('displayNav');
-        navD.classList.remove(`${styles.blue}`);
+        navD.classList.remove(`${styles.red}`);
 
         var pageS = document.getElementById('security');
         pageS.classList.add(`${styles.hideDiv}`);
@@ -69,25 +69,25 @@ export const SettingsAccountPage = () => {
     function displayPage() {
         var greyS = document.getElementById('greySecurity');
         greyS.classList.remove(`${styles.hide}`);
-        var blueS = document.getElementById('blueSecurity');
-        blueS.classList.add(`${styles.hide}`);
+        var redS = document.getElementById('redSecurity');
+        redS.classList.add(`${styles.hide}`);
 
         var greyA = document.getElementById('greyAlerts');
         greyA.classList.remove(`${styles.hide}`);
-        var blueA = document.getElementById('blueAlerts');
-        blueA.classList.add(`${styles.hide}`);
+        var redA = document.getElementById('redAlerts');
+        redA.classList.add(`${styles.hide}`);
 
         // var greyD = document.getElementById('greyDisplay');
         // greyD.classList.add(`${styles.hide}`);
-        // var blueD = document.getElementById('blueDisplay');
-        // blueD.classList.remove(`${styles.hide}`);
+        // var redD = document.getElementById('redDisplay');
+        // redD.classList.remove(`${styles.hide}`);
 
         var navS = document.getElementById('securityNav');
-        navS.classList.remove(`${styles.blue}`);
+        navS.classList.remove(`${styles.red}`);
         var navA = document.getElementById('alertsNav');
-        navA.classList.remove(`${styles.blue}`);
+        navA.classList.remove(`${styles.red}`);
         var navD = document.getElementById('displayNav');
-        navD.classList.add(`${styles.blue}`);
+        navD.classList.add(`${styles.red}`);
 
         var pageS = document.getElementById('security');
         pageS.classList.add(`${styles.hideDiv}`);
@@ -97,10 +97,17 @@ export const SettingsAccountPage = () => {
         pageD.classList.remove(`${styles.hideDiv}`);
     }
 
-    const [isEnabled, setIsEnabled] = useState(true);
+    // const [isEnabled, setIsEnabled] = useState(true);
 
-    const handleToggle = () => {
-        setIsEnabled(prevState => !prevState);
+    const [sliders, setSliders] = useState([true, true, true, true, true, true, true, true, true, true, true, true, true]);
+
+
+    const handleToggle = (index) => {
+        setSliders((prevState) => {
+            const newState = [...prevState];
+            newState[index] = !newState[index];
+            return newState;
+        });
     };
 
 
@@ -108,21 +115,21 @@ export const SettingsAccountPage = () => {
         <div className={styles.theWhole}>
 
             <div className={styles.navBar}>
-                <a className={styles.blue} onClick={() => securityPage()} id="securityNav">
+                <a className={styles.red} onClick={() => securityPage()} id="securityNav">
                     <img className={styles.hide} src={getImageUrl("icons/greySecurity.png")} id="greySecurity"/>
-                    <img src={getImageUrl("icons/blueSecurity.png")} id="blueSecurity" />
+                    <img src={getImageUrl("icons/redSecurity.png")} id="redSecurity" />
                     SECURITY
                 </a>
 
                 <a onClick={() => alertsPage()} id="alertsNav">
                     <img src={getImageUrl("icons/greyAlerts.png")} id="greyAlerts" />
-                    <img className={styles.hide} src={getImageUrl("icons/blueAlerts.png")} id="blueAlerts" />
+                    <img className={styles.hide} src={getImageUrl("icons/redAlerts.png")} id="redAlerts" />
                     ALERTS
                 </a>
 
                 <a onClick={() => displayPage()} id="displayNav">
                     <img src={getImageUrl("icons/greyDisplay.png")} id="greyDisplay" />
-                    <img className={styles.hide} src={getImageUrl("icons/blueDisplay.png")} id="blueDisplay" />
+                    <img className={styles.hide} src={getImageUrl("icons/redDisplay.png")} id="redDisplay" />
                     DISPLAY
                 </a>
             </div>
@@ -178,10 +185,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[0]} onChange={() => handleToggle(0)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[0] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}><button><img src={getImageUrl("icons/actionsTwo.png")} alt="" /></button></td>
@@ -195,10 +202,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[1]} onChange={() => handleToggle(1)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[1] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}><button><img src={getImageUrl("icons/actionsTwo.png")} alt="" /></button></td>
@@ -216,10 +223,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[2]} onChange={() => handleToggle(2)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[2] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}><button><img src={getImageUrl("icons/actionsTwo.png")} alt="" /></button></td>
@@ -233,10 +240,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[3]} onChange={() => handleToggle(3)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[3] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}><button><img src={getImageUrl("icons/actionsTwo.png")} alt="" /></button></td>
@@ -256,10 +263,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[4]} onChange={() => handleToggle(4)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[4] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}></td>
@@ -273,10 +280,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[5]} onChange={() => handleToggle(5)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[5] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}></td>
@@ -290,10 +297,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[6]} onChange={() => handleToggle(6)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[6] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}></td>
@@ -307,10 +314,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[7]} onChange={() => handleToggle(7)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[7] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}></td>
@@ -324,10 +331,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[8]} onChange={() => handleToggle(8)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[8] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}></td>
@@ -345,10 +352,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[9]} onChange={() => handleToggle(9)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[9] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}></td>
@@ -362,10 +369,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[10]} onChange={() => handleToggle(10)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[10] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}></td>
@@ -379,10 +386,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[11]} onChange={() => handleToggle(11)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[11] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}></td>
@@ -396,10 +403,10 @@ export const SettingsAccountPage = () => {
                             <td className={styles.col2}>
                                 <div className={styles.sliderContainer}>
                                     <label className={styles.switch}>
-                                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
+                                        <input type="checkbox" checked={sliders[12]} onChange={() => handleToggle(12)} />
                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                     </label>
-                                    <p>{isEnabled ? 'Enabled' : 'Disabled'}</p>
+                                    <p>{sliders[12] ? 'Enabled' : 'Disabled'}</p>
                                 </div>
                             </td>
                             <td className={styles.col3}></td>

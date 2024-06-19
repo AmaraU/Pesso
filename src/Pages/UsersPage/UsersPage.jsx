@@ -11,70 +11,70 @@ export const UsersPage = () => {
             name: "Adewale Ayuba",
             email: "dewaleayuba@gmail.com",
             role: "Admin",
-            status: "Approved",
+            status: "Active",
             lastActive: "2 days ago",
         },
         {
             name: 'Anthonia Ekuase',
             email: "anthonia78@yahoo.com",
             role: "Account officer",
-            status: "Pending",
+            status: "Inactive",
             lastActive: "3 minutes ago",
         },
         {
             name: "Dominic Anga",
             email: "dominica@gmail.com",
             role: "Finance manager",
-            status: "Approved",
+            status: "Active",
             lastActive: "15 days ago",
         },
         {
             name: "Precious Ivonge",
             email: "precivon@gmail.com",
             role: "Account officer",
-            status: "Pending",
+            status: "Inactive",
             lastActive: "3 hours ago",
         },
         {
             name: "Lawal Timothy",
             email: "Lawtim@yahoo.com",
             role: "IT",
-            status: "Approved",
+            status: "Active",
             lastActive: "2 days ago",
         },
         {
             name: "Alonge Victoria",
             email: "kingdownboy@yahoo.com",
             role: "Human resources",
-            status: "Pending",
+            status: "Inactive",
             lastActive: "3 minutes ago",
         },
         {
             name: "Natasha Williams",
             email: "Nashy@gmail.com",
             role: "Procurement officer",
-            status: "Approved",
+            status: "Active",
             lastActive: "15 days ago",
         },
         {
             name: "Oladele Fadeyi",
             email: "fladele@yahoo.com",
             role: "Account officer",
-            status: "Approved",
+            status: "Active",
             lastActive: "3 minutes ago",
         },
         {
             name: "Igwe Victor",
             email: "fladele@yahoo.com",
             role: "IT",
-            status: "Pending",
+            status: "Inactive",
             lastActive: "3 hours ago",
         },
         {
             name: "Olawale Timilehin",
             email: "Timilowkey@gmail.com",
             role: "Human resources",
-            status: "Pending",
+            status: "Inactive",
             lastActive: "15 days ago",
         },
     ]
@@ -239,7 +239,7 @@ export const UsersPage = () => {
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
                     <img src={getImageUrl("icons/search.png")} />
-                    <input id="search" type="text" onChange={handleSearch} placeholder='Search reports' />
+                    <input id="search" type="text" onChange={handleSearch} placeholder='Search users' />
                 </div>
 
                 <div className={styles.buttons}>
@@ -302,7 +302,7 @@ export const UsersPage = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.role}</td>
-                                <td className={user.status.toLowerCase().includes("approved") ? styles.approved : styles.pending}>
+                                <td className={user.status.toLowerCase() == ("active") ? styles.active : styles.inactive}>
                                     {user.status}
                                 </td>
                                 <td>{user.lastActive}</td>

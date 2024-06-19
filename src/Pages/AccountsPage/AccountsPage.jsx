@@ -17,6 +17,7 @@ import { AccountInfo } from "../../Components/AccountInfo";
 import styles from "./AccountsPage.module.css";
 import { getImageUrl } from "../../../utils";
 import { AccountsTable } from "./AccountsTable";
+import { SlRefresh } from "react-icons/sl";
 
 const DataWidget = ({ entries = [], fields = [], isLoading = false, fileName = "data", fieldFontSize = "12px", entryFontSize = "13px", type = "", initSortingField = "" }) => {
     const screenWidth = window.screen.availWidth;
@@ -324,6 +325,9 @@ export const AccountsPage = () => {
 
                     </Stack>
                     <Box>
+                        <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
+                            <SlRefresh size={"24px"}/>
+                        </Button>
                         <Button border={"none"} rounded={8} fontSize={"12px"} fontWeight={500} px={"12px"} py={"8px"} bg={"#D2042D"} color={"white"} _hover={{ bg: "#BD0429" }} onClick={openConnectWidget}>Link Bank Account</Button>
                     </Box>
                 </Stack>

@@ -85,7 +85,7 @@ export const BudgetPage = () => {
 
                 <div className={styles.formGroup}>
                     <label htmlFor="fromAcct">Budget Amount</label>
-                    <input type="text" placeholder='Enter Amount' />
+                    <input type="number" placeholder='Enter Amount' />
                 </div>
 
                 <div className={styles.dateFormGroup}>
@@ -135,7 +135,7 @@ export const BudgetPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <button className={styles.buttonOne} onClick={(e) => {e.preventDefault(); () => toggle()}}>
+                    <button className={styles.buttonOne} onClick={toggle()}>
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                         Create Budget
                     </button>

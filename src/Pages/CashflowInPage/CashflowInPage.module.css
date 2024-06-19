@@ -43,12 +43,12 @@ button, a {
 .buttons {
     display: flex;
     align-items: center;
+    gap: 16px;
 }
 
 .buttonOne {
     display: inline-flex;
     align-items: center;
-    margin-right: 16px;
     font-size: 12px;
     font-weight: 500;
     color: #A80324;
@@ -158,7 +158,7 @@ button, a {
     text-align: center;
     font-size: 16px;
     font-weight: 500;
-    color: #1C6BFF;
+    color: #D2042D;
     border-top: 1px solid #F3F4F6;
     border-bottom: none;
 }
@@ -241,7 +241,17 @@ button, a {
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     transition: transform 0.3s ease;
+}
+.treemapBox h5 {
+    font-size: 24px;
+    font-weight: 600;
+}
+.treemapBox p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: -5px;
 }
 .treemapBox:hover {
     transform: scale(1.1);

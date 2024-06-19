@@ -3,7 +3,6 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    width: 100%;
 }
 
 .profilePic {
@@ -13,7 +12,7 @@
     width: 64px;
     height: 64px;
     border-radius: 50px;
-    background-color: #1C6BFF;    
+    background-color: #D2042D;    
     color: #FFFFFF;
     display: flex;
     font-size: 35px;
@@ -43,7 +42,7 @@
 .theWhole h4 {
     font-size: 12px;
     font-weight: 600;
-    color: #1C6BFF;
+    color: #D2042D;
     margin-bottom: 16px;
 }
 

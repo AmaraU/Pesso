@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./TransactionsPage.module.css";
 import { getImageUrl } from '../../../utils';
+import { Button } from "@chakra-ui/react";
+import { SlRefresh } from "react-icons/sl";
 
 
 
@@ -189,7 +191,6 @@ export const TransactionsPage = () => {
         if (containerRef.current && !containerRef.current.contains(event.target)) {
             setOpenFilter(false);
             setOpenDownload(false);
-            // setOpenCategories({});
         }
     };
 
@@ -211,6 +212,9 @@ export const TransactionsPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
+                    <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
+                        <SlRefresh size={"24px"}/>
+                    </Button>
                     <button className={styles.buttonOne} onClick={handleFilterToggle}>
                         <img src={getImageUrl("icons/slides.png")} />
                         Filter

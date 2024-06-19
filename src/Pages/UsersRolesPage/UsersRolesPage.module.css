@@ -3,7 +3,6 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
-    /* width: 100%; */
 }
 
 
@@ -93,9 +92,9 @@
 }
 
 .rolesNav li.active button {
-    background-color: #E3ECFD;
+    background-color: #FBE6EA;
     font-weight: 500;
-    color: #1F2937;
+    color: #7E021B;
 }
 
 

@@ -1,4 +1,4 @@
-import { Box, HStack, Stack, Text } from "@chakra-ui/react";
+import { Box, HStack, Stack, Text, Button } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
 import { SimpleLine } from "./Chart";
 
@@ -27,9 +27,9 @@ export const Cashflow = ({ data = [] }) => {
                                 <option value="">Monthly</option>
                             </select>
                         </div>
-                        <Box pl={"4px"}>
+                        <Button p={0} bg={"transparent"} border={"none"} _hover={{bg: "transparent"}}>
                             <SlRefresh size={"14px"} />
-                        </Box>
+                        </Button>
                     </HStack>
                 </Stack>
                 {
