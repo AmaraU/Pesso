@@ -35,7 +35,7 @@ import { ForgotPasswordPage } from './Pages/ForgotPasswordPage/ForgotPasswordPag
 function App() {
 
   const router = createBrowserRouter([
-
+    { path: '/', element: <SignInPage /> },
     { path: '/signin', element: <SignInPage /> },
     { path: '/signup', element: <SignUpPage /> },
     { path: '/signup-security', element: <SignUpQuestionsPage /> },
