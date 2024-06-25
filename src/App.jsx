@@ -1,8 +1,9 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
-import { Signin } from './Pages/Signin';
-import { Signup } from './Pages/Signup';
+import { SignInPage } from './Pages/SignInPage/SignInPage';
+import { SignUpPage } from './Pages/SignUpPage/SignUpPage';
+import { SignUpQuestionsPage } from './Pages/SignUpPage/SignUpQuestionsPage';
 
 import { DashboardLayout } from './Pages/DashboardLayout';
 
@@ -25,23 +26,26 @@ import { SettingsAccountPage } from './Pages/SettingsAccountPage/SettingsAccount
 import { SettingsWorkflowPage } from './Pages/SettingsWorkflowPage/SettingsWorkflowPage';
 
 import { BlankPage } from './Pages/BlankPage';
+import { VerifyEmailPage } from './Pages/VerifyEmailPage/VerifyEmailPage';
+import { ForgotPasswordPage } from './Pages/ForgotPasswordPage/ForgotPasswordPage';
+
 
 
 
 function App() {
 
   const router = createBrowserRouter([
-    // { path: '/', element: <Home /> },
-    // { path: '/usecases', element: <UseCases /> },
-    // { path: '/features', element: <Features /> },
-    // { path: '/partners', element: <Partners /> },
-    { path: '/signin', element: <Signin /> },
-    { path: '/signup', element: <Signup /> },
+
+    { path: '/signin', element: <SignInPage /> },
+    { path: '/signup', element: <SignUpPage /> },
+    { path: '/signup-security', element: <SignUpQuestionsPage /> },
+    { path: '/verify-email', element: <VerifyEmailPage /> },
+    { path: '/forgot-password', element: <ForgotPasswordPage /> },
     {
       path: '/dashboard', element: <DashboardLayout />,
       children: [
 
-        { path: '/dashboard', element: <Overview /> },
+        { path: '/dashboard', element: <Navigate to="overview" /> },
         { path: 'overview', element: <Overview /> },
         { path: 'transactions', element: <TransactionsPage /> },
         { path: 'transactions/transfer', element: <TransactionsTransferPage /> },

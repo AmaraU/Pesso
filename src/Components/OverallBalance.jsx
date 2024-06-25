@@ -2,6 +2,7 @@ import { Box, HStack, Spinner, Stack, Text } from "@chakra-ui/react";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { BiShow, BiHide } from "react-icons/bi";
 import React, { useEffect, useState } from "react";
+import { getImageUrl } from "../../utils";
 
 const hideBalance = () => {
     return "******";
@@ -18,7 +19,7 @@ export const OverallBalance = ({ accts = [], timestamp = "", isLoading = false }
     }, [accts])
 
     return (
-        <Box py={"32px"} px={"16px"} bg={"#1656CC"} rounded={8}>
+        <Box py={"32px"} px={"16px"} bg={"#A80324"} border={"1px solid #F3F4F6"} backgroundImage={getImageUrl("overallBall.png")} backgroundPosition={"top right"} backgroundSize={"50%"} backgroundRepeat={"no-repeat"} rounded={8}>
             {
                 isLoading ? <Spinner color="white" /> :
                     <Stack >

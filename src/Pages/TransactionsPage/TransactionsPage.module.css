@@ -37,10 +37,14 @@ button, a {
     cursor: pointer;
 }
 
+.buttons {
+    display: flex;
+    gap: 16px;
+}
+
 .buttonOne {
     display: inline-flex;
     align-items: center;
-    margin-right: 16px;
     font-size: 12px;
     font-weight: 500;
     color: #A80324;
@@ -81,6 +85,7 @@ button, a {
 }
 .filter {
     display: block;
+    right: 5%;
     width: 25%;
     text-align: left;
     background-color: #FFFFFF;
@@ -90,8 +95,7 @@ button, a {
     padding: 8px;
     position: absolute;
     z-index: 5;
-    margin-top: 5px;
-    right: 10%;
+    margin-top: 50px;
 }
 .filter p {
     padding: 4px 8px;
@@ -111,8 +115,8 @@ button, a {
 }
 .filter a:hover,
 .download a:hover {
-    background-color: #F0F5FD;
-    border-bottom: 1px solid #A4C4FF;
+    background-color: #E5E7EB;
+    border-bottom: 1px solid #7E8491;
 }
 .filter .customFilter {
     margin-top: 16px;
@@ -132,9 +136,16 @@ button, a {
 }
 .customFilter .startEnd input {
     outline: none;
+
     text-align: center;
     padding: 12px 16px;
     width: 45%;
+    border: 1px solid #6B7280;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4B5563;
+    padding: 10px 12px;
+    outline: none;
 }
 .customFilter .startEnd input::placeholder {
     font-size: 14px;
@@ -146,14 +157,14 @@ button, a {
     text-align: center;
     font-size: 16px;
     font-weight: 500;
-    color: #1C6BFF;
+    color: #DC2626;
     border-top: 1px solid #F3F4F6;
     border-bottom: none;
 }
 .filter .reset:hover {
-    background-color: #F0F5FD;
+    background-color: #FEE2E2;
+    border-top: 1px solid #DC2626;
     border-bottom: none;
-    border-top: 1px solid #A4C4FF;
 }
 
 
@@ -173,7 +184,7 @@ button, a {
     position: absolute;
     right: 2%;
     z-index: 5;
-    margin-top: 5px;
+    margin-top: 50px;
 }
 .download p {
     font-size: 12px;
@@ -258,6 +269,7 @@ button, a {
     line-height: 16px;
     font-weight: 600;
     text-align: left;
+    white-space: wrap;
 }
 
 .transactionTable td {
@@ -366,8 +378,8 @@ button, a {
 }
 
 .theCategories li:hover {
-    background-color: #F0F5FD;
-    border-bottom: 1px solid #A4C4FF;
+    background-color: #E5E7EB;
+    border-bottom: 1px solid #7E8491;
 }
 
 

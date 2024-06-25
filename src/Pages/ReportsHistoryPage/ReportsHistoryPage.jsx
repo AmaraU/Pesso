@@ -138,6 +138,14 @@ export const ReportsHistoryPage = () => {
     const handlePageClick = (pageNumber) => {
         setCurrentPage(pageNumber);
     }
+
+
+    const [ openDownload, setOpenDownload ] = useState(false);
+    const handleDownloadToggle = () => {
+        setOpenDownload(!openDownload);
+        setActionsOpen(false);
+    };
+
     
 
     const popupRef = useRef(null);
@@ -145,6 +153,7 @@ export const ReportsHistoryPage = () => {
     const handleClickOutside = (event) => {
         if (popupRef.current && !popupRef.current.contains(event.target)) {
             setActionsOpen(false);
+            setOpenDownload(false);
         }
     };
 
@@ -175,10 +184,22 @@ export const ReportsHistoryPage = () => {
                             <option value="">Current Day</option>
                         </select>
                     </div>
-                    <a href="" className={styles.buttonTwo}>
+                    <a href="" className={styles.buttonTwo} onClick={() => handleDownloadToggle()}>
                         <img src={getImageUrl("icons/whiteDownArrow.png")} alt="" />
                         Download
                     </a>
+                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} >
+                        <p>DOWNLOAD</p>
+                        <a href="">
+                            <img src={getImageUrl("icons/pdf.png")} />
+                            PDF Format
+                        </a>
+                        <br />
+                        <a className={styles.csv} href="">
+                            <img src={getImageUrl("icons/csv.png")} />
+                            CSV Format
+                        </a>
+                    </div>
 
                 </div>
             </div>

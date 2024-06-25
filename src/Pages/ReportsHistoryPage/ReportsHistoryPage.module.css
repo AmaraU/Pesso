@@ -112,7 +112,9 @@
     border-collapse: collapse;
     width: 100%;
     table-layout: fixed;
+    white-space: nowrap;
 }
+
 
 .reportTable th {
     background-color: #F9FAFB;
@@ -122,6 +124,7 @@
     line-height: 16px;
     font-weight: 600;
     text-align: left;
+    white-space: wrap;
 }
 
 .reportTable td {

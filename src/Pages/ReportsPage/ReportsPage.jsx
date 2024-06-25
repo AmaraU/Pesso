@@ -12,6 +12,24 @@ export const ReportsPage = () => {
         setSearch(event.target.value);
     };
 
+    const [ openDownload, setOpenDownload ] = useState(false);
+    const handleDownloadToggle = () => {
+        setOpenDownload(!openDownload);
+    };
+
+    const handleClickOutside = (event) => {
+        if (popupRef.current && !popupRef.current.contains(event.target)) {
+            setOpenDownload(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, []);
+
     const financialHealth = {
         labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
         datasets: [
@@ -93,10 +111,22 @@ export const ReportsPage = () => {
                             <option value="">All Accounts</option>
                         </select>
                     </div>
-                    <a href="" className={styles.buttonTwo}>
+                    <a href="" className={styles.buttonTwo} onClick={(e) => {e.preventDefault(); handleDownloadToggle()}}>
                         <img src={getImageUrl("icons/whiteDownArrow.png")} alt="" />
                         Download
                     </a>
+                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} >
+                        <p>DOWNLOAD</p>
+                        <a href="">
+                            <img src={getImageUrl("icons/pdf.png")} />
+                            PDF Format
+                        </a>
+                        <br />
+                        <a className={styles.csv} href="">
+                            <img src={getImageUrl("icons/csv.png")} />
+                            CSV Format
+                        </a>
+                    </div>
                 </div>
             </div>
 

@@ -339,6 +339,26 @@ export const AccountsTable = () => {
 
 
     const [ openFilter, setOpenFilter ] = useState(false);
+    const [ openExport, setOpenExport ] = useState(false);
+
+    const handleExportClick = () => {
+        setOpenExport(prev => {
+            if (!prev) {
+                setOpenFilter(false);
+            }
+            return !prev;
+        });
+    };
+
+    function toggleSuccess() {
+        setOpenExport(false);
+        var success = document.getElementById('successpopup');
+        success.classList.toggle(`${styles.successPopped}`);
+        var popup = document.getElementById('dimmer');
+        popup.classList.toggle(`${styles.dim}`);        
+    }
+
+    
 
     const popupRef = useRef(null);
 
@@ -359,6 +379,9 @@ export const AccountsTable = () => {
 
     return (
         <>
+
+        <div className={styles.dimmer} id='dimmer'></div>
+
         <Box bg={'white'} p={"16px"}>
             <Stack spacing={"16px"}>
                 <Stack direction={"row"} justify={"space-between"}>
@@ -397,10 +420,36 @@ export const AccountsTable = () => {
                             <a className={styles.reset} href="">Reset All</a>
                         </div>
 
-                        <button className={styles.buttonTwo} onClick={(e) => {e.preventDefault(); () => toggleOn()}}>
+                        <button className={styles.buttonTwo} onClick={handleExportClick} ref={popupRef}>
                             <img src={getImageUrl("icons/whiteDownload.png")} alt="" />
                             Export
                         </button>
+
+                        <div className={`${styles.exportClosed} ${openExport && styles.export}`}>
+                            <div className={styles.exportHeader}>
+                                <p>Export</p>
+                                <a onClick={() => setOpenExport(false)}><img src={getImageUrl("icons/greyClose.png")} alt="" /></a>
+                            </div>
+                            <div className={styles.exportForm}>
+                                <div className={styles.exportFormGroup}>
+                                    <label htmlFor="">From</label>
+                                    <input type="date" name="" id="" />
+                                </div>
+
+                                <div className={styles.exportFormGroup}>
+                                    <label htmlFor="">To</label>
+                                    <input type="date" name="" id="" />
+                                </div>
+                            </div>
+                            <div className={styles.exportButton}>
+                                <button onClick={() => toggleSuccess()}>Export</button>
+                            </div>
+                        </div>
+                        <div className={styles.successPopup} id='successpopup'>
+                            <img src={getImageUrl("success.png")} />
+                            <h4>Successfully Exported</h4>
+                            <button onClick={() => toggleSuccess()}>Continue</button>
+                        </div>
 
                     </div>
                 </Stack>

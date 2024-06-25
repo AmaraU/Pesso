@@ -91,10 +91,11 @@ button, a {
 .filterClosed {
     display: none;
 }
+
 .filter {
     display: block;
-    right: 3%;
-    width: 25%;
+    right: 5%;
+    width: 20%;
     text-align: left;
     background-color: #FFFFFF;
     border: 1px solid #E5E7EB;
@@ -103,7 +104,7 @@ button, a {
     padding: 8px;
     position: absolute;
     z-index: 5;
-    margin-top: 5px;
+    margin-top: 31%;
 }
 .filter p {
     padding: 4px 8px;
@@ -123,8 +124,8 @@ button, a {
 }
 .filter a:hover,
 .download a:hover {
-    background-color: #F0F5FD;
-    border-bottom: 1px solid #A4C4FF;
+    background-color: #E5E7EB;
+    border-bottom: 1px solid #7E8491;
 }
 .filter .customFilter {
     margin-top: 16px;
@@ -143,10 +144,15 @@ button, a {
     justify-content: center;
 }
 .customFilter .startEnd input {
-    outline: none;
     text-align: center;
     padding: 12px 16px;
     width: 45%;
+    border: 1px solid #6B7280;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4B5563;
+    padding: 10px 12px;
+    outline: none;
 }
 .customFilter .startEnd input::placeholder {
     font-size: 14px;
@@ -158,14 +164,14 @@ button, a {
     text-align: center;
     font-size: 16px;
     font-weight: 500;
-    color: #D2042D;
+    color: #DC2626;
     border-top: 1px solid #F3F4F6;
     border-bottom: none;
 }
 .filter .reset:hover {
-    background-color: #F0F5FD;
+    background-color: #FEE2E2;
+    border-top: 1px solid #DC2626;
     border-bottom: none;
-    border-top: 1px solid #A4C4FF;
 }
 
 
@@ -533,7 +539,7 @@ button, a {
     border: none;
     align-self: end;
 }
-.generateButton button {
+.generateButton button:hover {
     background-color: #BD0429;
 }
 
@@ -541,12 +547,16 @@ button, a {
 
 
 .successPopup {
+
     width: 30%;
     max-height: 70%;
+    padding: 24px;
+    overflow: hidden;
+    overflow-y: scroll;
     position: fixed;
     display: flex;
     flex-direction: column;
-    top: 0;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #FFFFFF;
@@ -557,7 +567,8 @@ button, a {
     border-radius: 8px;
     justify-content: center;
     align-items: center;
-    padding: 24px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 .successPopup::-webkit-scrollbar {
     display: none;
@@ -595,6 +606,6 @@ button, a {
     border: none;
     align-self: end;
 }
-.successPopup button {
+.successPopup button:hover {
     background-color: #BD0429;
 }

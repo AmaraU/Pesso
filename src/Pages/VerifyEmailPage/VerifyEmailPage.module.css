@@ -1,0 +1,85 @@
+.whole {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* flex-wrap: wrap; */
+    height: 100%;
+    /* max-height: 100%; */
+    background-image: url("../../../assets/background.png");
+    background-size: 100% 100%;
+    padding: 200px 0;
+}
+
+
+
+.whole .logo {
+    width: 20%;
+    margin-bottom: 44px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ED9BAB;
+    background-color: #F9FAFB;
+    border-radius: 18px;
+    padding: 40px;
+    width: 30%;
+    justify-content: center;
+}
+
+.box h3 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 32px;
+}
+
+.box p {
+    /* align-self: center; */
+    font-size: 14px;
+    font-weight: 400;
+    color: #6B7280;
+}
+
+.box span {
+    color: #D2042D;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 5%;
+    align-items: center;
+    width: 100%;
+    margin-top: 32px;
+}
+
+.buttons .buttonOne {
+    width: 100%;
+    border-radius: 8px;
+    padding: 14px 20px;
+    border: 1px solid #9CA3AF;
+    background-color: transparent;
+    color: #374151;
+    font-size: 16px;
+    font-weight: 500;
+}
+.buttons .buttonOne:hover {
+    background-color: #E7E7E7;
+}
+
+
+.buttons .buttonTwo {
+    width: 100%;
+    border-radius: 8px;
+    padding: 14px 20px;
+    border: none;
+    background-color: #D2042D;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+}
+.buttons .buttonTwo:hover {
+    background-color: #BD0429;
+}

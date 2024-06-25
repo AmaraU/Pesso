@@ -42,7 +42,7 @@ export const BudgetPage = () => {
     });
 
 
-    function toggle() {        
+    function toggle() {
         var popup = document.getElementById('popup');
         popup.classList.toggle(`${styles.popped}`);
 
@@ -64,7 +64,7 @@ export const BudgetPage = () => {
 
         var dimmer = document.getElementById('dimmer');
         dimmer.classList.remove(`${styles.dim}`);
-      };
+    };
 
 
 
@@ -74,7 +74,7 @@ export const BudgetPage = () => {
         <div className={styles.popup} id="popup">
             <div className={styles.header}>
                 <h3>Budget</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggle()}} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); toggle()}} /></a>
             </div>
 
             <form action="">
@@ -135,7 +135,7 @@ export const BudgetPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <button className={styles.buttonOne} onClick={toggle()}>
+                    <button className={styles.buttonOne} onClick={() => toggle()}>
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                         Create Budget
                     </button>
@@ -203,7 +203,7 @@ export const BudgetPage = () => {
                                 <div className={styles.editPopup} id="editPopup">
                                     <div className={styles.header}>
                                         <h3>Budget</h3>
-                                        <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={closePopup} /></a>
+                                        <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); closePopup()}} /></a>
                                     </div>
 
                                     <form action="">
@@ -256,7 +256,7 @@ export const BudgetPage = () => {
                                     </form>
 
                                     <div className={styles.submitButton}>
-                                        <button>Submit</button>
+                                        <button onClick={() => closePopup()}>Submit</button>
                                     </div>
                                 </div>
 

@@ -332,12 +332,20 @@ export const TransactionsTransferPage = () => {
     }
 
 
-    function toggle() {        
+    function toggleOpen() {        
         var popup = document.getElementById('popup');
-        popup.classList.toggle(`${styles.popped}`);
+        popup.classList.add(`${styles.popped}`);
 
         var dimmer = document.getElementById('dimmer');
-        dimmer.classList.toggle(`${styles.dim}`);
+        dimmer.classList.add(`${styles.dim}`);
+    }
+
+    function toggleClose() {        
+        var popup = document.getElementById('popup');
+        popup.classList.remove(`${styles.popped}`);
+
+        var dimmer = document.getElementById('dimmer');
+        dimmer.classList.remove(`${styles.dim}`);
     }
 
     const [ activeButton, setActiveButton ] = useState(1);
@@ -378,7 +386,7 @@ export const TransactionsTransferPage = () => {
 
             <div className={styles.header}>
                 <h3>Schedule Transfer</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggle()}} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); toggleClose()}} /></a>
             </div>
             
             <form action="">
@@ -444,7 +452,7 @@ export const TransactionsTransferPage = () => {
             </form>
 
             <div className={styles.transferButton}>
-                <button onClick={(e) => {e.preventDefault(); toggle()}}>Transfer</button>
+                <button onClick={() => toggleClose()}>Transfer</button>
             </div>
         </div>
 
@@ -480,7 +488,7 @@ export const TransactionsTransferPage = () => {
                             </select>
                         </label>
 
-                        <button className={styles.buttonTwo} onClick={(e) => {e.preventDefault(); () => toggle()}}>
+                        <button className={styles.buttonTwo} onClick={() => toggleOpen()}>
                             Schedule Transfer
                             <img src={getImageUrl("icons/send.png")} />
                         </button>
@@ -586,7 +594,7 @@ export const TransactionsTransferPage = () => {
                             </select>
                         </label>
 
-                        <button className={styles.buttonTwo} onClick={() => toggle()}>
+                        <button className={styles.buttonTwo} onClick={() => toggleOpen()}>
                             Schedule Transfer
                             <img src={getImageUrl("icons/send.png")} />
                         </button>

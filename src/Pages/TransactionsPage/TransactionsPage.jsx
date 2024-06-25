@@ -139,6 +139,10 @@ export const TransactionsPage = () => {
     const [ selectedCategory, setSelectedCategory ] = useState({});
     const [ openCategories, setOpenCategories ] = useState({});
     const [ searchCategories, setSearchCategries] = useState("");
+    const [ openFilter, setOpenFilter ] = useState(false);
+    const [ openDownload, setOpenDownload ] = useState(false);
+
+    const containerRef = useRef(null);
 
     const handleSearchCategories = (event) => {
         setSearchCategries(event.target.value);
@@ -169,9 +173,6 @@ export const TransactionsPage = () => {
     };
 
 
-    const [ openFilter, setOpenFilter ] = useState(false);
-    const [ openDownload, setOpenDownload ] = useState(false);
-
     const handleFilterToggle = () => {
         setOpenFilter(!openFilter);
         setOpenDownload(false);
@@ -185,12 +186,12 @@ export const TransactionsPage = () => {
     };
 
 
-    const containerRef = useRef(null);
 
     const handleClickOutside = (event) => {
         if (containerRef.current && !containerRef.current.contains(event.target)) {
             setOpenFilter(false);
             setOpenDownload(false);
+            // setOpenCategories({});
         }
     };
 
@@ -204,7 +205,7 @@ export const TransactionsPage = () => {
 
 
     return (
-        <div className={styles.whole}>
+        <div className={styles.whole} >
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
                     <img src={getImageUrl("icons/search.png")} />
@@ -215,12 +216,12 @@ export const TransactionsPage = () => {
                     <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
                         <SlRefresh size={"24px"}/>
                     </Button>
-                    <button className={styles.buttonOne} onClick={handleFilterToggle}>
+                    <button className={styles.buttonOne} onClick={handleFilterToggle} ref={containerRef}>
                         <img src={getImageUrl("icons/slides.png")} />
                         Filter
                         <img src={getImageUrl("icons/redDownAngle.png")} />
                     </button>
-                    <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={containerRef}>
+                    <div className={`${styles.filterClosed} ${openFilter && styles.filter}`}>
                         <p>FILTER</p>
                         <a href="">Last 7 days</a>
                         <a href="">Last 15 days</a>
@@ -235,7 +236,7 @@ export const TransactionsPage = () => {
                         <a className={styles.reset} href="">Reset All</a>
                     </div>
 
-                    <button className={styles.buttonTwo} onClick={handleDownloadToggle}>
+                    <button className={styles.buttonTwo} onClick={handleDownloadToggle} ref={containerRef}>
                         <img src={getImageUrl("icons/whiteDownArrow.png")} />
                         Download
                     </button>
@@ -285,7 +286,7 @@ export const TransactionsPage = () => {
                                 <td>{transaction.description}</td>
                                 <td>{transaction.account}</td>
                                 <td className={styles.category}>
-                                    <button className={styles.categoriesButton} onClick={() => toggleCategories(index)}>
+                                    <button className={styles.categoriesButton} onClick={() => toggleCategories(index)} ref={containerRef}>
                                         <p>{selectedCategory[index] || "Salaries and wage"}</p>
                                         <img src={getImageUrl("icons/blackDownAngle.png")} />
                                     </button>

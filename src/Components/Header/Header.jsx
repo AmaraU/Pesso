@@ -145,16 +145,16 @@ export const Header = () => {
 
                 <div className={styles.headerRight}>
                     <Stack>
-                        <IconButton
+                        {/* <IconButton
                             display={{ base: "flex", md: "none" }}
                             // onClick={onOpen}
                             variant="outline"
                             aria-label="open menu"
                             icon={<FiMenu />}
-                        />
-                        <HStack display={{ base: "flex", md: "none" }} spacing={3} alignSelf={'center'} as='button' onClick={() => navigate('/')}>
+                        /> */}
+                        {/* <HStack display={{ base: "flex", md: "none" }} spacing={3} alignSelf={'center'} as='button' onClick={() => navigate('/')}>
                             <Image src={logo} w={'74px'} h={'40px'} />
-                        </HStack>
+                        </HStack> */}
                         <HStack spacing={{ base: "0", md: "6" }}>
                             <IconButton _hover={{ bg: "#5F57FF11" }}
                                 size="lg"

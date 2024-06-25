@@ -6,6 +6,19 @@
 }
 
 
+
+/* .accountsDiv {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+    scrollbar-face-color: #888;
+    scrollbar-track-color: #f1f1f1;
+    scrollbar-shadow-color: transparent;
+    scrollbar-highlight-color: transparent;
+    scrollbar-3dlight-color: transparent;
+    scrollbar-darkshadow-color: transparent;
+} */
+
+
 .accountsDiv {
     width: 100%;
     overflow: hidden;
@@ -13,22 +26,42 @@
     margin-bottom: 56px;
 }
 
+
+.accountsDiv::-ms-scrollbar {
+    height: 8px;
+}
+.accountsDiv::-ms-scrollbar-track {
+    background: #F1F1F1;
+    border-radius: 10px;
+}
+.accountsDiv::-ms-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+.accountsDiv::-ms-scrollbar-thumb:hover {
+    background: #555;
+}
+.accountsDiv::-ms-scrollbar-button {
+    display: none;
+}
+
+
 .accountsDiv::-webkit-scrollbar {
     height: 8px;
 }
-
 .accountsDiv::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #F1F1F1;
     border-radius: 10px;
 }
-
 .accountsDiv::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 10px;
 }
-
 .accountsDiv::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+.accountsDiv::-webkit-scrollbar-button {
+    display: none;
 }
 
 
@@ -117,6 +150,8 @@
 
 .buttons {
     text-align: right;
+    display: flex;
+    gap: 16px;
 }
 
 
@@ -139,7 +174,6 @@
 .buttonTwo {
     display: inline-flex;
     align-items: center;
-    margin-left: 16px;
     font-size: 14px;
     font-weight: 500;
     background-color: #D2042D;
@@ -159,13 +193,16 @@
     height: 16px;
 }
 
-.filterClosed {
+.filterClosed,
+.exportClosed {
     display: none;
 }
+
+
 .filter {
     display: block;
-    right: 3%;
-    width: 25%;
+    right: 5%;
+    width: 20%;
     text-align: left;
     background-color: #FFFFFF;
     border: 1px solid #E5E7EB;
@@ -174,7 +211,7 @@
     padding: 8px;
     position: absolute;
     z-index: 5;
-    margin-top: 5px;
+    margin-top: 50px;
 }
 .filter p {
     padding: 4px 8px;
@@ -194,8 +231,8 @@
 }
 .filter a:hover,
 .download a:hover {
-    background-color: #F0F5FD;
-    border-bottom: 1px solid #A4C4FF;
+    background-color: #E5E7EB;
+    border-bottom: 1px solid #7E8491;
 }
 .filter .customFilter {
     margin-top: 16px;
@@ -214,10 +251,15 @@
     justify-content: center;
 }
 .customFilter .startEnd input {
-    outline: none;
     text-align: center;
     padding: 12px 16px;
     width: 45%;
+    border: 1px solid #6B7280;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4B5563;
+    padding: 10px 12px;
+    outline: none;
 }
 .customFilter .startEnd input::placeholder {
     font-size: 14px;
@@ -229,14 +271,172 @@
     text-align: center;
     font-size: 16px;
     font-weight: 500;
-    color: #1C6BFF;
+    color: #DC2626;
     border-top: 1px solid #F3F4F6;
     border-bottom: none;
 }
 .filter .reset:hover {
-    background-color: #F0F5FD;
+    background-color: #FEE2E2;
+    border-top: 1px solid #DC2626;
     border-bottom: none;
-    border-top: 1px solid #A4C4FF;
+}
+
+
+
+
+.export {
+    display: block;
+    width: 30%;
+    text-align: left;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px 0px #9CA3AF33;
+    position: absolute;
+    z-index: 5;
+    margin-top: 50px;
+    right: 50px;
+}
+
+.export .exportHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid #F3F4F6;
+}
+.exportHeader img {
+    width: 24px;
+    height: 24px;
+}
+
+.exportForm {
+    padding: 24px;
+    display: flex;
+    gap: 5%;
+}
+.exportFormGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.exportFormGroup label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4B5563;
+    margin-bottom: 8px;
+}
+.exportFormGroup input {
+    padding: 10px 12px;
+    text-align: center;
+    padding: 12px 16px;
+    border: 1px solid #6B7280;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4B5563;
+    outline: none;
+}
+
+.exportButton {
+    padding: 24px;
+}
+.exportButton button {
+    width: 100%;
+    padding: 14px 20px;
+    background-color: #D2042D;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+}
+.exportButton button:hover {
+    background-color: #BD0429;
+}
+
+
+
+.successPopup {
+    width: 30%;
+    max-height: 70%;
+    overflow: hidden;
+    overflow-y: scroll;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+    z-index: 100;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.successPopup::-webkit-scrollbar {
+    display: none;
+}
+
+.successPopped {
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.successPopup img {
+    width: 60%;
+    height: auto;
+}
+
+.successPopup h4 {
+    font-size: 24px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.successPopup button {
+    margin-top: 10%;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 8px;
+    background-color: #D2042D;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    align-self: end;
+}
+.successPopup button:hover {
+    background-color: #BD0429;
+}
+
+
+
+
+.dimmer {
+    display: none;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+}
+
+.dim {
+    display: block;
+    z-index: 11;
 }
 
 

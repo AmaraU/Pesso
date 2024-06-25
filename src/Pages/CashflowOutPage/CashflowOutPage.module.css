@@ -133,13 +133,17 @@
     height: 16px;
 }
 
+
 .filterClosed,
 .exportClosed {
     display: none;
 }
+
+
 .filter {
     display: block;
-    width: 25%;
+    right: 5%;
+    width: 20%;
     text-align: left;
     background-color: #FFFFFF;
     border: 1px solid #E5E7EB;
@@ -148,8 +152,7 @@
     padding: 8px;
     position: absolute;
     z-index: 5;
-    margin-top: 5px;
-    right: 10%;
+    margin-top: 42%;
 }
 .filter p {
     padding: 4px 8px;
@@ -169,8 +172,8 @@
 }
 .filter a:hover,
 .download a:hover {
-    background-color: #F0F5FD;
-    border-bottom: 1px solid #A4C4FF;
+    background-color: #E5E7EB;
+    border-bottom: 1px solid #7E8491;
 }
 .filter .customFilter {
     margin-top: 16px;
@@ -189,10 +192,15 @@
     justify-content: center;
 }
 .customFilter .startEnd input {
-    outline: none;
     text-align: center;
     padding: 12px 16px;
     width: 45%;
+    border: 1px solid #6B7280;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4B5563;
+    padding: 10px 12px;
+    outline: none;
 }
 .customFilter .startEnd input::placeholder {
     font-size: 14px;
@@ -204,15 +212,17 @@
     text-align: center;
     font-size: 16px;
     font-weight: 500;
-    color: #1C6BFF;
+    color: #DC2626;
     border-top: 1px solid #F3F4F6;
     border-bottom: none;
 }
 .filter .reset:hover {
-    background-color: #F0F5FD;
+    background-color: #FEE2E2;
+    border-top: 1px solid #DC2626;
     border-bottom: none;
-    border-top: 1px solid #A4C4FF;
 }
+
+
 
 
 .export {
@@ -225,7 +235,7 @@
     box-shadow: 0px 4px 12px 0px #9CA3AF33;
     position: absolute;
     z-index: 5;
-    margin-top: 5px;
+    margin-top: 25%;
     right: 50px;
 }
 
@@ -258,6 +268,13 @@
 }
 .exportFormGroup input {
     padding: 10px 12px;
+    text-align: center;
+    padding: 12px 16px;
+    border: 1px solid #6B7280;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4B5563;
+    outline: none;
 }
 
 .exportButton {
@@ -486,8 +503,8 @@
 }
 
 .theActions li:hover {
-    background-color: #F0F5FD;
-    border-bottom: 1px solid #A4C4FF;
+    background-color: #E5E7EB;
+    border-bottom: 1px solid #7E8491;
 }
 
 
@@ -533,7 +550,7 @@
     width: 30%;
     max-height: 70%;
     overflow: hidden;
-    overflow-y: hidden;
+    overflow-y: scroll;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -746,6 +763,9 @@
     border: none;
     border-radius: 8px;
 }
+.singleBulk button:hover {
+    background-color: #EBEDED;
+}
 
 
 
@@ -820,7 +840,7 @@
     padding: 10px 12px;
     outline: none;
 }
-.formGroup input {
+.formGroup input::placeholder {
     color: #9CA3AF;
     font-size: 14px;
 }

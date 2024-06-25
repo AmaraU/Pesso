@@ -1,4 +1,4 @@
-import { Stack, SimpleGrid, Grid, GridItem, useToast } from "@chakra-ui/react";
+import { Stack, SimpleGrid, Grid, GridItem, useToast, Box } from "@chakra-ui/react";
 import { OverallBalance } from "../../Components/OverallBalance";
 import { Ads } from "../../Components/Ads";
 import { Account } from "../../Components/Account";
@@ -14,7 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import { DEFAULT_ACCOUNT_DETAILS_ALL_ERR_MSG, DEFAULT_ACCOUNT_DETAILS_ERR_MSG, DEFAULT_ACCOUNT_ID_ERR_MSG, DEFAULT_CASHFLOW_SUMMARY_ERR_MSG, getAPIEndpoint } from '../../../config';
 import { auditLog, logger } from '../../models/logging';
 
-import styles from "../../Components/css/styling.module.css";
+import styles from "./Overview.module.css";
+import { getImageUrl } from "../../../utils";
 
 export const Overview = () => {
     const [accounts, setAccounts] = useState([]);
@@ -305,28 +306,52 @@ export const Overview = () => {
         setIsCashflowloading(false);
     }
 
+
     return (
         <div className={styles.whole}>
-            <SimpleGrid templateColumns={"1fr 300px"} spacing={"24px"}>
-                <Grid h={0} gridTemplateColumns={"1fr 1fr"} gap={"24px"}>
-                    <GridItem colSpan={1}>
-                        <OverallBalance accts={accounts} />
-                    </GridItem>
-                    <GridItem colSpan={1}>
-                        <Account link={openConnectWidget} accts={accounts} isLoading={isLoading} />
-                    </GridItem>
-                    <GridItem colSpan={2}>
+            <SimpleGrid templateColumns={"70% 30%"} spacing={"24px"}>
+                <Stack h={0} gap={"24px"}>
+
+                    <Grid gridTemplateColumns={"1fr 1fr"} gap={"24px"}>
+                        <GridItem colSpan={1}>
+                            <OverallBalance accts={accounts} />
+                        </GridItem>
+                        <GridItem colSpan={1}>
+                            <Account link={openConnectWidget} accts={accounts} isLoading={isLoading} />
+                        </GridItem>
+                    </Grid>
+
+                    <div className={styles.advert}>
+                        <div className={styles.text}>
+                            <div className={styles.green}>New</div>
+                            <h3>Personalize your experience</h3>
+                            <p>You can now customise your widgets based on data you want to see.</p>
+                        </div>
+                        <button>Explore Our Plans</button>
+                    </div>
+
+                    {/* <Box w={"100%"} h={"auto"}>
+                        <img src={getImageUrl("advert.png")} />
+                    </Box> */}
+
+
+
+
+                    <Cashflow data={cashflowSummary} />
+                    {/* <OverviewTable /> */}
+
+
+                    {/* <GridItem colSpan={2}>
                         <Cashflow data={cashflowSummary} />
-                    </GridItem>
-                    <GridItem colSpan={2}>
-                        <OverviewTable />
-                        {/* <RecentTransactions /> */}
-                    </GridItem>
-                </Grid>
+                    </GridItem> */}
+                    {/* <GridItem colSpan={2}>
+                        {/* <RecentTransactions /> *
+                    </GridItem> */}
+                </Stack>
                 <Stack spacing={"24px"}>
                     <ScheduleCalendar />
                     <ExchangeRates />
-                    <Ads />
+                    {/* <Ads /> */}
                 </Stack>
             </SimpleGrid>
             <ConnectWidget onSuccess={onSuccess} isOpen={connectWidgetIsOpen} />

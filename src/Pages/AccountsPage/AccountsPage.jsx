@@ -1,5 +1,5 @@
 import { Box, Button, Center, HStack, Spinner, Stack, Text, useDisclosure, useToast } from "@chakra-ui/react"
-import { RxValueNone } from "react-icons/rx";
+// import { RxValueNone } from "react-icons/rx";
 // import Table from "../Table";
 import { BiShow, BiHide } from "react-icons/bi";
 import { TbCurrencyNaira } from "react-icons/tb";
@@ -50,6 +50,7 @@ export const AccountsPage = () => {
     const [isLoading, setIsloading] = useState(false);
     const [accountId, setAccountId] = useState();
     const [totalBalanceVisible, setTotalBalanceVisible] = useState(true);
+    const [allAccountsVisible, setAllAccountsVisible] = useState(true);
     const { isOpen: isOpenAccountInfo, onOpen: onOpenAccountInfo, onClose: onCloseAccountInfo } = useDisclosure();
     const [acctLinked, setAcctLinked] = useState(false);
     const [linkedAcctDetails, setLinkedAcctDetails] = useState({});
@@ -279,6 +280,14 @@ export const AccountsPage = () => {
         setAccounts(dt);
     }
 
+    const handleToggleAllBalances = () => {
+        const updateVisibility = !allAccountsVisible;
+        const dt = accounts.map(e => ({ ...e, show_balance: !updateVisibility }));
+        setAllAccountsVisible(updateVisibility);
+        setTotalBalanceVisible(!totalBalanceVisible);
+        setAccounts(dt);
+    }
+
     const handleAccountView = (d) => {
         log(`Viewed details of account ${d.account_number} in ${d.institution_name}`, "Accounts");
         setSelectedAccount(d);
@@ -314,10 +323,10 @@ export const AccountsPage = () => {
                                     
                                     <Box pl={3} cursor={"pointer"}>
                                         {
-                                            totalBalanceVisible && <BiShow fontSize={"xs"} color={"#374151"} onClick={() => setTotalBalanceVisible(!totalBalanceVisible)} />
+                                            totalBalanceVisible && <BiShow fontSize={"xs"} color={"#374151"} onClick={handleToggleAllBalances} />
                                         }
                                         {
-                                            !totalBalanceVisible && <BiHide fontSize={"xs"} color={"#374151"} onClick={() => setTotalBalanceVisible(!totalBalanceVisible)} />
+                                            !totalBalanceVisible && <BiHide fontSize={"xs"} color={"#374151"} onClick={handleToggleAllBalances} />
                                         }
                                     </Box>
                                 </HStack>

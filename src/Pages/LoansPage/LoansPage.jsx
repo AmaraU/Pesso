@@ -11,42 +11,60 @@ export const LoansPage = () => {
             institution: "CapitalTrust Loans",
             amount: "N780,000.00",
             status: "Pending",
-            date: "24/10/2024"
+            date: "24/10/2024",
+            repayAmt: "N1,000",
+            tenor: "12 months",
+            frequency: "Monthly"
         },
         {
             title: "Loan Title 2",
             institution: "CapitalTrust Loans",
             amount: "N780,000.00",
             status: "Overdue",
-            date: "24/10/2024"
+            date: "24/10/2024",
+            repayAmt: "N1,000",
+            tenor: "12 months",
+            frequency: "Monthly"
         },
         {
             title: "AutoEase Loan",
             institution: "CapitalTrust Loans",
             amount: "N780,000.00",
             status: "Paid",
-            date: "24/10/2024"
+            date: "24/10/2024",
+            repayAmt: "N1,000",
+            tenor: "12 months",
+            frequency: "Monthly"
         },
         {
             title: "CustomCredit Loan",
             institution: "CapitalTrust Loans",
-            amount: "N780,000.00",
+            amount: "N200,000.00",
             status: "Paid",
-            date: "24/10/2024"
+            date: "24/10/2024",
+            repayAmt: "N1,000",
+            tenor: "12 months",
+            frequency: "Monthly"
         },
         {
             title: "DreamDrive Loan",
             institution: "CapitalTrust Loans",
             amount: "N780,000.00",
             status: "Paid",
-            date: "24/10/2024"
+            date: "24/10/2024",
+            repayAmt: "N10,000",
+            tenor: "12 months",
+            frequency: "Monthly"
         },
         {
             title: "HomeHaven Loan",
             institution: "CapitalTrust Loans",
             amount: "N780,000.00",
             status: "Paid",
-            date: "24/10/2024"
+            date: "24/10/2024",
+            repayAmt: "N1,000",
+            tenor: "6 months",
+            frequency: "Monthly"
         },
     ]
     
@@ -124,7 +142,7 @@ export const LoansPage = () => {
                         <div className={styles.loanDiv} id={index}>
                             <div className={styles.loanHeader}>
                                 {loan.title}
-                                <button onClick={(e) => {e.preventDefault(); () => editPopup(index)}}>
+                                <button onClick={(e) => {e.preventDefault(); editPopup(index)}}>
                                     <img src={getImageUrl("icons/edit.png")} />
                                     View Details
                                 </button>
@@ -159,7 +177,7 @@ export const LoansPage = () => {
                             <div className={styles.viewPopup} id="editPopup">
                                 <div className={styles.header}>
                                     <h3>DETAILED LOAN INFORMATION</h3>
-                                    <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={closePopup} /></a>
+                                    <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); closePopup()}} /></a>
                                 </div>
 
                                 <div  className={styles.lightGrey}>
@@ -169,14 +187,14 @@ export const LoansPage = () => {
                                     </div>
                                     <div  className={styles.right}>
                                         <p>Opening Balance:</p>
-                                        <h5>$10,000</h5>
+                                        <h5>{loan.amount}</h5>
                                     </div>
                                 </div>
 
                                 <div  className={styles.darkGrey}>
                                     <div>
                                         <p>Tenor:</p>
-                                        <h5>12 months</h5>
+                                        <h5>{loan.tenor}</h5>
                                     </div>
                                     <div  className={styles.right}>
                                         <p>Performance Status:</p>
@@ -191,24 +209,30 @@ export const LoansPage = () => {
                                     </div>
                                     <div  className={styles.right}>
                                         <p>Loan Status:</p>
-                                        <h5 className={styles.green}>Active</h5>
+                                        <h5 className={classNames({
+                                            [styles.green]: loan.status.toLowerCase().includes('paid'),
+                                            [styles.yellow]: loan.status.toLowerCase().includes('pending'),
+                                            [styles.red]: loan.status.toLowerCase().includes('overdue'),
+                                        })}>
+                                            {loan.status}
+                                        </h5>
                                     </div>
                                 </div>
 
                                 <div  className={styles.darkGrey}>
                                     <div>
                                         <p>Repayment Frequency:</p>
-                                        <h5>Monthly</h5>
+                                        <h5>{loan.frequency}</h5>
                                     </div>
                                     <div  className={styles.right}>
                                         <p>Repayment Amount:</p>
-                                        <h5>$1,000</h5>
+                                        <h5>{loan.repayAmt}</h5>
                                     </div>
                                 </div>
 
                                 <div className={styles.center}>
                                     <p>Repayment Schedule</p>
-                                    <h5>Monthly</h5>
+                                    <h5>{loan.frequency}</h5>
                                 </div>
                             </div>
 
