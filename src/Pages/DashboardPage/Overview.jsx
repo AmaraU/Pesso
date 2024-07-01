@@ -330,14 +330,10 @@ export const Overview = () => {
                         <button>Explore Our Plans</button>
                     </div>
 
-                    {/* <Box w={"100%"} h={"auto"}>
-                        <img src={getImageUrl("advert.png")} />
-                    </Box> */}
-
-
-
-
                     <Cashflow data={cashflowSummary} />
+
+
+
                     {/* <OverviewTable /> */}
 
 
