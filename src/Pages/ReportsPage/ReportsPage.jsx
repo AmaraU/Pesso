@@ -174,7 +174,7 @@ export const ReportsPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
+                    <Button p={0} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
                         <SlRefresh size={"24px"}/>
                     </Button>
                     <div className={styles.buttonOne}>
@@ -224,31 +224,33 @@ export const ReportsPage = () => {
                         {/* <img src={getImageUrl("chart.png")} alt="" /> */}
                         {/* <Speedometer value={75} min={0} max={100} /> */}
                         {/* <Meter className={styles.speedometer} initialValue={15} min={0} max={100} /> */}
-                        <div className={styles.meter}>
-                            <ReactSpeedometer
-                                // fluidWidth={true}
-                                // width={"100%"}
-                                position={"center"}
-                                height={200}
-                                _hover={{}}
-                                maxValue={3000}
-                                value={2313}
-                                needleColor="black"
-                                segments={3}
-                                segmentColors={[
-                                    "#BAE6FD",
-                                    "#60A5FA",
-                                    "#1D4ED8",
-                                ]}
-                                maxSegmentLabels={0}
-                                needleHeightRatio={0.6}
-                                needleTransition='easeElastic'
-                                needleTransitionDuration={4000}
-                                labelFontSize='0'
-                                valueTextFontSize='0'
-                                // ringWidth={100}
-                            />
-                            <div className={styles.valuePop}>2313</div>
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <div className={styles.meter}>
+                                <ReactSpeedometer
+                                    // fluidWidth={true}
+                                    // width={"100%"}
+                                    position={"center"}
+                                    height={200}
+                                    _hover={{}}
+                                    maxValue={3000}
+                                    value={2313}
+                                    needleColor="black"
+                                    segments={3}
+                                    segmentColors={[
+                                        "#BAE6FD",
+                                        "#60A5FA",
+                                        "#1D4ED8",
+                                    ]}
+                                    maxSegmentLabels={0}
+                                    needleHeightRatio={0.7}
+                                    needleTransition='easeElastic'
+                                    needleTransitionDuration={4000}
+                                    labelFontSize='0'
+                                    valueTextFontSize='0'
+                                    ringWidth={40}
+                                />
+                                <div className={styles.valuePop}>2313</div>
+                            </div>
                         </div>
                     </div>
 

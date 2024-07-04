@@ -3,6 +3,7 @@
     overflow-y: auto;
     margin-top: 80px;
     margin-left: 232px;
+    padding-bottom: 350px;
 }
 
 
@@ -40,6 +41,7 @@ button, a {
 .buttons {
     display: flex;
     gap: 16px;
+    align-items: center;
 }
 
 .buttonOne {
@@ -53,6 +55,7 @@ button, a {
     border-radius: 6px;
     padding: 8px 12px;
     gap: 8px;
+    /* height: fit-content; */
 }
 .buttonOne:hover {
     background-color: #F4E0E4;
@@ -69,6 +72,7 @@ button, a {
     border-radius: 6px;
     padding: 10px 16px;
     gap: 8px;
+    height: fit-content;
 }
 .buttonTwo:hover {
     background-color: #BD0429;
@@ -366,17 +370,13 @@ button, a {
     list-style: none;
     padding: 10px 13px;
     border-bottom: 1px solid #F3F4F6;
-}
-.theCategories li a {
     display: flex;
-    width: 100%;
-    height: 100%;
+    cursor: pointer;
+
     font-size: 10px;
     font-weight: 500;
     color: #4B5563;
-    text-decoration: none;
 }
-
 .theCategories li:hover {
     background-color: #E5E7EB;
     border-bottom: 1px solid #7E8491;

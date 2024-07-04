@@ -282,7 +282,7 @@ export const AccountsPage = () => {
 
     const handleToggleAllBalances = () => {
         const updateVisibility = !allAccountsVisible;
-        const dt = accounts.map(e => ({ ...e, show_balance: !updateVisibility }));
+        const dt = accounts.map(e => ({ ...e, show_balance: updateVisibility }));
         setAllAccountsVisible(updateVisibility);
         setTotalBalanceVisible(!totalBalanceVisible);
         setAccounts(dt);
@@ -307,7 +307,7 @@ export const AccountsPage = () => {
     return (
         <div className={styles.whole}>
             <Box bg={"white"}>
-                <Stack direction={"row"} justify={"space-between"} pb={"4px"}>
+                <Stack direction={"row"} justify={"space-between"} pb={"4px"} alignItems={'center'}>
                     <Stack spacing={1}>
                         <Text fontSize={"16px"} color={"#6B7280"} fontWeight={500}>Total balance</Text>
                         {
@@ -333,7 +333,7 @@ export const AccountsPage = () => {
                         }
 
                     </Stack>
-                    <Box>
+                    <Box alignItems={'center'}>
                         <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
                             <SlRefresh size={"24px"}/>
                         </Button>
@@ -419,7 +419,7 @@ export const AccountsPage = () => {
             </Box>
 
             <ConnectWidget onSuccess={onSuccess} onClose={onClose} isOpen={connectWidgetIsOpen} />
-            {/* <AccountInfo isOpen={isOpenAccountInfo} onClose={onCloseAccountInfo} flag={new Date()} dataset={selectedAccount} refreshAccounts={getAllAccounts} /> */}
+            <AccountInfo isOpen={isOpenAccountInfo} onClose={onCloseAccountInfo} flag={new Date()} dataset={selectedAccount} refreshAccounts={getAllAccounts} />
             
         </div>
     )

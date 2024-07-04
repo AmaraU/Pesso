@@ -379,6 +379,13 @@ export const TransactionsTransferPage = () => {
     }, []);
 
 
+    const [isRecurring, setIsRecurring] = useState(false);
+
+    const handleCheckboxChange = (event) => {
+        setIsRecurring(event.target.checked);
+    };
+
+
     return (
         <>
 
@@ -433,20 +440,42 @@ export const TransactionsTransferPage = () => {
                     <input type="text" name="" id="" placeholder="" />
                 </div>
 
-                <div className={styles.dateTime}>
+                {!isRecurring && <div className={styles.dateTime}>
                     <div className={styles.formGroup}>
-                        <label htmlFor="fromAcct">Date</label>
+                        <label htmlFor="Date">Date</label>
                         <input type="date" name="" id="" />
                     </div>
                     <div className={styles.formGroup}>
-                        <label htmlFor="fromAcct">Time</label>
+                        <label htmlFor="Time">Time</label>
                         <input type="time" name="" id="" />
                     </div>
-                </div>
+                </div>}
+
+                {isRecurring && <div className={styles.dateTime}>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="startDate">Start Date</label>
+                        <input type="date" name="" id="" />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="startTime">Start Time</label>
+                        <input type="time" name="" id="" />
+                    </div>
+                </div>}
+
+                {isRecurring && <div className={styles.dateTime}>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="endDate">End Date</label>
+                        <input type="date" name="" id="" />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="endTime">End Time</label>
+                        <input type="time" name="" id="" />
+                    </div>
+                </div>}
 
                 <div className={styles.checkFormGroup}>
-                    <input type="checkbox" name="" id="" />
-                    <label htmlFor="fromAcct">Recurring</label>
+                    <input type="checkbox" name='recurr' checked={isRecurring} onChange={handleCheckboxChange} />
+                    <label htmlFor="recurr">Recurring</label>
                 </div>
 
             </form>

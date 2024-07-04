@@ -97,7 +97,7 @@
     color: #FFFFFF;
     border: none;
     border-radius: 6px;
-    padding: 10px 16px;
+    padding: 8px 12px;
     gap: 8px;
 }
 .buttonTwo:hover {
@@ -121,7 +121,7 @@
     color: #FFFFFF;
     border: none;
     border-radius: 6px;
-    padding: 10px 16px;
+    padding: 8px 12px;
     gap: 8px;
 }
 .buttonThree:hover {

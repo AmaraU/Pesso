@@ -22,7 +22,10 @@ import { DEFAULT_ACCOUNT_UNLINK_ERR_MSG, DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEnd
 import { auditLog, logger } from '../models/logging';
 import { CiBank } from 'react-icons/ci';
 import { trxnFields } from '../models/data';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import styles from "../Pages/AccountsPage/AccountsPage.module.css";
+import { getImageUrl } from '../../utils';
+import classNames from 'classnames';
 
 const hideBalance = () => {
     return "******";
@@ -39,7 +42,7 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
     const [isUnlinkLoading, setIsUnlinkloading] = useState(false);
     const [trxns, setTrxns] = useState([]);
     const toast = useToast();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (dataset) {
@@ -54,7 +57,7 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
 
     useEffect(() => {
         if (!sessionStorage.getItem("id")) {
-            // navigate('/signin');
+            navigate('/signin');
         }
     }, [])
 
@@ -194,53 +197,101 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
         await unlinkAccount();
     }
 
+    const transactions = [
+        { date: '2023-07-01', description: 'Airtime purchase', amount: '-N60.00', type: 'Debit'},
+        { date: '2023-07-01', description: 'Alabi Ayoade', amount: '+N5,000.00', type: 'Credit' },
+        { date: '2023-07-02', description: 'Hando’s cookout', amount: '-N100.00', type: 'Debit' },
+        { date: '2023-07-02', description: 'Tiston boat cruise', amount: '-N6,000.00', type:'Bill' },
+        { date: '2023-07-02', description: 'CWG', amount: '+N15,000.00', type: 'Credit'},
+    ];
+
+    const sortedTrxns = [...transactions].sort((a,b) => new Date(a.date) - new Date(b.date));
+
+    const groupedTrxns = sortedTrxns.reduce((acc, transaction) => {
+        const date = transaction.date;
+        if (!acc[date]) {
+            acc[date] = [];
+        }
+        acc[date].push(transaction);
+        return acc;
+    }, {});
+
+    const formatDate = (dateString) => {
+        const options = { month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+
+
+
+
+    const [ search, setSearch] = useState("");
+
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
+        setCurrentPage(1);
+    };
+
+
     return (
         <>
             <Drawer
                 isOpen={isOpen}
                 placement='right'
                 onClose={handleClose}
-                size={'xl'}
+                size={'md'}
             >
                 <DrawerOverlay />
                 <DrawerContent bg={"white"}>
                     <DrawerCloseButton />
                     <DrawerBody>
-                        <div style={{ overflow: 'auto', maxHeight: '100vh' }}>
-                            <Stack pt={7} spacing={10} direction={"row"}>
-                                <HStack>
-                                    <Box mt={-1} fontSize={'xl'} color='orange.500' >
-                                        <CiBank />
-                                    </Box>
-                                    <Text fontSize={"lg"} fontWeight={600}>{_data ? _data.institution_name : ""}</Text>
-                                </HStack>
-                                <Button isLoading={isUnlinkLoading} isDisabled={isUnlinkLoading} size={"xs"} bg={"#ff000022"} color={"red.600"} _hover={{ bg: "#ff000033" }} onClick={handleUnlink}>
-                                    Unlink account
-                                </Button>
-                            </Stack>
+                        <div style={{ overflow: 'auto', maxHeight: '100vh' }} className={styles.drawer}>
                             <Stack spacing={5} pt={5}>
-                                <Box py={4} px={6} bg={"#F8F9F9"} rounded={15} borderWidth={1}>
-                                    <Stack spacing={4} direction={"row"} justify={"space-between"}>
+
+                                <Box p={"23px"} rounded={8} border={"1px solid #E5E7EB"}>
+
+                                    <HStack spacing={10} direction={"row"} w={"100%"} alignItems={"center"} justifyContent={"space-between"} mb={"24px"}>
+                                        <HStack>
+                                            <Box mt={-1} fontSize={'28px'} bg={"#F9FAFB"} borderRadius={"50px"} p={"8px"} color='orange.500' >
+                                                <CiBank />
+                                            </Box>
+                                            <Text fontSize={"16px"} fontWeight={600} color={"#374151"}>{_data ? _data.institution_name : ""}</Text>
+                                        </HStack>
+                                        <Button isLoading={isUnlinkLoading} isDisabled={isUnlinkLoading} px={"12px"} fontSize={"12px"} bg={"#ff000022"} color={"#DC2626"} _hover={{ bg: "#ff000033" }} onClick={handleUnlink}>
+                                            Unlink account
+                                        </Button>
+                                    </HStack>
+
+                                    <Stack spacing={1}>
+                                        <Text fontSize={"xs"}>Account Balance</Text>
+                                        <HStack ml={-1} spacing={0} >
+                                            <Box fontSize={{ base: 19, md: 20 }}>
+                                                <TbCurrencyNaira />
+                                            </Box>
+                                            <Text fontSize={{ base: "sm", md: 'md' }} fontWeight={600}>{isBalanceVisible ? Intl.NumberFormat('en-us', {
+                                                minimumFractionDigits: 2,
+                                                maximumFractionDigits: 2,
+                                            }).format(parseFloat(_data ? _data.account_balance : "")) : hideBalance()}</Text>
+                                            <Box pl={3} cursor={"pointer"} mt={-0.5}>
+                                                {
+                                                    isBalanceVisible && <BiShow fontSize={"xs"} color={"#374151"} onClick={() => toggleBalanceVisibility()} />
+                                                }
+                                                {
+                                                    !isBalanceVisible && <BiHide fontSize={"xs"} color={"#374151"} onClick={() => toggleBalanceVisibility()} />
+                                                }
+                                            </Box>
+                                        </HStack>
+                                    </Stack>
+
+
+                                    <Stack pt={6} direction={"row"} justify={"space-between"}>
                                         <Stack spacing={1}>
-                                            <Text fontSize={"xs"}>Account Balance</Text>
-                                            <HStack ml={-1} spacing={0} >
-                                                <Box fontSize={{ base: 19, md: 20 }}>
-                                                    <TbCurrencyNaira />
-                                                </Box>
-                                                <Text fontSize={{ base: "sm", md: 'md' }} fontWeight={600}>{isBalanceVisible ? Intl.NumberFormat('en-us', {
-                                                    minimumFractionDigits: 2,
-                                                    maximumFractionDigits: 2,
-                                                }).format(parseFloat(_data ? _data.account_balance : "")) : hideBalance()}</Text>
-                                                <Box pl={3} cursor={"pointer"} mt={-0.5}>
-                                                    {
-                                                        isBalanceVisible && <BiShow fontSize={"xs"} color={"#1C6BFF"} onClick={() => toggleBalanceVisibility()} />
-                                                    }
-                                                    {
-                                                        !isBalanceVisible && <BiHide fontSize={"xs"} color={"#1C6BFF"} onClick={() => toggleBalanceVisibility()} />
-                                                    }
-                                                </Box>
-                                            </HStack>
+                                            <Text fontSize={"xs"}>Account Name</Text>
+                                            <Text fontSize={{ base: "sm", md: 'md' }} fontWeight={600}>{_data ? _data.account_name : ""}</Text>
                                         </Stack>
+                                    </Stack>
+
+
+                                    <Stack mt={6} spacing={4} direction={"row"} justify={"space-between"}>
                                         <Stack spacing={1}>
                                             <Text fontSize={"xs"}>Account Number</Text>
                                             <Text fontSize={{ base: "sm", md: 'md' }} fontWeight={600}>{_data ? _data.account_number : ""}</Text>
@@ -251,25 +302,50 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
                                             <Text fontSize={{ base: "sm", md: 'md' }} fontWeight={600}>{_data ? toTitleCase(_data.account_type).replace("_account", "") : ""}</Text>
                                         </Stack>
                                     </Stack>
-                                    <Stack pt={6} direction={"row"} justify={"space-between"}>
-                                        <Stack spacing={1}>
-                                            <Text fontSize={"xs"}>Account Name</Text>
-                                            <Text fontSize={{ base: "sm", md: 'md' }} fontWeight={600}>{_data ? _data.account_name : ""}</Text>
-                                        </Stack>
-                                    </Stack>
                                 </Box>
-                                <Box bg={"#F8F9F9"} rounded={15} mb={6} borderWidth={1}>
-                                    <Text pt={4} pl={6} color={"gray.600"} fontSize="md" fontWeight={600}>Recent Transactions</Text>
+
+                                <Box p={"23px"} rounded={8} border={"1px solid #E5E7EB"}>
+                                    <Text color={"#374151"} fontSize={"16px"} fontWeight={600}>Recent Transactions</Text>
                                     {
                                         isLoading ?
                                             <Center pt={10} pb={20}> <Spinner /> </Center>
                                             :
-                                            trxns.length > 0 ?
-                                                <DataWidget entries={trxns} fields={trxnFields} noDataText="No transactions found" isLoading={isLoading} showHideColumns={{ id: false }} entryFontSize="11px" fileName='Recent_Transactions' initSortingField='trans_date' /> :
+                                            // trxns.length > 0 ?
+                                            transactions.length > 0 ?
+                                                <>
+                                                <div>
+                                                    <div className={styles.searchBar}>
+                                                        <img src={getImageUrl("icons/search.png")} />
+                                                        <input id="search" type="text" onChange={handleSearch} placeholder='Search reports' />
+                                                    </div>
+
+                                                    {Object.keys(groupedTrxns).map((date) => (
+                                                        <div key={date} className={styles.acctInfoTable}>
+                                                            <h4>{formatDate(date)}</h4>
+                                                            {groupedTrxns[date].map((transaction, index) => (
+                                                                <div key={index} className={styles.trxn}>
+                                                                    <div className={styles.desc}>
+                                                                        <h3>{transaction.description}</h3>
+                                                                        <p>{transaction.type}</p>
+                                                                    </div>
+
+                                                                    <div className={classNames({
+                                                                        [styles.credit]: transaction.amount.startsWith('+'),
+                                                                        [styles.debit]: transaction.amount.startsWith('-')
+                                                                    })}>
+                                                                        {transaction.amount}
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                {/* <DataWidget entries={trxns} fields={trxnFields} noDataText="No transactions found" isLoading={isLoading} showHideColumns={{ id: false }} entryFontSize="11px" fileName='Recent_Transactions' initSortingField='trans_date' /> : */}
+                                                </>
+                                                :
                                                 <Box pt={10} pb={20}>
                                                     <Text fontSize={{ base: 'xs', md: 'sm' }} color={'gray.500'} textAlign={'center'}>No transactions found</Text>
                                                 </Box>
-
                                     }
                                 </Box>
                             </Stack>

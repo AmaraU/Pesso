@@ -152,6 +152,7 @@
     text-align: right;
     display: flex;
     gap: 16px;
+    align-items: center;
 }
 
 
@@ -536,4 +537,81 @@
 }
 .gotToPage:hover {
     color: #878C95;
+}
+
+
+
+
+/* ACCOUNT INFO DRAWER */
+
+.drawer {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.drawer::-webkit-scrollbar {
+    display: none;
+}
+
+
+.searchBar {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 16px;
+}
+.searchBar img {
+    width: 18px;
+    height: 18px;
+}
+.searchBar input {
+    border: none;
+    outline: none;
+    margin-left: 8px;
+}
+.searchBar input::placeholder {
+    font-size: 14px;
+    color: #A4A4B1;
+}
+
+
+
+
+.acctInfoTable h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #9CA3AF;
+    margin-top: 16px;
+}
+
+.acctInfoTable .trxn {
+    border-bottom: 1px solid #F3F4F6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.acctInfoTable .desc {
+    display: flex;
+    flex-direction: column;
+}
+.acctInfoTable .desc h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #374151;
+}
+.acctInfoTable .desc p {
+    font-size: 10px;
+    font-weight: 500;
+    color: #6B7280;
+}
+
+.acctInfoTable .credit {
+    color: #16A34A;
+    font-size: 16px;
+    font-weight: 500;
+}
+.acctInfoTable .debit {
+    color: #EF4444;
+    font-size: 16px;
+    font-weight: 500;
 }

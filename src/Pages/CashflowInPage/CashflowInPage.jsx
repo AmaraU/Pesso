@@ -233,6 +233,11 @@ const inflows = [
                 </div>
 
                 <div className={styles.formGroup}>
+                    <label htmlFor="fromAcct">Account Number</label>
+                    <input type="text" name="" id="" placeholder="Enter Account" />
+                </div>
+
+                <div className={styles.formGroup}>
                     <label htmlFor="fromAcct">Description</label>
                     <input type="text" name="" id="" placeholder='Enter Description' />
                 </div>
@@ -320,11 +325,14 @@ const inflows = [
                 <>
 
                 <div className={styles.inflowTreemap}>
-                    <div className={`${styles.treemapBox} ${styles.darkest}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
-                    <div className={styles.treemapColumn}>
-                        <div className={`${styles.treemapBox} ${styles.darker}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
-                        <div className={`${styles.treemapBox} ${styles.dark}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
+                    <div className={styles.treemapRow}>
+                        <div className={`${styles.treemapBox} ${styles.darkest}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
+                        <div className={styles.treemapColumn}>
+                            <div className={`${styles.treemapBox} ${styles.darker}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
+                            <div className={`${styles.treemapBox} ${styles.dark}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
+                        </div>
                     </div>
+                    
                     <div className={styles.treemapColumn}>
                         <div className={styles.treemapRow}>
                             <div className={`${styles.treemapBox} ${styles.blue}`}><h5>20%</h5><p>SALARIES AND WAGES (N234)</p></div>

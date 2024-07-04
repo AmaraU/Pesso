@@ -30,8 +30,17 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 
 export const Header = () => {
-
+    const [businessName, setBusinessName] = useState();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!sessionStorage.getItem('email')) {
+            navigate('/');
+        }
+        // const data = location.state;
+        // console.log(data);
+        setBusinessName(sessionStorage.getItem('bizName'));
+    }, []);
 
 
     let currentPath = window.location.pathname;
@@ -145,16 +154,6 @@ export const Header = () => {
 
                 <div className={styles.headerRight}>
                     <Stack>
-                        {/* <IconButton
-                            display={{ base: "flex", md: "none" }}
-                            // onClick={onOpen}
-                            variant="outline"
-                            aria-label="open menu"
-                            icon={<FiMenu />}
-                        /> */}
-                        {/* <HStack display={{ base: "flex", md: "none" }} spacing={3} alignSelf={'center'} as='button' onClick={() => navigate('/')}>
-                            <Image src={logo} w={'74px'} h={'40px'} />
-                        </HStack> */}
                         <HStack spacing={{ base: "0", md: "6" }}>
                             <IconButton _hover={{ bg: "#5F57FF11" }}
                                 size="lg"
@@ -172,7 +171,7 @@ export const Header = () => {
                                         <HStack>
                                             <Avatar
                                                 size={"sm"}
-                                                // name={name}
+                                                name={businessName}
                                                 bg={"gray.700"}
                                                 color={"white"}
                                             />
@@ -182,7 +181,7 @@ export const Header = () => {
                                                 spacing="1px"
                                                 ml="2"
                                             >
-                                                <Text fontSize="sm">{name}</Text>
+                                                <Text fontSize="sm">{businessName}</Text>
                                                 <Text fontSize="xs" color="gray.600">
                                                     {sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ""}
                                                 </Text>

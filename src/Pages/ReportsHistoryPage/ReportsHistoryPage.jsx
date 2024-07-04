@@ -184,10 +184,10 @@ export const ReportsHistoryPage = () => {
                             <option value="">Current Day</option>
                         </select>
                     </div>
-                    <a href="" className={styles.buttonTwo} onClick={() => handleDownloadToggle()}>
-                        <img src={getImageUrl("icons/whiteDownArrow.png")} alt="" />
+                    <button className={styles.buttonTwo} onClick={handleDownloadToggle}>
+                        <img src={getImageUrl("icons/whiteDownArrow.png")} />
                         Download
-                    </a>
+                    </button>
                     <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} >
                         <p>DOWNLOAD</p>
                         <a href="">

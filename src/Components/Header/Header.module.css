@@ -59,11 +59,13 @@
 }
 
 .headerLeft h2 {
+    width: fit-content;
     font-size: 24px;
     line-height: 32px;
     font-weight: 600;
     color: #374151;
     margin-right: 7%;
+    white-space: nowrap;
     
 }
 .links {

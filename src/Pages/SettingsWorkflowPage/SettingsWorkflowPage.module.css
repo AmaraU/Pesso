@@ -91,6 +91,10 @@
 .workflowDivs {
     display: flex;
     gap: 24px;
+
+    display: grid;
+    grid-template-columns: repeat(4,25%);
+    gap: 24px;
 }
 
 .workflowDiv {
@@ -244,6 +248,54 @@
     font-size: 14px;
 }
 
+.levelButton {
+    padding: 16px 0;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    text-align: center;
+    gap: 16px;
+}
+.levelButton button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #D2042D;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    margin-bottom: 16px;
+    /* align-self: end; */
+}
+.levelButton button:hover {
+    background-color: #BD0429;
+}
+
+
+.dashedDiv {
+    border: 1px dashed #E5E7EB;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    justify-content: space-between;
+    text-align: center;
+    gap: 12px;
+}
+.dashedDiv button {
+    background-color: #E8E7E7;
+    padding: 8px 11px;
+    border-radius: 8px;
+    color: #4B5563;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    margin-bottom: 0;
+}
+.dashedDiv button:hover {
+    background-color: #DCDCDC;
+}
+
+
 .submitButton {
     bottom: 0;
     width: 100%;
@@ -264,6 +316,6 @@
     border: none;
     align-self: end;
 }
-.submitButton button {
+.submitButton button:hover {
     background-color: #BD0429;
 }

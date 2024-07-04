@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styles from "./SettingsWorkflowPage.module.css";
 import { getImageUrl } from '../../../utils';
 
@@ -42,6 +42,16 @@ export const SettingsWorkflowPage = () => {
     }
 
 
+    const [ approvers, setApprovers] = useState([]);
+    const [ isEmpty, setIsEmpty ] = useState(true);
+    const addApprover = (event) => {
+        event.preventDefault();
+        setApprovers(prevApprover => [...prevApprover, `Approver ${prevApprover.length+1}`]);
+        setIsEmpty(false);
+    };
+
+    
+
 
     return (
         <>
@@ -49,7 +59,7 @@ export const SettingsWorkflowPage = () => {
         <div className={styles.popup} id="popup">
             <div className={styles.header}>
                 <h3>Workflow</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggle()}} /></a>
+                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); toggle()}} /></a>
             </div>
 
             <form action="">
@@ -57,6 +67,9 @@ export const SettingsWorkflowPage = () => {
                     <label htmlFor="fromAcct">Workflow Type</label>
                     <select name="" id="">
                         <option value="">Select Workflow Type</option>
+                        <option value="">Bulk Transfer</option>
+                        <option value="">Single Transfer</option>
+                        <option value="">Add/Delete Financial Details</option>
                     </select>
                 </div>
 
@@ -67,16 +80,21 @@ export const SettingsWorkflowPage = () => {
                     </select>
                 </div>
 
-                <button>Add Approver Level</button>
-                <div className={styles.dashedDiv}>
-                    <button>Approver</button>
-                    <button>Approver 1</button>
-                    <button>Approver 2</button>
+                <div className={styles.levelButton}>
+                    <button onClick={addApprover}>Add Approver Level</button>
+                    
+                    { !isEmpty && <div className={styles.dashedDiv}>
+                        {approvers.map((approver, index) => (
+                            <button key={index}>{approver}</button>
+                        ))}
+                    </div>}
                 </div>
+
+                
             </form>
 
             <div className={styles.submitButton}>
-                <button onClick={(e) => {e.preventDefault(); toggle()}}>Submit</button>
+                <button onClick={() =>  toggle()}>Submit</button>
             </div>
         </div>
 
@@ -93,7 +111,7 @@ export const SettingsWorkflowPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <button className={styles.buttonOne} onClick={(e) => {e.preventDefault(); () => toggle()}}>
+                    <button className={styles.buttonOne} onClick={() => toggle()}>
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                         Create Workflow
                     </button>

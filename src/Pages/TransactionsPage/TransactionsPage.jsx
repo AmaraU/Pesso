@@ -161,15 +161,11 @@ export const TransactionsPage = () => {
         setOpenDownload(false);
     };
 
-    const handleCategorySelection = (index, category) => {
-        setSelectedCategory(prevState => ({
-            ...prevState,
-            [index]: category
-        }));
-        setOpenCategories(prevState => ({
-            ...prevState,
-            [index]: false
-        }));
+    const handleCategorySelection = (event, index, category) => {
+        console.log("handling category selection...")
+        // event.preventDefault();
+        setSelectedCategory(prevState => ({...prevState, [index]: category }));
+        setOpenCategories(prevState => ({...prevState, [index]: false }));
     };
 
 
@@ -191,9 +187,19 @@ export const TransactionsPage = () => {
         if (containerRef.current && !containerRef.current.contains(event.target)) {
             setOpenFilter(false);
             setOpenDownload(false);
-            // setOpenCategories({});
+            setOpenCategories({});
         }
     };
+
+    // const reverseCategoriesState = () => {
+    //     setOpenCategories(prevState => {
+    //         const newState = {};
+    //         for (const key in prevState) {
+    //             newState[key] = !prevState[key];
+    //         }
+    //         return newState;
+    //     });
+    // };
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
@@ -292,7 +298,7 @@ export const TransactionsPage = () => {
                                     </button>
 
                                     {openCategories[index] && (
-                                        <div className={styles.theCategories}>
+                                        <div className={styles.theCategories} >
                                             <p>CATEGORY</p>
                                             <div className={styles.categorySearch}>
                                                 <img src={getImageUrl("icons/search.png")} />
@@ -301,7 +307,7 @@ export const TransactionsPage = () => {
 
                                             <ul>
                                                 {filteredCategories.map((category, catIndex) => (
-                                                    <li key={catIndex}><a onClick={() => handleCategorySelection(index, category)} href='#'>{category}</a></li>
+                                                    <li key={catIndex} onClick={() => handleCategorySelection(index, category)}>{category}</li>
                                                 ))}
                                             </ul>
                                         </div>
