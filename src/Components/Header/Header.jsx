@@ -19,14 +19,12 @@ import {
     Stack
 } from "@chakra-ui/react"
 import {
-    FiMenu,
     FiBell,
     FiChevronDown,
 } from "react-icons/fi";
-import logo from '../../../assets/images/logo2.png';
 import { IoSettingsOutline } from "react-icons/io5";
 import { PiSignOut } from "react-icons/pi";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export const Header = () => {
@@ -79,6 +77,10 @@ export const Header = () => {
         
         case "/dashboard/loans":
             PageTitle = "Loans";
+            break;
+        
+        case "/dashboard/request":
+            PageTitle = "Request";
             break;
         
         case "/dashboard/investments":

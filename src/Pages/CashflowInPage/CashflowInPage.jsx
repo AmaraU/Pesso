@@ -1,126 +1,128 @@
+import { Box, Button, HStack, Spinner, Stack, Text } from "@chakra-ui/react";
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./CashflowInPage.module.css";
 import { getImageUrl } from '../../../utils';
 import classNames from 'classnames';
-import { Button } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
+import { TbCurrencyNaira } from "react-icons/tb";
+import { BiShow, BiHide } from "react-icons/bi";
+
 
 
 export const CashflowInPage = () => {
-
     
-const inflows = [
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Paid",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Payment for site survey and inspection",
-        amount: "+N300,000"
-    },
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Paid",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Shoprite Kenya",
-        amount: "-N300,000"
-    },
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Paid",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Cadastral survey",
-        amount: "+N300,000"
-    },
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Paid",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Airtime purchase",
-        amount: "-N300,000"
-    },
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Paid",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Shoprite Kenya",
-        amount: "+N300,000"
-    },
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Pending",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Bank Charges",
-        amount: "-N3,000"
-    },
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Pending",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Cadastral survey",
-        amount: "+N300,000"
-    },
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Pending",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Shoprite Kenya",
-        amount: "-N300,000"
-    },
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Overdue",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Asbuilt",
-        amount: "+N300,000"
-    },
-    {
-        invoiceNo: "235GDBH7",
-        createdDate: "July 22, 2022; 4:24pm",
-        dueDate: "July 22, 2023; 4:24pm",
-        acctNo: "235GDBH7",
-        status: "Overdue",
-        phoneNo: "08064538759",
-        email: "Abolajiadewale@gmail.com",
-        description: "Shoprite Kenya",
-        amount: "-N300,000"
-    }   
-]
+    const inflows = [
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Paid",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Payment for site survey and inspection",
+            amount: "+N300,000"
+        },
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Paid",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Shoprite Kenya",
+            amount: "-N300,000"
+        },
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Paid",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Cadastral survey",
+            amount: "+N300,000"
+        },
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Paid",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Airtime purchase",
+            amount: "-N300,000"
+        },
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Paid",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Shoprite Kenya",
+            amount: "+N300,000"
+        },
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Pending",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Bank Charges",
+            amount: "-N3,000"
+        },
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Pending",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Cadastral survey",
+            amount: "+N300,000"
+        },
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Pending",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Shoprite Kenya",
+            amount: "-N300,000"
+        },
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Overdue",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Asbuilt",
+            amount: "+N300,000"
+        },
+        {
+            invoiceNo: "235GDBH7",
+            createdDate: "July 22, 2022; 4:24pm",
+            dueDate: "July 22, 2023; 4:24pm",
+            acctNo: "235GDBH7",
+            status: "Overdue",
+            phoneNo: "08064538759",
+            email: "Abolajiadewale@gmail.com",
+            description: "Shoprite Kenya",
+            amount: "-N300,000"
+        }   
+    ]
 
     const [ search, setSearch] = useState("");
     const [ currentPage, setCurrentPage ] = useState(1);
@@ -216,6 +218,19 @@ const inflows = [
         };
     }, []);
 
+    const [totalBalanceVisible, setTotalBalanceVisible] = useState(true);
+    const [isLoading, setIsloading] = useState(false);
+
+    const hideBalance = () => {
+        return "******";
+    }
+
+    const handleToggleVisibility = () => {
+        setTotalBalanceVisible(!totalBalanceVisible);
+    }
+
+    const cashflowins = [1,2,3];
+
 
     return (
         <>
@@ -310,6 +325,31 @@ const inflows = [
                 </div>
             </div>
 
+            <Stack spacing={1} mb={8}>
+                <Text fontSize={"16px"} color={"#6B7280"} fontWeight={500}>Total Inflow Balance</Text>
+                {
+                    isLoading ? <Spinner w={"20px"} h={"20px"}/> :
+                        <HStack ml={"-1px"} spacing={0}>
+                            <Box fontSize={"36px"}>
+                                <TbCurrencyNaira />
+                            </Box>
+                            <Text fontSize={"32px"} fontWeight={600} >{totalBalanceVisible ? Intl.NumberFormat('en-us', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            }).format(cashflowins.length > 0 ? cashflowins.map(e => e.account_balance).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) : 0) : hideBalance()}</Text>
+                            
+                            <Box pl={3} cursor={"pointer"}>
+                                {
+                                    totalBalanceVisible && <BiShow fontSize={"xs"} color={"#374151"} onClick={handleToggleVisibility} />
+                                }
+                                {
+                                    !totalBalanceVisible && <BiHide fontSize={"xs"} color={"#374151"} onClick={handleToggleVisibility} />
+                                }
+                            </Box>
+                        </HStack>
+                }
+            </Stack>
+
             
 
             {currentInflows.length === 0 ? (
@@ -325,30 +365,45 @@ const inflows = [
                 <>
 
                 <div className={styles.inflowTreemap}>
-                    <div className={styles.treemapRow}>
-                        <div className={`${styles.treemapBox} ${styles.darkest}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
-                        <div className={styles.treemapColumn}>
-                            <div className={`${styles.treemapBox} ${styles.darker}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
-                            <div className={`${styles.treemapBox} ${styles.dark}`}><h5>45%</h5><p>UTILITIES (N234)</p></div>
-                        </div>
-                    </div>
-                    
                     <div className={styles.treemapColumn}>
                         <div className={styles.treemapRow}>
-                            <div className={`${styles.treemapBox} ${styles.blue}`}><h5>20%</h5><p>SALARIES AND WAGES (N234)</p></div>
-                            <div className={`${styles.treemapBox} ${styles.blue}`}><h5>20%</h5><p>SALARIES AND WAGES (N234)</p></div>
-                            <div className={`${styles.treemapBox} ${styles.blue}`}><h5>20%</h5><p>SALARIES AND WAGES (N234)</p></div>
+                            <div className={`${styles.treemapBox} ${styles.one}`}><h5>45%</h5><p>BAD DEBTS</p></div>
+                            <div className={`${styles.treemapBox} ${styles.two}`}><h5>45%</h5><p>CHARTITABLE CONTRIBUTIONS</p></div>
                         </div>
                         <div className={styles.treemapRow}>
-                            <div className={`${styles.treemapBox} ${styles.navy}`}><h5>10%</h5><p>SUPPLIES (N234)</p></div>
-                            <div className={`${styles.treemapBox} ${styles.blue}`}><h5>10%</h5><p>UTILITIES (N234)</p></div>
-                            <div className={`${styles.treemapBox} ${styles.navy}`}><h5>10%</h5><p>SUPPLIES (N234)</p></div>
-                            <div className={`${styles.treemapBox} ${styles.navy}`}><h5>10%</h5><p>SUPPLIES (N234)</p></div>
+                            <div className={`${styles.treemapBox} ${styles.three}`}><h5>45%</h5><p>COST OF GOODS SOLD (COGS)</p></div>
+                            <div className={`${styles.treemapBox} ${styles.four}`}><h5>45%</h5><p>DEPRECIATION AND AMORIZATION</p></div>
+                            <div className={`${styles.treemapBox} ${styles.five}`}><h5>45%</h5><p>EQUIPMENT</p></div>
+                        </div>
+                    </div>
+
+                    <div className={styles.treemapColumn}>
+                        <div className={`${styles.treemapBox} ${styles.six}`}><h5>45%</h5><p>FEES AND COMMISSIONS</p></div>
+                        <div className={`${styles.treemapBox} ${styles.seven}`}><h5>45%</h5><p>INSURANCE</p></div>
+                        <div className={`${styles.treemapBox} ${styles.eight}`}><h5>45%</h5><p>INTEREST</p></div>
+                    </div>
+
+                    <div className={styles.treemapColumn}>
+                        <div className={styles.treemapRow}>
+                            <div className={`${styles.treemapBox} ${styles.nine}`}><h5>20%</h5><p>MARKETING & ADVERTISING</p></div>
+                            <div className={`${styles.treemapBox} ${styles.ten}`}><h5>20%</h5><p>OTHER EXPENSES</p></div>
+                            <div className={`${styles.treemapBox} ${styles.eleven}`}><h5>20%</h5><p>PROFESSIONAL SERVICES</p></div>
+                            <div className={`${styles.treemapBox} ${styles.twelve}`}><h5>20%</h5><p>RENT</p></div>
+                            <div className={`${styles.treemapBox} ${styles.thirteen}`}><h5>20%</h5><p>REPAIRS AND MAINTENANCE</p></div>
+                            <div className={`${styles.treemapBox} ${styles.fourteen}`}><h5>20%</h5><p>RESEARCH AND DEVELOPMENT</p></div>
                         </div>
                         <div className={styles.treemapRow}>
-                            <div className={`${styles.treemapBox} ${styles.light}`}><h5>5%</h5><p>UTILITIES (N14)</p></div>
-                            <div className={`${styles.treemapBox} ${styles.light}`}><h5>5%</h5><p>EQUIPMENT (N14)</p></div>
-                            <div className={`${styles.treemapBox} ${styles.light}`}><h5>5%</h5><p>EQUIPMENT (N14)</p></div>
+                            <div className={`${styles.treemapBox} ${styles.fifteen}`}><h5>10%</h5><p>SALARIES & WAGES</p></div>
+                            <div className={`${styles.treemapBox} ${styles.sixteen}`}><h5>10%</h5><p>SHIPPING & POSTAGE</p></div>
+                            <div className={`${styles.treemapBox} ${styles.seventeen}`}><h5>10%</h5><p>SOFTWARE & SUBSCRIPTIONS</p></div>
+                            <div className={`${styles.treemapBox} ${styles.eighteen}`}><h5>10%</h5><p>SUPPLIES</p></div>
+                            <div className={`${styles.treemapBox} ${styles.nineteen}`}><h5>10%</h5><p>TAXES</p></div>
+                            <div className={`${styles.treemapBox} ${styles.twenty}`}><h5>10%</h5><p>TRAINING & DEVELOPMENT</p></div>
+                        </div>
+                        <div className={styles.treemapRow}>
+                            <div className={`${styles.treemapBox} ${styles.twentyone}`}><h5>5%</h5><p>TRAVEL</p></div>
+                            <div className={`${styles.treemapBox} ${styles.twentytwo}`}><h5>5%</h5><p>UTILITIES</p></div>
+                            <div className={`${styles.treemapBox} ${styles.twentythree}`}><h5>5%</h5><p>ENTERTAINMENT</p></div>
                         </div>
                     </div>
                 </div>

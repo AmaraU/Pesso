@@ -140,11 +140,19 @@ export const ReportsHistoryPage = () => {
     }
 
 
-    const [ openDownload, setOpenDownload ] = useState(false);
-    const handleDownloadToggle = () => {
-        setOpenDownload(!openDownload);
-        setActionsOpen(false);
+    const [ openExport, setOpenExport ] = useState(false);
+
+    const handleExportClick = () => {
+        setOpenExport(!openExport)
     };
+
+    function toggleSuccess() {
+        setOpenExport(false);
+        var success = document.getElementById('successpopup');
+        success.classList.toggle(`${styles.successPopped}`);
+        var popup = document.getElementById('dimmer');
+        popup.classList.toggle(`${styles.dim}`);        
+    }
 
     
 
@@ -153,7 +161,6 @@ export const ReportsHistoryPage = () => {
     const handleClickOutside = (event) => {
         if (popupRef.current && !popupRef.current.contains(event.target)) {
             setActionsOpen(false);
-            setOpenDownload(false);
         }
     };
 
@@ -167,6 +174,11 @@ export const ReportsHistoryPage = () => {
 
 
     return (
+        <>
+
+        <div className={styles.dimmer} id='dimmer'></div>
+
+
         <div className={styles.whole}>
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
@@ -184,21 +196,63 @@ export const ReportsHistoryPage = () => {
                             <option value="">Current Day</option>
                         </select>
                     </div>
-                    <button className={styles.buttonTwo} onClick={handleDownloadToggle}>
-                        <img src={getImageUrl("icons/whiteDownArrow.png")} />
-                        Download
+
+
+                    <button className={styles.buttonTwo} onClick={handleExportClick}>
+                        <img src={getImageUrl("icons/whiteDownload.png")} alt="" />
+                        Export
                     </button>
-                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} >
-                        <p>DOWNLOAD</p>
-                        <a href="">
-                            <img src={getImageUrl("icons/pdf.png")} />
-                            PDF Format
-                        </a>
-                        <br />
-                        <a className={styles.csv} href="">
-                            <img src={getImageUrl("icons/csv.png")} />
-                            CSV Format
-                        </a>
+
+                    <div className={`${styles.exportClosed} ${openExport && styles.export}`}>
+                        <div className={styles.exportHeader}>
+                            <p>Export</p>
+                            <a onClick={() => setOpenExport(false)}><img src={getImageUrl("icons/greyClose.png")} alt="" /></a>
+                        </div>
+                        
+                        <div className={styles.exportForm}>
+                            <div className={styles.exportFormGroup}>
+                                <label htmlFor="">Account</label>
+                                <select name="account">
+                                    <option value="">Select Account</option>
+                                </select>
+                                <div className={styles.allAccts}>
+                                    <input type="checkbox" name="allaccts" />
+                                    <label htmlFor="allaccts">All Accounts</label>
+                                </div>
+                            </div>
+
+                            <div className={styles.checkboxes}>
+                                <p>Categories</p>
+                                <div className={styles.checkbox}>
+                                    <input type="checkbox" name="cashflow" />
+                                    <label htmlFor="cashflow">Cashflow</label>
+                                </div>
+                                <div className={styles.checkbox}>
+                                    <input type="checkbox" name="finhealth" />
+                                    <label htmlFor="finhealth">Financial Health</label>
+                                </div>
+                                <div className={styles.checkbox}>
+                                    <input type="checkbox" name="burnrate" />
+                                    <label htmlFor="burnrate">Burn Rate</label>
+                                </div>
+                                <div className={styles.checkbox}>
+                                    <input type="checkbox" name="loans" />
+                                    <label htmlFor="loans">Loans</label>
+                                </div>
+                                <div className={styles.checkbox}>
+                                    <input type="checkbox" name="trxns" />
+                                    <label htmlFor="trxns">Transactions</label>
+                                </div>
+                            </div>
+                            <div className={styles.exportButton}>
+                                <button onClick={() => toggleSuccess()}>Export</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.successPopup} id='successpopup'>
+                        <img src={getImageUrl("success.png")} />
+                        <h4>Successfully Exported</h4>
+                        <button onClick={() => toggleSuccess()}>Continue</button>
                     </div>
 
                 </div>
@@ -244,8 +298,8 @@ export const ReportsHistoryPage = () => {
                                     <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef} >
                                         <p>ACTION</p>
                                         <ul>
-                                            <li className={styles.view} ><a href="">View</a></li>
-                                            <li><a href="">Download pdf</a></li>
+                                            <li>View</li>
+                                            <li>Download pdf</li>
                                         </ul>
                                     </div>
                                 </td>
@@ -273,5 +327,6 @@ export const ReportsHistoryPage = () => {
                 </>
             )}
         </div>
+        </>
     )
 }

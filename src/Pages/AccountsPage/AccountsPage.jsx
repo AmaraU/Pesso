@@ -1,4 +1,4 @@
-import { Box, Button, Center, HStack, Spinner, Stack, Text, useDisclosure, useToast } from "@chakra-ui/react"
+import { Box, Button, Center, HStack, Spinner, Stack, Text, useDisclosure, useToast } from "@chakra-ui/react";
 // import { RxValueNone } from "react-icons/rx";
 // import Table from "../Table";
 import { BiShow, BiHide } from "react-icons/bi";
@@ -309,7 +309,7 @@ export const AccountsPage = () => {
             <Box bg={"white"}>
                 <Stack direction={"row"} justify={"space-between"} pb={"4px"} alignItems={'center'}>
                     <Stack spacing={1}>
-                        <Text fontSize={"16px"} color={"#6B7280"} fontWeight={500}>Total balance</Text>
+                        <Text fontSize={"16px"} color={"#6B7280"} fontWeight={500}>Total Balance</Text>
                         {
                             isLoading ? <Spinner w={"20px"} h={"20px"}/> :
                                 <HStack ml={"-1px"} spacing={0}>

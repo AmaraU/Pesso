@@ -1,0 +1,74 @@
+h3 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #343434;
+}
+h3 a {
+    font-weight: 800;
+    color: #D2042D;
+}
+.whole a:hover {
+    text-decoration: underline;
+}
+
+
+.rememberForgot {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px
+}
+
+.remember,
+.terms {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.remember a,
+.terms a {
+    color: #D2042D;
+}
+
+.remember a:hover,
+.terms a:hover {
+    text-decoration: underline;
+}
+
+
+.steps {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    height: 12px;
+    width: 100%;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    align-self: center;
+}
+
+.steps::-webkit-progress-bar {
+    background: #E5E7EB;
+}
+.steps::-webkit-progress-value {
+    background: #D2042D;
+    border-radius: 20px;
+}
+
+.steps::-ms-fill {
+    background: #E5E7EB;
+}
+.steps::-ms-progress-value {
+    background: #D2042D;
+    border-radius: 20px;
+}
+
+.steps::-moz-progress-bar {
+    background-color: #E5E7EB;
+}
+.steps::-moz-progress-value {
+    background: #D2042D;
+    border-radius: 20px;
+}

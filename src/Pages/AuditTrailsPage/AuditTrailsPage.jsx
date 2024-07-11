@@ -229,9 +229,9 @@ export const AuditTrailsPage = () => {
                                     </button>
                                     <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
                                         <ul>
-                                            <li><a href="">View</a></li>
-                                            <li><a href="">Edit</a></li>
-                                            <li className={styles.delete}><a href="">Delete</a></li>
+                                            <li>View</li>
+                                            <li>Edit</li>
+                                            <li className={styles.delete}>Delete</li>
                                         </ul>
                                     </div>
                                 </td>

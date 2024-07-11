@@ -1,9 +1,11 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
-import { SignInPage } from './Pages/SignInPage/SignInPage';
-import { SignUpPage } from './Pages/SignUpPage/SignUpPage';
-import { SignUpQuestionsPage } from './Pages/SignUpPage/SignUpQuestionsPage';
+import { VerifyEmailPage } from './Pages/VerifyEmailPage/VerifyEmailPage';
+import { ForgotPasswordPage } from './Pages/ForgotPasswordPage/ForgotPasswordPage';
+import Signin from './Pages/Onboarding/Signin';
+import Signup from './Pages/Onboarding//Signup';
+import SecurityQuestions from './Pages/Onboarding/SecurityQuestions';
 
 import { DashboardLayout } from './Pages/DashboardLayout';
 
@@ -14,7 +16,8 @@ import { AccountsPage } from './Pages/AccountsPage/AccountsPage';
 import { CashflowInPage } from './Pages/CashflowInPage/CashflowInPage';
 import { CashflowOutPage } from './Pages/CashflowOutPage/CashflowOutPage';
 import { LoansPage } from './Pages/LoansPage/LoansPage';
-import { InvestmentsPage } from './Pages/InvestmentsPage/InvestmentsPage'
+import { RequestPage } from './Pages/RequestPage/RequestPage';
+import { InvestmentsPage } from './Pages/InvestmentsPage/InvestmentsPage';
 import { BudgetPage } from './Pages/BudgetPage/BudgetPage';
 import { ReportsPage } from './Pages/ReportsPage/ReportsPage';
 import { ReportsHistoryPage } from './Pages/ReportsHistoryPage/ReportsHistoryPage';
@@ -26,8 +29,6 @@ import { SettingsAccountPage } from './Pages/SettingsAccountPage/SettingsAccount
 import { SettingsWorkflowPage } from './Pages/SettingsWorkflowPage/SettingsWorkflowPage';
 
 import { BlankPage } from './Pages/BlankPage';
-import { VerifyEmailPage } from './Pages/VerifyEmailPage/VerifyEmailPage';
-import { ForgotPasswordPage } from './Pages/ForgotPasswordPage/ForgotPasswordPage';
 
 
 
@@ -35,10 +36,10 @@ import { ForgotPasswordPage } from './Pages/ForgotPasswordPage/ForgotPasswordPag
 function App() {
 
   const router = createBrowserRouter([
-    { path: '/', element: <SignInPage /> },
-    { path: '/signin', element: <SignInPage /> },
-    { path: '/signup', element: <SignUpPage /> },
-    { path: '/signup-security', element: <SignUpQuestionsPage /> },
+    { path: '/', element: <Signin /> },
+    { path: '/signin', element: <Signin /> },
+    { path: '/signup', element: <Signup /> },
+    { path: '/signup-security', element: <SecurityQuestions /> },
     { path: '/verify-email', element: <VerifyEmailPage /> },
     { path: '/forgot-password', element: <ForgotPasswordPage /> },
     {
@@ -53,6 +54,7 @@ function App() {
         { path: 'cashflow', element: <CashflowInPage /> },
         { path: 'cashflow/outflow', element: <CashflowOutPage /> },
         { path: 'loans', element: <LoansPage /> },
+        { path: 'request', element: <RequestPage /> },
         { path: 'investments', element: <InvestmentsPage /> },
         { path: 'transfer/bulktransfers', element: <BlankPage /> },
         { path: 'budget', element: <BudgetPage /> },

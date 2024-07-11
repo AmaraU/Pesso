@@ -36,6 +36,11 @@ export const Navbar = () => {
           <img className={styles.red} src={getImageUrl("icons/loansRed.png")} />
           Loans
         </a>
+        <a href="/dashboard/request" className={currentPath.includes("/dashboard/request") ? styles.active : ""}>
+          <img className={styles.white} src={getImageUrl("icons/loansWhite.png")} />
+          <img className={styles.red} src={getImageUrl("icons/loansRed.png")} />
+          Request
+        </a>
         {/* <a href="/dashboard/investments" className={currentPath.includes("/dashboard/investments") ? styles.active : ""}>
           <img className={styles.white} src={getImageUrl("icons/Investments.png")} />
           <img className={styles.red} src={getImageUrl("icons/blueInvestments.png")} />

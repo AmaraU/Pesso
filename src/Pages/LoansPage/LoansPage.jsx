@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
+import { Box, Button, HStack, Spinner, Stack, Text } from "@chakra-ui/react";
 import styles from "./LoansPage.module.css";
 import { getImageUrl } from '../../../utils';
 import classNames from 'classnames';
+import { TbCurrencyNaira } from "react-icons/tb";
+import { BiShow, BiHide } from "react-icons/bi";
 
 export const LoansPage = () => {
 
@@ -108,7 +111,22 @@ export const LoansPage = () => {
 
         var dimmer = document.getElementById('dimmer');
         dimmer.classList.remove(`${styles.dim}`);
-      };
+    };
+
+
+    
+    const [totalBalanceVisible, setTotalBalanceVisible] = useState(true);
+    const [isLoading, setIsloading] = useState(false);
+
+    const hideBalance = () => {
+        return "******";
+    }
+
+    const handleToggleVisibility = () => {
+        setTotalBalanceVisible(!totalBalanceVisible);
+    }
+
+    const cashflowins = [1,2,3];
 
 
 
@@ -123,6 +141,31 @@ export const LoansPage = () => {
                     <input id="search" type="text" onChange={handleSearch} placeholder='Search Loans' />
                 </div>
             </div>
+
+            <Stack spacing={1} mb={8}>
+                <Text fontSize={"16px"} color={"#6B7280"} fontWeight={500}>Total Loan Balance</Text>
+                {
+                    isLoading ? <Spinner w={"20px"} h={"20px"}/> :
+                        <HStack ml={"-1px"} spacing={0}>
+                            <Box fontSize={"36px"}>
+                                <TbCurrencyNaira />
+                            </Box>
+                            <Text fontSize={"32px"} fontWeight={600} >{totalBalanceVisible ? Intl.NumberFormat('en-us', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            }).format(cashflowins.length > 0 ? cashflowins.map(e => e.account_balance).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) : 0) : hideBalance()}</Text>
+                            
+                            <Box pl={3} cursor={"pointer"}>
+                                {
+                                    totalBalanceVisible && <BiShow fontSize={"xs"} color={"#374151"} onClick={handleToggleVisibility} />
+                                }
+                                {
+                                    !totalBalanceVisible && <BiHide fontSize={"xs"} color={"#374151"} onClick={handleToggleVisibility} />
+                                }
+                            </Box>
+                        </HStack>
+                }
+            </Stack>
 
             {filteredLoans.length === 0 ? (
                 <div className={styles.nothingBigDiv}>
