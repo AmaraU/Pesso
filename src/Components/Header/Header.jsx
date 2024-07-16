@@ -35,8 +35,8 @@ export const Header = () => {
         if (!sessionStorage.getItem('email')) {
             navigate('/');
         }
-        // const data = location.state;
-        // console.log(data);
+        const data = location.state;
+        console.log(data);
         setBusinessName(sessionStorage.getItem('bizName'));
     }, []);
 
@@ -117,18 +117,20 @@ export const Header = () => {
             PageTitle = "Users";
             linkList = [
                 {title: "Members", link: "/dashboard/users"},
-                {title: "Roles & Permissions", link: "/dashboard/users/roles"}
+                {title: "Roles & Permissions", link: "/dashboard/users/roles"},
             ];
             break;
         
         case "/dashboard/settings":
         case "/dashboard/settings/account":
         case "/dashboard/settings/workflow":
+        case "/dashboard/settings/categories":
             PageTitle = "Settings";
             linkList = [
                 {title: "Profile", link: "/dashboard/settings"},
                 {title: "Account", link: "/dashboard/settings/account"},
-                {title: "Workflow", link: "/dashboard/settings/workflow"}
+                {title: "Workflow", link: "/dashboard/settings/workflow"},
+                {title: "Categories", link: "/dashboard/settings/categories"}
             ];
             break;
     }
@@ -216,20 +218,6 @@ export const Header = () => {
                             </Box>
                         </HStack>
                     </Stack>
-                    {/* <div className={styles.headerSearch}>
-                        <img src={getImageUrl("icons/search.png")} />
-                        <input type="text" name="" id="" placeholder='Search' />
-                    </div>
-                    <div className={styles.languageDiv}>
-                        <label htmlFor="language"><img src={getImageUrl("icons/globe.png")} alt="" /></label>
-                        <select name="language" >
-                            <option value="english">EN</option>
-                            <option value="french">FR</option>
-                        </select>
-                    </div>
-                    <a href=""><img src={getImageUrl("icons/boxes.png")} alt="" /></a>
-                    <a href=""><img src={getImageUrl("icons/bell.png")} alt="" /></a>
-                    <a href=""><img src={getImageUrl("Avatar.png")} alt="" /></a> */}
                 </div>
 
             </div>

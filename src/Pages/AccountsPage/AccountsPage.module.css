@@ -6,19 +6,6 @@
 }
 
 
-
-/* .accountsDiv {
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
-    scrollbar-face-color: #888;
-    scrollbar-track-color: #f1f1f1;
-    scrollbar-shadow-color: transparent;
-    scrollbar-highlight-color: transparent;
-    scrollbar-3dlight-color: transparent;
-    scrollbar-darkshadow-color: transparent;
-} */
-
-
 .accountsDiv {
     width: 100%;
     overflow: hidden;

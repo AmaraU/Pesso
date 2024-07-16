@@ -118,19 +118,19 @@ export const SettingsWorkflowPage = () => {
                 </div>
             </div>
 
-            <div className={styles.workflowDivs}>
-                {filteredWorkflows.length === 0 ? (
-                    <div className={styles.nothingBigDiv}>
-                        <div className={styles.nothingFound}>
-                            <img src={getImageUrl("nothing.png")} />
-                            <h2>No Workflow Data</h2>
-                            <p>We cannot seem to find any wokflow data, your reports will appear here</p>
-                        </div>
+            {filteredWorkflows.length === 0 ? (
+                <div className={styles.nothingBigDiv}>
+                    <div className={styles.nothingFound}>
+                        <img src={getImageUrl("nothing.png")} />
+                        <h2>No Workflow Data</h2>
+                        <p>We cannot seem to find any wokflow data, your reports will appear here</p>
                     </div>
-                    
-                ) : (
-                    
-                    filteredWorkflows.map((workflow, index) => (
+                </div>
+                
+            ) : (
+                <div className={styles.workflowDivs}>
+
+                    {filteredWorkflows.map((workflow, index) => (
 
                         <div className={styles.workflowDiv} id={index}>
                             <div className={styles.workflowHeader}>{workflow.type} Transfer</div>
@@ -152,9 +152,9 @@ export const SettingsWorkflowPage = () => {
                                 </div>
                             </div>
                         </div>
-                    ))
-                )}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
         </>
     )

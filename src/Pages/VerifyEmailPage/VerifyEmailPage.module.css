@@ -2,9 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* flex-wrap: wrap; */
     height: 100%;
-    /* max-height: 100%; */
     background-image: url("../../../assets/background.png");
     background-size: 100% 100%;
     padding: 200px 0;
@@ -36,7 +34,6 @@
 }
 
 .box p {
-    /* align-self: center; */
     font-size: 14px;
     font-weight: 400;
     color: #6B7280;

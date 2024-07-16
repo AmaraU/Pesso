@@ -22,7 +22,7 @@ export const ReportsPage = () => {
         if (!sessionStorage.getItem("id")) {
             navigate("/signin");
         }
-        // log();
+        log();
         getCashflowSummary();
     }, []);
 
@@ -221,14 +221,9 @@ export const ReportsPage = () => {
                             </select>
                         </div>
                         <div className={styles.line}></div>
-                        {/* <img src={getImageUrl("chart.png")} alt="" /> */}
-                        {/* <Speedometer value={75} min={0} max={100} /> */}
-                        {/* <Meter className={styles.speedometer} initialValue={15} min={0} max={100} /> */}
                         <div style={{display: 'flex', justifyContent: 'center'}}>
                             <div className={styles.meter}>
                                 <ReactSpeedometer
-                                    // fluidWidth={true}
-                                    // width={"100%"}
                                     position={"center"}
                                     height={200}
                                     _hover={{}}
@@ -288,7 +283,6 @@ export const ReportsPage = () => {
                         </select>
                     </div>
                     <div className={styles.line}></div>
-                    {/* <BarChart className={styles.barchart} data={burnRate} options={options} /> */}
                     <CashflowChart data={cashflowSummary} />
                 </div>
                 

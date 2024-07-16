@@ -244,47 +244,6 @@ export const CashflowOutPage = () => {
         );
     });
 
-    // const treemapOutflows = [
-    //     {title: 'UTILITIES', size: 45, color: ""},
-    //     {title: 'SALARIES AND WAGES', size: 20},
-    //     {title: 'SUPPLIES', size: 10},
-    //     {title: 'EQUIPMENT', size: 5}
-    // ];
-    // const totalSize = treemapOutflows.reduce((acc, item) => acc + item.size, 0);
-
-    // const TreeMap = () => {
-    //     const width = 600;
-    //     const height = 500;
-
-    //     const getCoordinates = (index) => {
-    //         let x = 0, y = 0;
-    //         if (index > 0) {
-    //             x = (index % 2) === 0 ? 0 : width / 2;
-    //             y = Math.floor(index / 2) * (height / (treemapOutflows.length / 2));
-    //         }
-    //         return {x, y};
-    //     }
-    //     return (
-    //         <svg width={width} height={height}>
-    //             {treemapOutflows.map((item, index) => {
-    //                 const {x, y} = getCoordinates(index);
-    //                 const rectWidth = (width / 2) * (item.size / totalSize) * 2;
-    //                 const rectHeight = height / (treemapOutflows.length / 2);
-
-    //                 return (
-    //                     <g key={item.title} transform={`translate(${x}, ${y})`} >
-    //                         <rect width={rectWidth} height={rectHeight} fill='steelblue' />
-    //                         <text x={rectWidth / 2} y={rectHeight / 2} fill='white' textAnchor='middle' alignmentBaseline='middle'>
-    //                             {item.title} ({item.size}%)
-    //                         </text>
-    //                     </g>
-    //                 );
-    //             })}
-    //         </svg>
-    //     );
-    // };
-
-
     const toggleAction = (index) => {
         setActionsOpen(prevState => ({
             ...prevState,
@@ -694,7 +653,6 @@ export const CashflowOutPage = () => {
                 ) : (
                     <>
 
-                    {/* <TreeMap /> */}
                     <div className={styles.outflowTreemap}>
                         <div className={styles.treemapColumn}>
                             <div className={styles.treemapRow}>

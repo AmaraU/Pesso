@@ -314,7 +314,7 @@ export const CashflowInPage = () => {
                                 <input type="date" placeholder='End Date' />
                             </div>
                         </div>
-                        <a className={styles.reset} href="">Reset All</a>
+                        <a className={styles.reset}>Reset All</a>
                     </div>
 
                     <button className={styles.buttonTwo} onClick={() => toggleOn()}>

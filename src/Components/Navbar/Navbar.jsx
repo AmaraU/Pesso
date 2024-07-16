@@ -41,26 +41,11 @@ export const Navbar = () => {
           <img className={styles.red} src={getImageUrl("icons/loansRed.png")} />
           Request
         </a>
-        {/* <a href="/dashboard/investments" className={currentPath.includes("/dashboard/investments") ? styles.active : ""}>
-          <img className={styles.white} src={getImageUrl("icons/Investments.png")} />
-          <img className={styles.red} src={getImageUrl("icons/blueInvestments.png")} />
-          Investments
-        </a> */}
-        {/* <a href="/dashboard/bulktransfer" className={currentPath.includes("/dashboard/bulktransfer") ? styles.active : ""}>
-          <img className={styles.white} src={getImageUrl("icons/BulkTransfer.png")} />
-          <img className={styles.red} src={getImageUrl("icons/blueBulkTransfer.png")} />
-          Bulk transfer
-        </a> */}
         <a href="/dashboard/budget" className={currentPath.includes("/dashboard/budget") ? styles.active : ""}>
           <img className={styles.white} src={getImageUrl("icons/budgetWhite.png")} alt="" />
           <img className={styles.red} src={getImageUrl("icons/budgetRed.png")} alt="" />
           Budget
         </a>
-        {/* <a href="/dashboard/reconciliations" className={currentPath.includes("/dashboard/reconciliations") ? styles.active : ""}>
-          <img className={styles.white} src={getImageUrl("icons/Reconciliations.png")} />
-          <img className={styles.red} src={getImageUrl("icons/blueReconciliations.png")} />
-          Reconciliations
-        </a> */}
         <a href="/dashboard/reports" className={currentPath.includes("/dashboard/reports") ? styles.active : ""}>
           <img className={styles.white} src={getImageUrl("icons/reportsWhite.png")} />
           <img className={styles.red} src={getImageUrl("icons/reportsRed.png")} />
@@ -76,11 +61,6 @@ export const Navbar = () => {
           <img className={styles.red} src={getImageUrl("icons/usersRed.png")} />
           Users
         </a>
-        {/* <a href="/dashboard/settings" className={currentPath.includes("/dashboard/settings") ? styles.active : ""}>
-          <img className={styles.white} src={getImageUrl("icons/Settings.png")} />
-          <img className={styles.red} src={getImageUrl("icons/blueSettings.png")} />
-          Settings
-        </a> */}
       </div>
     </div>
   )

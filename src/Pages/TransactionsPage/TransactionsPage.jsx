@@ -141,8 +141,7 @@ export const TransactionsPage = () => {
     const [ searchCategories, setSearchCategries] = useState("");
     const [ openFilter, setOpenFilter ] = useState(false);
     const [ openDownload, setOpenDownload ] = useState(false);
-
-    const containerRef = useRef(null);
+    
 
     const handleSearchCategories = (event) => {
         setSearchCategries(event.target.value);
@@ -161,9 +160,7 @@ export const TransactionsPage = () => {
         setOpenDownload(false);
     };
 
-    const handleCategorySelection = (event, index, category) => {
-        console.log("handling category selection...")
-        // event.preventDefault();
+    const handleCategorySelection = (index, category) => {
         setSelectedCategory(prevState => ({...prevState, [index]: category }));
         setOpenCategories(prevState => ({...prevState, [index]: false }));
     };
@@ -182,29 +179,39 @@ export const TransactionsPage = () => {
     };
 
 
+    const containerRefs = useRef([]);
+    const filterRef = useRef(null);
+    const downloadRef = useRef(null);
+
 
     const handleClickOutside = (event) => {
-        if (containerRef.current && !containerRef.current.contains(event.target)) {
+        containerRefs.current.forEach((ref, index) => {
+            if (ref && !ref.contains(event.target)) {
+                setOpenCategories(prevState => ({...prevState, [index] : false}));
+            }
+        });     
+    };
+
+    const handleClickOutside2 = (event) => {
+        if (filterRef.current && !filterRef.current.contains(event.target)) {
             setOpenFilter(false);
-            setOpenDownload(false);
-            setOpenCategories({});
         }
     };
 
-    // const reverseCategoriesState = () => {
-    //     setOpenCategories(prevState => {
-    //         const newState = {};
-    //         for (const key in prevState) {
-    //             newState[key] = !prevState[key];
-    //         }
-    //         return newState;
-    //     });
-    // };
+    const handleClickOutside3 = (event) => {
+        if (downloadRef.current && !downloadRef.current.contains(event.target)) {
+            setOpenDownload(false);
+        }
+    };
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
+        document.addEventListener('click', handleClickOutside2, true);
+        document.addEventListener('click', handleClickOutside3, true);
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
+            document.removeEventListener('click', handleClickOutside2, true);
+            document.removeEventListener('click', handleClickOutside3, true);
         };
     }, []);
 
@@ -222,12 +229,12 @@ export const TransactionsPage = () => {
                     <Button p={"0"} bg={"transparent"} border={"none"} _hover={{bg: "transaprent"}}>
                         <SlRefresh size={"24px"}/>
                     </Button>
-                    <button className={styles.buttonOne} onClick={handleFilterToggle} ref={containerRef}>
+                    <button className={styles.buttonOne} onClick={handleFilterToggle} >
                         <img src={getImageUrl("icons/slides.png")} />
                         Filter
                         <img src={getImageUrl("icons/redDownAngle.png")} />
                     </button>
-                    <div className={`${styles.filterClosed} ${openFilter && styles.filter}`}>
+                    <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={filterRef} >
                         <p>FILTER</p>
                         <a href="">Last 7 days</a>
                         <a href="">Last 15 days</a>
@@ -239,14 +246,14 @@ export const TransactionsPage = () => {
                                 <input type="date" placeholder='End Date' />
                             </div>
                         </div>
-                        <a className={styles.reset} href="">Reset All</a>
+                        <a className={styles.reset}>Reset All</a>
                     </div>
 
-                    <button className={styles.buttonTwo} onClick={handleDownloadToggle} ref={containerRef}>
+                    <button className={styles.buttonTwo} onClick={handleDownloadToggle}>
                         <img src={getImageUrl("icons/whiteDownArrow.png")} />
                         Download
                     </button>
-                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} >
+                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`}>
                         <p>DOWNLOAD</p>
                         <a href="">
                             <img src={getImageUrl("icons/pdf.png")} />
@@ -292,13 +299,13 @@ export const TransactionsPage = () => {
                                 <td>{transaction.description}</td>
                                 <td>{transaction.account}</td>
                                 <td className={styles.category}>
-                                    <button className={styles.categoriesButton} onClick={() => toggleCategories(index)} ref={containerRef}>
+                                    <button className={styles.categoriesButton} onClick={() => toggleCategories(index)}>
                                         <p>{selectedCategory[index] || "Salaries and wage"}</p>
                                         <img src={getImageUrl("icons/blackDownAngle.png")} />
                                     </button>
 
                                     {openCategories[index] && (
-                                        <div className={styles.theCategories} >
+                                        <div className={styles.theCategories} ref={el => containerRefs.current[index] = el} >
                                             <p>CATEGORY</p>
                                             <div className={styles.categorySearch}>
                                                 <img src={getImageUrl("icons/search.png")} />

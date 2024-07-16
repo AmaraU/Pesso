@@ -13,6 +13,5 @@ export const CashflowChart = ({ data = [] }) => {
                         <Text align={"center"} fontSize={"sm"} color={"gray.500"} p={24}>No data available.</Text>
                 }
             </Stack>
-        // </Box>
     );
 }

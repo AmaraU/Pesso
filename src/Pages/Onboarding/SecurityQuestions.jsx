@@ -166,9 +166,7 @@ export default function SecurityQuestions() {
                             <Stack spacing={5} w={'100%'} as='form' onSubmit={processForm}>
                                 <FormControl isRequired>
                                     <FormLabel>Security Question 1</FormLabel>
-                                    <Select value={questionOne} onChange={(e) => setQuestionOne(e.target.value)} border={'2px solid #CFCFCF'}>
-                                        {/* <Option></Option> */}
-                                    </Select>
+                                    <Select value={questionOne} onChange={(e) => setQuestionOne(e.target.value)} border={'2px solid #CFCFCF'}></Select>
                                 </FormControl>
 
                                 <FormControl isRequired>
@@ -178,9 +176,7 @@ export default function SecurityQuestions() {
 
                                 <FormControl isRequired>
                                     <FormLabel>Security Question 2</FormLabel>
-                                    <Select value={questionTwo} onChange={(e) => setQuestionTwo(e.target.value)} border={'2px solid #CFCFCF'}>
-                                        {/* <Option></Option> */}
-                                    </Select>
+                                    <Select value={questionTwo} onChange={(e) => setQuestionTwo(e.target.value)} border={'2px solid #CFCFCF'}></Select>
                                 </FormControl>
 
                                 <FormControl isRequired>

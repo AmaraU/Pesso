@@ -1,10 +1,7 @@
 import { Stack, SimpleGrid, Grid, GridItem, useToast, Box } from "@chakra-ui/react";
 import { OverallBalance } from "../../Components/OverallBalance";
-import { Ads } from "../../Components/Ads";
 import { Account } from "../../Components/Account";
 import { Cashflow } from "../../Components/Cashflow";
-// import { RecentTransactions } from "../../Components/TransactionTable";
-import { OverviewTable } from "../../Components/OverviewTable";
 import { ScheduleCalendar } from "../../Components/Calendar";
 import { ExchangeRates } from "../../Components/ExchangeRates";
 import { useEffect, useState } from "react";
@@ -329,24 +326,10 @@ export const Overview = () => {
                         </div>
                         <button>Explore Our Plans</button>
                     </div>
-
                     <Cashflow data={cashflowSummary} />
-
-
-
-                    {/* <OverviewTable /> */}
-
-
-                    {/* <GridItem colSpan={2}>
-                        <Cashflow data={cashflowSummary} />
-                    </GridItem> */}
-                    {/* <GridItem colSpan={2}>
-                        {/* <RecentTransactions /> *
-                    </GridItem> */}
                 </Stack>
                 <Stack spacing={"24px"}>
                     <ScheduleCalendar />
-                    <ExchangeRates />
                     {/* <Ads /> */}
                 </Stack>
             </SimpleGrid>

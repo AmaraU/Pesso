@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { VerifyEmailPage } from './Pages/VerifyEmailPage/VerifyEmailPage';
 import { ForgotPasswordPage } from './Pages/ForgotPasswordPage/ForgotPasswordPage';
 import Signin from './Pages/Onboarding/Signin';
-import Signup from './Pages/Onboarding//Signup';
+import Signup from './Pages/Onboarding/Signup';
 import SecurityQuestions from './Pages/Onboarding/SecurityQuestions';
 
 import { DashboardLayout } from './Pages/DashboardLayout';
@@ -27,6 +27,7 @@ import { UsersRolesPage } from './Pages/UsersRolesPage/UsersRolesPage';
 import { SettingsProfilePage } from './Pages/SettingsProfilePage/SettingsProfilePage';
 import { SettingsAccountPage } from './Pages/SettingsAccountPage/SettingsAccountPage';
 import { SettingsWorkflowPage } from './Pages/SettingsWorkflowPage/SettingsWorkflowPage';
+import { SettingsCategoriesPage } from './Pages/SettingsCategoriesPage/SettingsCategoriesPage';
 
 import { BlankPage } from './Pages/BlankPage';
 
@@ -67,6 +68,7 @@ function App() {
         { path: 'settings', element: <SettingsProfilePage /> },
         { path: 'settings/account', element: <SettingsAccountPage /> },
         { path: 'settings/workflow', element: <SettingsWorkflowPage /> },
+        { path: 'settings/categories', element: <SettingsCategoriesPage /> },
       ]
     },
   ]);

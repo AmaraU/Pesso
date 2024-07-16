@@ -9,7 +9,6 @@ export const SettingsProfilePage = () => {
             <div className={styles.profilePic}>
                 <div className={styles.thePic}>FL</div>
                 <button>
-                    {/* <img src={getImageUrl("icons/bluePlus.png")} alt="+" /> */}
                     +   Change Image
                 </button>
             </div>

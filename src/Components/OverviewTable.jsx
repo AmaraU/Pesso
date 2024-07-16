@@ -237,36 +237,16 @@ export const OverviewTable = () => {
             }
         ]
     
-        // const [ search, setSearch] = useState("");
         const [ currentPage, setCurrentPage ] = useState(1);
         const itemsPerPage = 10;
-    
-        // const handleSearch = (event) => {
-        //     setSearch(event.target.value);
-        //     setCurrentPage(1);
-        // };
-    
-    
-        // const filteredPayments = payments.filter(payment => {
-        //     const searchLower = search.toLowerCase();
-        //     return (
-        //         payment.refNo.toLowerCase().includes(searchLower) ||
-        //         payment.beneficiary.toLowerCase().includes(searchLower) ||
-        //         payment.amount.toLowerCase().includes(searchLower) ||
-        //         payment.date.toLowerCase().includes(searchLower)
-        //     );
-        // });
-        
+
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        // const currentPayments = filteredPayments.slice(indexOfFirstItem, indexOfLastItem);
         const currentPayments = payments.slice(indexOfFirstItem, indexOfLastItem);
     
-        // const totalPages = Math.ceil(filteredPayments.length / itemsPerPage);
         const totalPages = Math.ceil(payments.length / itemsPerPage);
     
         const handleNextPage = () => {
-            // if (currentPage < Math.ceil(filteredPayments.length / itemsPerPage)) {
             if (currentPage < Math.ceil(payments.length / itemsPerPage)) {
                 setCurrentPage(currentPage + 1);
             }
@@ -284,22 +264,7 @@ export const OverviewTable = () => {
     
     
         return (
-            <div id="paymentsTable" className={styles.hide}>
-                {/* <div className={styles.searchButtons}>
-                    <div className={styles.searchBar}>
-                        <img src={getImageUrl("icons/search.png")} />
-                        <input id="search" type="text" onChange={handleSearch} placeholder='Search investments' />
-                    </div>
-    
-                    <div className={styles.buttons}>
-                        <a onClick={() => toggle()} className={styles.buttonOne}>
-                            <img src={getImageUrl("icons/whitePlus.png")} alt="" />
-                            Add Investment
-                        </a>
-    
-                    </div>
-                </div> */}
-    
+            <div id="paymentsTable" className={styles.hide}>    
                 {currentPayments.length === 0 ? (
                     <div className={styles.nothingBigDiv}>
                         <div className={styles.nothingFound}>

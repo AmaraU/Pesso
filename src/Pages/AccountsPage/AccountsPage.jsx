@@ -1,6 +1,4 @@
 import { Box, Button, Center, HStack, Spinner, Stack, Text, useDisclosure, useToast } from "@chakra-ui/react";
-// import { RxValueNone } from "react-icons/rx";
-// import Table from "../Table";
 import { BiShow, BiHide } from "react-icons/bi";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { useEffect, useState } from "react";

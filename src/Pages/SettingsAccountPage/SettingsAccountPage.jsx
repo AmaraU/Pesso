@@ -77,11 +77,6 @@ export const SettingsAccountPage = () => {
         var redA = document.getElementById('redAlerts');
         redA.classList.add(`${styles.hide}`);
 
-        // var greyD = document.getElementById('greyDisplay');
-        // greyD.classList.add(`${styles.hide}`);
-        // var redD = document.getElementById('redDisplay');
-        // redD.classList.remove(`${styles.hide}`);
-
         var navS = document.getElementById('securityNav');
         navS.classList.remove(`${styles.red}`);
         var navA = document.getElementById('alertsNav');
@@ -97,7 +92,6 @@ export const SettingsAccountPage = () => {
         pageD.classList.remove(`${styles.hideDiv}`);
     }
 
-    // const [isEnabled, setIsEnabled] = useState(true);
 
     const [sliders, setSliders] = useState([true, true, true, true, true, true, true, true, true, true, true, true, true]);
 

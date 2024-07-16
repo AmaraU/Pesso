@@ -11,7 +11,6 @@ const DataWidget = ({ entries = [], fields = [], isLoading = false, fileName = "
         <Box pt={{ base: 3, md: 5 }} ml={"-16px"} mr={"-16px"}>
             {
                 entries.length > 0 ?
-                    // <div></div> :
                     <Table data={entries} enableTopToolbar={true} columns={fields} columnHeaderFontSize={screenWidth <= 800 ? "12px" : fieldFontSize} rowFontSize={screenWidth <= 800 ? "12px" : entryFontSize} fileName={fileName} isLoading={isLoading} tableHeader="" noDataText="" /> :
                     <Box>
                         <Table display={{ base: "none", md: "block" }} isLoading={isLoading} data={entries} columns={fields} tableHeader="" noDataText={`You do not have any recent ${type}`} noDataTextSize="13px" />

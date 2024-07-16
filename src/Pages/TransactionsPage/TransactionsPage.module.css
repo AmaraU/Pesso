@@ -27,7 +27,6 @@
     border: none;
     outline: none;
     margin-left: 8px;
-    /* width: 80%; */
 }
 .searchBar input::placeholder {
     font-size: 14px;
@@ -55,7 +54,6 @@ button, a {
     border-radius: 6px;
     padding: 8px 12px;
     gap: 8px;
-    /* height: fit-content; */
 }
 .buttonOne:hover {
     background-color: #F4E0E4;
@@ -99,7 +97,7 @@ button, a {
     padding: 8px;
     position: absolute;
     z-index: 5;
-    margin-top: 50px;
+    top: 160px;
 }
 .filter p {
     padding: 4px 8px;
@@ -188,7 +186,7 @@ button, a {
     position: absolute;
     right: 2%;
     z-index: 5;
-    margin-top: 50px;
+    top: 160px;
 }
 .download p {
     font-size: 12px;
@@ -376,6 +374,9 @@ button, a {
     font-size: 10px;
     font-weight: 500;
     color: #4B5563;
+}
+.theCategories li:last-child {
+    border-bottom: none;
 }
 .theCategories li:hover {
     background-color: #E5E7EB;

@@ -56,6 +56,13 @@
 
 
 
+.workflowDivs {
+    display: grid;
+    grid-template-columns: repeat(4,25%);
+    gap: 24px;
+}
+
+
 
 .nothingBigDiv {
     display: grid;
@@ -67,6 +74,7 @@
     flex-direction: column;
     justify-self: center;
     text-align: center;
+    align-items: center;
 }
 .nothingFound img {
     width: 100%;
@@ -88,14 +96,8 @@
 
 
 
-.workflowDivs {
-    display: flex;
-    gap: 24px;
 
-    display: grid;
-    grid-template-columns: repeat(4,25%);
-    gap: 24px;
-}
+
 
 .workflowDiv {
     background-color: #FFFFFF;
@@ -250,9 +252,6 @@
 
 .levelButton {
     padding: 16px 0;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
     text-align: center;
     gap: 16px;
 }
@@ -265,7 +264,6 @@
     font-weight: 500;
     border: none;
     margin-bottom: 16px;
-    /* align-self: end; */
 }
 .levelButton button:hover {
     background-color: #BD0429;
