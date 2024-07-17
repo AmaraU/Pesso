@@ -3,6 +3,7 @@ import styles from "./ReportsHistoryPage.module.css";
 import { getImageUrl } from '../../../utils';
 import { Button } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
+import Pagination from '../../Components/Pagination/Pagination';
 
 export const ReportsHistoryPage = () => {
 
@@ -121,21 +122,7 @@ export const ReportsHistoryPage = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentReports = filteredReports.slice(indexOfFirstItem, indexOfLastItem);
 
-    const totalPages = Math.ceil(filteredReports.length / itemsPerPage);
-
-    const handleNextPage = () => {
-        if (currentPage < Math.ceil(filteredReports.length / itemsPerPage)) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    const handlePreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const handlePageClick = (pageNumber) => {
+    const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     }
 
@@ -309,21 +296,12 @@ export const ReportsHistoryPage = () => {
                     </tbody>
                 </table>
 
-                <div className={styles.pagination}>
-                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                        Previous
-                    </button>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                            0{index + 1}
-                        </button>
-                    ))}
-                    <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                        Next
-                        <img src={getImageUrl("icons/greyRightAngle.png")} />
-                    </button>
-                </div>
+                <Pagination
+                    filteredData={filteredReports}
+                    currentPage={currentPage}
+                    itemsPerPage={itemsPerPage}
+                    onPageChange={handlePageChange}
+                />
                 </>
             )}
         </div>

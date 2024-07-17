@@ -3,6 +3,7 @@ import { Tab, TabList, Tabs, Box, HStack, Text, Stack } from "@chakra-ui/react";
 
 import styles from "./AccountsPage.module.css";
 import { getImageUrl } from "../../../utils";
+import Pagination from "../../Components/Pagination/Pagination";
 
 export const AccountsTable = () => {
 
@@ -87,21 +88,7 @@ export const AccountsTable = () => {
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
         const currentCurrents = current.slice(indexOfFirstItem, indexOfLastItem);
     
-        const totalPages = Math.ceil(current.length / itemsPerPage);
-    
-        const handleNextPage = () => {
-            if (currentPage < Math.ceil(current.length / itemsPerPage)) {
-                setCurrentPage(currentPage + 1);
-            }
-        };
-    
-        const handlePreviousPage = () => {
-            if (currentPage > 1) {
-                setCurrentPage(currentPage - 1);
-            }
-        };
-    
-        const handlePageClick = (pageNumber) => {
+        const handlePageChange = (pageNumber) => {
             setCurrentPage(pageNumber);
         }
     
@@ -141,21 +128,12 @@ export const AccountsTable = () => {
                         </tbody>
                     </table>
 
-                    <div className={styles.pagination}>
-                        <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                            Previous
-                        </button>
-                        {Array.from({ length: totalPages }, (_, index) => (
-                            <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                                0{index + 1}
-                            </button>
-                        ))}
-                        <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                            Next
-                            <img src={getImageUrl("icons/greyRightAngle.png")} />
-                        </button>
-                    </div>
+                    <Pagination
+                        filteredData={currentCurrents}
+                        currentPage={currentPage}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange}
+                    />
                     </>
                 )}
             </div>
@@ -244,21 +222,7 @@ export const AccountsTable = () => {
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
         const currentPrevious = previous.slice(indexOfFirstItem, indexOfLastItem);
     
-        const totalPages = Math.ceil(previous.length / itemsPerPage);
-    
-        const handleNextPage = () => {
-            if (currentPage < Math.ceil(previous.length / itemsPerPage)) {
-                setCurrentPage(currentPage + 1);
-            }
-        };
-    
-        const handlePreviousPage = () => {
-            if (currentPage > 1) {
-                setCurrentPage(currentPage - 1);
-            }
-        };
-    
-        const handlePageClick = (pageNumber) => {
+        const handlePageChange = (pageNumber) => {
             setCurrentPage(pageNumber);
         }
     
@@ -298,21 +262,12 @@ export const AccountsTable = () => {
                         </tbody>
                     </table>
 
-                    <div className={styles.pagination}>
-                        <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                            Previous
-                        </button>
-                        {Array.from({ length: totalPages }, (_, index) => (
-                            <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                                0{index + 1}
-                            </button>
-                        ))}
-                        <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                            Next
-                            <img src={getImageUrl("icons/greyRightAngle.png")} />
-                        </button>
-                    </div>
+                    <Pagination
+                        filteredData={currentPrevious}
+                        currentPage={currentPage}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange}
+                    />
                     </>
                 )}
             </div>

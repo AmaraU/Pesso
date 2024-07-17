@@ -1,137 +1,109 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useToast, Spinner, Center } from "@chakra-ui/react";
+import { DEFAULT_AUDIT_TRAIL_ERR_MSG, getAPIEndpoint } from "../../../config";
+import axios from "axios";
+import { auditLog, logger } from "../../models/logging";
+import { format } from 'date-fns';
 import styles from "./AuditTrailsPage.module.css";
 import { getImageUrl } from '../../../utils';
+import Pagination from '../../Components/Pagination/Pagination';
 
 
 
 export const AuditTrailsPage = () => {
 
-    const auditTrails = [
-        {
-            activity: "Transferred",
-            module: "Transactions",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Transferred",
-            module: "Transactions",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Updated",
-            module: "Accounts",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Edited",
-            module: "Accounts",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Edited",
-            module: "Cashflow",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Edited",
-            module: "Loans",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Created",
-            module: "Budget",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Deleted",
-            module: "Investments",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Deleted",
-            module: "Reports",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Deleted",
-            module: "Settings",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Edited",
-            module: "Cashflow",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Updated",
-            module: "Transactions",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Updated",
-            module: "Budget",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Transferred",
-            module: "Transactions",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        },
-        {
-            activity: "Deleted",
-            module: "Reports",
-            names: "235GDBH7",
-            date: "July 22, 2022",
-            time: "4:24pm"
-        }
-    ]
-
     const [ search, setSearch] = useState("");
     const [ actionsOpen, setActionsOpen ] = useState({});
     const [ currentPage, setCurrentPage ] = useState(1);
-    const itemsPerPage = 10;
+    const [isLoading, setIsloading] = useState(false);
+    const [auditTrail, setAuditTrail] = useState([]);
+    const toast = useToast();
+
+    useEffect(() => {
+        getAuditLog();
+    }, [])
+
+    const log = async (activity, module) => {
+        await auditLog({
+            activity,
+            module,
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
+
+    const getAuditLog = async () => {
+        setIsloading(true);
+        try {
+            const response = await axios.post(getAPIEndpoint('audit-trail'), { userId: sessionStorage.getItem("id") }, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsloading(false);
+                    setAuditTrail(data);
+                    return;
+                }
+                else {
+                    setIsloading(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_AUDIT_TRAIL_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_AUDIT_TRAIL_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Audit Trail", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_AUDIT_TRAIL_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsloading(false);
+    }
 
     const handleSearch = (event) => {
         setSearch(event.target.value);
         setCurrentPage(1);
     };
 
-    const filteredAuditTrails = auditTrails.filter(auditTrail => {
+    const filteredAuditTrails = auditTrail.filter(auditTrail => {
         const searchLower = search.toLowerCase();
         return (
-            auditTrail.activity.toLowerCase().includes(searchLower) ||
+            auditTrail.activity_description.toLowerCase().includes(searchLower) ||
             auditTrail.module.toLowerCase().includes(searchLower) ||
-            auditTrail.names.toLowerCase().includes(searchLower) ||
-            auditTrail.date.toLowerCase().includes(searchLower) ||
-            auditTrail.time.toLowerCase().includes(searchLower)
+            auditTrail.user.toLowerCase().includes(searchLower) ||
+            format(new Date (auditTrail.timestamp), 'dd/MM/yyyy').includes(searchLower) ||
+            format(new Date (auditTrail.timestamp), 'hh:mm:ss a').toLowerCase().includes(searchLower)
         );
     });
 
@@ -143,28 +115,14 @@ export const AuditTrailsPage = () => {
         }));
     };
 
-    
+    const itemsPerPage = 10;
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentAuditTrails = filteredAuditTrails.slice(indexOfFirstItem, indexOfLastItem);
 
-    const totalPages = Math.ceil(filteredAuditTrails.length / itemsPerPage);
-
-    const handleNextPage = () => {
-        if (currentPage < Math.ceil(filteredAuditTrails.length / itemsPerPage)) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    const handlePreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const handlePageClick = (pageNumber) => {
+    const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
-    }
+    };
 
 
     const popupRef = useRef(null);
@@ -192,72 +150,66 @@ export const AuditTrailsPage = () => {
             </div>
 
 
-
-            {currentAuditTrails.length === 0 ? (
-                <div className={styles.nothingBigDiv}>
-                    <div className={styles.nothingFound}>
-                        <img src={getImageUrl("nothing.png")} />
-                        <h2>No Audit Trail Data</h2>
-                        <p>We cannot seem to find any audit trail data, your user information will appear here.</p>
-                    </div>
-                </div>
-                
-            ) : (
+            {isLoading ? <Center><Spinner /></Center> :
                 <>
+                {currentAuditTrails.length === 0 ? (
+                    <div className={styles.nothingBigDiv}>
+                        <div className={styles.nothingFound}>
+                            <img src={getImageUrl("nothing.png")} />
+                            <h2>No Audit Trail Data</h2>
+                            <p>We cannot seem to find any audit trail data, your user information will appear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
+                    <>
 
-                <table className={styles.auditTrailsTable}>
-                    <thead>
-                        <th>Activity</th>
-                        <th>Module</th>
-                        <th>Names</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th className={styles.action}>Action</th>
-                    </thead>
+                    <table className={styles.auditTrailsTable}>
+                        <thead>
+                            <th>Activity</th>
+                            <th>Module</th>
+                            <th>Names</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th className={styles.action}>Action</th>
+                        </thead>
 
-                    <tbody>
-                        {currentAuditTrails.map((auditTrail, index) => (
-                            <tr key={index}>
-                                <td>{auditTrail.activity}</td>
-                                <td>{auditTrail.module}</td>
-                                <td>{auditTrail.names}</td>
-                                <td>{auditTrail.date}</td>
-                                <td>{auditTrail.time}</td>
-                                <td className={styles.action}>
-                                    <button onClick={() => toggleAction(index)}>
-                                        <img src={getImageUrl("icons/action.png")} />
-                                    </button>
-                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
-                                        <ul>
-                                            <li>View</li>
-                                            <li>Edit</li>
-                                            <li className={styles.delete}>Delete</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                        <tbody>
+                            {currentAuditTrails.map((auditTrail, index) => (
+                                <tr key={index}>
+                                    <td>{auditTrail.activity_description}</td>
+                                    <td>{auditTrail.module}</td>
+                                    <td>{auditTrail.user}</td>
+                                    <td>{format(new Date (auditTrail.timestamp), 'dd/MM/yyyy')}</td>
+                                    <td>{format(new Date (auditTrail.timestamp), 'hh:mm:ss a')}</td>
+                                    <td className={styles.action}>
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                            <ul>
+                                                <li>View</li>
+                                                <li>Edit</li>
+                                                <li className={styles.delete}>Delete</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-                <div className={styles.pagination}>
-                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                        Previous
-                    </button>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                            0{index + 1}
-                        </button>
-                    ))}
-                    <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                        Next
-                        <img src={getImageUrl("icons/greyRightAngle.png")} />
-                    </button>
-                </div>
+                    <Pagination
+                        filteredData={filteredAuditTrails}
+                        currentPage={currentPage}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange}
+                    />
+                    </>
+                )}
                 </>
-            )}
+            }
         </div>
     )
 }

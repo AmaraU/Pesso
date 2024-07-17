@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { SlRefresh } from "react-icons/sl";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { BiShow, BiHide } from "react-icons/bi";
+import Pagination from '../../Components/Pagination/Pagination';
 
 
 
@@ -262,39 +263,11 @@ export const CashflowOutPage = () => {
     const currentHistoryOutflows = filteredHistoryOutflows.slice(indexOfFirstItem1, indexOfLastItem1);
     const currentPendingOutflows = filteredPendingOutflows.slice(indexOfFirstItem2, indexOfLastItem2);
 
-    const totalHistoryPages = Math.ceil(filteredHistoryOutflows.length / itemsPerPage);
-    const totalPendingPages = Math.ceil(filteredPendingOutflows.length / itemsPerPage);
-
-    const handleNextPage1 = () => {
-        if (currentHistoryPage < Math.ceil(filteredHistoryOutflows.length / itemsPerPage)) {
-            setCurrentHistoryPage(currentHistoryPage + 1);
-        }
-    };
-
-    const handlePreviousPage1 = () => {
-        if (currentHistoryPage > 1) {
-            setCurrentHistoryPage(currentHistoryPage - 1);
-        }
-    };
-
-
-    const handleNextPage2 = () => {
-        if (currentPendingPage < Math.ceil(filteredPendingOutflows.length / itemsPerPage)) {
-            setCurrentPendingPage(currentPendingPage + 1);
-        }
-    };
-
-    const handlePreviousPage2 = () => {
-        if (currentPendingPage > 1) {
-            setCurrentPendingPage(currentPendingPage - 1);
-        }
-    };
-
-    const handlePageClick1 = (pageNumber) => {
+    const handlePageChange1 = (pageNumber) => {
         setCurrentHistoryPage(pageNumber);
     }
 
-    const handlePageClick2 = (pageNumber) => {
+    const handlePageChange2 = (pageNumber) => {
         setCurrentPendingPage(pageNumber);
     }
 
@@ -739,21 +712,12 @@ export const CashflowOutPage = () => {
                         </tbody>
                     </table>
 
-                    <div className={styles.pagination}>
-                        <button onClick={handlePreviousPage1} disabled={currentHistoryPage === 1} className={styles.move}>
-                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                            Previous
-                        </button>
-                        {Array.from({ length: totalHistoryPages }, (_, index) => (
-                            <button key={index + 1} onClick={() => handlePageClick1(index + 1)} className={currentHistoryPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                                0{index + 1}
-                            </button>
-                        ))}
-                        <button onClick={handleNextPage1} disabled={currentHistoryPage === totalHistoryPages} className={styles.move}>
-                            Next
-                            <img src={getImageUrl("icons/greyRightAngle.png")} />
-                        </button>
-                    </div>
+                    <Pagination
+                        filteredData={filteredHistoryOutflows}
+                        currentPage={currentHistoryPage}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange1}
+                    />
                     </>
                 )}
             </div>
@@ -841,21 +805,12 @@ export const CashflowOutPage = () => {
                         </tbody>
                     </table>
 
-                    <div className={styles.pagination}>
-                        <button onClick={handlePreviousPage2} disabled={currentPendingPage === 1} className={styles.move}>
-                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                            Previous
-                        </button>
-                        {Array.from({ length: totalPendingPages }, (_, index) => (
-                            <button key={index + 1} onClick={() => handlePageClick2(index + 1)} className={currentPendingPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                                0{index + 1}
-                            </button>
-                        ))}
-                        <button onClick={handleNextPage2} disabled={currentPendingPage === totalPendingPages} className={styles.move}>
-                            Next
-                            <img src={getImageUrl("icons/greyRightAngle.png")} />
-                        </button>
-                    </div>
+                    <Pagination
+                        filteredData={filteredPendingOutflows}
+                        currentPage={currentPendingPage}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange2}
+                    />
                     </>
                 )}
             </div>

@@ -26,6 +26,14 @@ export const ReportsPage = () => {
         getCashflowSummary();
     }, []);
 
+    const log = async () => {
+        await auditLog({
+            activity: "Viewed dashboard",
+            module: "Dashboard",
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
+
     
     const [ search, setSearch] = useState("");
     const handleSearch = (event) => {

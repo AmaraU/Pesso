@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { SlRefresh } from "react-icons/sl";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { BiShow, BiHide } from "react-icons/bi";
+import Pagination from "../../Components/Pagination/Pagination";
 
 
 
@@ -154,21 +155,7 @@ export const CashflowInPage = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentInflows = filteredInflows.slice(indexOfFirstItem, indexOfLastItem);
 
-    const totalPages = Math.ceil(filteredInflows.length / itemsPerPage);
-
-    const handleNextPage = () => {
-        if (currentPage < Math.ceil(filteredInflows.length / itemsPerPage)) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    const handlePreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const handlePageClick = (pageNumber) => {
+    const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
@@ -449,21 +436,12 @@ export const CashflowInPage = () => {
                     </tbody>
                 </table>
 
-                <div className={styles.pagination}>
-                    <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.move}>
-                        <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                        Previous
-                    </button>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button key={index + 1} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? styles.activePage : styles.gotToPage}>
-                            0{index + 1}
-                        </button>
-                    ))}
-                    <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
-                        Next
-                        <img src={getImageUrl("icons/greyRightAngle.png")} />
-                    </button>
-                </div>
+                <Pagination
+                    filteredData={filteredInflows}
+                    currentPage={currentPage}
+                    itemsPerPage={itemsPerPage}
+                    onPageChange={handlePageChange}
+                />
                 </>
             )}
         </div>

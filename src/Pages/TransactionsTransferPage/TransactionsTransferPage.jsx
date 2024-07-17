@@ -3,6 +3,7 @@ import styles from "./TransactionsTransferPage.module.css";
 import { getImageUrl } from '../../../utils';
 import { Button } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
+import Pagination from '../../Components/Pagination/Pagination';
 
 
 
@@ -296,38 +297,10 @@ export const TransactionsTransferPage = () => {
     const currentPendingTransfers = filteredPendingTransfers.slice(indexOfFirstItem1, indexOfLastItem1);
     const currentCompletedTransfers = filteredCompletedTransfers.slice(indexOfFirstItem2, indexOfLastItem2);
 
-    const totalPendingPages = Math.ceil(filteredPendingTransfers.length / itemsPerPage);
-    const totalCompletedPages = Math.ceil(filteredCompletedTransfers.length / itemsPerPage);
-
-    const handleNextPage1 = () => {
-        if (currentPage1 < Math.ceil(filteredPendingTransfers.length / itemsPerPage)) {
-            setCurrentPage1(currentPage1 + 1);
-        }
-    };
-
-    const handlePreviousPage1 = () => {
-        if (currentPage1 > 1) {
-            setCurrentPage1(currentPage1 - 1);
-        }
-    };
-
-
-    const handleNextPage2 = () => {
-        if (currentPage2 < Math.ceil(filteredCompletedTransfers.length / itemsPerPage)) {
-            setCurrentPage2(currentPage2 + 1);
-        }
-    };
-
-    const handlePreviousPage2 = () => {
-        if (currentPage2 > 1) {
-            setCurrentPage2(currentPage2 - 1);
-        }
-    };
-
-    const handlePageClick1 = (pageNumber) => {
+    const handlePageChange1 = (pageNumber) => {
         setCurrentPage1(pageNumber);
     }
-    const handlePageClick2 = (pageNumber) => {
+    const handlePageChange2 = (pageNumber) => {
         setCurrentPage2(pageNumber);
     }
 
@@ -579,22 +552,12 @@ export const TransactionsTransferPage = () => {
                         </tbody>
                     </table>
 
-                    <div className={styles.pagination}>
-                        <button onClick={handlePreviousPage1} disabled={currentPage1 === 1} className={styles.move}>
-                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                            Previous
-                        </button>
-                        {Array.from({ length: totalPendingPages }, (_, index) => (
-                            <button key={index + 1} onClick={() => handlePageClick1(index + 1)} className={currentPage1 === index + 1 ? styles.activePage : styles.gotToPage}>
-                                0{index + 1}
-                            </button>
-                        ))}
-                        <button onClick={handleNextPage1} disabled={currentPage1 === totalPendingPages} className={styles.move}>
-                            Next
-                            <img src={getImageUrl("icons/greyRightAngle.png")} />
-                        </button>
-                    </div>
-
+                    <Pagination
+                        filteredData={filteredPendingTransfers}
+                        currentPage={currentPage1}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange1}
+                    />
                     </>
                 )}
             </div>
@@ -687,21 +650,12 @@ export const TransactionsTransferPage = () => {
                         </tbody>
                     </table>
 
-                    <div className={styles.pagination}>
-                        <button onClick={handlePreviousPage2} disabled={currentPage2 === 1} className={styles.move}>
-                            <img src={getImageUrl("icons/greyLeftAngle.png")} />
-                            Previous
-                        </button>
-                        {Array.from({ length: totalCompletedPages }, (_, index) => (
-                            <button key={index + 1} onClick={() => handlePageClick2(index + 1)} className={currentPage2 === index + 1 ? styles.activePage : styles.gotToPage}>
-                                0{index + 1}
-                            </button>
-                        ))}
-                        <button onClick={handleNextPage2} disabled={currentPage2 === totalCompletedPages} className={styles.move}>
-                            Next
-                            <img src={getImageUrl("icons/greyRightAngle.png")} />
-                        </button>
-                    </div>
+                    <Pagination
+                        filteredData={filteredCompletedTransfers}
+                        currentPage={currentPage2}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange2}
+                    />
                     </>
                 )}
             </div>            
