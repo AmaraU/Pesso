@@ -40,6 +40,8 @@ export const AuditTrailsPage = () => {
                 }
             });
 
+            console.log(response);
+
             if (response) {
                 const { status, data } = response.data;
                 if (status === "success") {
@@ -102,8 +104,8 @@ export const AuditTrailsPage = () => {
             auditTrail.activity_description.toLowerCase().includes(searchLower) ||
             auditTrail.module.toLowerCase().includes(searchLower) ||
             auditTrail.user.toLowerCase().includes(searchLower) ||
-            format(new Date (auditTrail.timestamp), 'dd/MM/yyyy').includes(searchLower) ||
-            format(new Date (auditTrail.timestamp), 'hh:mm:ss a').toLowerCase().includes(searchLower)
+            format(new Date (auditTrail.timestamp), 'MMMM dd, yyyy').includes(searchLower) ||
+            format(new Date (auditTrail.timestamp), 'h:mm a').toLowerCase().includes(searchLower)
         );
     });
 
@@ -180,8 +182,8 @@ export const AuditTrailsPage = () => {
                                     <td>{auditTrail.activity_description}</td>
                                     <td>{auditTrail.module}</td>
                                     <td>{auditTrail.user}</td>
-                                    <td>{format(new Date (auditTrail.timestamp), 'dd/MM/yyyy')}</td>
-                                    <td>{format(new Date (auditTrail.timestamp), 'hh:mm:ss a')}</td>
+                                    <td>{format(new Date (auditTrail.timestamp), 'MMMM dd, yyyy')}</td>
+                                    <td>{format(new Date (auditTrail.timestamp), 'h:mm a')}</td>
                                     <td className={styles.action}>
                                         <button onClick={() => toggleAction(index)}>
                                             <img src={getImageUrl("icons/action.png")} />
