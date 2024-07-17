@@ -109,6 +109,8 @@ export const AuditTrailsPage = () => {
         );
     });
 
+    const sortedAuditTrails = [...filteredAuditTrails].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
 
     const toggleAction = (index) => {
         setActionsOpen(prevState => ({
@@ -120,7 +122,7 @@ export const AuditTrailsPage = () => {
     const itemsPerPage = 10;
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentAuditTrails = filteredAuditTrails.slice(indexOfFirstItem, indexOfLastItem);
+    const currentAuditTrails = sortedAuditTrails.slice(indexOfFirstItem, indexOfLastItem);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
