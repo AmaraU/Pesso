@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { Button, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogCloseButton, AlertDialogBody, AlertDialogFooter, useToast } from '@chakra-ui/react';
-import { getAPIEndpoint } from "../../../config";
+import { getAPIEndpoint } from "../../config";
 import axios from "axios";
 import { auditLog } from "../models/logging";
 

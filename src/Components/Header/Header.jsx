@@ -36,7 +36,6 @@ export const Header = () => {
             navigate('/');
         }
         const data = location.state;
-        console.log(data);
         setBusinessName(sessionStorage.getItem('bizName'));
     }, []);
 

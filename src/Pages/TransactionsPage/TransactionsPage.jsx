@@ -1,133 +1,148 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./TransactionsPage.module.css";
 import { getImageUrl } from '../../../utils';
-import { Button } from "@chakra-ui/react";
+import classNames from 'classnames';
+import { Button, Center, Spinner, useToast } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
+import { auditLog, logger } from '../../models/logging';
+import { format } from 'date-fns';
+import axios from 'axios';
+import { DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../../config';
 import Pagination from '../../Components/Pagination/Pagination';
 
 
 
 export const TransactionsPage = () => {
 
-    const transactions = [
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Payment for site survey and inspection",
-            account: "0123456789 - Polaris Bank",
-            amount: "+N300,000",
-            balance: "N300,000"
-        },
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Shoprite Kenya",
-            account: "0123456789 - Polaris Bank",
-            amount: "-N300,000",
-            balance: "N300,000"
-        },
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Cadastral survey",
-            account: "0123456789 - Polaris Bank",
-            amount: "+N300,000",
-            balance: "N300,000"
-        },
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Airtime purchase",
-            account: "0123456789 - Polaris Bank",
-            amount: "-N300,000",
-            balance: "N300,000"
-        },
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Shoprite Kenya",
-            account: "0123456789 - Polaris Bank",
-            amount: "+N300,000",
-            balance: "N300,000"
-        },
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Bank Charges",
-            account: "0123456789 - Polaris Bank",
-            amount: "-N300,000",
-            balance: "N300,000"
-        },
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Cadastral survey",
-            account: "0123456789 - Polaris Bank",
-            amount: "+N300,000",
-            balance: "N300,000"
-        },
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Shoprite Kenya",
-            account: "0123456789 - Polaris Bank",
-            amount: "-N300,000",
-            balance: "N300,000"
-        },
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Asbuilt",
-            account: "0123456789 - Polaris Bank",
-            amount: "+N300,000",
-            balance: "N300,000"
-        },
-        {
-            date: "July 22, 2022",
-            refNo: "23412867",
-            description: "Shoprite Kenya",
-            account: "0123456789 - Polaris Bank",
-            amount: "-N300,000",
-            balance: "N300,000"
-        }
-    ]
-
     const [ search, setSearch] = useState("");
     const [ currentPage, setCurrentPage ] = useState(1);
-    const itemsPerPage = 10;
-
-    const handleSearch = (event) => {
-        setSearch(event.target.value);
-        setCurrentPage(1);
-    };
-
-
-    const filteredTransactions = transactions.filter(transaction => {
-        const searchLower = search.toLowerCase();
-        return (
-            transaction.date.toLowerCase().includes(searchLower) ||
-            transaction.refNo.toLowerCase().includes(searchLower) ||
-            transaction.description.toLowerCase().includes(searchLower) ||
-            transaction.account.toLowerCase().includes(searchLower) ||
-            transaction.amount.toLowerCase().includes(searchLower)
-        );
-    });
-
-    
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentTransactions = filteredTransactions.slice(indexOfFirstItem, indexOfLastItem);
-
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
     const categories = ["Salaries and wages", "Rent", "Utilities", "Equipment", "Supplies", "Travel", "Entertainment", "Marketing and advertising"];
     const [ selectedCategory, setSelectedCategory ] = useState({});
     const [ openCategories, setOpenCategories ] = useState({});
     const [ searchCategories, setSearchCategries] = useState("");
     const [ openFilter, setOpenFilter ] = useState(false);
     const [ openDownload, setOpenDownload ] = useState(false);
+    const [isLoading, setIsloading] = useState(false);
+    const [trxns, setTrxns] = useState([]);
+    const toast = useToast();
+    const containerRefs = useRef([]);
+    const filterRef = useRef(null);
+    const downloadRef = useRef(null);
+
+    const itemsPerPage = 10;
+
+    useEffect(() => {
+        getTrxns();
+        log("Viewed transaction history", "Transactions")
+    }, [])
+
+    const log = async (activity, module) => {
+        await auditLog({
+            activity,
+            module,
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
+
+    const getTrxns = async () => {
+        setIsloading(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('trxns'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsloading(false);
+                    setTrxns(data);
+                    return;
+                }
+                else {
+                    setIsloading(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_RECENT_TRXNS_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_RECENT_TRXNS_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Recent Transactions", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_RECENT_TRXNS_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsloading(false);
+    }
+    
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
+        setCurrentPage(1);
+    };
+
+    const formatNumber = (number) => {
+        return new Intl.NumberFormat('en-US').format(number);
+    };
+
+
+    const filteredTransactions = trxns.filter(transaction => {
+        const searchLower = search.toLowerCase();
+        return (
+            transaction.trans_date.toLowerCase().includes(searchLower) ||
+            format(new Date (transaction.trans_date), 'MMM dd, yyyy').toLowerCase().includes(searchLower) ||
+            format(new Date (transaction.trans_date), 'MMMM dd yyyy').toLowerCase().includes(searchLower) ||
+            transaction.trans_ref.toLowerCase().includes(searchLower) ||
+            transaction.trans_narration.toLowerCase().includes(searchLower) ||
+            transaction.account_number.toLowerCase().includes(searchLower) ||
+            transaction.institution_name.toLowerCase().includes(searchLower) ||
+            transaction.trans_amount.toLowerCase().includes(searchLower) ||
+            formatNumber(transaction.trans_amount).toLowerCase().includes(searchLower) ||
+            transaction.account_balance.toLowerCase().includes(searchLower) ||
+            formatNumber(transaction.account_balance).toLowerCase().includes(searchLower)
+        );
+    });
+
+    const sortedTransactions = [...filteredTransactions].sort((a, b) => new Date(b.trans_date) - new Date(a.trans_date));
+
+
+    
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentTransactions = sortedTransactions.slice(indexOfFirstItem, indexOfLastItem);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
     
 
     const handleSearchCategories = (event) => {
@@ -165,10 +180,6 @@ export const TransactionsPage = () => {
         setOpenCategories({});
     };
 
-
-    const containerRefs = useRef([]);
-    const filterRef = useRef(null);
-    const downloadRef = useRef(null);
 
 
     const handleClickOutside = (event) => {
@@ -209,7 +220,7 @@ export const TransactionsPage = () => {
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
                     <img src={getImageUrl("icons/search.png")} />
-                    <input id="search" type="text" onChange={handleSearch} placeholder='Search reports' />
+                    <input id="search" type="text" onChange={handleSearch} placeholder='Search transactions' />
                 </div>
 
                 <div className={styles.buttons}>
@@ -256,75 +267,91 @@ export const TransactionsPage = () => {
                 </div>
             </div>
 
-            {currentTransactions.length === 0 ? (
-                <div className={styles.nothingBigDiv}>
-                    <div className={styles.nothingFound}>
-                        <img src={getImageUrl("nothing.png")} />
-                        <h2>No Transaction Data</h2>
-                        <p>We cannot seem to find any transaction data, your transaction information will appear here.</p>
-                    </div>
-                </div>
-                
-            ) : (
+            {isLoading ? <Center><Spinner /></Center> :
+
                 <>
-                <table className={styles.transactionTable}>
-                    <thead>
-                        <th>Date Created</th>
-                        <th>Reference No.</th>
-                        <th>Description</th>
-                        <th>Account</th>
-                        <th>Category</th>
-                        <th>Amount</th>
-                        <th>Balance</th>
-                    </thead>
+                {currentTransactions.length === 0 ? (
+                    <div className={styles.nothingBigDiv}>
+                        <div className={styles.nothingFound}>
+                            <img src={getImageUrl("nothing.png")} />
+                            <h2>No Transaction Data</h2>
+                            <p>We cannot seem to find any transaction data, your transaction information will appear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
+                    <>
+                    <table className={styles.transactionTable}>
+                        <thead>
+                            <th>Date Created</th>
+                            <th>Reference No.</th>
+                            <th>Description</th>
+                            <th>Account</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Balance</th>
+                        </thead>
 
-                    <tbody>
-                        {currentTransactions.map((transaction, index) => (
-                            <tr key={index}>
-                                <td>{transaction.date}</td>
-                                <td>{transaction.refNo}</td>
-                                <td>{transaction.description}</td>
-                                <td>{transaction.account}</td>
-                                <td className={styles.category}>
-                                    <button className={styles.categoriesButton} onClick={() => toggleCategories(index)}>
-                                        <p>{selectedCategory[index] || "Salaries and wage"}</p>
-                                        <img src={getImageUrl("icons/blackDownAngle.png")} />
-                                    </button>
+                        <tbody>
+                            {currentTransactions.map((transaction, index) => (
+                                <tr key={index}>
+                                    <td>{format(new Date (transaction.trans_date), 'MMM dd, yyyy')}</td>
+                                    <td>{transaction.trans_ref}</td>
+                                    <td>{transaction.trans_narration}</td>
+                                    <td>{transaction.account_number} - {transaction.institution_name}</td>
+                                    <td className={styles.category}>
+                                        <button className={styles.categoriesButton} onClick={() => toggleCategories(index)}>
+                                            <p>{selectedCategory[index] || "Salaries and wage"}</p>
+                                            <img src={getImageUrl("icons/blackDownAngle.png")} />
+                                        </button>
 
-                                    {openCategories[index] && (
-                                        <div className={styles.theCategories} ref={el => containerRefs.current[index] = el} >
-                                            <p>CATEGORY</p>
-                                            <div className={styles.categorySearch}>
-                                                <img src={getImageUrl("icons/search.png")} />
-                                                <input id="search" type="text" onChange={handleSearchCategories} placeholder='Search for Category' />
+                                        {openCategories[index] && (
+                                            <div className={styles.theCategories} ref={el => containerRefs.current[index] = el} >
+                                                <p>CATEGORY</p>
+                                                <div className={styles.categorySearch}>
+                                                    <img src={getImageUrl("icons/search.png")} />
+                                                    <input id="search" type="text" onChange={handleSearchCategories} placeholder='Search for Category' />
+                                                </div>
+
+                                                <ul>
+                                                    {filteredCategories.map((category, catIndex) => (
+                                                        <li key={catIndex} onClick={() => handleCategorySelection(index, category)}>{category}</li>
+                                                    ))}
+                                                </ul>
                                             </div>
+                                        )}
+                                        
+                                    </td>
+                                    <td className={classNames({
+                                        [styles.credit]: transaction.trans_type.toLowerCase() === ("credit"),
+                                        [styles.debit]: transaction.trans_type.toLowerCase() === ("debit")
+                                    })}>
+                                        {transaction.trans_type.toLowerCase() === ("credit") ? `+` : ``}
+                                        {transaction.trans_type.toLowerCase() === ("debit") ? `-` : ``}
+                                        {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                        {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {formatNumber(transaction.trans_amount)}
+                                    </td>
+                                    <td>
+                                    {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                        {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {formatNumber(transaction.account_balance)}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
 
-                                            <ul>
-                                                {filteredCategories.map((category, catIndex) => (
-                                                    <li key={catIndex} onClick={() => handleCategorySelection(index, category)}>{category}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-                                    
-                                </td>
-                                <td className={transaction.amount.startsWith("+") ? styles.credit : styles.debit}>
-                                    {transaction.amount}
-                                </td>
-                                <td>{transaction.balance}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-
-                <Pagination
-                    filteredData={filteredTransactions}
-                    currentPage={currentPage}
-                    itemsPerPage={itemsPerPage}
-                    onPageChange={handlePageChange}
-                />
+                    <Pagination
+                        filteredData={filteredTransactions}
+                        currentPage={currentPage}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange}
+                    />
+                    </>
+                )}
                 </>
-            )}
+            }
         </div>
     )
 }

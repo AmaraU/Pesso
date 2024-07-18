@@ -2,42 +2,259 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from "./BudgetPage.module.css";
 import { getImageUrl } from '../../../utils';
 
+import { Box, Button, Stack, Text, useDisclosure, useToast, Spinner, Center } from "@chakra-ui/react"
+import { budgetFields } from "../../models/data"
+import { DataWidget } from "../../Components/DataWidget"
+import { AddIcon } from "@chakra-ui/icons"
+import { AddBudget } from "../../Components/AddBudget"
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { DEFAULT_BANKS_ERR_MSG, DEFAULT_BUDGET_CATEGORIES_ERR_MSG, DEFAULT_BUDGET_DATA_ERR_MSG, getAPIEndpoint } from "../../../config";
+import { auditLog, logger } from '../../models/logging';
+import { ConfirmDeletion } from "../../Components/ConfirmDeletion"
+
+
 export const BudgetPage = () => {
 
-    const budgets = [
-        {
-            title: "Budget Title 1",
-            total: "N1,015,000",
-            assignee: "Alabi Ayoade David",
-            categories: ["Salaries and wages", "Rent"]
-        },
-        {
-            title: "Budget Title 2",
-            total: "N3,000,000",
-            assignee: "Emmanuel Ucheze",
-            categories: ["Utilities", "Rent"]
-        },
-        {
-            title: "Budget Title 3",
-            total: "N2,900,000",
-            assignee: "Amara",
-            categories: ["Salaries and wages"]
+    const { isOpen: isOpenAddBudget, onOpen: onOpenAddBudget, onClose: onCloseAddBudget } = useDisclosure();
+    const { isOpen: isOpenEditBudget, onOpen: onOpenEditBudget, onClose: onCloseEditBudget } = useDisclosure();
+    const { isOpen: isOpenDeleteBudget, onOpen: onOpenDeleteBudget, onClose: onCloseDeleteBudget } = useDisclosure();
+    const [categories, setCategories] = useState([]);
+    const [banks, setBanks] = useState([]);
+    const [budgetData, setBudgetData] = useState([]);
+    const [selectedBudget, setSelectedBudget] = useState([]);
+    const [isLoadingCat, setIsloadingCat] = useState(false);
+    const [isLoadingBanks, setIsloadingBanks] = useState(false);
+    const [isLoadingBudgetData, setIsLoadingBudgetData] = useState(false);
+    const [isEditBudget, setIsEditBudget] = useState(false);
+    const toast = useToast();
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (!sessionStorage.getItem("id")) {
+            navigate('/signin');
         }
-    ]
+        log();
+        getCategories();
+        getBanks();
+        getBudgets();
+    }, [])
+
+    const log = async () => {
+        await auditLog({
+            activity: `Viewed all budgets`,
+            module: "Budget",
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
+
+    const getCategories = async () => {
+        setIsloadingCat(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('budget-categories'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsloadingCat(false);
+                    console.log(data)
+                    setCategories(data);
+                    return;
+                }
+                else {
+                    setIsloadingCat(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_BUDGET_CATEGORIES_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_BUDGET_CATEGORIES_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Budget Categories", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_BUDGET_CATEGORIES_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsloadingCat(false);
+    }
+
+    const getBudgets = async () => {
+        setIsLoadingBudgetData(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('get-budgets'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsLoadingBudgetData(false);
+                    console.log(data)
+                    setBudgetData(data);
+                    return;
+                }
+                else {
+                    setIsLoadingBudgetData(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_BUDGET_DATA_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_BUDGET_DATA_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Budget Categories", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_BUDGET_DATA_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsLoadingBudgetData(false);
+    }
+
+    const getBanks = async () => {
+        setIsloadingBanks(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('get-banks'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsloadingBanks(false);
+                    if (data.status === "successful") {
+                        setBanks(data.data.filter(e => e.type === "PERSONAL_BANKING" || e.bank_code === null).map(v => ({ bank_code: v.bank_code, bank_name: v.name, country: v.country })));
+                    }
+                    else {
+                        setBanks([]);
+                        throw new Error(`${DEFAULT_BANKS_ERR_MSG} [Status: ${data.status}, Message: ${data.message}]`)
+                    }
+
+                    return;
+                }
+                else {
+                    setIsloadingBanks(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_BANKS_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_BANKS_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Banks", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_BANKS_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsloadingBanks(false);
+    }
+
+
     
     const [ search, setSearch] = useState("");
     const handleSearch = (event) => {
         setSearch(event.target.value);
     };
 
-
-    const filteredBudgets = budgets.filter(budget => {
+    const filteredBudgets = budgetData.filter(budget => {
         const searchLower = search.toLowerCase();
         return (
-            budget.title.toLowerCase().includes(searchLower) ||
-            budget.total.toLowerCase().includes(searchLower) ||
-            budget.assignee.toLowerCase().includes(searchLower) ||
-            budget.categories.some(category => category.toLowerCase().includes(searchLower))
+            budget.budget_title.toLowerCase().includes(searchLower) ||
+            budget.budget_amount.toLowerCase().includes(searchLower) ||
+            budget.assigned_to.toLowerCase().includes(searchLower) ||
+            budget.budget_category.toLowerCase().includes(searchLower)
         );
     });
 
@@ -66,6 +283,12 @@ export const BudgetPage = () => {
         dimmer.classList.remove(`${styles.dim}`);
     };
 
+    const formatNumber = (number) => {
+        return new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(number);
+    };
 
 
     return (
@@ -142,6 +365,8 @@ export const BudgetPage = () => {
                 </div>
             </div>
 
+            {isLoadingBudgetData ? <Center><Spinner /></Center> :
+                <>
                 {filteredBudgets.length === 0 ? (
                     <div className={styles.nothingBigDiv}>
                         <div className={styles.nothingFound}>
@@ -154,13 +379,11 @@ export const BudgetPage = () => {
                 ) : (
 
                     <div className={styles.budgetDivs}>
-
-                    
                         {filteredBudgets.map((budget, index) => (
                             <>
                             <div className={styles.budgetDiv} id={index}>
                                 <div className={styles.budgetHeader}>
-                                    {budget.title}
+                                    {budget.budget_title}
                                     <button onClick={() => editPopup(index)}>
                                         <img src={getImageUrl("icons/edit.png")} />
                                         Edit
@@ -172,7 +395,7 @@ export const BudgetPage = () => {
                                         <img src={getImageUrl("icons/naira.png")} />
                                         Total Spent
                                     </div>
-                                    <div className={styles.total}>{budget.total}</div>
+                                    <div className={styles.total}>N{formatNumber(budget.budget_amount)}</div>
                                 </div>
                                 <div className={styles.column}>
                                     <div className={styles.row2}>
@@ -180,7 +403,7 @@ export const BudgetPage = () => {
                                         Assignee
                                     </div>
                                     <div className={styles.circle}>
-                                        {budget.assignee}
+                                        {budget.assigned_to}
                                     </div>
                                 </div>
                                 <div className={styles.column}>
@@ -189,11 +412,14 @@ export const BudgetPage = () => {
                                         Categories
                                     </div>
                                     <div className={styles.row3}>
-                                        {budget.categories.map((categoy) => (
+                                        <div className={styles.circle}>
+                                            {budget.budget_category}
+                                        </div>
+                                        {/* {budget.budget_category.map((category) => (
                                             <div className={styles.circle}>
-                                                {categoy}
+                                                {category}
                                             </div>
-                                        ))}
+                                        ))} */}
                                     </div>
                                 </div>
                             </div>
@@ -209,41 +435,44 @@ export const BudgetPage = () => {
                                     <form action="">
                                         <div className={styles.formGroup}>
                                             <label htmlFor="fromAcct">Budget Title</label>
-                                            <input type="text" placeholder={budget.title} />
+                                            <input type="text" placeholder={budget.budget_title} />
                                         </div>
 
                                         <div className={styles.formGroup}>
                                             <label htmlFor="fromAcct">Budget Amount</label>
-                                            <input type="text" placeholder={budget.total} />
+                                            <input type="text" placeholder={budget.budget_amount} />
                                         </div>
 
                                         <div className={styles.dateFormGroup}>
                                             <div className={styles.formGroup}>
                                                 <label htmlFor="fromAcct">Start</label>
-                                                <input type="date" placeholder='Enter Title' />
+                                                <input type="date" placeholder={budget.start_date} />
                                             </div>
                                             <div className={styles.formGroup}>
                                                 <label htmlFor="fromAcct">End</label>
-                                                <input type="date" placeholder='Enter Title' />
+                                                <input type="date" placeholder={budget.end_date} />
                                             </div>
                                         </div>
 
                                         <div className={styles.formGroup}>
                                             <label htmlFor="fromAcct">Assign To</label>
                                             <select name="" id="">
-                                                <option value="">{budget.assignee}</option>
+                                                <option value="">{budget.assigned_to}</option>
                                             </select>
                                         </div>
 
                                         <div className={styles.formGroup}>
                                             <label htmlFor="fromAcct">Category</label>
                                             <select name="" id="">
-                                                <option value="">Select Category(s)</option>
+                                                <option value="">{budget.budget_category}</option>
+                                                {categories.map((category, index) => (
+                                                    <option key={index} value={category.category_name}>{category.category_name}</option>
+                                                ))}
                                             </select>
                                         </div>
 
-                                        <div>
-                                            {budget.categories.map((category) => (
+                                        {/* <div>
+                                            {categories.map((category) => (
                                                 <div className={styles.tabFormGroup}>
                                                     <label htmlFor="fromAcct">{category} Amount</label>
                                                     <div className={styles.catInputDiv}>
@@ -252,7 +481,7 @@ export const BudgetPage = () => {
                                                     </div>
                                                 </div>
                                             ))}
-                                        </div>
+                                        </div> */}
                                     </form>
 
                                     <div className={styles.submitButton}>
@@ -266,7 +495,9 @@ export const BudgetPage = () => {
                         ))}
                     </div>
                 )}
-            </div>
+                </>
+            }
+        </div>
         </>
     )
 }

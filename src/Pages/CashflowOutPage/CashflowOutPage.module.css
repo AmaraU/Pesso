@@ -422,6 +422,8 @@
 .outflowTable {
     border-collapse: collapse;
     width: 100%;
+    white-space: nowrap;
+    table-layout: fixed;
 }
 
 .outflowTable th {

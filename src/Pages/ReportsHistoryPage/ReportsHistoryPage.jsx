@@ -1,11 +1,97 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./ReportsHistoryPage.module.css";
 import { getImageUrl } from '../../../utils';
-import { Button } from "@chakra-ui/react";
+import { Button, Center, Spinner } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
+import { auditLog, logger } from '../../models/logging';
+import axios from 'axios';
+import { DEFAULT_BUDGET_DATA_ERR_MSG, getAPIEndpoint } from "../../../config";
 import Pagination from '../../Components/Pagination/Pagination';
 
 export const ReportsHistoryPage = () => {
+
+    const [ openExport, setOpenExport ] = useState(false);
+    const [ search, setSearch] = useState("");
+    const [ actionsOpen, setActionsOpen ] = useState({});
+    const [ currentPage, setCurrentPage ] = useState(1);
+    const [ isLoading, setIsLoading ] = useState(false);
+    const [ reportsHistory, setReportsHistory ] = useState([]);
+    const itemsPerPage = 10;
+
+
+    useEffect(() => {
+        log("Viewed reports history", "Reports");
+        getReportsHistory();
+    }, [])
+
+    const log = async (activity, module) => {
+        await auditLog({
+            activity,
+            module,
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
+
+    const getReportsHistory = async () => {
+        setIsLoading(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('get-budgets'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsLoading(false);
+                    setReportsHistory(data);
+                    return;
+                }
+                else {
+                    setIsLoading(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_BUDGET_DATA_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_BUDGET_DATA_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Budget Categories", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_BUDGET_DATA_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsLoading(false);
+    }
 
     const reports = [
         {
@@ -87,10 +173,6 @@ export const ReportsHistoryPage = () => {
         },
     ]
     
-    const [ search, setSearch] = useState("");
-    const [ actionsOpen, setActionsOpen ] = useState({});
-    const [ currentPage, setCurrentPage ] = useState(1);
-    const itemsPerPage = 10;
 
     const handleSearch = (event) => {
         setSearch(event.target.value);
@@ -126,8 +208,6 @@ export const ReportsHistoryPage = () => {
         setCurrentPage(pageNumber);
     }
 
-
-    const [ openExport, setOpenExport ] = useState(false);
 
     const handleExportClick = () => {
         setOpenExport(!openExport)
@@ -245,65 +325,70 @@ export const ReportsHistoryPage = () => {
                 </div>
             </div>
 
-            {currentReports.length === 0 ? (
-                <div className={styles.nothingBigDiv}>
-                    <div className={styles.nothingFound}>
-                        <img src={getImageUrl("nothing.png")} />
-                        <h2>No Report Data</h2>
-                        <p>We cannot seem to find any report data, your transaction information will appear here.</p>
-                    </div>
-                </div>
-                
-            ) : (
+            {isLoading ? <Center><Spinner /></Center> :
 
                 <>
+                {currentReports.length === 0 ? (
+                    <div className={styles.nothingBigDiv}>
+                        <div className={styles.nothingFound}>
+                            <img src={getImageUrl("nothing.png")} />
+                            <h2>No Report Data</h2>
+                            <p>We cannot seem to find any report data, your transaction information will appear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
 
-                <table className={styles.reportTable}>
-                    <thead>
-                        <th><input type="checkbox" id="selectAll" /></th>
-                        <th>Date</th>
-                        <th>Account Number</th>
-                        <th>Account Name</th>
-                        <th>Account Balance</th>
-                        <th>Current Balance</th>
-                        <th className={styles.action}>Action</th>
-                    </thead>
+                    <>
 
-                    <tbody>
-                        {currentReports.map((report, index) => (
-                            <tr key={index}>
-                                <td className={styles.checkbox}><input type="checkbox" /></td>
-                                <td className={styles.date}>{report.date}</td>
-                                <td className={styles.acctNumber}>{report.acctNumber}</td>
-                                <td className={styles.acctName}>{report.acctName}</td>
-                                <td className={styles.acctBal}>{report.acctBal}</td>
-                                <td className={styles.currBal}>{report.currBal}</td>
-                                <td className={styles.action}>
-                                    <button onClick={() => toggleAction(index)}>
-                                        <img src={getImageUrl("icons/action.png")} />
-                                    </button>
-                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef} >
-                                        <p>ACTION</p>
-                                        <ul>
-                                            <li>View</li>
-                                            <li>Download pdf</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                    <table className={styles.reportTable}>
+                        <thead>
+                            <th><input type="checkbox" id="selectAll" /></th>
+                            <th>Date</th>
+                            <th>Account Number</th>
+                            <th>Account Name</th>
+                            <th>Account Balance</th>
+                            <th>Current Balance</th>
+                            <th className={styles.action}>Action</th>
+                        </thead>
 
-                    </tbody>
-                </table>
+                        <tbody>
+                            {currentReports.map((report, index) => (
+                                <tr key={index}>
+                                    <td className={styles.checkbox}><input type="checkbox" /></td>
+                                    <td className={styles.date}>{report.date}</td>
+                                    <td className={styles.acctNumber}>{report.acctNumber}</td>
+                                    <td className={styles.acctName}>{report.acctName}</td>
+                                    <td className={styles.acctBal}>{report.acctBal}</td>
+                                    <td className={styles.currBal}>{report.currBal}</td>
+                                    <td className={styles.action}>
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef} >
+                                            <p>ACTION</p>
+                                            <ul>
+                                                <li>View</li>
+                                                <li>Download pdf</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
 
-                <Pagination
-                    filteredData={filteredReports}
-                    currentPage={currentPage}
-                    itemsPerPage={itemsPerPage}
-                    onPageChange={handlePageChange}
-                />
+                        </tbody>
+                    </table>
+
+                    <Pagination
+                        filteredData={filteredReports}
+                        currentPage={currentPage}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange}
+                    />
+                    </>
+                )}
                 </>
-            )}
+            }
         </div>
         </>
     )

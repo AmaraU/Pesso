@@ -8,7 +8,7 @@ import {
     Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Select, HStack
 } from '@chakra-ui/react';
 import { useEffect, useState } from "react";
-import { DEFAULT_CREATE_BUDGET_ERR_MSG, getAPIEndpoint } from '../../../config';
+import { DEFAULT_CREATE_BUDGET_ERR_MSG, getAPIEndpoint } from '../../config';
 import axios from 'axios';
 import { auditLog, logger } from '../models/logging';
 

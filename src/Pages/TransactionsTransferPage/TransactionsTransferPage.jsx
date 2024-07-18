@@ -1,13 +1,102 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./TransactionsTransferPage.module.css";
 import { getImageUrl } from '../../../utils';
-import { Button } from "@chakra-ui/react";
+import { Button, Center, Spinner } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
+import { auditLog, logger } from '../../models/logging';
+import axios from 'axios';
+import { DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../../config';
 import Pagination from '../../Components/Pagination/Pagination';
 
 
 
 export const TransactionsTransferPage = () => {
+
+    const [ isRecurring, setIsRecurring ] = useState(false);
+    const [ isLoading, setIsloading ] = useState(false);
+    const [trxns, setTrxns] = useState([]);
+    const [ activeButton, setActiveButton ] = useState(1);
+    const [ frequencyFilter, setFrequencyFilter ] = useState("");
+    const [ search, setSearch] = useState("");
+    const [ actionsOpen, setActionsOpen ] = useState({});
+    const [ currentPage1, setCurrentPage1 ] = useState(1);
+    const [ currentPage2, setCurrentPage2 ] = useState(1);
+    const popupRef = useRef(null);
+    const itemsPerPage = 10;
+
+    useEffect(() => {
+        getTrxns();
+        log("Viewed transaction transfers", "Transactions")
+    }, [])
+
+    const log = async (activity, module) => {
+        await auditLog({
+            activity,
+            module,
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
+
+    const getTrxns = async () => {
+        setIsloading(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('trxns'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsloading(false);
+                    setTrxns(data);
+                    return;
+                }
+                else {
+                    setIsloading(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_RECENT_TRXNS_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_RECENT_TRXNS_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Recent Transactions", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_RECENT_TRXNS_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsloading(false);
+    }
 
     const pendingTransfers = [
         {
@@ -232,12 +321,6 @@ export const TransactionsTransferPage = () => {
         }
     ]
 
-    const [ frequencyFilter, setFrequencyFilter ] = useState("");
-    const [ search, setSearch] = useState("");
-    const [ actionsOpen, setActionsOpen ] = useState({});
-    const [ currentPage1, setCurrentPage1 ] = useState(1);
-    const [ currentPage2, setCurrentPage2 ] = useState(1);
-    const itemsPerPage = 10;
 
     const handleSearch = (event) => {
         setSearch(event.target.value);
@@ -321,8 +404,6 @@ export const TransactionsTransferPage = () => {
         dimmer.classList.remove(`${styles.dim}`);
     }
 
-    const [ activeButton, setActiveButton ] = useState(1);
-
     function changeTables(buttonNumber) {
 
         setActiveButton(buttonNumber);
@@ -335,8 +416,6 @@ export const TransactionsTransferPage = () => {
         table2.classList.toggle(`${styles.hideTable}`);
     }
 
-
-    const popupRef = useRef(null);
 
     const handleClickOutside = (event) => {
         if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -351,8 +430,6 @@ export const TransactionsTransferPage = () => {
         };
     }, []);
 
-
-    const [isRecurring, setIsRecurring] = useState(false);
 
     const handleCheckboxChange = (event) => {
         setIsRecurring(event.target.checked);
@@ -498,68 +575,73 @@ export const TransactionsTransferPage = () => {
                     </div>
                 </div>
 
-                {currentPendingTransfers.length === 0 ? (
-                    <div className={styles.nothingBigDiv}>
-                        <div className={styles.nothingFound}>
-                            <img src={getImageUrl("nothing.png")} />
-                            <h2>No Transaction Data</h2>
-                            <p>We cannot seem to find any transaction data, your transaction information will appear here.</p>
-                        </div>
-                    </div>
-                    
-                ) : (
+                {isLoading ? <Center><Spinner /></Center> :
 
                     <>
-                    <table className={styles.transferTable}>
-                        <thead>
-                            <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
-                            <th>From Accout</th>
-                            <th>To Account</th>
-                            <th>Transfer Type</th>
-                            <th>Amount</th>
-                            <th>Frequency</th>
-                            <th>Scheduled Date</th>
-                            <th>Description</th>
-                            <th className={styles.action}>Action</th>
-                        </thead>
+                    {currentPendingTransfers.length === 0 ? (
+                        <div className={styles.nothingBigDiv}>
+                            <div className={styles.nothingFound}>
+                                <img src={getImageUrl("nothing.png")} />
+                                <h2>No Transaction Data</h2>
+                                <p>We cannot seem to find any transaction data, your transaction information will appear here.</p>
+                            </div>
+                        </div>
+                        
+                    ) : (
 
-                        <tbody>
-                            {currentPendingTransfers.map((transfer, index) => (
-                                <tr key={index}>
-                                    <td><input type="checkbox" /></td>
-                                    <td>{transfer.fromAcct}</td>
-                                    <td>{transfer.toAcct}</td>
-                                    <td>{transfer.type}</td>
-                                    <td>{transfer.amount}</td>
-                                    <td>{transfer.frequency}</td>
-                                    <td>{transfer.scheduleDate}</td>
-                                    <td>{transfer.description}</td>
-                                    <td className={styles.action}>
-                                        <button onClick={() => toggleAction(index)}>
-                                            <img src={getImageUrl("icons/action.png")} />
-                                        </button>
-                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
-                                            <ul>
-                                                <li>View</li>
-                                                <li>Edit</li>
-                                                <li className={styles.delete}>Delete</li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
+                        <>
+                        <table className={styles.transferTable}>
+                            <thead>
+                                <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
+                                <th>From Accout</th>
+                                <th>To Account</th>
+                                <th>Transfer Type</th>
+                                <th>Amount</th>
+                                <th>Frequency</th>
+                                <th>Scheduled Date</th>
+                                <th>Description</th>
+                                <th className={styles.action}>Action</th>
+                            </thead>
 
-                        </tbody>
-                    </table>
+                            <tbody>
+                                {currentPendingTransfers.map((transfer, index) => (
+                                    <tr key={index}>
+                                        <td><input type="checkbox" /></td>
+                                        <td>{transfer.fromAcct}</td>
+                                        <td>{transfer.toAcct}</td>
+                                        <td>{transfer.type}</td>
+                                        <td>{transfer.amount}</td>
+                                        <td>{transfer.frequency}</td>
+                                        <td>{transfer.scheduleDate}</td>
+                                        <td>{transfer.description}</td>
+                                        <td className={styles.action}>
+                                            <button onClick={() => toggleAction(index)}>
+                                                <img src={getImageUrl("icons/action.png")} />
+                                            </button>
+                                            <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                                <ul>
+                                                    <li>View</li>
+                                                    <li>Edit</li>
+                                                    <li className={styles.delete}>Delete</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
 
-                    <Pagination
-                        filteredData={filteredPendingTransfers}
-                        currentPage={currentPage1}
-                        itemsPerPage={itemsPerPage}
-                        onPageChange={handlePageChange1}
-                    />
+                            </tbody>
+                        </table>
+
+                        <Pagination
+                            filteredData={filteredPendingTransfers}
+                            currentPage={currentPage1}
+                            itemsPerPage={itemsPerPage}
+                            onPageChange={handlePageChange1}
+                        />
+                        </>
+                    )}
                     </>
-                )}
+                }
             </div>
 
 

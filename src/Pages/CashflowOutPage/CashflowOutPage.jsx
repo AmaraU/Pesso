@@ -1,16 +1,112 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Button, HStack, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Center, HStack, Spinner, Stack, Text, useToast } from "@chakra-ui/react";
 import styles from "./CashflowOutPage.module.css";
 import { getImageUrl } from '../../../utils';
 import classNames from 'classnames';
 import { SlRefresh } from "react-icons/sl";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { BiShow, BiHide } from "react-icons/bi";
+import { format } from 'date-fns';
+import { auditLog, logger } from '../../models/logging';
+import axios from 'axios';
+import { DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../../config';
 import Pagination from '../../Components/Pagination/Pagination';
 
 
 
 export const CashflowOutPage = () => {
+
+    const [ search, setSearch] = useState("");
+    const [ actionsOpen, setActionsOpen ] = useState({});
+    const [ currentHistoryPage, setCurrentHistoryPage ] = useState(1);
+    const [ currentPendingPage, setCurrentPendingPage ] = useState(1);
+    const [ openFilter, setOpenFilter ] = useState(false);
+    const [ openExport, setOpenExport ] = useState(false);
+    const [ activeButton, setActiveButton ] = useState(1);
+    const [totalBalanceVisible, setTotalBalanceVisible] = useState(true);
+    const [isLoading, setIsloading] = useState(false);
+    const [trxns, setTrxns] = useState([]);
+    const [trxnsOutflow, setTrxnsOutflow] = useState([]);
+    const toast = useToast();
+
+    const itemsPerPage = 10;
+
+
+    useEffect(() => {
+        log("Viewed cashflow outflow", "Cashflow");
+        getTrxns();
+    }, [])
+
+    const log = async (activity, module) => {
+        await auditLog({
+            activity,
+            module,
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
+
+    const getTrxns = async () => {
+        setIsloading(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('trxns'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsloading(false);
+                    setTrxnsOutflow(data.filter(e => e.trans_type === "debit"));
+                    setTrxns(data);
+                    return;
+                }
+                else {
+                    setIsloading(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_RECENT_TRXNS_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_RECENT_TRXNS_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Recent Transactions", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_RECENT_TRXNS_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsloading(false);
+    }
+
 
     const historyOutflows = [
         {
@@ -208,27 +304,36 @@ export const CashflowOutPage = () => {
         },
     ]
 
-    const [ search, setSearch] = useState("");
-    const [ actionsOpen, setActionsOpen ] = useState({});
-    const [ currentHistoryPage, setCurrentHistoryPage ] = useState(1);
-    const [ currentPendingPage, setCurrentPendingPage ] = useState(1);
-    const itemsPerPage = 10;
-
     const handleSearch = (event) => {
         setSearch(event.target.value);
         setCurrentPendingPage(1);
         setCurrentHistoryPage(1);
     };
 
-    const filteredHistoryOutflows = historyOutflows.filter(outflow => {
+    const formatNumber = (number) => {
+        return new Intl.NumberFormat('en-US').format(number);
+    };
+
+    const filteredHistoryOutflows = trxnsOutflow.filter(outflow => {
         const searchLower = search.toLowerCase();
+        // return (
+        //     outflow.refNo.toLowerCase().includes(searchLower) ||
+        //     outflow.title.toLowerCase().includes(searchLower) ||
+        //     outflow.type.toLowerCase().includes(searchLower) ||
+        //     outflow.amount.toLowerCase().includes(searchLower) ||
+        //     outflow.dateTime.toLowerCase().includes(searchLower) ||
+        //     outflow.category.toLowerCase().includes(searchLower)
+        // );
         return (
-            outflow.refNo.toLowerCase().includes(searchLower) ||
-            outflow.title.toLowerCase().includes(searchLower) ||
-            outflow.type.toLowerCase().includes(searchLower) ||
-            outflow.amount.toLowerCase().includes(searchLower) ||
-            outflow.dateTime.toLowerCase().includes(searchLower) ||
-            outflow.category.toLowerCase().includes(searchLower)
+            outflow.trans_ref.toLowerCase().includes(searchLower) ||
+            outflow.trans_narration.toLowerCase().includes(searchLower) ||
+            // outflow.type.toLowerCase().includes(searchLower) ||
+            formatNumber(outflow.trans_amount).toLowerCase().includes(searchLower) ||
+            outflow.trans_amount.toLowerCase().includes(searchLower) ||
+            outflow.trans_date.toLowerCase().includes(searchLower) ||
+            format(new Date (outflow.trans_date), 'MMM dd, yyyy; h:mma').toLowerCase().includes(searchLower) ||
+            format(new Date (outflow.trans_date), 'MMMM dd, yyyy; hh:mm a').toLowerCase().includes(searchLower)
+            // outflow.category.toLowerCase().includes(searchLower)
         );
     });
 
@@ -271,7 +376,6 @@ export const CashflowOutPage = () => {
         setCurrentPendingPage(pageNumber);
     }
 
-    const [ activeButton, setActiveButton ] = useState(1);
 
     function changeTables(buttonNumber) {
         setActiveButton(buttonNumber);
@@ -283,8 +387,6 @@ export const CashflowOutPage = () => {
         table2.classList.toggle(`${styles.hideTable}`);
     }
 
-    const [ openFilter, setOpenFilter ] = useState(false);
-    const [ openExport, setOpenExport ] = useState(false);
 
     function toggleSuccess() {
         setOpenExport(false);
@@ -380,8 +482,7 @@ export const CashflowOutPage = () => {
     }
 
 
-    const [totalBalanceVisible, setTotalBalanceVisible] = useState(true);
-    const [isLoading, setIsloading] = useState(false);
+    
 
     const hideBalance = () => {
         return "******";
@@ -390,11 +491,6 @@ export const CashflowOutPage = () => {
     const handleToggleVisibility = () => {
         setTotalBalanceVisible(!totalBalanceVisible);
     }
-
-    const cashflowins = [1,2,3];
-
-
-
 
 
 
@@ -600,7 +696,7 @@ export const CashflowOutPage = () => {
                                 <Text fontSize={"32px"} fontWeight={600} >{totalBalanceVisible ? Intl.NumberFormat('en-us', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
-                                }).format(cashflowins.length > 0 ? cashflowins.map(e => e.account_balance).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) : 0) : hideBalance()}</Text>
+                                }).format(trxnsOutflow.length > 0 ? trxnsOutflow.map(e => e.trans_amount).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) : 0) : hideBalance()}</Text>
                                 
                                 <Box pl={3} cursor={"pointer"}>
                                     {
@@ -614,112 +710,118 @@ export const CashflowOutPage = () => {
                     }
                 </Stack>
 
-                {currentHistoryOutflows.length === 0 ? (
-                    <div className={styles.nothingBigDiv}>
-                        <div className={styles.nothingFound}>
-                            <img src={getImageUrl("nothing.png")} />
-                            <h2>No Outflow Data</h2>
-                            <p>We cannot seem to find any outflow data, your transaction information will appear here.</p>
-                        </div>
-                    </div>
-                    
-                ) : (
+                {isLoading ? <Center><Spinner /></Center> : 
+
                     <>
 
-                    <div className={styles.outflowTreemap}>
-                        <div className={styles.treemapColumn}>
-                            <div className={styles.treemapRow}>
-                                <div className={`${styles.treemapBox} ${styles.one}`}><h5>45%</h5><p>BAD DEBTS</p></div>
-                                <div className={`${styles.treemapBox} ${styles.two}`}><h5>45%</h5><p>CHARTITABLE CONTRIBUTIONS</p></div>
+                    {currentHistoryOutflows.length === 0 ? (
+                        <div className={styles.nothingBigDiv}>
+                            <div className={styles.nothingFound}>
+                                <img src={getImageUrl("nothing.png")} />
+                                <h2>No Outflow Data</h2>
+                                <p>We cannot seem to find any outflow data, your transaction information will appear here.</p>
                             </div>
-                            <div className={styles.treemapRow}>
-                                <div className={`${styles.treemapBox} ${styles.three}`}><h5>45%</h5><p>COST OF GOODS SOLD (COGS)</p></div>
-                                <div className={`${styles.treemapBox} ${styles.four}`}><h5>45%</h5><p>DEPRECIATION AND AMORIZATION</p></div>
-                                <div className={`${styles.treemapBox} ${styles.five}`}><h5>45%</h5><p>EQUIPMENT</p></div>
+                        </div>
+                        
+                    ) : (
+                        <>
+
+                        <div className={styles.outflowTreemap}>
+                            <div className={styles.treemapColumn}>
+                                <div className={styles.treemapRow}>
+                                    <div className={`${styles.treemapBox} ${styles.one}`}><h5>45%</h5><p>BAD DEBTS</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.two}`}><h5>45%</h5><p>CHARTITABLE CONTRIBUTIONS</p></div>
+                                </div>
+                                <div className={styles.treemapRow}>
+                                    <div className={`${styles.treemapBox} ${styles.three}`}><h5>45%</h5><p>COST OF GOODS SOLD (COGS)</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.four}`}><h5>45%</h5><p>DEPRECIATION AND AMORIZATION</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.five}`}><h5>45%</h5><p>EQUIPMENT</p></div>
+                                </div>
+                            </div>
+
+                            <div className={styles.treemapColumn}>
+                                <div className={`${styles.treemapBox} ${styles.six}`}><h5>45%</h5><p>FEES AND COMMISSIONS</p></div>
+                                <div className={`${styles.treemapBox} ${styles.seven}`}><h5>45%</h5><p>INSURANCE</p></div>
+                                <div className={`${styles.treemapBox} ${styles.eight}`}><h5>45%</h5><p>INTEREST</p></div>
+                            </div>
+
+                            <div className={styles.treemapColumn}>
+                                <div className={styles.treemapRow}>
+                                    <div className={`${styles.treemapBox} ${styles.nine}`}><h5>20%</h5><p>MARKETING & ADVERTISING</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.ten}`}><h5>20%</h5><p>OTHER EXPENSES</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.eleven}`}><h5>20%</h5><p>PROFESSIONAL SERVICES</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.twelve}`}><h5>20%</h5><p>RENT</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.thirteen}`}><h5>20%</h5><p>REPAIRS AND MAINTENANCE</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.fourteen}`}><h5>20%</h5><p>RESEARCH AND DEVELOPMENT</p></div>
+                                </div>
+                                <div className={styles.treemapRow}>
+                                    <div className={`${styles.treemapBox} ${styles.fifteen}`}><h5>10%</h5><p>SALARIES & WAGES</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.sixteen}`}><h5>10%</h5><p>SHIPPING & POSTAGE</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.seventeen}`}><h5>10%</h5><p>SOFTWARE & SUBSCRIPTIONS</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.eighteen}`}><h5>10%</h5><p>SUPPLIES</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.nineteen}`}><h5>10%</h5><p>TAXES</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.twenty}`}><h5>10%</h5><p>TRAINING & DEVELOPMENT</p></div>
+                                </div>
+                                <div className={styles.treemapRow}>
+                                    <div className={`${styles.treemapBox} ${styles.twentyone}`}><h5>5%</h5><p>TRAVEL</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.twentytwo}`}><h5>5%</h5><p>UTILITIES</p></div>
+                                    <div className={`${styles.treemapBox} ${styles.twentythree}`}><h5>5%</h5><p>ENTERTAINMENT</p></div>
+                                </div>
                             </div>
                         </div>
 
-                        <div className={styles.treemapColumn}>
-                            <div className={`${styles.treemapBox} ${styles.six}`}><h5>45%</h5><p>FEES AND COMMISSIONS</p></div>
-                            <div className={`${styles.treemapBox} ${styles.seven}`}><h5>45%</h5><p>INSURANCE</p></div>
-                            <div className={`${styles.treemapBox} ${styles.eight}`}><h5>45%</h5><p>INTEREST</p></div>
-                        </div>
+                        <table className={styles.outflowTable}>
+                            <thead>
+                                <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
+                                <th>Reference Number</th>
+                                <th>Title</th>
+                                <th>Payment Type</th>
+                                <th>Amount</th>
+                                <th>Date; Time</th>
+                                <th>Category</th>
+                                <th className={styles.action}>Action</th>
+                            </thead>
 
-                        <div className={styles.treemapColumn}>
-                            <div className={styles.treemapRow}>
-                                <div className={`${styles.treemapBox} ${styles.nine}`}><h5>20%</h5><p>MARKETING & ADVERTISING</p></div>
-                                <div className={`${styles.treemapBox} ${styles.ten}`}><h5>20%</h5><p>OTHER EXPENSES</p></div>
-                                <div className={`${styles.treemapBox} ${styles.eleven}`}><h5>20%</h5><p>PROFESSIONAL SERVICES</p></div>
-                                <div className={`${styles.treemapBox} ${styles.twelve}`}><h5>20%</h5><p>RENT</p></div>
-                                <div className={`${styles.treemapBox} ${styles.thirteen}`}><h5>20%</h5><p>REPAIRS AND MAINTENANCE</p></div>
-                                <div className={`${styles.treemapBox} ${styles.fourteen}`}><h5>20%</h5><p>RESEARCH AND DEVELOPMENT</p></div>
-                            </div>
-                            <div className={styles.treemapRow}>
-                                <div className={`${styles.treemapBox} ${styles.fifteen}`}><h5>10%</h5><p>SALARIES & WAGES</p></div>
-                                <div className={`${styles.treemapBox} ${styles.sixteen}`}><h5>10%</h5><p>SHIPPING & POSTAGE</p></div>
-                                <div className={`${styles.treemapBox} ${styles.seventeen}`}><h5>10%</h5><p>SOFTWARE & SUBSCRIPTIONS</p></div>
-                                <div className={`${styles.treemapBox} ${styles.eighteen}`}><h5>10%</h5><p>SUPPLIES</p></div>
-                                <div className={`${styles.treemapBox} ${styles.nineteen}`}><h5>10%</h5><p>TAXES</p></div>
-                                <div className={`${styles.treemapBox} ${styles.twenty}`}><h5>10%</h5><p>TRAINING & DEVELOPMENT</p></div>
-                            </div>
-                            <div className={styles.treemapRow}>
-                                <div className={`${styles.treemapBox} ${styles.twentyone}`}><h5>5%</h5><p>TRAVEL</p></div>
-                                <div className={`${styles.treemapBox} ${styles.twentytwo}`}><h5>5%</h5><p>UTILITIES</p></div>
-                                <div className={`${styles.treemapBox} ${styles.twentythree}`}><h5>5%</h5><p>ENTERTAINMENT</p></div>
-                            </div>
-                        </div>
-                    </div>
+                            <tbody>
+                                {currentHistoryOutflows.map((outflow, index) => (
+                                    <tr key={index}>
+                                        <td className={styles.tableCheckbox}><input type="checkbox" /></td>
+                                        <td>{outflow.trans_ref}</td>
+                                        <td>{outflow.trans_narration}</td>
+                                        <td>{outflow.type}</td>
+                                        <td>N{formatNumber(outflow.trans_amount)}</td>
+                                        <td>{format(new Date (outflow.trans_date), 'MMM dd, yyyy; h:mma')}</td>
+                                        <td>{outflow.category}</td>
+                                        <td className={styles.action}>
+                                            <button onClick={() => toggleAction(index)}>
+                                                <img src={getImageUrl("icons/action.png")} />
+                                            </button>
+                                            <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} >
+                                                <p>ACTION</p>
+                                                <ul>
+                                                    <li>Approve</li>
+                                                    <li>Reject</li>
+                                                    <li>Hold</li>
+                                                    <li>Download Receipt</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
 
-                    <table className={styles.outflowTable}>
-                        <thead>
-                            <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
-                            <th>Reference Number</th>
-                            <th>Title</th>
-                            <th>Payment Type</th>
-                            <th>Amount</th>
-                            <th>Date; Time</th>
-                            <th>Category</th>
-                            <th className={styles.action}>Action</th>
-                        </thead>
+                            </tbody>
+                        </table>
 
-                        <tbody>
-                            {currentHistoryOutflows.map((outflow, index) => (
-                                <tr key={index}>
-                                    <td className={styles.tableCheckbox}><input type="checkbox" /></td>
-                                    <td>{outflow.refNo}</td>
-                                    <td>{outflow.title}</td>
-                                    <td>{outflow.type}</td>
-                                    <td>{outflow.amount}</td>
-                                    <td>{outflow.dateTime}</td>
-                                    <td>{outflow.category}</td>
-                                    <td className={styles.action}>
-                                        <button onClick={() => toggleAction(index)}>
-                                            <img src={getImageUrl("icons/action.png")} />
-                                        </button>
-                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} >
-                                            <p>ACTION</p>
-                                            <ul>
-                                                <li>Approve</li>
-                                                <li>Reject</li>
-                                                <li>Hold</li>
-                                                <li>Download Receipt</li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-
-                        </tbody>
-                    </table>
-
-                    <Pagination
-                        filteredData={filteredHistoryOutflows}
-                        currentPage={currentHistoryPage}
-                        itemsPerPage={itemsPerPage}
-                        onPageChange={handlePageChange1}
-                    />
+                        <Pagination
+                            filteredData={filteredHistoryOutflows}
+                            currentPage={currentHistoryPage}
+                            itemsPerPage={itemsPerPage}
+                            onPageChange={handlePageChange1}
+                        />
+                        </>
+                    )}
                     </>
-                )}
+                }
             </div>
 
 

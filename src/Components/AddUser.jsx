@@ -9,7 +9,7 @@ import {
     Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Select, HStack
 } from '@chakra-ui/react';
 import { useEffect, useState } from "react";
-import { DEFAULT_USER_ROLE_ASSIGN_ERR_MSG, getAPIEndpoint } from '../../../config';
+import { DEFAULT_USER_ROLE_ASSIGN_ERR_MSG, getAPIEndpoint } from '../../config';
 import axios from 'axios';
 import { auditLog, logger } from '../models/logging';
 import EmailValidator from "email-validator";
@@ -176,7 +176,7 @@ export const AddUser = ({ isOpen, onClose, roles = [], dataset = [], isEdit = fa
 
     return (
         <>
-            <Modal isCentered size={'lg'} closeOnOverlayClick={false} isOpen={isOpen} onClose={closeModal}>
+            <Modal isCentered size={'lg'} closeOnOverlayClick={false} isOpen={isOpen} onClose={closeModal} maxHeight={"70%"}>
                 <ModalOverlay />
                 <ModalContent rounded={15}>
                     <form onSubmit={processForm}>
@@ -227,8 +227,8 @@ export const AddUser = ({ isOpen, onClose, roles = [], dataset = [], isEdit = fa
                                     type='submit'
                                     isDisabled={isLoading || emailIsError}
                                     isLoading={isLoading}
-                                    bg={'#1C6BFF'}
-                                    _hover={{ bg: '#1C6BFFDD' }}
+                                    bg={'#D2042D'}
+                                    _hover={{ bg: '#BD0429' }}
                                     color={"white"}
                                 >
                                     {buttonText}

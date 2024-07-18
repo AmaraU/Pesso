@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from "./ReportsPage.module.css";
 import { getImageUrl } from '../../../utils';
 import BarChart from '../../Components/BarChart';
-import { Button, useToast } from "@chakra-ui/react";
+import { Button, Center, Spinner, useToast } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
 import { CashflowChart } from "../../Components/CashflowChart";
 import axios from 'axios';
-import { logger } from '../../models/logging';
+import { auditLog, logger } from '../../models/logging';
 import { DEFAULT_CASHFLOW_SUMMARY_ERR_MSG, getAPIEndpoint } from '../../../config';
 import ReactSpeedometer from "react-d3-speedometer";
 
@@ -17,47 +17,22 @@ export const ReportsPage = () => {
     const [isCashflowLoading, setIsCashflowloading] = useState(false);
     const toast = useToast();
 
-
     useEffect(() => {
         if (!sessionStorage.getItem("id")) {
             navigate("/signin");
         }
-        log();
+        log("Viewed reports health indicator", "Reports");
         getCashflowSummary();
-    }, []);
+        // getTrxns();
+    }, [])
 
-    const log = async () => {
+    const log = async (activity, module) => {
         await auditLog({
-            activity: "Viewed dashboard",
-            module: "Dashboard",
+            activity,
+            module,
             userId: sessionStorage.getItem("id")
         }, sessionStorage.getItem("tk"));
     }
-
-    
-    const [ search, setSearch] = useState("");
-    const handleSearch = (event) => {
-        setSearch(event.target.value);
-    };
-
-    const [ openDownload, setOpenDownload ] = useState(false);
-    const handleDownloadToggle = () => {
-        setOpenDownload(!openDownload);
-    };
-
-    const handleClickOutside = (event) => {
-        if (popupRef.current && !popupRef.current.contains(event.target)) {
-            setOpenDownload(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutside, true);
-        return () => {
-            document.removeEventListener('click', handleClickOutside, true);
-        };
-    }, []);
-
 
     const getCashflowSummary = async () => {
         setIsCashflowloading(true);
@@ -129,6 +104,31 @@ export const ReportsPage = () => {
     }
 
 
+    
+    const [ search, setSearch] = useState("");
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
+    };
+
+    const [ openDownload, setOpenDownload ] = useState(false);
+    const handleDownloadToggle = () => {
+        setOpenDownload(!openDownload);
+    };
+
+    const handleClickOutside = (event) => {
+        if (popupRef.current && !popupRef.current.contains(event.target)) {
+            setOpenDownload(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, []);
+
+
 
     const financialHealth = {
         labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
@@ -178,7 +178,7 @@ export const ReportsPage = () => {
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
                     <img src={getImageUrl("icons/search.png")} />
-                    <input id="search" type="text" onChange={handleSearch} placeholder='Search for budget' />
+                    <input id="search" type="text" onChange={handleSearch} placeholder='Search for report' />
                 </div>
 
                 <div className={styles.buttons}>
@@ -291,10 +291,11 @@ export const ReportsPage = () => {
                         </select>
                     </div>
                     <div className={styles.line}></div>
-                    <CashflowChart data={cashflowSummary} />
-                </div>
-                
 
+                    {isCashflowLoading ? <Center><Spinner /></Center> :
+                        <CashflowChart data={cashflowSummary} />
+                    }
+                </div>
             </div>
 
             

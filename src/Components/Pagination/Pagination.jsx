@@ -8,7 +8,6 @@ const Pagination = ({ filteredData, currentPage, itemsPerPage, onPageChange }) =
 
     const handleNextPage = () => {
         if (currentPage < totalPages) {
-            console.log(`Current Page: ${currentPage}, Total Pages: ${totalPages}`);
             onPageChange(currentPage + 1);
         }
     };
@@ -20,7 +19,6 @@ const Pagination = ({ filteredData, currentPage, itemsPerPage, onPageChange }) =
     };
 
     const handlePageClick = (pageNumber) => {
-        console.log(`Page Clicked: ${pageNumber}`);
         onPageChange(pageNumber);
     };
     
