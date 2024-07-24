@@ -3,16 +3,179 @@ import styles from "./UsersRolesPage.module.css";
 import { getImageUrl } from '../../../utils';
 
 
+import { useToast, useDisclosure, Center, Spinner } from "@chakra-ui/react";
+import { userFields } from "../../models/data";
+import { auditLog, logger } from '../../models/logging';
+import axios from 'axios';
+import { DEFAULT_GET_ROLES_ERR_MSG, DEFAULT_GET_USERS_ERR_MSG, getAPIEndpoint } from '../../../config';
+import { AddRole } from "../../Components/AddRole";
+import { ConfirmDeletion } from "../../Components/ConfirmDeletion";
+
 
 export const UsersRolesPage = () => {
 
+    const { isOpen: isOpenAddRole, onOpen: onOpenAddRole, onClose: onCloseAddRole } = useDisclosure();
+    const { isOpen: isOpenDeleteRole, onOpen: onOpenDeleteRole, onClose: onCloseDeleteRole } = useDisclosure();
+    const [isLoading, setIsloading] = useState(false);
+    const [isLoadingRoles, setIsloadingRoles] = useState(false);
+    const [selectedRole, setSelectedRole] = useState([]);
+    const [roles, setRoles] = useState([]);
+    const toast = useToast();
 
-    function toggle() {        
-        var popup = document.getElementById('popup');
-        popup.classList.toggle(`${styles.popped}`);
+    useEffect(() => {
+        // getUsers();
+        getRoles();
+    }, [])
 
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.toggle(`${styles.dim}`);
+    const log = async () => {
+        await auditLog({
+            activity: `Viewed all roles`,
+            module: "Roles and Permissions",
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
+
+    // const getUsers = async () => {
+    //     setIsloading(true);
+    //     try {
+
+    //         const response = await axios.post(getAPIEndpoint('get-users'), null, {
+    //             headers: {
+    //                 "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+    //             }
+    //         });
+
+    //         if (response) {
+    //             const { status, data } = response.data;
+    //             if (status === "success") {
+    //                 setIsloading(false);
+    //                 setUsers(data);
+    //                 log();
+    //                 return;
+    //             }
+    //             else {
+    //                 setIsloading(false);
+    //                 let err = "";
+
+    //                 if (data.length > 0) {
+    //                     err = data[0].error;
+    //                 }
+
+    //                 if (err) {
+    //                     toast({
+    //                         description: `${DEFAULT_GET_USERS_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+    //                         position: "top",
+    //                         status: 'error',
+    //                         duration: 8000,
+    //                         isClosable: true,
+    //                     })
+    //                 }
+    //                 else {
+    //                     toast({
+    //                         description: DEFAULT_GET_USERS_ERR_MSG,
+    //                         position: "top",
+    //                         status: 'error',
+    //                         duration: 8000,
+    //                         isClosable: true,
+    //                     })
+    //                 }
+    //                 return;
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.log(error)
+    //         await logger({ task: "Get Users", error: error.toString() });
+    //     }
+    //     toast({
+    //         description: DEFAULT_GET_USERS_ERR_MSG,
+    //         position: "top",
+    //         status: 'error',
+    //         duration: 8000,
+    //         isClosable: true,
+    //     })
+
+    //     setIsloading(false);
+    // }
+
+    const getRoles = async () => {
+        setIsloadingRoles(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('get-roles'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsloadingRoles(false);
+                    console.log(data);
+                    setRoles(data);
+                    setSelectedRole(data[0]);
+                    log();
+                    return;
+                }
+                else {
+                    setIsloadingRoles(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_GET_ROLES_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_GET_ROLES_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Roles", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_GET_ROLES_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsloadingRoles(false);
+    }
+
+    
+    const handleAddRole = () => {
+        onOpenAddRole();
+    }
+    const handleDeleteRole = (role) => {
+        setSelectedRole([{ id: role.id, name: role.role_name }]);
+        onOpenDeleteRole();
+    }
+    const postDeleteRole = () => {
+        setSelectedRole([]);
+    }
+    const handleShowRole = (role) => {
+        console.log(role);
+        setSelectedRole(role);
+        // onOpenAddUser();
     }
 
     const [ name, setName ] = useState("Admin");
@@ -41,7 +204,6 @@ export const UsersRolesPage = () => {
         ]);
         setHasNoAccess("No specific restrictions within the application.");
     }
-
 
     function clickFinMan() {
         setName("Financial Manager");
@@ -98,31 +260,6 @@ export const UsersRolesPage = () => {
     return (
         <>
 
-        <div className={styles.popup} id='popup'>
-            <div className={styles.header}>
-                <h3>Create Role</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); () => toggle()}} /></a>
-            </div>
-            
-            <form action="">
-                <div className={styles.formGroup}>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name" id="" />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="email">Email Address</label>
-                    <input type="email" name="email" id="" />
-                </div>
-
-                <button onClick={(e) => {e.preventDefault(); toggle()}}>Send Invite</button>
-            </form>
-        </div>
-
-        <div className={styles.dimmer} id='dimmer'></div>
-
-
-
         <div className={styles.whole}>
 
             <div className={styles.backDiv}>
@@ -131,62 +268,67 @@ export const UsersRolesPage = () => {
                     Back
                 </button>
 
-                <button className={styles.addButton}>
+                <button className={styles.addButton} onClick={handleAddRole}>
                     <img src={getImageUrl("icons/whitePlus.png")} />
                     New Role
                 </button>
             </div>
 
-            <div className={styles.roles}>
-                <div className={styles.rolesNav}>
-                    <h4>Default Roles</h4>
-                    <ul>
-                        <li className={name === "Admin" ? styles.active : styles.inactive}><button onClick={() => clickAdmin()}>Admin/Owner</button></li>
-                        <li className={name === "Financial Manager" ? styles.active : styles.inactive}><button onClick={() => clickFinMan()}>Financial Manager</button></li>
-                        <li className={name === "Account Manager" ? styles.active : styles.inactive}><button onClick={() => clickAccMan()}>Account Manager</button></li>
-                        <li className={name === "Employee/User" ? styles.active : styles.inactive}><button onClick={() => clickEmployee()}>Employee/User</button></li>
-                        <li className={name === "Auditor" ? styles.active : styles.inactive}><button onClick={() => clickAuditor()}>Auditor</button></li>
-                    </ul>
-                </div>
+            {isLoadingRoles ? <Center><Spinner /></Center> :
 
-                <div className={styles.info}>
-                    <div className={styles.infoHeader}>
-                        <h3>{name}</h3>
-                        <p className={styles.desc}>{details}</p>
+                <>
+                <div className={styles.roles}>
+                    <div className={styles.rolesNav}>
+                        <h4>Default Roles</h4>
                         <ul>
-                            {members.map((member, index) => (
-                                <li>
-                                    <div className={styles.greyCircle}></div>
-                                    <p>Team Members with this role ({index + 1}): {member}</p>
-                                </li>
+                            {roles.map((role, index) => (
+                                <li className={role.role_name == selectedRole.role_name ? styles.active : styles.inactive} key={index}><button onClick={() => handleShowRole(role)}>{role.role_name}</button></li>
                             ))}
                         </ul>
                     </div>
 
-                    <div className={styles.accessNoAccess}>
-                        <div className={styles.access}>
-                            <div className={styles.accessHeader}>
-                                What this role can access
-                            </div>
+                    <div className={styles.info}>
+                        <div className={styles.infoHeader}>
+                            <h3>{selectedRole.role_name}</h3>
+                            <p className={styles.desc}>{details}</p>
                             <ul>
-                                {hasAccess.map((access, index) => (
-                                    <li>{access}</li>
-                                ))}                                
+                                {members.map((member, index) => (
+                                    <li>
+                                        <div className={styles.greyCircle}></div>
+                                        <p>Team Members with this role ({index + 1}): {member}</p>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
-                        <div className={styles.noAccess}>
-                            <div className={styles.noAccessHeader}>
-                                What this role cannot access
+
+                        <div className={styles.accessNoAccess}>
+                            <div className={styles.access}>
+                                <div className={styles.accessHeader}>
+                                    What this role can access
+                                </div>
+                                <ul>
+                                    {hasAccess.map((access, index) => (
+                                        <li>{access}</li>
+                                    ))}                                
+                                </ul>
                             </div>
-                            <ul><p>{hasNoAccess}</p></ul>
+                            <div className={styles.noAccess}>
+                                <div className={styles.noAccessHeader}>
+                                    What this role cannot access
+                                </div>
+                                <ul><p>{hasNoAccess}</p></ul>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-
-            </div>
-
+                </>
+            }
 
         </div>
+
+        <AddRole isOpen={isOpenAddRole} onClose={onCloseAddRole} roles={roles} refreshData={getRoles} />
+        <ConfirmDeletion isOpen={isOpenDeleteRole} onClose={onCloseDeleteRole} dataset={selectedRole} flag={2} flagTitle={"Role"} refreshData={getRoles} postDelete={postDeleteRole} />
         </>
     )
 }

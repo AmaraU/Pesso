@@ -177,43 +177,43 @@ export const AddBudget = ({ isOpen, onClose, banks = [], categories = [], datase
                             </Stack>
                         </ModalHeader>
                         <ModalCloseButton />
-                        <ModalBody pb={2}>
-                            <div style={{ overflow: 'auto', maxHeight: '60vh' }}>
+                        <ModalBody pb={2} rounded={'8px'}>
+                            <div style={{ overflow: 'auto', maxHeight: '60vh', scrollbarWidth: 'none' }}>
                                 <Stack spacing={4}>
                                     <FormControl isRequired>
                                         <FormLabel fontSize={"sm"}>Budget Title</FormLabel>
-                                        <Input size={"sm"} rounded={5} type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+                                        <Input size={"sm"} border={'1px solid #D1D5DB'} type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
                                     </FormControl>
                                     <FormControl isRequired>
                                         <FormLabel fontSize={"sm"}>Budget Amount</FormLabel>
-                                        <Input pattern='[0-9.]*' size={"sm"} rounded={5} type='text' value={amount} onChange={(e) => setAmount((v) => e.target.validity.valid ? e.target.value : '')} />
-                                    </FormControl>
-                                    <FormControl isRequired>
-                                        <FormLabel fontSize={"sm"}>Budget Category</FormLabel>
-                                        <Select placeholder='select a category' size={"sm"} rounded={5} value={category} onChange={(e) => setCategory(e.target.value)}>
-                                            {
-                                                categories.map((v, k) =>
-                                                    <option key={k} value={v.id}>{v.category_name}</option>
-                                                )
-                                            }
-                                        </Select>
+                                        <Input pattern='[0-9.]*' size={"sm"} border={'1px solid #D1D5DB'} type='text' value={amount} onChange={(e) => setAmount((v) => e.target.validity.valid ? e.target.value : '')} />
                                     </FormControl>
                                     <HStack spacing={3}>
                                         <FormControl isRequired>
                                             <FormLabel fontSize={"sm"}>Start Date</FormLabel>
-                                            <Input size={"sm"} rounded={5} type='date' value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                                            <Input size={"sm"} border={'1px solid #D1D5DB'} type='date' value={startDate} onChange={(e) => setStartDate(e.target.value)} />
                                         </FormControl>
                                         <FormControl isRequired>
                                             <FormLabel fontSize={"sm"}>End Date</FormLabel>
-                                            <Input size={"sm"} rounded={5} type='date' value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+                                            <Input size={"sm"} border={'1px solid #D1D5DB'} type='date' value={endDate} onChange={(e) => setEndDate(e.target.value)} />
                                         </FormControl>
                                     </HStack>
                                     <FormControl isRequired>
                                         <FormLabel fontSize={"sm"}>Assigned To</FormLabel>
-                                        <Select placeholder='select an institution' size={"sm"} rounded={5} value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)}>
+                                        <Select placeholder='select an institution' size={"sm"} border={'1px solid #D1D5DB'} value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)}>
                                             {
                                                 banks.map((v, k) =>
                                                     <option key={k} value={v.bank_name}>{v.bank_name}</option>
+                                                )
+                                            }
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl isRequired>
+                                        <FormLabel fontSize={"sm"}>Budget Category</FormLabel>
+                                        <Select placeholder='select a category' size={"sm"} border={'1px solid #D1D5DB'} value={category} onChange={(e) => setCategory(e.target.value)}>
+                                            {
+                                                categories.map((v, k) =>
+                                                    <option key={k} value={v.id}>{v.category_name}</option>
                                                 )
                                             }
                                         </Select>
@@ -228,9 +228,12 @@ export const AddBudget = ({ isOpen, onClose, banks = [], categories = [], datase
                                     type='submit'
                                     isDisabled={isLoading}
                                     isLoading={isLoading}
-                                    bg={'#1C6BFF'}
-                                    _hover={{ bg: '#1C6BFFDD' }}
+                                    bg={'#D2042D'}
+                                    _hover={{ bg: '#BD0429' }}
                                     color={"white"}
+                                    fontSize={'16px'}
+                                    fontWeight={500}
+                                    rounded={'8px'}
                                 >
                                     {buttonText}
                                 </Button>

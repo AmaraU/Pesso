@@ -5,10 +5,13 @@ import {
     Input,
     Stack,
     useToast,
-    Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter
+    Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
+    Checkbox,
+    HStack,
+    Grid
 } from '@chakra-ui/react';
 import { useState } from "react";
-import { DEFAULT_ADD_ROLE_ERR_MSG, getAPIEndpoint } from '../../../config';
+import { DEFAULT_ADD_ROLE_ERR_MSG, getAPIEndpoint } from '../../config';
 import axios from 'axios';
 import { auditLog, logger } from '../models/logging';
 
@@ -17,6 +20,7 @@ export const AddRole = ({ isOpen, onClose, isEdit = false, refreshData }) => {
     const [modalTitle, setModalTitle] = useState(isEdit ? "Edit Role" : "Add Role");
     const [buttonText, setButtonText] = useState(isEdit ? "Update" : "Add");
     const [role, setRole] = useState();
+    const [roleDescription, setRoleDescription] = useState();
     const toast = useToast();
 
     const closeModal = () => {
@@ -26,8 +30,9 @@ export const AddRole = ({ isOpen, onClose, isEdit = false, refreshData }) => {
 
     const reset = () => {
         setRole('');
+        setRoleDescription('');
         setIsLoading(false)
-        setModalTitle('Add User');
+        setModalTitle('Add Role');
         setButtonText('Add');
     }
 
@@ -149,6 +154,28 @@ export const AddRole = ({ isOpen, onClose, isEdit = false, refreshData }) => {
                                         <FormLabel fontSize={"sm"}>Role Name</FormLabel>
                                         <Input size={"sm"} rounded={5} type='text' value={role} onChange={(e) => setRole(e.target.value)} />
                                     </FormControl>
+                                    <FormControl isRequired>
+                                        <FormLabel fontSize={"sm"}>Role Description</FormLabel>
+                                        <Input size={"sm"} rounded={5} type='text' value={role} onChange={(e) => setRoleDescription(e.target.value)} />
+                                    </FormControl>
+                                    
+                                    <Text fontSize={"md"} fontWeight={500}>Select Permission</Text>
+                                    <Checkbox size={"md"}>All Access</Checkbox>
+
+                                    <Stack ml={'5%'}>
+                                        <Checkbox size={"sm"}>Module Name</Checkbox>
+                                        
+                                        <Grid gridTemplateColumns={'repeat(3, auto)'} marginLeft={'5%'}>
+                                            <Checkbox size={"sm"}>Create</Checkbox>
+                                            <Checkbox size={"sm"}>Edit</Checkbox>
+                                            <Checkbox size={"sm"}>Delete</Checkbox>
+                                            <Checkbox size={"sm"}>View</Checkbox>
+                                            <Checkbox size={"sm"}>Download</Checkbox>
+                                            <Checkbox size={"sm"}>Approve</Checkbox>
+                                        </Grid>
+                                    </Stack>
+                                    
+
                                 </Stack>
                             </div>
                         </ModalBody>
@@ -159,9 +186,12 @@ export const AddRole = ({ isOpen, onClose, isEdit = false, refreshData }) => {
                                     type='submit'
                                     isDisabled={isLoading}
                                     isLoading={isLoading}
-                                    bg={'#1C6BFF'}
-                                    _hover={{ bg: '#1C6BFFDD' }}
+                                    bg={'#D2042D'}
+                                    _hover={{ bg: '#BD0429' }}
                                     color={"white"}
+                                    fontSize={'16px'}
+                                    fontWeight={500}
+                                    rounded={'8px'}
                                 >
                                     {buttonText}
                                 </Button>

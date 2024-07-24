@@ -164,7 +164,7 @@ export const ConfirmDeletion = ({ isOpen, onClose, dataset = [], flag = 0, flagT
                     <AlertDialogHeader fontSize={'lg'}>Delete {toTitleCase(flagTitle)}</AlertDialogHeader>
                     <AlertDialogCloseButton />
                     <AlertDialogBody fontSize={"sm"}>
-                        Are you sure you want to this {flagTitle.toLowerCase()}: <strong>{name}</strong>?
+                        Are you sure you want to delete this {flagTitle.toLowerCase()}: <strong>{name}</strong>?
                     </AlertDialogBody>
                     <AlertDialogFooter>
                         <Button size={'sm'} ref={cancelRef} onClick={onClose}>

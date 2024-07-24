@@ -241,6 +241,30 @@ export const BudgetPage = () => {
         setIsloadingBanks(false);
     }
 
+    const handleAddBudget = () => {
+        onOpenAddBudget();
+    }
+
+    const postDeleteBudget = () => {
+        setSelectedBudget([]);
+        setIsEditBudget(false);
+    }
+
+    const resetEditBudget = () => {
+        setIsEditBudget(false);
+    }
+
+    const handleEditBudget = (budget) => {
+        setSelectedBudget([budget]);
+        setIsEditBudget(true);
+        onOpenAddBudget();
+    }
+
+    const handleDeleteBudget = (budget) => {
+        setSelectedBudget([{ id: budget.id, name: budget.budget_title }]);
+        onOpenDeleteBudget();
+    }
+
 
     
     const [ search, setSearch] = useState("");
@@ -294,62 +318,6 @@ export const BudgetPage = () => {
     return (
         <>
 
-        <div className={styles.popup} id="popup">
-            <div className={styles.header}>
-                <h3>Budget</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); toggle()}} /></a>
-            </div>
-
-            <form action="">
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Budget Title</label>
-                    <input type="text" placeholder='Enter Title' />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Budget Amount</label>
-                    <input type="number" placeholder='Enter Amount' />
-                </div>
-
-                <div className={styles.dateFormGroup}>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="fromAcct">Start</label>
-                        <input type="date" placeholder='Enter Title' />
-                    </div>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="fromAcct">End</label>
-                        <input type="date" placeholder='Enter Title' />
-                    </div>
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Assign To</label>
-                    <select name="" id="">
-                        <option value="">Select Beneficiary</option>
-                    </select>
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Category</label>
-                    <select name="" id="">
-                        <option value="">Select Category(s)</option>
-                        <option value="">Salaries and Wages</option>
-                        <option value="">Equipment</option>
-                        <option value="">Rent</option>
-                    </select>
-                </div>
-            </form>
-
-            <div className={styles.submitButton}>
-                <button onClick={(e) => {e.preventDefault(); toggle()}}>Submit</button>
-            </div>
-        </div>
-
-
-        <div className={styles.dimmer} id='dimmer'></div>
-
-
-
         <div className={styles.whole}>
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
@@ -358,7 +326,7 @@ export const BudgetPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <button className={styles.buttonOne} onClick={() => toggle()}>
+                    <button className={styles.buttonOne} onClick={handleAddBudget}>
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                         Create Budget
                     </button>
@@ -384,7 +352,7 @@ export const BudgetPage = () => {
                             <div className={styles.budgetDiv} id={index}>
                                 <div className={styles.budgetHeader}>
                                     {budget.budget_title}
-                                    <button onClick={() => editPopup(index)}>
+                                    <button onClick={() => handleEditBudget(budget)}>
                                         <img src={getImageUrl("icons/edit.png")} />
                                         Edit
                                     </button>
@@ -498,6 +466,9 @@ export const BudgetPage = () => {
                 </>
             }
         </div>
+
+        <AddBudget isOpen={isOpenAddBudget} onClose={onCloseAddBudget} isEdit={isEditBudget} dataset={selectedBudget} resetEdit={resetEditBudget} categories={categories} banks={banks} refreshData={getBudgets} />
+        <ConfirmDeletion isOpen={isOpenDeleteBudget} onClose={onCloseDeleteBudget} dataset={selectedBudget} flag={3} flagTitle={"Budget"} refreshData={getBudgets} postDelete={postDeleteBudget} />
         </>
     )
 }

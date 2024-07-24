@@ -1,91 +1,172 @@
+import { useToast, useDisclosure, Center, Spinner } from "@chakra-ui/react";
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./UsersPage.module.css";
 import { getImageUrl } from '../../../utils';
+import { auditLog, logger } from '../../models/logging';
+import axios from 'axios';
+import { AddUser } from "../../Components/AddUser";
+import { ConfirmDeletion } from "../../Components/ConfirmDeletion";
+import { DEFAULT_GET_USERS_ERR_MSG, getAPIEndpoint } from '../../../config';
 import Pagination from '../../Components/Pagination/Pagination';
 
 
 
 export const UsersPage = () => {
 
-    const users = [
-        {
-            name: "Adewale Ayuba",
-            email: "dewaleayuba@gmail.com",
-            role: "Admin",
-            status: "Active",
-            lastActive: "2 days ago",
-        },
-        {
-            name: 'Anthonia Ekuase',
-            email: "anthonia78@yahoo.com",
-            role: "Account officer",
-            status: "Inactive",
-            lastActive: "3 minutes ago",
-        },
-        {
-            name: "Dominic Anga",
-            email: "dominica@gmail.com",
-            role: "Finance manager",
-            status: "Active",
-            lastActive: "15 days ago",
-        },
-        {
-            name: "Precious Ivonge",
-            email: "precivon@gmail.com",
-            role: "Account officer",
-            status: "Inactive",
-            lastActive: "3 hours ago",
-        },
-        {
-            name: "Lawal Timothy",
-            email: "Lawtim@yahoo.com",
-            role: "IT",
-            status: "Active",
-            lastActive: "2 days ago",
-        },
-        {
-            name: "Alonge Victoria",
-            email: "kingdownboy@yahoo.com",
-            role: "Human resources",
-            status: "Inactive",
-            lastActive: "3 minutes ago",
-        },
-        {
-            name: "Natasha Williams",
-            email: "Nashy@gmail.com",
-            role: "Procurement officer",
-            status: "Active",
-            lastActive: "15 days ago",
-        },
-        {
-            name: "Oladele Fadeyi",
-            email: "fladele@yahoo.com",
-            role: "Account officer",
-            status: "Active",
-            lastActive: "3 minutes ago",
-        },
-        {
-            name: "Igwe Victor",
-            email: "fladele@yahoo.com",
-            role: "IT",
-            status: "Inactive",
-            lastActive: "3 hours ago",
-        },
-        {
-            name: "Olawale Timilehin",
-            email: "Timilowkey@gmail.com",
-            role: "Human resources",
-            status: "Inactive",
-            lastActive: "15 days ago",
-        },
-    ]
-
+    const { isOpen: isOpenAddUser, onOpen: onOpenAddUser, onClose: onCloseAddUser } = useDisclosure();
+    const { isOpen: isOpenDeleteUser, onOpen: onOpenDeleteUser, onClose: onCloseDeleteUser } = useDisclosure();
+    const [isLoading, setIsloading] = useState(false);
+    const [isLoadingRoles, setIsloadingRoles] = useState(false);
+    const [selectedUser, setSelectedUser] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [roles, setRoles] = useState([]);
+    const [isEditUser, setIsEditUser] = useState(false);
     const [ statusFilter, setStatusFilter ] = useState("");
     const [ roleFilter, setRoleFilter ] = useState("");
     const [ search, setSearch] = useState("");
     const [ actionsOpen, setActionsOpen ] = useState({});
     const [ currentPage, setCurrentPage ] = useState(1);
+    const toast = useToast();
+
     const itemsPerPage = 10;
+
+
+    useEffect(() => {
+        getUsers();
+        getRoles();
+    }, [])
+
+    const log = async () => {
+        await auditLog({
+            activity: `Viewed all users`,
+            module: "User Management",
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
+
+    const getUsers = async () => {
+        setIsloading(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('get-users'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsloading(false);
+                    setUsers(data);
+                    log();
+                    return;
+                }
+                else {
+                    setIsloading(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_GET_USERS_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_GET_USERS_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Users", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_GET_USERS_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsloading(false);
+    }
+
+    const getRoles = async () => {
+        setIsloadingRoles(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('get-roles'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsloadingRoles(false);
+                    console.log(data)
+                    setRoles(data);
+                    return;
+                }
+                else {
+                    setIsloadingRoles(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_GET_ROLES_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_GET_ROLES_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Roles", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_GET_ROLES_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsloadingRoles(false);
+    }
 
     const handleSearch = (event) => {
         setSearch(event.target.value);
@@ -104,15 +185,15 @@ export const UsersPage = () => {
     const filteredUsers = users.filter(user => {
         const searchLower = search.toLowerCase();
         return (
-            (statusFilter === "" || user.status === statusFilter) &&
-            (roleFilter === "" || user.role === roleFilter) &&
-            (user.name.toLowerCase().includes(searchLower) ||
-            user.email.toLowerCase().includes(searchLower))
+            // (statusFilter === "" || user.status === statusFilter) &&
+            (roleFilter === "" || user.role_name === roleFilter) &&
+            (user.full_name.toLowerCase().includes(searchLower) ||
+            user.email_address.toLowerCase().includes(searchLower))
         );
     });
 
     const uniqueRoles = [...new Set(users.map(user => user.role))];
-    const uniqueStatuses = [...new Set(users.map(user => user.status))];
+    // const uniqueStatuses = [...new Set(users.map(user => user.status))];
 
 
     const toggleAction = (index) => {
@@ -132,33 +213,26 @@ export const UsersPage = () => {
     }
 
 
-    function userPopup() {        
-        var popup = document.getElementById('popup');
-        popup.classList.add(`${styles.popped}`);
-
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.add(`${styles.dim}`);
+    const handleAddUser = () => {
+        onOpenAddUser();
     }
-
-    function sentPopup() {        
-        var popup = document.getElementById('popup');
-        popup.classList.remove(`${styles.popped}`);
-
-        var sent = document.getElementById('invite');
-        sent.classList.add(`${styles.popped}`);
+    const postDeleteUser = () => {
+        setSelectedUser([]);
+        setIsEditUser(false);
     }
-
-    function closePopups() {        
-        var popup = document.getElementById('popup');
-        popup.classList.remove(`${styles.popped}`);
-
-        var sent = document.getElementById('invite');
-        sent.classList.remove(`${styles.popped}`);
-
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.remove(`${styles.dim}`);
+    const resetEditUser = () => {
+        setIsEditUser(false);
     }
-
+    const handleEditUser = (user) => {
+        setSelectedUser([user]);
+        setIsEditUser(true);
+        onOpenAddUser();
+    }
+    const handleDeleteUser = (user) => {
+        setSelectedUser([{ id: user.id, name: user.full_name }]);
+        onOpenDeleteUser();
+    }
+    
 
     const popupRef = useRef(null);
 
@@ -179,49 +253,6 @@ export const UsersPage = () => {
     return (
         <>
 
-        <div className={styles.popup} id='popup'>
-            <div className={styles.header}>
-                <h3>Add User</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); closePopups()}} /></a>
-            </div>
-            
-            <form action="">
-                <div className={styles.formGroup}>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name" id="" />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="email">Email Address</label>
-                    <input type="email" name="email" id="" />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="role">Role</label>
-                    <select name="role" id="">
-                        <option value="">select role</option>
-                        {uniqueRoles.map(role => (
-                            <option>{role}</option>
-                        ))}
-                    </select>
-                </div>
-
-                <button onClick={(e) => {e.preventDefault(); sentPopup()}}>Send Invite</button>
-            </form>
-        </div>
-
-        <div className={styles.sentPopup} id="invite">
-            <div className={styles.header}>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); closePopups()}} /></a>
-            </div>
-            <img src={getImageUrl("invite.png")} />
-            <h3>Invite Sent</h3>
-        </div>
-
-        <div className={styles.dimmer} id='dimmer'></div>
-
-
-
         <div className={styles.whole}>
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
@@ -230,7 +261,7 @@ export const UsersPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <label className={styles.buttonOne}>
+                    {/* <label className={styles.buttonOne}>
                         Status:
                         <select value={statusFilter} onChange={handleStatusChange}>
                             <option value="">All</option>
@@ -238,7 +269,7 @@ export const UsersPage = () => {
                                 <option key={status} value={status}>{status}</option>
                             ))}
                         </select>
-                    </label>
+                    </label> */}
 
                     <label className={styles.buttonTwo}>
                         Role:
@@ -249,7 +280,7 @@ export const UsersPage = () => {
                             ))}
                         </select>
                     </label>
-                    <a onClick={(e) => {e.preventDefault(); userPopup()}} className={styles.buttonThree}>
+                    <a onClick={handleAddUser}  className={styles.buttonThree}>
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                         Add User
                     </a>
@@ -258,68 +289,78 @@ export const UsersPage = () => {
             </div>
 
 
+            {isLoading ? <Center><Spinner /></Center> :
 
-            {currentUsers.length === 0 ? (
-                <div className={styles.nothingBigDiv}>
-                    <div className={styles.nothingFound}>
-                        <img src={getImageUrl("nothing.png")} />
-                        <h2>No User Data</h2>
-                        <p>We cannot seem to find any user data, your user information will appear here.</p>
-                    </div>
-                </div>
-                
-            ) : (
                 <>
+                {currentUsers.length === 0 ? (
+                    <div className={styles.nothingBigDiv}>
+                        <div className={styles.nothingFound}>
+                            <img src={getImageUrl("nothing.png")} />
+                            <h2>No User Data</h2>
+                            <p>We cannot seem to find any user data, your user information will appear here.</p>
+                        </div>
+                    </div>
+                    
+                ) : (
+                    <>
 
-                <table className={styles.userTable}>
-                    <thead>
-                        <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Last Active</th>
-                        <th className={styles.action}>Action</th>
-                    </thead>
+                    <table className={styles.userTable}>
+                        <thead>
+                            <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Last Active</th>
+                            <th className={styles.action}>Action</th>
+                        </thead>
 
-                    <tbody>
-                        {currentUsers.map((user, index) => (
-                            <tr key={index}>
-                                <td className={styles.checkbox}><input type="checkbox" /></td>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>{user.role}</td>
-                                <td className={user.status.toLowerCase() == ("active") ? styles.active : styles.inactive}>
-                                    {user.status}
-                                </td>
-                                <td>{user.lastActive}</td>
-                                <td className={styles.action}>
-                                    <button onClick={() => toggleAction(index)}>
-                                        <img src={getImageUrl("icons/action.png")} />
-                                    </button>
-                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
-                                        <ul>
-                                            <li>View</li>
-                                            <li>Edit</li>
-                                            <li className={styles.delete}>Delete</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                        <tbody>
+                            {currentUsers.map((user, index) => (
+                                <tr key={index}>
+                                    <td className={styles.checkbox}><input type="checkbox" /></td>
+                                    <td>{user.full_name}</td>
+                                    <td>{user.email_address}</td>
+                                    <td>{user.role_name}</td>
+                                    <td
+                                        // className={user.status.toLowerCase() == ("active") ? styles.active : styles.inactive}
+                                    >
+                                        {user.status}
+                                    </td>
+                                    <td>{user.last_loggedin}</td>
+                                    <td className={styles.action}>
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                            <ul>
+                                                <li>View</li>
+                                                <li onClick={() => handleEditUser(user)}>Edit</li>
+                                                <li onClick={() => handleDeleteUser(user)} className={styles.delete}>Delete</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-                <Pagination
-                    filteredData={filteredUsers}
-                    currentPage={currentPage}
-                    itemsPerPage={itemsPerPage}
-                    onPageChange={handlePageChange}
-                />
+                    <Pagination
+                        filteredData={filteredUsers}
+                        currentPage={currentPage}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={handlePageChange}
+                    />
+                    </>
+                )}
                 </>
-            )}
+            }
         </div>
+
+        <AddUser isEdit={isEditUser} dataset={selectedUser} isOpen={isOpenAddUser} onClose={onCloseAddUser} roles={roles} resetEdit={resetEditUser} refreshData={getUsers} />
+        <ConfirmDeletion isOpen={isOpenDeleteUser} onClose={onCloseDeleteUser} dataset={selectedUser} flag={1} flagTitle={"User"} refreshData={getUsers} postDelete={postDeleteUser} />
+
         </>
     )
 }

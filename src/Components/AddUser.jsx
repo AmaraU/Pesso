@@ -230,6 +230,9 @@ export const AddUser = ({ isOpen, onClose, roles = [], dataset = [], isEdit = fa
                                     bg={'#D2042D'}
                                     _hover={{ bg: '#BD0429' }}
                                     color={"white"}
+                                    fontSize={'16px'}
+                                    fontWeight={500}
+                                    rounded={'8px'}
                                 >
                                     {buttonText}
                                 </Button>
