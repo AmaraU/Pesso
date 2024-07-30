@@ -17,7 +17,7 @@ import { getImageUrl } from "../../../utils";
 import { AccountsTable } from "./AccountsTable";
 import { SlRefresh } from "react-icons/sl";
 
-const DataWidget = ({ entries = [], fields = [], isLoading = false, fileName = "data", fieldFontSize = "12px", entryFontSize = "13px", type = "", initSortingField = "" }) => {
+const DataWidge = ({ entries = [], fields = [], isLoading = false, fileName = "data", fieldFontSize = "12px", entryFontSize = "13px", type = "", initSortingField = "" }) => {
     const screenWidth = window.screen.availWidth;
 
     return (
@@ -409,7 +409,7 @@ export const AccountsPage = () => {
                     {
                         isLoading ? <Spinner h={"20px"} w={"20px"} /> :
                             <Box px={"4px"}>
-                                <DataWidget entries={accounts} fields={accountFields} fileName="Accounts" initSortingField="updated_at" />
+                                <DataWidge entries={accounts} fields={accountFields} fileName="Accounts" initSortingField="updated_at" />
                             </Box>
                     }
                 </Stack>

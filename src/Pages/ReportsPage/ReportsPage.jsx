@@ -171,6 +171,53 @@ export const ReportsPage = () => {
         }
     };
 
+    const convertToCSV = (transactions) => {
+        const headers = [];
+
+        const rows = transactions.map(transaction => []);
+
+        const csvContent = [
+            headers.join(','), 
+            ...rows.map(row => row.join(','))
+        ].join('\n');
+
+        return csvContent;
+    };
+
+    const downloadCSV = () => {
+        const csvContent = convertToCSV(sortedTransactions);
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'reports_graph.csv');
+        link.style.visibility = 'hidden';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        log("Downloaded reports (csv)", "Reports");
+    };
+
+    const generatePDF = () => {
+        const input = document.getElementById('report-graphs');
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save('reports.pdf');
+            });
+        log("Downloaded reports (pdf)", "Reports");
+        
+    };
+
 
     return (
         <>
@@ -197,12 +244,12 @@ export const ReportsPage = () => {
                     </a>
                     <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} >
                         <p>DOWNLOAD</p>
-                        <a href="">
+                        <a onClick={generatePDF}>
                             <img src={getImageUrl("icons/pdf.png")} />
                             PDF Format
                         </a>
                         <br />
-                        <a className={styles.csv} href="">
+                        <a className={styles.csv}>
                             <img src={getImageUrl("icons/csv.png")} />
                             CSV Format
                         </a>
@@ -211,7 +258,7 @@ export const ReportsPage = () => {
             </div>
 
 
-            <div className={styles.graphs}>
+            <div className={styles.graphs} id='report-graphs'>
 
                 <div className={styles.twoGraphs}>
 

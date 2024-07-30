@@ -215,7 +215,7 @@ button, a {
     border-bottom: none;
 }
 .download .csv:hover {
-    border-bottom: none;
+    border-bottom: 1px solid #7E8491;
 }
 
 

@@ -30,6 +30,7 @@ import { SettingsWorkflowPage } from './Pages/SettingsWorkflowPage/SettingsWorkf
 import { SettingsCategoriesPage } from './Pages/SettingsCategoriesPage/SettingsCategoriesPage';
 
 import { BlankPage } from './Pages/BlankPage';
+import { AccountInfoPage } from './Pages/AccountsPage/AccountInfoPage';
 
 
 
@@ -52,6 +53,7 @@ function App() {
         { path: 'transactions', element: <TransactionsPage /> },
         { path: 'transactions/transfer', element: <TransactionsTransferPage /> },
         { path: 'accounts', element: <AccountsPage /> },
+        { path: 'account-info', element: <AccountInfoPage /> },
         { path: 'cashflow', element: <CashflowInPage /> },
         { path: 'cashflow/outflow', element: <CashflowOutPage /> },
         { path: 'loans', element: <LoansPage /> },

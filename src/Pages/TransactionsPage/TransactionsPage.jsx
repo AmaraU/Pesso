@@ -9,6 +9,9 @@ import { format } from 'date-fns';
 import axios from 'axios';
 import { DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../../config';
 import Pagination from '../../Components/Pagination/Pagination';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 
 
@@ -28,12 +31,13 @@ export const TransactionsPage = () => {
     const containerRefs = useRef([]);
     const filterRef = useRef(null);
     const downloadRef = useRef(null);
+    
 
     const itemsPerPage = 10;
 
     useEffect(() => {
         getTrxns();
-        log("Viewed transaction history", "Transactions")
+        log("Viewed transaction history", "Transactions");
     }, [])
 
     const log = async (activity, module) => {
@@ -214,6 +218,71 @@ export const TransactionsPage = () => {
     }, []);
 
 
+    const convertToCSV = (transactions) => {
+        const headers = [
+            'Date Created', 
+            'Reference No.', 
+            'Description', 
+            'Account', 
+            'Category',
+            'Type',
+            'Amount',
+            'Balance'
+        ];
+
+        const rows = transactions.map(transaction => [
+            transaction.trans_date,
+            transaction.trans_ref,
+            transaction.trans_narration,
+            `${transaction.account_number} - ${transaction.institution_name}`,
+            'Salaries and wage', // or your dynamic category
+            transaction.trans_type,
+            `${transaction.currency.toLowerCase() === 'ngn' ? 'N' : ''}${transaction.currency.toLowerCase() === 'usd' ? '$' : ''}${transaction.trans_amount}`,
+            `${transaction.currency.toLowerCase() === 'ngn' ? 'N' : ''}${transaction.currency.toLowerCase() === 'usd' ? '$' : ''}${transaction.account_balance}`
+        ]);
+
+        const csvContent = [
+            headers.join(','), 
+            ...rows.map(row => row.join(','))
+        ].join('\n');
+
+        return csvContent;
+    };
+
+    const downloadCSV = () => {
+        const csvContent = convertToCSV(sortedTransactions);
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'transactions_data.csv');
+        link.style.visibility = 'hidden';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        log("Downloaded transaction history (csv)", "Transactions");
+    };
+
+    const generatePDF = () => {
+        const input = document.getElementById('transaction-table');
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save('transactions.pdf');
+            });
+        log("Downloaded transaction history (pdf)", "Transactions");
+    };
+
+
 
     return (
         <div className={styles.whole} >
@@ -253,12 +322,12 @@ export const TransactionsPage = () => {
                     </button>
                     <div className={`${styles.downloadClosed} ${openDownload && styles.download}`}>
                         <p>DOWNLOAD</p>
-                        <a href="">
+                        <a onClick={generatePDF}>
                             <img src={getImageUrl("icons/pdf.png")} />
                             PDF Format
                         </a>
                         <br />
-                        <a className={styles.csv} href="">
+                        <a className={styles.csv} onClick={downloadCSV}>
                             <img src={getImageUrl("icons/csv.png")} />
                             CSV Format
                         </a>
@@ -281,7 +350,7 @@ export const TransactionsPage = () => {
                     
                 ) : (
                     <>
-                    <table className={styles.transactionTable}>
+                    <table className={styles.transactionTable} id='transaction-table'>
                         <thead>
                             <th>Date Created</th>
                             <th>Reference No.</th>

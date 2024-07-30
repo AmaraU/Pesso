@@ -4,7 +4,6 @@ import { getImageUrl } from '../../../utils';
 
 import { Box, Button, Stack, Text, useDisclosure, useToast, Spinner, Center } from "@chakra-ui/react"
 import { budgetFields } from "../../models/data"
-import { DataWidget } from "../../Components/DataWidget"
 import { AddIcon } from "@chakra-ui/icons"
 import { AddBudget } from "../../Components/AddBudget"
 import { useNavigate } from "react-router-dom";
