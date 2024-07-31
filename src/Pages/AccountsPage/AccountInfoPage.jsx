@@ -35,12 +35,16 @@ export const AccountInfoPage = () => {
 
     useEffect(() => {
         if (d) {
-            setData(d)
+            setData(d);
             try {
                 getRecentTrxns(d);
             } catch (error) {
-
+                navigate('/dashboard/accounts');
             }
+        }
+        else {
+            navigate('/dashboard/accounts');
+            console.log("Nothing");
         }
     }, [])
 
@@ -117,33 +121,6 @@ export const AccountInfoPage = () => {
     }, {});
     
 
-    // const filteredTrxns = trxns.filter(trxns => {
-    //     const searchLower = search.toLowerCase();
-    //     return (
-    //         trxns.trans_narration.toLowerCase().includes(searchLower) ||
-    //         trxns.trans_type.toLowerCase().includes(searchLower) ||
-    //         trxns.timestamp.toLowerCase().includes(searchLower)
-    //     );
-    // });
-
-    // const sortedTrxns = [...filteredTrxns].sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
-
-
-    // const indexOfLastItem = currentPage * itemsPerPage;
-    // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    // const currentTrxns = sortedTrxns.slice(indexOfFirstItem, indexOfLastItem);
-
-    // const groupedTrxns = currentTrxns.reduce((acc, transaction) => {
-    //     const date = transaction.timestamp;
-    //     if (!acc[date]) {
-    //         acc[date] = [];
-    //     }
-    //     acc[date].push(transaction);
-    //     return acc;
-    // }, {});
-
-    
-
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -183,7 +160,7 @@ export const AccountInfoPage = () => {
     return (
         <>
         <div className={styles.whole}>
-            <div className={styles.breadcrumb}><a href="/dashboard/accounts">Accounts</a>{'>'}<a href="/dashboard/accounts">{_data.institution_name} - {_data.account_number}</a>{'>'}<p>All transactions</p></div>
+            {/* <div className={styles.breadcrumb}><a href="/dashboard/accounts">Accounts</a>{'>'}<a href="/dashboard/accounts">{_data.institution_name} - {_data.account_number}</a>{'>'}<p>All transactions</p></div> */}
 
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
@@ -217,7 +194,7 @@ export const AccountInfoPage = () => {
             { isLoading ?
                 <Center pt={10} pb={20}> <Spinner /> </Center>
                 :
-                trxns.length > 0 ?
+                filteredTrxns.length > 0 ?
                     <>
                     <div>
 

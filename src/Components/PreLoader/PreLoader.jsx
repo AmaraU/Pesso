@@ -14,9 +14,6 @@ export const PreLoader = () => {
         var progressPage = document.getElementById('page');
         const logo = document.querySelector('#logo');
 
-
-        console.log(progressBar);
-
         function clear() {
             progressPage.style.display = "none";
         }
