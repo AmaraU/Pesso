@@ -62,6 +62,7 @@ export const Header = () => {
             break;
         
         case "/dashboard/accounts":
+        case "/dashboard/account-info":
             PageTitle = "Accounts";
             break;
         

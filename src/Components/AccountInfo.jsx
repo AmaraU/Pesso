@@ -16,16 +16,15 @@ import {
 import { useState, useEffect } from 'react';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { TbCurrencyNaira } from 'react-icons/tb';
-import { DataWidget } from './DataWidget';
 import axios from 'axios';
 import { DEFAULT_ACCOUNT_UNLINK_ERR_MSG, DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../config';
 import { auditLog, logger } from '../models/logging';
 import { CiBank } from 'react-icons/ci';
-import { trxnFields } from '../models/data';
 import { useNavigate } from 'react-router-dom';
 import styles from "../Pages/AccountsPage/AccountsPage.module.css";
 import { getImageUrl } from '../../utils';
 import classNames from 'classnames';
+import { format } from 'date-fns';
 
 const hideBalance = () => {
     return "******";
@@ -37,12 +36,20 @@ const toTitleCase = (txt) => {
 
 export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = null }) => {
     const [_data, setData] = useState(null);
+    const [selectedAccount, setSelectedAccount] = useState(null);
     const [isBalanceVisible, setIsBalanceVisible] = useState(true);
     const [isLoading, setIsloading] = useState(false);
     const [isUnlinkLoading, setIsUnlinkloading] = useState(false);
     const [trxns, setTrxns] = useState([]);
-    const toast = useToast();
+    const [ search, setSearch] = useState("");
     const navigate = useNavigate();
+    const toast = useToast();
+
+
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
+        setCurrentPage(1);
+    };
 
     useEffect(() => {
         if (dataset) {
@@ -60,6 +67,14 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
             navigate('/signin');
         }
     }, [])
+
+    const log = async (activity, module) => {
+        await auditLog({
+            activity,
+            module,
+            userId: sessionStorage.getItem("id")
+        }, sessionStorage.getItem("tk"));
+    }
 
 
     const unlinkAccount = async () => {
@@ -158,7 +173,7 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
                 const { status, data } = response.data;
                 if (status === "success") {
                     setIsloading(false);
-                    setTrxns(data)
+                    setTrxns(data);
                     return;
                 }
                 else {
@@ -197,18 +212,18 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
         await unlinkAccount();
     }
 
-    const transactions = [
-        { date: '2023-07-01', description: 'Airtime purchase', amount: '-N60.00', type: 'Debit'},
-        { date: '2023-07-01', description: 'Alabi Ayoade', amount: '+N5,000.00', type: 'Credit' },
-        { date: '2023-07-02', description: 'Hando’s cookout', amount: '-N100.00', type: 'Debit' },
-        { date: '2023-07-02', description: 'Tiston boat cruise', amount: '-N6,000.00', type:'Bill' },
-        { date: '2023-07-02', description: 'CWG', amount: '+N15,000.00', type: 'Credit'},
-    ];
+    const sortedTrxns = [...trxns].sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
 
-    const sortedTrxns = [...transactions].sort((a,b) => new Date(a.date) - new Date(b.date));
+    const filteredTrxns = sortedTrxns.filter(trxns => {
+        const searchLower = search.toLowerCase();
+        return (
+            trxns.trans_narration.toLowerCase().includes(searchLower) ||
+            trxns.timestamp.toLowerCase().includes(searchLower)
+        );
+    });
 
-    const groupedTrxns = sortedTrxns.reduce((acc, transaction) => {
-        const date = transaction.date;
+    const groupedTrxns = filteredTrxns.reduce((acc, transaction) => {
+        const date = transaction.timestamp;
         if (!acc[date]) {
             acc[date] = [];
         }
@@ -216,20 +231,24 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
         return acc;
     }, {});
 
-    const formatDate = (dateString) => {
-        const options = { month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
+
+    const handleViewAll = (d) => {
+        log(`Viewed all transactions of account ${d.account_number} in ${d.institution_name}`, "Accounts");
+        setSelectedAccount(d);
+        navigate('/dashboard/account-info', { state: { d } });
+    };
+    
+    const removeNumbers = (str) => {
+        return str.replace(/\d+/g, '');
+    };
+    function removeNumbersAndPunctuation(str) {
+        return str.replace(/[0-9\p{P}]/gu, '');
+    }
+
+    const formatNumber = (number) => {
+        return new Intl.NumberFormat('en-US').format(number);
     };
 
-
-
-
-    const [ search, setSearch] = useState("");
-
-    const handleSearch = (event) => {
-        setSearch(event.target.value);
-        setCurrentPage(1);
-    };
 
 
     return (
@@ -304,48 +323,53 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
                                     </Stack>
                                 </Box>
 
-                                <Box p={"23px"} rounded={8} border={"1px solid #E5E7EB"}>
+                                <Box p={"23px"} pb={0} rounded={8} border={"1px solid #E5E7EB"}>
                                     <Text color={"#374151"} fontSize={"16px"} fontWeight={600}>Recent Transactions</Text>
-                                    {
-                                        isLoading ?
-                                            <Center pt={10} pb={20}> <Spinner /> </Center>
-                                            :
-                                            // trxns.length > 0 ?
-                                            transactions.length > 0 ?
-                                                <>
-                                                <div>
-                                                    <div className={styles.searchBar}>
-                                                        <img src={getImageUrl("icons/search.png")} />
-                                                        <input id="search" type="text" onChange={handleSearch} placeholder='Search reports' />
-                                                    </div>
-
-                                                    {Object.keys(groupedTrxns).map((date) => (
-                                                        <div key={date} className={styles.acctInfoTable}>
-                                                            <h4>{formatDate(date)}</h4>
-                                                            {groupedTrxns[date].map((transaction, index) => (
-                                                                <div key={index} className={styles.trxn}>
-                                                                    <div className={styles.desc}>
-                                                                        <h3>{transaction.description}</h3>
-                                                                        <p>{transaction.type}</p>
-                                                                    </div>
-
-                                                                    <div className={classNames({
-                                                                        [styles.credit]: transaction.amount.startsWith('+'),
-                                                                        [styles.debit]: transaction.amount.startsWith('-')
-                                                                    })}>
-                                                                        {transaction.amount}
-                                                                    </div>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    ))}
+                                    
+                                    { isLoading ?
+                                        <Center pt={10} pb={20}> <Spinner /> </Center>
+                                        :
+                                        trxns.length > 0 ?
+                                            <>
+                                            <div>
+                                                <div className={styles.searchBar}>
+                                                    <img src={getImageUrl("icons/search.png")} />
+                                                    <input id="search" type="text" onChange={handleSearch} placeholder='Search reports' />
                                                 </div>
-                                                {/* <DataWidget entries={trxns} fields={trxnFields} noDataText="No transactions found" isLoading={isLoading} showHideColumns={{ id: false }} entryFontSize="11px" fileName='Recent_Transactions' initSortingField='trans_date' /> : */}
-                                                </>
-                                                :
-                                                <Box pt={10} pb={20}>
-                                                    <Text fontSize={{ base: 'xs', md: 'sm' }} color={'gray.500'} textAlign={'center'}>No transactions found</Text>
-                                                </Box>
+
+                                                {Object.keys(groupedTrxns).map((timestamp) => (
+                                                    <div key={timestamp} className={styles.acctInfoTable}>
+                                                        <h4>{format(new Date (timestamp), 'MMMM dd')}</h4>
+                                                        {groupedTrxns[timestamp].slice(0, 5).map((transaction, index) => (
+                                                            <div key={index} className={styles.trxn}>
+                                                                <div className={styles.desc}>
+                                                                    <h3>{removeNumbersAndPunctuation(transaction.trans_narration)}</h3>
+                                                                    <p>{transaction.trans_type}</p>
+                                                                </div>
+
+                                                                <div className={classNames({
+                                                                    [styles.credit]: transaction.trans_type.toLowerCase() == 'credit',
+                                                                    [styles.debit]: transaction.trans_type.toLowerCase() == 'debit'
+                                                                })}>
+                                                                    {transaction.trans_type.toLowerCase() === ("credit") ? `+` : ''}
+                                                                    {transaction.trans_type.toLowerCase() === ("debit") ? `-` : ''}
+                                                                    {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                                                    {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                                                    {formatNumber(transaction.trans_amount)}
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                ))}
+                                                <button onClick={() => handleViewAll(_data)} className={styles.viewAll}>
+                                                    View All
+                                                </button>
+                                            </div>
+                                            </>
+                                            :
+                                            <Box pt={10} pb={20}>
+                                                <Text fontSize={{ base: 'xs', md: 'sm' }} color={'gray.500'} textAlign={'center'}>No transactions found</Text>
+                                            </Box>
                                     }
                                 </Box>
                             </Stack>
