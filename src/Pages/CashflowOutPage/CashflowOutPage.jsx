@@ -492,6 +492,11 @@ export const CashflowOutPage = () => {
         setTotalBalanceVisible(!totalBalanceVisible);
     }
 
+    function removeNumbersAndPunctuation(str) {
+        return str.replace(/[0-9\p{P}]/gu, '');
+    }
+
+
 
 
     return (
@@ -787,9 +792,15 @@ export const CashflowOutPage = () => {
                                     <tr key={index}>
                                         <td className={styles.tableCheckbox}><input type="checkbox" /></td>
                                         <td>{outflow.trans_ref}</td>
-                                        <td>{outflow.trans_narration}</td>
+                                        <td>{removeNumbersAndPunctuation(outflow.trans_narration)}</td>
                                         <td>{outflow.type}</td>
-                                        <td>N{formatNumber(outflow.trans_amount)}</td>
+                                        <td>
+                                            {outflow.trans_type.toLowerCase() === ("credit") ? `+` : ''}
+                                            {outflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
+                                            {outflow.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                            {outflow.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                            {formatNumber(outflow.trans_amount)}
+                                        </td>
                                         <td>{format(new Date (outflow.trans_date), 'MMM dd, yyyy; h:mma')}</td>
                                         <td>{outflow.category}</td>
                                         <td className={styles.action}>

@@ -22,11 +22,11 @@
     border-radius: 10px;
 }
 .accountsDiv::-ms-scrollbar-thumb {
-    background: #888;
+    background: #D2042D;
     border-radius: 10px;
 }
 .accountsDiv::-ms-scrollbar-thumb:hover {
-    background: #555;
+    background: #BD0429;
 }
 .accountsDiv::-ms-scrollbar-button {
     display: none;
@@ -41,11 +41,11 @@
     border-radius: 10px;
 }
 .accountsDiv::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #D2042D;
     border-radius: 10px;
 }
 .accountsDiv::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #BD0429;
 }
 .accountsDiv::-webkit-scrollbar-button {
     display: none;
@@ -431,7 +431,8 @@
 
 
 
-.hide {
+.hide,
+.smallAccountsTable {
     display: none;
 }
 
@@ -717,4 +718,86 @@ button, a {
     background-color: #FEE2E2;
     border-top: 1px solid #DC2626;
     border-bottom: none;
+}
+
+
+@media screen and (max-width: 62em) {
+
+    .whole {
+        padding: 24px;
+    }
+    .accountsTable {
+        display: none;
+    }
+    .smallAccountsTable {
+        display: block;
+    }
+    .smallAccountsTableEntry {
+        border: 1px solid #F6F6F6;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 16px;
+    }
+    .smallAccountsTableRow {
+        display: flex;
+        justify-content: space-between;
+    }
+    .greyBox,
+    .whiteBox {
+        flex: 1;
+        padding: 8px 12px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: 400;
+        color: #374151;
+    }
+    .greyBox {
+        background-color: #F9FAFB;
+        font-weight: 600;
+    }
+
+
+    
+    .accountsDiv::-ms-scrollbar {
+        width: 30%;
+        height: 8px;
+    }
+    .accountsDiv::-ms-scrollbar-track {
+        background: #F1F1F1;
+        border-radius: 10px;
+    }
+    .accountsDiv::-ms-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+    .accountsDiv::-ms-scrollbar-thumb:hover {
+        background: #555;
+    }
+    .accountsDiv::-ms-scrollbar-button {
+        display: none;
+    }
+    
+    
+    .accountsDiv::-webkit-scrollbar {
+        height: 8px;
+        width: 30%;
+    }
+
+
+    .buttons {
+        width: 100%;
+        text-align: right;
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        margin-top: 16px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .whole {
+        margin-left: 0;
+    }
 }

@@ -148,7 +148,6 @@ export const TransactionsPage = () => {
         setCurrentPage(pageNumber);
     };
     
-
     const handleSearchCategories = (event) => {
         setSearchCategries(event.target.value);
     };
@@ -410,6 +409,92 @@ export const TransactionsPage = () => {
                             ))}
                         </tbody>
                     </table>
+
+                    <div className={styles.smallTransactionTable}>
+                        {currentTransactions.map((transaction, index) => (
+                            <>
+                            <div className={styles.smallTransactionTableEntry}>
+
+                                <div className={styles.smallTransactionTableRow}>
+                                    <div className={styles.greyBox}>Date Created</div>
+                                    <div className={styles.whiteBox}>{format(new Date (transaction.trans_date), 'MMM dd, yyyy')}</div>
+                                </div>
+
+                                <div className={styles.smallTransactionTableRow}>
+                                    <div className={styles.greyBox}>Reference No.</div>
+                                    <div className={styles.whiteBox}>{transaction.trans_ref}</div>
+                                </div>
+
+                                <div className={styles.smallTransactionTableRow}>
+                                    <div className={styles.greyBox}>Description</div>
+                                    <div className={styles.whiteBox}>{transaction.trans_narration}</div>
+                                </div>
+
+                                <div className={styles.smallTransactionTableRow}>
+                                    <div className={styles.greyBox}>Account</div>
+                                    <div className={styles.whiteBox}>{transaction.account_number} - {transaction.institution_name}</div>
+                                </div>
+
+                                <div className={styles.smallTransactionTableRow}>
+                                    <div className={styles.greyBox}>Category</div>
+
+                                    <div className={styles.whiteBox}>
+                                        <button className={styles.categoriesButton} onClick={() => toggleCategories(index)}>
+                                            <p>{selectedCategory[index] || "Salaries and wage"}</p>
+                                            <img src={getImageUrl("icons/blackDownAngle.png")} />
+                                        </button>
+                                    </div>
+
+                                    {openCategories[index] && (
+                                        <div className={styles.theCategories} ref={el => containerRefs.current[index] = el} >
+                                            <p>CATEGORY</p>
+                                            <div className={styles.categorySearch}>
+                                                <img src={getImageUrl("icons/search.png")} />
+                                                <input id="search" type="text" onChange={handleSearchCategories} placeholder='Search for Category' />
+                                            </div>
+
+                                            <ul>
+                                                {filteredCategories.map((category, catIndex) => (
+                                                    <li key={catIndex} onClick={() => handleCategorySelection(index, category)}>{category}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className={styles.smallTransactionTableRow}>
+
+                                    <div className={styles.greyBox}>Amount</div>
+                                                                        
+                                    <div className={`${classNames({
+                                        [styles.credit]: transaction.trans_type.toLowerCase() === ("credit"),
+                                        [styles.debit]: transaction.trans_type.toLowerCase() === ("debit") })}
+                                        ${styles.whiteBox}`}
+                                    >
+                                        {transaction.trans_type.toLowerCase() === ("credit") ? `+` : ``}
+                                        {transaction.trans_type.toLowerCase() === ("debit") ? `-` : ``}
+                                        {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                        {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {formatNumber(transaction.trans_amount)}
+                                    </div>
+                                </div>
+
+                                <div className={styles.smallTransactionTableRow}>
+                                    <div className={styles.greyBox}>Balance</div>
+
+                                    <div className={styles.whiteBox}>
+                                        {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                        {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {formatNumber(transaction.account_balance)}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={styles.redLine}></div>
+                            </>
+                        ))}
+                    </div>
+
 
                     <Pagination
                         filteredData={filteredTransactions}

@@ -1,7 +1,3 @@
-import React, { useState, useEffect } from "react";
-import styles from "./Header.module.css";
-import { getImageUrl } from "../../../utils";
-
 import {
     IconButton,
     Avatar,
@@ -15,19 +11,19 @@ import {
     MenuDivider,
     MenuItem,
     MenuList,
-    Image,
     Stack
-} from "@chakra-ui/react"
-import {
-    FiBell,
-    FiChevronDown,
-} from "react-icons/fi";
+} from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { FiBell, FiChevronDown } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { PiSignOut } from "react-icons/pi";
+import styles from "./Header.module.css";
+import { getImageUrl } from "../../../utils";
 import { useNavigate } from "react-router-dom";
 
 
 export const Header = () => {
+
     const [businessName, setBusinessName] = useState();
     const navigate = useNavigate();
 
@@ -43,6 +39,7 @@ export const Header = () => {
     let currentPath = window.location.pathname;
     let PageTitle;
     let linkList = [];
+    let isWider = false;
 
     switch (currentPath) {
 
@@ -50,6 +47,7 @@ export const Header = () => {
         case "/dashboard":
         case "/dashboard/overview":
             PageTitle = "Dashboard";
+            isWider = false;
             break;
         
         case "/dashboard/transactions":
@@ -59,11 +57,13 @@ export const Header = () => {
                 {title: "History", link: "/dashboard/transactions"},
                 {title: "Transfer", link: "/dashboard/transactions/transfer"}
             ];
+            isWider = true;
             break;
         
         case "/dashboard/accounts":
         case "/dashboard/account-info":
             PageTitle = "Accounts";
+            isWider = false;
             break;
         
         case "/dashboard/cashflow":
@@ -73,30 +73,37 @@ export const Header = () => {
                 {title: "Inflow", link: "/dashboard/cashflow"},
                 {title: "Outflow", link: "/dashboard/cashflow/outflow"}
             ];
+            isWider = true;
             break;
         
         case "/dashboard/loans":
             PageTitle = "Loans";
+            isWider = false;
             break;
         
         case "/dashboard/request":
             PageTitle = "Request";
+            isWider = false;
             break;
         
         case "/dashboard/investments":
             PageTitle = "Investments";
+            isWider = false;
             break;
         
         case "/dashboard/bulktransfer":
             PageTitle = "Bulk Transfer";
+            isWider = false;
             break;
         
         case "/dashboard/budget":
             PageTitle = "Budget";
+            isWider = false;
             break;
         
         case "/dashboard/reconciliation":
             PageTitle = "Reconciliation";
+            isWider = false;
             break;
         
         case "/dashboard/reports":
@@ -106,10 +113,12 @@ export const Header = () => {
                 {title: "Financial Health Indicator", link: "/dashboard/reports"},
                 {title: "History", link: "/dashboard/reports/history"}
             ];
+            isWider = true;
             break;
         
         case "/dashboard/audittrails":
             PageTitle = "Audit Trails";
+            isWider = false;
             break;
         
         case "/dashboard/users":
@@ -119,6 +128,7 @@ export const Header = () => {
                 {title: "Members", link: "/dashboard/users"},
                 {title: "Roles & Permissions", link: "/dashboard/users/roles"},
             ];
+            isWider = true;
             break;
         
         case "/dashboard/settings":
@@ -132,98 +142,218 @@ export const Header = () => {
                 {title: "Workflow", link: "/dashboard/settings/workflow"},
                 {title: "Categories", link: "/dashboard/settings/categories"}
             ];
+            isWider = true;
             break;
     }
 
     return (
-        <div className={styles.header}>
+        <>
+        <div className={`${styles.header} ${isWider ? styles.widerHeader : styles.header}`}>
 
             <div className={styles.logo} >
                 <a href="/dashboard"><img src={getImageUrl("logos/whiteLogo.png")} alt="PESSO" /></a>
             </div>
+            <button className={styles.menuOpen}><img src={getImageUrl("icons/menuOpen.png")} alt="" /></button>
 
-            <div className={styles.leftRight}>
+            <div className={`${styles.whole} ${isWider ? styles.widerWhole : styles.whole}`}>    
+            
+                <div className={`${styles.leftRight} ${isWider ? styles.widerLeftRight : styles.leftRight}`}>
 
-                <div className={styles.headerLeft}>
+                    <div className={styles.headerLeft}>
 
-                    <h2>{PageTitle}</h2>
-                    <div className={styles.links}>
-                        {linkList.map(({ title, link }, index) => (
-                            <a key={index} href={link} className={currentPath === link ? styles.activeLink : styles.inactiveLink}>
-                                {title}
-                            </a>
-                        ))}
+                        <h2>{PageTitle}</h2>
+                        <div className={styles.links}>
+                            {linkList.map(({ title, link }, index) => (
+                                <a key={index} href={link} className={currentPath === link ? styles.activeLink : styles.inactiveLink}>
+                                    {title}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className={styles.headerRight}>
+                        <Stack>
+                            <HStack spacing={{ base: "0", md: "6" }}>
+                                <IconButton _hover={{ bg: "#5F57FF11" }}
+                                    size="lg"
+                                    variant="ghost"
+                                    aria-label="open menu"
+                                    icon={<FiBell />}
+                                />
+                                <Box alignItems={"center"} zIndex={5}>
+                                    <Menu>
+                                        <MenuButton
+                                            py={2}
+                                            transition="all 0.3s"
+                                            _focus={{ boxShadow: "none" }}
+                                        >
+                                            <HStack>
+                                                <Avatar
+                                                    size={"sm"}
+                                                    name={businessName}
+                                                    bg={"gray.700"}
+                                                    color={"white"}
+                                                />
+                                                <VStack
+                                                    display={{ base: "none", md: "flex" }}
+                                                    alignItems="flex-start"
+                                                    spacing="1px"
+                                                    ml="2"
+                                                >
+                                                    <Text fontSize="sm">{businessName}</Text>
+                                                    <Text fontSize="xs" color="gray.600">
+                                                        {sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ""}
+                                                    </Text>
+                                                </VStack>
+                                                <Box display={{ base: "none", md: "flex" }}>
+                                                    <FiChevronDown />
+                                                </Box>
+                                            </HStack>
+                                        </MenuButton>
+                                        <MenuList
+                                            bg={useColorModeValue("white", "gray.900")}
+                                            borderColor={useColorModeValue("gray.200", "gray.700")}
+                                            fontSize={'sm'}
+                                        >
+                                            <MenuItem _hover={{ bg: "#5F57FF11" }} onClick={() => navigate("/dashboard/settings")}>
+                                                <HStack pl={4} spacing={3}>
+                                                    <IoSettingsOutline />
+                                                    <Text>Account settings</Text>
+                                                </HStack>
+                                            </MenuItem>
+                                            <MenuDivider />
+                                            <MenuItem _hover={{ bg: "#1C6BFF11" }} onClick={() => navigate("/signin")}>
+                                                <HStack pl={4} spacing={3}>
+                                                    <PiSignOut />
+                                                    <Text>Log out</Text>
+                                                </HStack>
+                                            </MenuItem>
+                                        </MenuList>
+                                    </Menu>
+                                </Box>
+                            </HStack>
+                        </Stack>
                     </div>
                 </div>
 
-                <div className={styles.headerRight}>
-                    <Stack>
-                        <HStack spacing={{ base: "0", md: "6" }}>
-                            <IconButton _hover={{ bg: "#5F57FF11" }}
-                                size="lg"
-                                variant="ghost"
-                                aria-label="open menu"
-                                icon={<FiBell />}
-                            />
-                            <Box alignItems={"center"} zIndex={5}>
-                                <Menu>
-                                    <MenuButton
-                                        py={2}
-                                        transition="all 0.3s"
-                                        _focus={{ boxShadow: "none" }}
-                                    >
-                                        <HStack>
-                                            <Avatar
-                                                size={"sm"}
-                                                name={businessName}
-                                                bg={"gray.700"}
-                                                color={"white"}
-                                            />
-                                            <VStack
-                                                display={{ base: "none", md: "flex" }}
-                                                alignItems="flex-start"
-                                                spacing="1px"
-                                                ml="2"
-                                            >
-                                                <Text fontSize="sm">{businessName}</Text>
-                                                <Text fontSize="xs" color="gray.600">
-                                                    {sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ""}
-                                                </Text>
-                                            </VStack>
-                                            <Box display={{ base: "none", md: "flex" }}>
-                                                <FiChevronDown />
-                                            </Box>
-                                        </HStack>
-                                    </MenuButton>
-                                    <MenuList
-                                        bg={useColorModeValue("white", "gray.900")}
-                                        borderColor={useColorModeValue("gray.200", "gray.700")}
-                                        fontSize={'sm'}
-                                    >
-                                        <MenuItem _hover={{ bg: "#5F57FF11" }} onClick={() => navigate("/dashboard/settings")}>
-                                            <HStack pl={4} spacing={3}>
-                                                <IoSettingsOutline />
-                                                <Text>Account settings</Text>
-                                            </HStack>
-                                        </MenuItem>
-                                        <MenuDivider />
-                                        <MenuItem _hover={{ bg: "#1C6BFF11" }} onClick={() => navigate("/signin")}>
-                                            <HStack pl={4} spacing={3}>
-                                                <PiSignOut />
-                                                <Text>Log out</Text>
-                                            </HStack>
-                                        </MenuItem>
-                                    </MenuList>
-                                </Menu>
-                            </Box>
-                        </HStack>
-                    </Stack>
+                {isWider ? 
+                <div className={styles.widerLinks}>
+                    {linkList.map(({ title, link }, index) => (
+                    <a key={index} href={link} className={currentPath === link ? styles.activeLink : styles.inactiveLink}>
+                        {title}
+                    </a>
+                ))}
                 </div>
-
+                :
+                <></>
+            }
             </div>
 
             
-
         </div>
+
+
+        {/* <div className={`${styles.header} ${isWider ? styles.widerHeader : styles.header}`}>
+
+            <div className={styles.whole}>
+                <div className={styles.logo} >
+                    <a href="/dashboard"><img src={getImageUrl("logos/whiteLogo.png")} alt="PESSO" /></a>
+                </div>
+                <button className={styles.menuOpen}><img src={getImageUrl("icons/menuOpen.png")} alt="" /></button>
+
+                <div className={styles.leftRight}>
+
+                    <div className={styles.headerLeft}>
+
+                        <h2>{PageTitle}</h2>
+                        <div className={styles.links}>
+                            {linkList.map(({ title, link }, index) => (
+                                <a key={index} href={link} className={currentPath === link ? styles.activeLink : styles.inactiveLink}>
+                                    {title}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className={styles.headerRight}>
+                        <Stack>
+                            <HStack spacing={{ base: "0", md: "6" }}>
+                                <IconButton _hover={{ bg: "#5F57FF11" }}
+                                    size="lg"
+                                    variant="ghost"
+                                    aria-label="open menu"
+                                    icon={<FiBell />}
+                                />
+                                <Box alignItems={"center"} zIndex={5}>
+                                    <Menu>
+                                        <MenuButton
+                                            py={2}
+                                            transition="all 0.3s"
+                                            _focus={{ boxShadow: "none" }}
+                                        >
+                                            <HStack>
+                                                <Avatar
+                                                    size={"sm"}
+                                                    name={businessName}
+                                                    bg={"gray.700"}
+                                                    color={"white"}
+                                                />
+                                                <VStack
+                                                    display={{ base: "none", md: "flex" }}
+                                                    alignItems="flex-start"
+                                                    spacing="1px"
+                                                    ml="2"
+                                                >
+                                                    <Text fontSize="sm">{businessName}</Text>
+                                                    <Text fontSize="xs" color="gray.600">
+                                                        {sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ""}
+                                                    </Text>
+                                                </VStack>
+                                                <Box display={{ base: "none", md: "flex" }}>
+                                                    <FiChevronDown />
+                                                </Box>
+                                            </HStack>
+                                        </MenuButton>
+                                        <MenuList
+                                            bg={useColorModeValue("white", "gray.900")}
+                                            borderColor={useColorModeValue("gray.200", "gray.700")}
+                                            fontSize={'sm'}
+                                        >
+                                            <MenuItem _hover={{ bg: "#5F57FF11" }} onClick={() => navigate("/dashboard/settings")}>
+                                                <HStack pl={4} spacing={3}>
+                                                    <IoSettingsOutline />
+                                                    <Text>Account settings</Text>
+                                                </HStack>
+                                            </MenuItem>
+                                            <MenuDivider />
+                                            <MenuItem _hover={{ bg: "#1C6BFF11" }} onClick={() => navigate("/signin")}>
+                                                <HStack pl={4} spacing={3}>
+                                                    <PiSignOut />
+                                                    <Text>Log out</Text>
+                                                </HStack>
+                                            </MenuItem>
+                                        </MenuList>
+                                    </Menu>
+                                </Box>
+                            </HStack>
+                        </Stack>
+                    </div>
+                </div>
+            </div>
+
+            {isWider ? 
+                <div className={styles.widerLinks}>
+                    {linkList.map(({ title, link }, index) => (
+                    <a key={index} href={link} className={currentPath === link ? styles.activeLink : styles.inactiveLink}>
+                        {title}
+                    </a>
+                ))}
+                </div>
+                :
+                <></>
+            }   
+
+        </div> */}
+        </>
     )
 }

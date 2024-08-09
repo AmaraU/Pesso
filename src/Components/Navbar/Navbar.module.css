@@ -58,3 +58,17 @@
 .linkList a.active .white {
     display: none;
 }
+
+@media screen and (max-width: 1000px) {
+    .widerLinkList {
+        margin-top: 135px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+
+    .theWhole {
+        display: none;
+    }
+    
+}

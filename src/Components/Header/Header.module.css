@@ -1,4 +1,5 @@
-.header {
+.header,
+.widerHeader {
     height: 80px;
     width: 100%;
     display: flex;
@@ -7,6 +8,13 @@
     position: fixed;
     background: #FFF;
     z-index: 10;
+}
+
+.whole {
+    display: block;
+    height: 100%;
+    width: 100%;
+    align-items: center;
 }
 
 .logo {
@@ -31,24 +39,68 @@
     height: auto;
 }
 
+
+
+
+/* .header,
+.widerHeader {
+    height: 80px;
+    width: 100%;
+    /* display: flex; */
+    /* justify-content: space-between; *
+    align-items: center;
+    position: fixed;
+    background: #FFF;
+    z-index: 10;
+}
+
+.whole {
+    display: block;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* position: fixed;
+    background: #FFF;
+    z-index: 10; *
+}
+
+.logo {
+    height: 100%;
+    width: 232px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0D0D0D;
+    border-right: 1px solid #E5E7EB;
+}
+.logo a {
+    width: 232px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 20px;
+}
+.logo a img {
+    width: 65%;
+    height: auto;
+} */
+
+
+.menuOpen {
+    display: none;
+}
+
 .leftRight {
     width: 100%;
-    height: 80px;
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #E5E7EB;
     padding: 0 40px;
-}
-
-.header img {
-    width: 24px;
-    height: 24px;
-    margin-right: 7%;
-}
-
-.header a img {
-    margin-right: 16px;
 }
 
 .headerLeft {
@@ -68,23 +120,31 @@
     white-space: nowrap;
     
 }
+.widerLinks {
+    display: none;
+    gap: 7%;
+}
 .links {
     width: 80%;
+    display: inline-flex;
+    gap: 7%;
 }
-.links a {
+.links a,
+.widerLinks a {
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
     color: #9CA3AF;
-    margin-right: 7%;
     text-decoration: none;
     padding: 6px 0;
     border-bottom: 2px solid transparent;
 }
-.links a.inactiveLink:hover {
+.links a.inactiveLink:hover,
+.widerLinks a.inactiveLike:hover {
     color: #7E8491;
 }
-.links .activeLink {
+.links .activeLink,
+.widerLinks .activeLink {
     color: #D2042D;
     border-bottom: 2px solid #D2042D;
 }
@@ -97,26 +157,77 @@
 }
 
 
-.headerSearch {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 16px;
-}
-.headerSearch input {
-    border: none;
-    outline: none;
-    margin-left: 8px;
-}
-.headerSearch input::placeholder {
-    font-size: 14px;
-    color: #A4A4B1;
+@media screen and (max-width: 1000px) {
+
+    .widerHeader {
+        height: 135px;
+    }
+    .widerWhole {
+        border-bottom: 1px solid #E5E7EB;
+        height: 100%;
+    }
+    .logo {
+        border-bottom: none;
+    }
+    .widerLeftRight {
+        border-bottom: none;
+        height: auto;
+    }
+    .headerLeft {
+        flex: 60%;
+        display: block;
+        width: 100%;
+    }
+    .links {
+        display: none;
+    }
+    .widerLinks {
+        display: inline-flex;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+        margin-top: 24px;
+        margin-bottom: 16px;
+    }
 }
 
-.languageDiv {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 7%;
-}
-.languageDiv select {
-    border: none;
+
+
+@media screen and (max-width: 680px) {
+
+    .header,
+    .widerHeader {
+        border-bottom: 1px solid #E5E7EB;
+    }
+    .logo {
+        display: none;
+    }
+    .menuOpen {
+        margin-left: 10px;
+        display: block;
+        align-self: start;
+    }
+    .menuOpen img {
+        width: 40px;
+        height: 40px;
+    }
+    .leftRight {
+        border-bottom: none;
+    }
+    .headerLeft {
+        flex: 60%;
+        display: block;
+        align-items: left;
+        width: 100%;
+    }
+    .headerLeft h2 {
+        width: fit-content;
+        font-size: 24px;
+        line-height: 32px;
+        font-weight: 600;
+        color: #374151;
+        margin-right: 7%;
+        white-space: nowrap;
+        
+    }    
 }

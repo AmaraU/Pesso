@@ -1,86 +1,99 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Tab, TabList, Tabs, Box, HStack, Text, Stack } from "@chakra-ui/react";
-
+import { Tab, TabList, Tabs, Box, Text, Stack, Center, Spinner, useToast } from "@chakra-ui/react";
+import { DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../../config';
+import { logger } from '../../models/logging';
+import axios from 'axios';
 import styles from "./AccountsPage.module.css";
 import { getImageUrl } from "../../../utils";
 import Pagination from "../../Components/Pagination/Pagination";
+import { format } from 'date-fns';
+
+
+
 
 export const AccountsTable = () => {
 
+    const [ isSummaryLoading, setIsSummaryLoading ] = useState(false);
+    const [ current, setCurrentDayTrxns ] = useState([]);
+    const [ previous, setPreviousDayTrxns ] = useState([]);
+    const toast = useToast();
+
+
+    useEffect(() => {
+        getSummary();
+    }, []);
+
+
+    const getSummary = async () => {
+        
+        const currentDate = "2023-12-11";
+        const previousDate = "2023-12-10";
+        setIsSummaryLoading(true);
+        try {
+
+            const response = await axios.post(getAPIEndpoint('trxns'), null, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
+                }
+            });
+
+            if (response) {
+                const { status, data } = response.data;
+                if (status === "success") {
+                    setIsSummaryLoading(false);
+                    setCurrentDayTrxns(data.filter(e => e.trans_date.split('T')[0] === currentDate));
+                    setPreviousDayTrxns(data.filter(e => e.trans_date.split('T')[0] === previousDate));
+                    return;
+                }
+                else {
+                    setIsSummaryLoading(false);
+                    let err = "";
+
+                    if (data.length > 0) {
+                        err = data[0].error;
+                    }
+
+                    if (err) {
+                        toast({
+                            description: `${DEFAULT_RECENT_TRXNS_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    else {
+                        toast({
+                            description: DEFAULT_RECENT_TRXNS_ERR_MSG,
+                            position: "top",
+                            status: 'error',
+                            duration: 8000,
+                            isClosable: true,
+                        })
+                    }
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            await logger({ task: "Get Recent Transactions", error: error.toString() });
+        }
+        toast({
+            description: DEFAULT_RECENT_TRXNS_ERR_MSG,
+            position: "top",
+            status: 'error',
+            duration: 8000,
+            isClosable: true,
+        })
+
+        setIsSummaryLoading(false);
+    }
+
+    console.log(current);
+    console.log(previous);
+
     const CurrentTable = () => {
 
-        const current = [
-            {
-                account: "Polaris bank",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Access bank",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Access bank",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Access bank",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Polaris bank",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Standard chatered",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Standard chartered",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Access bank",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Access bank",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Polaris bank",
-                acctNo: "01234567",
-                available: "N20,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            }
-        ]
         const [ currentPage, setCurrentPage ] = useState(1);
         const itemsPerPage = 10;
         
@@ -118,15 +131,55 @@ export const AccountsTable = () => {
                         <tbody>
                             {currentCurrents.map((current, index) => (
                                 <tr key={index}>
-                                    <td>{current.account}</td>
-                                    <td>{current.acctNo}</td>
-                                    <td>{current.available}</td>
+                                    <td>{current.institution_name}</td>
+                                    <td>{current.account_number}</td>
+                                    <td>
+                                        {current.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                        {current.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {formatNumber(current.account_balance)}
+                                    </td>
                                     <td>{current.prinLoanBal}</td>
-                                    <td>{current.dateTime}</td>
+                                    <td>{format(new Date (current.trans_date), 'MMM dd, yyyy; hh:mma')}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+
+                    <div className={styles.smallAccountsTable}>
+                        {currentCurrents.map((current, index) => (
+                            <div className={styles.smallAccountsTableEntry} id={index}>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Account</div>
+                                    <div className={styles.whiteBox}>{current.institution_name}</div>
+                                </div>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Account No.</div>
+                                    <div className={styles.whiteBox}>{current.account_number}</div>
+                                </div>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Opening Available</div>
+                                    <div className={styles.whiteBox}>
+                                        {current.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                        {current.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {formatNumber(current.account_balance)}
+                                    </div>
+                                </div>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Principal Loan Balance</div>
+                                    <div className={styles.whiteBox}>{current.prinLoanBal}</div>
+                                </div>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Date; Time</div>
+                                    <div className={styles.whiteBox}>{format(new Date (current.trans_date), 'MMM dd, yyyy; hh:mma')}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
                     <Pagination
                         filteredData={currentCurrents}
@@ -142,79 +195,7 @@ export const AccountsTable = () => {
 
 
     const PreviousTable = () => {
-
-        const previous = [
-            {
-                account: "Access bank",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Access bank",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Access bank",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Polaris bank",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Standard chatered",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Standard chartered",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Access bank",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Access bank",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Polaris bank",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            },
-            {
-                account: "Polaris bank",
-                acctNo: "23412867",
-                available: "N300,000",
-                prinLoanBal: "N300,000",
-                dateTime: "July 22, 2022; 4:24pm"
-            }
-        ]
+        
         const [ currentPage, setCurrentPage ] = useState(1);
         const itemsPerPage = 10;
         
@@ -252,15 +233,59 @@ export const AccountsTable = () => {
                         <tbody>
                             {currentPrevious.map((previous, index) => (
                                 <tr key={index}>
-                                    <td>{previous.account}</td>
-                                    <td>{previous.acctNo}</td>
-                                    <td>{previous.available}</td>
+                                    <td>{previous.institution_name}</td>
+                                    <td>{previous.account_number}</td>
+                                    <td>
+                                        {previous.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                        {previous.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {formatNumber(previous.account_balance)}
+                                    </td>
                                     <td>{previous.prinLoanBal}</td>
-                                    <td>{previous.dateTime}</td>
+                                    <td>{format(new Date (previous.trans_date), 'MMM dd, yyyy; hh:mma')}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+
+                    <div className={styles.smallAccountsTable}>
+                        {currentPrevious.map((previous, index) => (
+                            <>
+                            <div className={styles.smallAccountsTableEntry} id={index}>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Account</div>
+                                    <div className={styles.whiteBox}>{previous.institution_name}</div>
+                                </div>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Account No.</div>
+                                    <div className={styles.whiteBox}>{previous.account_number}</div>
+                                </div>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Opening Available</div>
+                                    <div className={styles.whiteBox}>
+                                        {previous.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                        {previous.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {formatNumber(previous.account_balance)}
+                                    </div>
+                                </div>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Principal Loan Balance</div>
+                                    <div className={styles.whiteBox}>{previous.prinLoanBal}</div>
+                                </div>
+
+                                <div className={styles.smallAccountsTableRow}>
+                                    <div className={styles.greyBox}>Date; Time</div>
+                                    <div className={styles.whiteBox}>{format(new Date (previous.trans_date), 'MMM dd, yyyy; hh:mma')}</div>
+                                </div>
+                            </div>
+
+                            <div className={styles.redLine}></div>
+                            </>
+                        ))}
+                    </div>
 
                     <Pagination
                         filteredData={currentPrevious}
@@ -313,6 +338,10 @@ export const AccountsTable = () => {
         popup.classList.toggle(`${styles.dim}`);        
     }
 
+    const formatNumber = (number) => {
+        return new Intl.NumberFormat('en-US').format(number);
+    };
+
     
 
     const popupRef = useRef(null);
@@ -337,12 +366,14 @@ export const AccountsTable = () => {
 
         <div className={styles.dimmer} id='dimmer'></div>
 
-        <Box bg={'white'} p={"16px"}>
+        <Box bg={'white'} p={{ base: "8px", md: "16px"}}>
             <Stack spacing={"16px"}>
-                <Stack direction={"row"} justify={"space-between"}>
-                    <HStack spacing={"24px"}>
-                        <Text fontSize={"16px"} fontWeight={600} color={"#374151"}>Account Summary</Text>
-                        <Tabs borderLeft={"2px solid #D1D5DB"}>
+                <Stack direction={{ base: "column", lg: "row" }} justifyContent={{ base: "center", lg: "space-between" }} >
+                    
+                    <Stack alignItems={"center"} spacing={"24px"} direction={{ base: "column", md: "row" }} justifyContent={{ base: "center", md: "center", lg: "auto" }} >
+                        
+                        <Text fontSize={"16px"} fontWeight={600} color={"#374151"} justifyItems={{ sm: "left" }}>Account Summary</Text>
+                        <Tabs borderLeft={{ base: "none", md: "2px solid #D1D5DB"}} justifyItems={{ base: "center", md: "auto" }}>
                             <TabList gap={"16px"} ml={"24px"} border={"none"}>
                                 <Tab selected onClick={() => currentTable()} p={"8px"} fontSize={"16px"} color={'#9CA3AF'} bgColor={"transparent"} border={"none"} borderBottom={'2px solid transparent'} _selected={{ color: '#D2042D', borderBottom: '2px solid #D2042D', borderLeftWidth: 0, borderRightWidth: 0, borderTopWidth: 0 }}>
                                     <Text fontWeight={500}>Current Day</Text>
@@ -352,7 +383,8 @@ export const AccountsTable = () => {
                                 </Tab>
                             </TabList>
                         </Tabs>
-                    </HStack>
+
+                    </Stack>
                     
                     <div className={styles.buttons}>
                         <button className={styles.buttonOne} onClick={() => setOpenFilter(!openFilter)}>
@@ -362,9 +394,9 @@ export const AccountsTable = () => {
                         </button>
                         <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={popupRef}>
                             <p>FILTER</p>
-                            <a href="">Last 7 days</a>
-                            <a href="">Last 15 days</a>
-                            <a href="">Last 30 days</a>
+                            <a href="">Last week</a>
+                            <a href="">Last month</a>
+                            <a href="">Last year</a>
                             <div className={styles.customFilter}>
                                 <p>CUSTOM DATE</p>
                                 <div className={styles.startEnd}>
@@ -409,8 +441,12 @@ export const AccountsTable = () => {
                     </div>
                 </Stack>
 
-                <CurrentTable />
-                <PreviousTable />
+                { isSummaryLoading ? <Center><Spinner h={"20px"} w={"20px"} /></Center> :
+                    <>
+                    <CurrentTable />
+                    <PreviousTable />
+                    </>
+                }
                 
             </Stack>            
         </Box>

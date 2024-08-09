@@ -19,6 +19,8 @@ export const DEFAULT_GET_USERS_ERR_MSG = "We are unable to fetch users at this t
 export const DEFAULT_AUDIT_TRAIL_ERR_MSG = "We are unable to fetch audit trail at this time. Please contact support or try again later";
 export const DEFAULT_USER_INFO_ERR_MSG = "We are unable to retrieve user's personal data at this time. Please contact support or try again later";
 
+export const DEFAULT_ADD_INVOICE_ERR_MSG = "We are unable to create this invoice at this time. Please contact support or try again later."
+
 export function getAPIEndpoint(type, isremote = false) {
     let url = null;
     switch (type) {

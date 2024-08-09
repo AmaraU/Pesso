@@ -20,6 +20,7 @@ export const Overview = () => {
     const [isLoading, setIsloading] = useState(false);
     const [isCashflowLoading, setIsCashflowloading] = useState(false);
     const [accountId, setAccountId] = useState();
+    const [isMobile, setIsMobile] = useState(false);
     const [cashflowSummary, setCashflowSummary] = useState([]);
     const toast = useToast()
     const navigate = useNavigate();
@@ -31,6 +32,7 @@ export const Overview = () => {
         log();
         getAllAccounts();
         getCashflowSummary();
+        console.log(sessionStorage);
     }, []);
 
     const onSuccess = async ({ code }) => {
@@ -306,10 +308,10 @@ export const Overview = () => {
 
     return (
         <div className={styles.whole}>
-            <SimpleGrid templateColumns={"70% 30%"} spacing={"24px"}>
-                <Stack h={0} gap={"24px"}>
+            <SimpleGrid templateColumns={{ lg: "1fr 270px", md: "1fr 1fr", sm: "auto" }} spacing={"24px"}>
+                <Stack gap={"24px"}>
 
-                    <Grid gridTemplateColumns={"1fr 1fr"} gap={"24px"}>
+                    <Grid gridTemplateColumns={{ lg: "1fr 1fr", md: "auto" }} gap={"24px"}>
                         <GridItem colSpan={1}>
                             <OverallBalance accts={accounts} />
                         </GridItem>
@@ -330,7 +332,7 @@ export const Overview = () => {
                 </Stack>
                 <Stack spacing={"24px"}>
                     <ScheduleCalendar />
-                    {/* <Ads /> */}
+                    <ExchangeRates />
                 </Stack>
             </SimpleGrid>
             <ConnectWidget onSuccess={onSuccess} isOpen={connectWidgetIsOpen} />

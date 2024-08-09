@@ -24,33 +24,32 @@ export const OverallBalance = ({ accts = [], timestamp = "", isLoading = false }
                 isLoading ? <Spinner color="white" /> :
                     <Stack >
                         <Stack spacing={1}>
-                            <Text marginBottom={"8px"} color={"#FBBF24"} fontSize={"12px"} fontWeight={600}>OVERALL BALANCE</Text>
 
-                            <HStack alignItems={"center"} justify={"space-between"}>
-
-                                <HStack ml={"-1px"} spacing={0} display={"flex"} alignItems={"center"}>
-                                    <Box fontSize={"28"}>
-                                        <TbCurrencyNaira color={"white"} />
-                                    </Box>
-                                    <Text fontSize={"32px"} fontWeight={600} color={"white"}>{totalBalanceVisible ? Intl.NumberFormat('en-us', {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2,
-                                    }).format(accounts.length > 0 ? accounts.map(e => e.account_balance).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) : 0) : hideBalance()}</Text>
-                                    <Box pl={"3px"} cursor={"pointer"}>
-                                        {
-                                            totalBalanceVisible && <BiShow color={"white"} fontSize={"sm"} onClick={() => setTotalBalanceVisible(!totalBalanceVisible)} />
-                                        }
-                                        {
-                                            !totalBalanceVisible && <BiHide color={"white"} fontSize={"sm"} onClick={() => setTotalBalanceVisible(!totalBalanceVisible)} />
-                                        }
-                                    </Box>
-                                </HStack>
-
+                            <Stack justify={"space-between"} direction={{lg: "row"}}>
+                                <Text marginBottom={"8px"} color={"#FBBF24"} fontSize={"12px"} fontWeight={600}>OVERALL BALANCE</Text>
                                 <Text fontSize={"14px"} color={"#F9FAFB"} fontWeight={500}>{accts.length} accounts</Text>
-                            </HStack>
+                            </Stack>
 
-                            
+                            <Stack ml={"-1px"} spacing={0} direction={"row"} align={"center"}>
+                                <Box fontSize={"28"}>
+                                    <TbCurrencyNaira color={"white"} />
+                                </Box>
+                                <Text fontSize={{lg: "32px", md: "24px", sm: "150%"}} fontWeight={600} color={"white"}>{totalBalanceVisible ? Intl.NumberFormat('en-us', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                }).format(accounts.length > 0 ? accounts.map(e => e.account_balance).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) : 0) : hideBalance()}</Text>
+                                <Box pl={"3px"} cursor={"pointer"}>
+                                    {
+                                        totalBalanceVisible && <BiShow color={"white"} fontSize={"sm"} onClick={() => setTotalBalanceVisible(!totalBalanceVisible)} />
+                                    }
+                                    {
+                                        !totalBalanceVisible && <BiHide color={"white"} fontSize={"sm"} onClick={() => setTotalBalanceVisible(!totalBalanceVisible)} />
+                                    }
+                                </Box>
+                            </Stack>
+
                         </Stack>
+
                         <Text marginTop={"12px"} fontSize={"12px"} color={"white"}>Last Updated: {timestamp ? timestamp : "N/A"}</Text>
                     </Stack>
             }

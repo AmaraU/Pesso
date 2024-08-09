@@ -255,7 +255,9 @@ button, a {
 
 
 
-
+.smallTransactionTable {
+    display: none;
+}
 .transactionTable {
     border-collapse: collapse;
     width: 100%;
@@ -386,3 +388,117 @@ button, a {
 
 .transactionTable .credit {color: #1C6BFF;}
 .transactionTable .debit {color: #EF4444;}
+
+
+@media screen and (max-width: 1000px) {
+    .whole {
+        margin-top: 135px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+
+    .searchButtons {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .searchBar {
+        margin-right: auto;
+        border-radius: 8px;
+        border: 1px solid #DEDEDE;
+        width: 100%;
+        padding: 8px 16px;
+    }
+    .searchBar input {
+        width: 100%;
+    }
+    .buttons {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    .buttonOne {
+        font-size: 12px;
+        font-weight: 500;
+        padding: 8px 12px;
+    }
+    .buttonTwo {
+        padding: 8px 12px;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    .filter {
+        top: 270px;
+        right: 20%;
+        width: 25%;
+        min-width: 250px;
+    }    
+    .download {
+        top: 270px;
+        right: 10%;
+        width: 15%;
+        min-width: 170px;
+    }
+}
+
+
+@media screen and (max-width: 62em) {
+
+    .whole {
+        padding: 24px;
+    }
+    .transactionTable {
+        display: none;
+    }
+    .smallTransactionTable {
+        display: block;
+    }
+    .smallTransactionTableEntry {
+        border: 1px solid #F6F6F6;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    .smallTransactionTableRow {
+        display: flex;
+        justify-content: space-between;
+    }
+    .greyBox,
+    .whiteBox {
+        flex: 1;
+        padding: 8px 12px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: 400;
+        color: #374151;
+    }
+    .greyBox {
+        background-color: #F9FAFB;
+        font-weight: 600;
+    }
+    .categoriesButton {
+        width: fit-content;
+    }
+    .theCategories {
+        margin: 0;
+        margin-top: 40px;
+        right: 10%;
+    }
+    .smallTransactionTableRow .credit {color: #1C6BFF;}
+    .smallTransactionTableRow .debit {color: #EF4444;}
+
+    .redLine {
+        width: 100%;
+        border: 1px solid #F2B4C0;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .whole {
+        margin-left: 0;
+    }
+}

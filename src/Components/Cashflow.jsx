@@ -8,11 +8,9 @@ export const Cashflow = ({ data = [] }) => {
     return (
         <Box bg={"white"} rounded={10} border={"1px solid #F3F4F6"} p={"16px"}>
             <Stack justify={"space-between"} h={"100%"}>
-                <Stack direction={"row"} justify={"space-between"}>
-                    <Stack direction={"row"} display={"inline-flex"} alignItems={"center"}>
-                        <Text fontSize={"20px"} fontWeight={600} color={"#374151"}>Cashflow</Text>
-                        <Text fontSize={"10px"} color={"#6B7280"}>Last updated July 12, 2022</Text>
-                    </Stack>
+                <Stack direction={{ lg: "row", md: "column" }} justify={{ lg: "space-between", md: "normal" }}>
+                    
+                    <Text fontSize={"20px"} fontWeight={600} color={"#374151"}>Cashflow</Text>
                     
                     <HStack spacing={0}>
                         <div className={styles.selectDiv}>
@@ -32,10 +30,11 @@ export const Cashflow = ({ data = [] }) => {
                         </Button>
                     </HStack>
                 </Stack>
+
                 {
                     data.length > 0 ?
                         <SimpleLine data={data} dataTooltipLabel="Income" data2TooltipLabel="Expense" dataCurrency={'NGN'} xHeight={30} /> :
-                        <Text align={"center"} fontSize={"sm"} color={"gray.500"} p={24}>No data available.</Text>
+                        <Text align={"center"} fontSize={"sm"} color={"gray.500"} p={{lg: 24, md: 12}}>No data available.</Text>
                 }
                 <Text align={"right"} fontSize={"10px"} color={"#6B7280"}>Last updated: N/A</Text>
             </Stack>

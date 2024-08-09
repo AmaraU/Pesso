@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useToast, useDisclosure, Center, Spinner } from "@chakra-ui/react";
 import styles from "./UsersRolesPage.module.css";
 import { getImageUrl } from '../../../utils';
-
-
-import { useToast, useDisclosure, Center, Spinner } from "@chakra-ui/react";
 import { userFields } from "../../models/data";
 import { auditLog, logger } from '../../models/logging';
 import axios from 'axios';
@@ -16,14 +14,12 @@ export const UsersRolesPage = () => {
 
     const { isOpen: isOpenAddRole, onOpen: onOpenAddRole, onClose: onCloseAddRole } = useDisclosure();
     const { isOpen: isOpenDeleteRole, onOpen: onOpenDeleteRole, onClose: onCloseDeleteRole } = useDisclosure();
-    const [isLoading, setIsloading] = useState(false);
     const [isLoadingRoles, setIsloadingRoles] = useState(false);
     const [selectedRole, setSelectedRole] = useState([]);
     const [roles, setRoles] = useState([]);
     const toast = useToast();
 
     useEffect(() => {
-        // getUsers();
         getRoles();
     }, [])
 
@@ -34,68 +30,6 @@ export const UsersRolesPage = () => {
             userId: sessionStorage.getItem("id")
         }, sessionStorage.getItem("tk"));
     }
-
-    // const getUsers = async () => {
-    //     setIsloading(true);
-    //     try {
-
-    //         const response = await axios.post(getAPIEndpoint('get-users'), null, {
-    //             headers: {
-    //                 "Authorization": `Bearer ${sessionStorage.getItem("tk")}`
-    //             }
-    //         });
-
-    //         if (response) {
-    //             const { status, data } = response.data;
-    //             if (status === "success") {
-    //                 setIsloading(false);
-    //                 setUsers(data);
-    //                 log();
-    //                 return;
-    //             }
-    //             else {
-    //                 setIsloading(false);
-    //                 let err = "";
-
-    //                 if (data.length > 0) {
-    //                     err = data[0].error;
-    //                 }
-
-    //                 if (err) {
-    //                     toast({
-    //                         description: `${DEFAULT_GET_USERS_ERR_MSG}. ${err ? "[Details: " + err + "]" : ""} `,
-    //                         position: "top",
-    //                         status: 'error',
-    //                         duration: 8000,
-    //                         isClosable: true,
-    //                     })
-    //                 }
-    //                 else {
-    //                     toast({
-    //                         description: DEFAULT_GET_USERS_ERR_MSG,
-    //                         position: "top",
-    //                         status: 'error',
-    //                         duration: 8000,
-    //                         isClosable: true,
-    //                     })
-    //                 }
-    //                 return;
-    //             }
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //         await logger({ task: "Get Users", error: error.toString() });
-    //     }
-    //     toast({
-    //         description: DEFAULT_GET_USERS_ERR_MSG,
-    //         position: "top",
-    //         status: 'error',
-    //         duration: 8000,
-    //         isClosable: true,
-    //     })
-
-    //     setIsloading(false);
-    // }
 
     const getRoles = async () => {
         setIsloadingRoles(true);

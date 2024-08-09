@@ -43,7 +43,7 @@ export const Account = ({ accts = [], link, isLoading = false }) => {
                                 </Box>
                             </Stack>
 
-                            <Text marginBottom={"6px"} fontSize={"24px"} fontWeight={600} color={"#333333"}>{accounts.length > 0 ? currentAccount.account_number : "N/A"}</Text>
+                            <Text marginBottom={"6px"} fontSize={{ lg: "24px", md: "18px", sm: "24px" }} fontWeight={600} color={"#333333"}>{accounts.length > 0 ? currentAccount.account_number : "N/A"}</Text>
                         </Stack>
                         {
                             accounts.length > 0 ?

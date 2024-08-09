@@ -263,8 +263,6 @@ export const BudgetPage = () => {
         setSelectedBudget([{ id: budget.id, name: budget.budget_title }]);
         onOpenDeleteBudget();
     }
-
-
     
     const [ search, setSearch] = useState("");
     const handleSearch = (event) => {
@@ -280,31 +278,6 @@ export const BudgetPage = () => {
             budget.budget_category.toLowerCase().includes(searchLower)
         );
     });
-
-
-    function toggle() {
-        var popup = document.getElementById('popup');
-        popup.classList.toggle(`${styles.popped}`);
-
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.toggle(`${styles.dim}`);
-    }
-
-    const [activeBudgetIndex, setActiveBudgetIndex] = useState(null);
-
-    const editPopup = (index) => {
-        setActiveBudgetIndex(index);
-
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.add(`${styles.dim}`);
-    }
-
-    const closePopup = () => {
-        setActiveBudgetIndex(null);
-
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.remove(`${styles.dim}`);
-    };
 
     const formatNumber = (number) => {
         return new Intl.NumberFormat('en-US', {
@@ -390,74 +363,6 @@ export const BudgetPage = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            {activeBudgetIndex === index && (
-
-                                <div className={styles.editPopup} id="editPopup">
-                                    <div className={styles.header}>
-                                        <h3>Budget</h3>
-                                        <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); closePopup()}} /></a>
-                                    </div>
-
-                                    <form action="">
-                                        <div className={styles.formGroup}>
-                                            <label htmlFor="fromAcct">Budget Title</label>
-                                            <input type="text" placeholder={budget.budget_title} />
-                                        </div>
-
-                                        <div className={styles.formGroup}>
-                                            <label htmlFor="fromAcct">Budget Amount</label>
-                                            <input type="text" placeholder={budget.budget_amount} />
-                                        </div>
-
-                                        <div className={styles.dateFormGroup}>
-                                            <div className={styles.formGroup}>
-                                                <label htmlFor="fromAcct">Start</label>
-                                                <input type="date" placeholder={budget.start_date} />
-                                            </div>
-                                            <div className={styles.formGroup}>
-                                                <label htmlFor="fromAcct">End</label>
-                                                <input type="date" placeholder={budget.end_date} />
-                                            </div>
-                                        </div>
-
-                                        <div className={styles.formGroup}>
-                                            <label htmlFor="fromAcct">Assign To</label>
-                                            <select name="" id="">
-                                                <option value="">{budget.assigned_to}</option>
-                                            </select>
-                                        </div>
-
-                                        <div className={styles.formGroup}>
-                                            <label htmlFor="fromAcct">Category</label>
-                                            <select name="" id="">
-                                                <option value="">{budget.budget_category}</option>
-                                                {categories.map((category, index) => (
-                                                    <option key={index} value={category.category_name}>{category.category_name}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-
-                                        {/* <div>
-                                            {categories.map((category) => (
-                                                <div className={styles.tabFormGroup}>
-                                                    <label htmlFor="fromAcct">{category} Amount</label>
-                                                    <div className={styles.catInputDiv}>
-                                                        <input type="number" placeholder='0.00' />
-                                                        <img src={getImageUrl("icons/delete.png")} alt="" />
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div> */}
-                                    </form>
-
-                                    <div className={styles.submitButton}>
-                                        <button onClick={() => closePopup()}>Submit</button>
-                                    </div>
-                                </div>
-
-                            )}
-
                             </>
                         ))}
                     </div>

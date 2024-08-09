@@ -5,11 +5,82 @@ import { getImageUrl } from "../../../utils";
 export const Navbar = () => {
 
   let currentPath = window.location.pathname;
+  let isWider = false;
+
+  switch (currentPath) {
+
+    case "/":
+    case "/dashboard":
+    case "/dashboard/overview":
+      isWider = false;
+      break;
+    
+    case "/dashboard/transactions":
+    case "/dashboard/transactions/transfer":
+      isWider = true;
+      break;
+    
+    case "/dashboard/accounts":
+    case "/dashboard/account-info":
+      isWider = false;
+      break;
+    
+    case "/dashboard/cashflow":
+    case "/dashboard/cashflow/outflow":
+      isWider = true;
+      break;
+    
+    case "/dashboard/loans":
+      isWider = false;
+      break;
+    
+    case "/dashboard/request":
+      isWider = false;
+      break;
+    
+    case "/dashboard/investments":
+      isWider = false;
+      break;
+    
+    case "/dashboard/bulktransfer":
+      isWider = false;
+      break;
+    
+    case "/dashboard/budget":
+      isWider = false;
+      break;
+    
+    case "/dashboard/reconciliation":
+      isWider = false;
+      break;
+    
+    case "/dashboard/reports":
+    case "/dashboard/reports/history":
+      isWider = true;
+      break;
+    
+    case "/dashboard/audittrails":
+      isWider = false;
+      break;
+    
+    case "/dashboard/users":
+    case "/dashboard/users/roles":
+      isWider = true;
+      break;
+    
+    case "/dashboard/settings":
+    case "/dashboard/settings/account":
+    case "/dashboard/settings/workflow":
+    case "/dashboard/settings/categories":
+      isWider = true;
+      break;
+  }
 
   return (
     <div className={styles.theWhole}>
 
-      <div className={styles.linkList}>
+      <div className={`${styles.linkList} ${isWider ? styles.widerLinkList : styles.linkList}`}>
+      {/* <div className={styles.linkList}> */}
 
         <a href="/dashboard/overview" className={currentPath === "/dashboard/overview" ? styles.active : ""}>
           <img className={styles.white} src={getImageUrl("icons/dashboardWhite.png")} />

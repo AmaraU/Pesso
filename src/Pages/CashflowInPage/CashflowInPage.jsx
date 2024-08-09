@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Spinner, Stack, Text, useToast, Center } from "@chakra-ui/react";
+import { Box, Button, HStack, Spinner, Stack, Text, useToast, Center, useDisclosure } from "@chakra-ui/react";
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./CashflowInPage.module.css";
 import { getImageUrl } from '../../../utils';
@@ -11,11 +11,15 @@ import { auditLog, logger } from '../../models/logging';
 import axios from 'axios';
 import { DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../../config';
 import Pagination from "../../Components/Pagination/Pagination";
+import { AddInvoice } from "../../Components/AddInvoice";
 
 
 
 export const CashflowInPage = () => {
 
+    const { isOpen: isOpenAddInvoice, onOpen: onOpenAddInvoice, onClose: onCloseAddInvoice } = useDisclosure();
+    const [isEditInvoice, setIsEditInvoice] = useState(false);
+    const [selectedInvoice, setSelectedInvoice] = useState(false);
     const [totalBalanceVisible, setTotalBalanceVisible] = useState(true);
     const [isLoading, setIsloading] = useState(false);
     const [trxns, setTrxns] = useState([]);
@@ -268,33 +272,25 @@ export const CashflowInPage = () => {
 
     const [ openFilter, setOpenFilter ] = useState(false);
 
-    function toggleOn() {        
-        var popup = document.getElementById('popup');
-        popup.classList.add(`${styles.popped}`);  
-
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.add(`${styles.dim}`);
+    const handleAddInvoice = () => {
+        onOpenAddInvoice();
     }
-
-    function successToggle() {
-        var success = document.getElementById('successpopup');
-        success.classList.add(`${styles.successPopped}`);
-
-        var popup = document.getElementById('popup');
-        popup.classList.remove(`${styles.popped}`);        
+    const postDeleteInvoice = () => {
+        setSelectedInvoice([]);
+        setIsEditInvoice(false);
     }
-
-    function toggleOff() {
-        var popup = document.getElementById('popup');
-        popup.classList.remove(`${styles.popped}`);
-
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.remove(`${styles.dim}`);
-
-        var success =document.getElementById('successpopup');
-        success.classList.remove(`${styles.successPopped}`);
+    const resetEditInvoice = () => {
+        setIsEditInvoice(false);
     }
-
+    const handleEditInvoice = (inflow) => {
+        setSelectedInvoice([inflow]);
+        setIsEditInvoice(true);
+        onOpenAddInvoice();
+    }
+    const handleDeleteInvoice = (inflow) => {
+        setSelectedInvoice([{ id: inflow.id, name: inflow.full_name }]);
+        onOpenDeleteInvoice();
+    }
 
     const popupRef = useRef(null);
 
@@ -321,61 +317,13 @@ export const CashflowInPage = () => {
         setTotalBalanceVisible(!totalBalanceVisible);
     }
 
+    function removeNumbersAndPunctuation(str) {
+        return str.replace(/[0-9\p{P}]/gu, '');
+    }
+
 
     return (
         <>
-
-        <div className={styles.popup} id="popup">
-            <div className={styles.header}>
-                <h3>Generate Invoice</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); toggleOff()}} /></a>
-            </div>
-
-            <form action="">
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Recipient's Name</label>
-                    <input type="text" name="" id="" placeholder='Enter Name' />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Account Number</label>
-                    <input type="text" name="" id="" placeholder="Enter Account" />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Description</label>
-                    <input type="text" name="" id="" placeholder='Enter Description' />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Amount</label>
-                    <input type="number" name="" id="" placeholder="Enter Amount" />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Recipient's Email</label>
-                    <input type="text" name="" id="" placeholder='JohnDoe@gmail.com' />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Due Date</label>
-                    <input type="date" name="" id="" />
-                </div>
-            </form>
-
-            <div className={styles.generateButton}>
-                <button onClick={(e) => {e.preventDefault(); successToggle()}}>Generate Invoice</button>
-            </div>
-        </div>
-
-        <div className={styles.successPopup} id='successpopup'>
-            <img src={getImageUrl("success.png")} />
-            <h4>Invoice Added</h4>
-            <button onClick={(e) => {e.preventDefault(); toggleOff()}}>Continue</button>
-        </div>
-
-        <div className={styles.dimmer} id='dimmer'></div>
-
         <div className={styles.whole}>
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
@@ -394,9 +342,9 @@ export const CashflowInPage = () => {
                     </button>
                     <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={popupRef}>
                         <p>FILTER</p>
-                        <a href="">Last 7 days</a>
-                        <a href="">Last 15 days</a>
-                        <a href="">Last 30 days</a>
+                        <a>Last week</a>
+                        <a>Last month</a>
+                        <a>Last year</a>
                         <div className={styles.customFilter}>
                             <p>CUSTOM DATE</p>
                             <div className={styles.startEnd}>
@@ -407,7 +355,7 @@ export const CashflowInPage = () => {
                         <a className={styles.reset}>Reset All</a>
                     </div>
 
-                    <button className={styles.buttonTwo} onClick={() => toggleOn()}>
+                    <button className={styles.buttonTwo} onClick={handleAddInvoice}>
                         Generate Invoice
                         <img src={getImageUrl("icons/whitePlus.png")} alt="" />
                     </button>
@@ -522,12 +470,13 @@ export const CashflowInPage = () => {
                                     <td>{inflow.account_number}</td>
                                     <td>{inflow.phoneNo}</td>
                                     <td>{inflow.email}</td>
-                                    <td>{inflow.trans_narration}</td>
+                                    <td>{removeNumbersAndPunctuation(inflow.trans_narration)}</td>
                                     <td className={classNames({
                                         [styles.credit]: inflow.trans_type.toLowerCase() === ("credit"),
                                         [styles.debit]: inflow.trans_type.toLowerCase() === ("debit")
                                     })}>
-                                        {inflow.trans_type.toLowerCase() === ("credit") ? `+` : `-`}
+                                        {inflow.trans_type.toLowerCase() === ("credit") ? `+` : ''}
+                                        {inflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
                                         {inflow.currency.toLowerCase() === ("ngn") ? `N` : ``}
                                         {inflow.currency.toLowerCase() === ("usd") ? `$` : ``}
                                         {formatNumber(inflow.trans_amount)}
@@ -557,6 +506,8 @@ export const CashflowInPage = () => {
                 </>
             }
         </div>
+
+        <AddInvoice isOpen={isOpenAddInvoice} onClose={onCloseAddInvoice} isEdit={isEditInvoice} dataset={selectedInvoice} resetEdit={resetEditInvoice} refreshData={getTrxns} />
 
         </>
     )

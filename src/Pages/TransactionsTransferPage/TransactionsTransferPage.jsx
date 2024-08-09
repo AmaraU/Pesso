@@ -1,20 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./TransactionsTransferPage.module.css";
 import { getImageUrl } from '../../../utils';
-import { Button, Center, Spinner } from "@chakra-ui/react";
+import { Button, Center, Spinner, useDisclosure } from "@chakra-ui/react";
 import { SlRefresh } from "react-icons/sl";
 import { auditLog, logger } from '../../models/logging';
 import axios from 'axios';
 import { DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../../config';
 import Pagination from '../../Components/Pagination/Pagination';
+import { CreateTransfer } from '../../Components/CreateTransfer';
+
 
 
 
 export const TransactionsTransferPage = () => {
 
-    const [ isRecurring, setIsRecurring ] = useState(false);
+    // const [ isRecurring, setIsRecurring ] = useState(false);
+    const { isOpen: isOpenCreateTransfer, onOpen: onOpenCreateTransfer, onClose: onCloseCreateTransfer } = useDisclosure();
+    const [ isEditTransfer, setIsEditTransfer ] = useState(false);
+    const [ selectedTransfer, setSelectedTransfer ] = useState(false);
     const [ isLoading, setIsloading ] = useState(false);
-    const [trxns, setTrxns] = useState([]);
+    const [ trxns, setTrxns ] = useState([]);
     const [ activeButton, setActiveButton ] = useState(1);
     const [ frequencyFilter, setFrequencyFilter ] = useState("");
     const [ search, setSearch] = useState("");
@@ -388,22 +393,6 @@ export const TransactionsTransferPage = () => {
     }
 
 
-    function toggleOpen() {        
-        var popup = document.getElementById('popup');
-        popup.classList.add(`${styles.popped}`);
-
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.add(`${styles.dim}`);
-    }
-
-    function toggleClose() {        
-        var popup = document.getElementById('popup');
-        popup.classList.remove(`${styles.popped}`);
-
-        var dimmer = document.getElementById('dimmer');
-        dimmer.classList.remove(`${styles.dim}`);
-    }
-
     function changeTables(buttonNumber) {
 
         setActiveButton(buttonNumber);
@@ -430,115 +419,28 @@ export const TransactionsTransferPage = () => {
         };
     }, []);
 
-
-    const handleCheckboxChange = (event) => {
-        setIsRecurring(event.target.checked);
-    };
-
+    const handleCreateTransfer = () => {
+        onOpenCreateTransfer();
+    }
+    const postDeleteTransfer = () => {
+        setSelectedTransfer([]);
+        setIsEditTransfer(false);
+    }
+    const resetEditTransfer = () => {
+        setIsEditTransfer(false);
+    }
+    const handleEditTransfer = (trans) => {
+        setSelectedTransfer([trans]);
+        setIsEditTransfer(true);
+        onOpenCreateTransfer();
+    }
+    const handleDeleteTransfer = (trans) => {
+        setSelectedTransfer([{ id: trans.id, name: trans.full_name }]);
+        onOpenDeleteTransfer();
+    }
 
     return (
         <>
-
-        <div className={styles.popup} id="popup">
-
-            <div className={styles.header}>
-                <h3>Schedule Transfer</h3>
-                <a className={styles.close} href=""><img src={getImageUrl("icons/greyClose.png")} alt="X" onClick={(e) => {e.preventDefault(); toggleClose()}} /></a>
-            </div>
-            
-            <form action="">
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Transfer from</label>
-                    <select name="" id="">
-                        <option value="">Select account</option>
-                    </select>
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Beneficiary Financial Institution</label>
-                    <select name="" id="">
-                        <option value="">Select institution</option>
-                    </select>
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Beneficiary Account</label>
-                    <input type="number" name="" id="" placeholder="e.g 12345678" />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Category</label>
-                    <select name="" id="">
-                        <option value="">Select category</option>
-                    </select>
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Beneficiary Account Name</label>
-                    <select name="" id="">
-                        <option value="">Select account</option>
-                    </select>
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Amount</label>
-                    <input type="number" name="" id="" placeholder="0.00" />
-                </div>
-
-                <div className={styles.formGroup}>
-                    <label htmlFor="fromAcct">Description</label>
-                    <input type="text" name="" id="" placeholder="" />
-                </div>
-
-                {!isRecurring && <div className={styles.dateTime}>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="Date">Date</label>
-                        <input type="date" name="" id="" />
-                    </div>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="Time">Time</label>
-                        <input type="time" name="" id="" />
-                    </div>
-                </div>}
-
-                {isRecurring && <div className={styles.dateTime}>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="startDate">Start Date</label>
-                        <input type="date" name="" id="" />
-                    </div>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="startTime">Start Time</label>
-                        <input type="time" name="" id="" />
-                    </div>
-                </div>}
-
-                {isRecurring && <div className={styles.dateTime}>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="endDate">End Date</label>
-                        <input type="date" name="" id="" />
-                    </div>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="endTime">End Time</label>
-                        <input type="time" name="" id="" />
-                    </div>
-                </div>}
-
-                <div className={styles.checkFormGroup}>
-                    <input type="checkbox" name='recurr' checked={isRecurring} onChange={handleCheckboxChange} />
-                    <label htmlFor="recurr">Recurring</label>
-                </div>
-
-            </form>
-
-            <div className={styles.transferButton}>
-                <button onClick={() => toggleClose()}>Transfer</button>
-            </div>
-        </div>
-
-        
-        <div className={styles.dimmer} id='dimmer'></div>
-
-
         <div className={styles.whole}>
 
             <div className={styles.buttonSwitch}>
@@ -567,7 +469,7 @@ export const TransactionsTransferPage = () => {
                             </select>
                         </label>
 
-                        <button className={styles.buttonTwo} onClick={() => toggleOpen()}>
+                        <button className={styles.buttonTwo} onClick={handleCreateTransfer}>
                             Schedule Transfer
                             <img src={getImageUrl("icons/send.png")} />
                         </button>
@@ -621,7 +523,7 @@ export const TransactionsTransferPage = () => {
                                             <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
                                                 <ul>
                                                     <li>View</li>
-                                                    <li>Edit</li>
+                                                    <li onClick={() => handleEditTransfer(transfer)}>Edit</li>
                                                     <li className={styles.delete}>Delete</li>
                                                 </ul>
                                             </div>
@@ -631,6 +533,71 @@ export const TransactionsTransferPage = () => {
 
                             </tbody>
                         </table>
+
+                        <div className={styles.smallTransferTable}>
+
+                            {currentPendingTransfers.map((transfer, index) => (
+                                <>
+                                <div className={styles.smallTransferTableEntry}>
+
+                                    <div className={styles.smallTransferActions}>
+
+                                        <div className={styles.checkbox}><input type="checkbox" name="" id="" /></div>
+                                        
+                                        
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                            <ul>
+                                                <li>View</li>
+                                                <li onClick={() => handleEditTransfer(transfer)}>Edit</li>
+                                                <li className={styles.delete}>Delete</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>From Account</div>
+                                        <div className={styles.whiteBox}>{transfer.fromAcct}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>To Account</div>
+                                        <div className={styles.whiteBox}>{transfer.toAcct}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>Transfer Type</div>
+                                        <div className={styles.whiteBox}>{transfer.type}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>Amount</div>
+                                        <div className={styles.whiteBox}>{transfer.amount}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>Frequency</div>
+                                        <div className={styles.whiteBox}>{transfer.frequency}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+
+                                        <div className={styles.greyBox}>Scheduled Date</div>
+                                        <div className={styles.whiteBox}>{transfer.scheduleDate}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>Description</div>
+                                        <div className={styles.whiteBox}>{transfer.description}</div>
+                                    </div>
+                                </div>
+
+                                <div className={styles.redLine}></div>
+                                </>
+                            ))}
+                        </div>
 
                         <Pagination
                             filteredData={filteredPendingTransfers}
@@ -668,7 +635,7 @@ export const TransactionsTransferPage = () => {
                             </select>
                         </label>
 
-                        <button className={styles.buttonTwo} onClick={() => toggleOpen()}>
+                        <button className={styles.buttonTwo} onClick={handleCreateTransfer}>
                             Schedule Transfer
                             <img src={getImageUrl("icons/send.png")} />
                         </button>
@@ -676,72 +643,144 @@ export const TransactionsTransferPage = () => {
                     </div>
                 </div>
 
-
-                {currentCompletedTransfers.length === 0 ? (
-                    <div className={styles.nothingBigDiv}>
-                        <div className={styles.nothingFound}>
-                            <img src={getImageUrl("nothing.png")} />
-                            <h2>No Transaction Data</h2>
-                            <p>We cannot seem to find any transaction data, your transaction information will appear here.</p>
-                        </div>
-                    </div>
-                    
-                ) : (
+                {isLoading ? <Center><Spinner /></Center> :
 
                     <>
+                    {currentCompletedTransfers.length === 0 ? (
+                        <div className={styles.nothingBigDiv}>
+                            <div className={styles.nothingFound}>
+                                <img src={getImageUrl("nothing.png")} />
+                                <h2>No Transaction Data</h2>
+                                <p>We cannot seem to find any transaction data, your transaction information will appear here.</p>
+                            </div>
+                        </div>
+                        
+                    ) : (
 
-                    <table className={styles.transferTable}>
-                        <thead>
-                            <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
-                            <th>From Accout</th>
-                            <th>To Account</th>
-                            <th>Transfer Type</th>
-                            <th>Amount</th>
-                            <th>Frequency</th>
-                            <th>Scheduled Date</th>
-                            <th>Description</th>
-                            <th className={styles.action}>Action</th>
-                        </thead>
+                        <>
 
-                        <tbody>
+                        <table className={styles.transferTable}>
+                            <thead>
+                                <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>
+                                <th>From Accout</th>
+                                <th>To Account</th>
+                                <th>Transfer Type</th>
+                                <th>Amount</th>
+                                <th>Frequency</th>
+                                <th>Scheduled Date</th>
+                                <th>Description</th>
+                                <th className={styles.action}>Action</th>
+                            </thead>
+
+                            <tbody>
+                                {currentCompletedTransfers.map((transfer, index) => (
+                                    <tr key={index}>
+                                        <td><input type="checkbox" /></td>
+                                        <td>{transfer.fromAcct}</td>
+                                        <td>{transfer.toAcct}</td>
+                                        <td>{transfer.type}</td>
+                                        <td>{transfer.amount}</td>
+                                        <td>{transfer.frequency}</td>
+                                        <td>{transfer.scheduleDate}</td>
+                                        <td>{transfer.description}</td>
+                                        <td className={styles.action}>
+                                            <button onClick={() => toggleAction(index)}>
+                                                <img src={getImageUrl("icons/action.png")} />
+                                            </button>
+                                            <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                                <ul>
+                                                    <li>View</li>
+                                                    <li onClick={() => handleEditTransfer(transfer)}>Edit</li>
+                                                    <li className={styles.delete}>Delete</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+
+                            </tbody>
+                        </table>
+
+                        <div className={styles.smallTransferTable}>
+
                             {currentCompletedTransfers.map((transfer, index) => (
-                                <tr key={index}>
-                                    <td><input type="checkbox" /></td>
-                                    <td>{transfer.fromAcct}</td>
-                                    <td>{transfer.toAcct}</td>
-                                    <td>{transfer.type}</td>
-                                    <td>{transfer.amount}</td>
-                                    <td>{transfer.frequency}</td>
-                                    <td>{transfer.scheduleDate}</td>
-                                    <td>{transfer.description}</td>
-                                    <td className={styles.action}>
+                                <>
+                                <div className={styles.smallTransferTableEntry}>
+
+                                    <div className={styles.smallTransferActions}>
+
+                                        <div className={styles.checkbox}><input type="checkbox" name="" id="" /></div>
+                                        
+                                        
                                         <button onClick={() => toggleAction(index)}>
                                             <img src={getImageUrl("icons/action.png")} />
                                         </button>
                                         <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
                                             <ul>
                                                 <li>View</li>
-                                                <li>Edit</li>
+                                                <li  onClick={() => handleEditTransfer(transfer)}>Edit</li>
                                                 <li className={styles.delete}>Delete</li>
                                             </ul>
                                         </div>
-                                    </td>
-                                </tr>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>From Account</div>
+                                        <div className={styles.whiteBox}>{transfer.fromAcct}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>To Account</div>
+                                        <div className={styles.whiteBox}>{transfer.toAcct}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>Transfer Type</div>
+                                        <div className={styles.whiteBox}>{transfer.type}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>Amount</div>
+                                        <div className={styles.whiteBox}>{transfer.amount}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>Frequency</div>
+                                        <div className={styles.whiteBox}>{transfer.frequency}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+
+                                        <div className={styles.greyBox}>Scheduled Date</div>
+                                        <div className={styles.whiteBox}>{transfer.scheduleDate}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransferTableRow}>
+                                        <div className={styles.greyBox}>Description</div>
+                                        <div className={styles.whiteBox}>{transfer.description}</div>
+                                    </div>
+                                </div>
+
+                                <div className={styles.redLine}></div>
+                                </>
                             ))}
+                        </div>
 
-                        </tbody>
-                    </table>
-
-                    <Pagination
-                        filteredData={filteredCompletedTransfers}
-                        currentPage={currentPage2}
-                        itemsPerPage={itemsPerPage}
-                        onPageChange={handlePageChange2}
-                    />
+                        <Pagination
+                            filteredData={filteredCompletedTransfers}
+                            currentPage={currentPage2}
+                            itemsPerPage={itemsPerPage}
+                            onPageChange={handlePageChange2}
+                        />
+                        </>
+                    )}
                     </>
-                )}
+                }
             </div>            
         </div>
+
+        <CreateTransfer isOpen={isOpenCreateTransfer} onClose={onCloseCreateTransfer} isEdit={isEditTransfer} dataset={selectedTransfer} resetEdit={resetEditTransfer} refreshData={pendingTransfers} />
+
         </>
     )
 }
