@@ -18,9 +18,8 @@ const toTitleCase = (txt) => {
 export const AccountInfoPage = () => {
 
     const location = useLocation();
-    const { d } = location.state || {};
     const popupRef = useRef(null);
-    const [_data, setData] = useState(null);
+    const [_data, setData] = useState(location.state || null);
     const [isLoading, setIsloading] = useState(false);
     const [trxns, setTrxns] = useState([]);
     const [ search, setSearch] = useState("");
@@ -30,14 +29,10 @@ export const AccountInfoPage = () => {
     const navigate = useNavigate();
     const itemsPerPage = 10;
 
-
-    console.log(d);
-
     useEffect(() => {
-        if (d) {
-            setData(d);
+        if (_data) {
             try {
-                getRecentTrxns(d);
+                getRecentTrxns(_data);
             } catch (error) {
                 navigate('/dashboard/accounts');
             }
@@ -54,7 +49,7 @@ export const AccountInfoPage = () => {
         }
     }, [])
 
-    const getRecentTrxns = async (d) => {
+    const getRecentTrxns = async (_data) => {
         setIsloading(true);
         try {
             const payload = {
@@ -160,7 +155,7 @@ export const AccountInfoPage = () => {
     return (
         <>
         <div className={styles.whole}>
-            {/* <div className={styles.breadcrumb}><a href="/dashboard/accounts">Accounts</a>{'>'}<a href="/dashboard/accounts">{_data.institution_name} - {_data.account_number}</a>{'>'}<p>All transactions</p></div> */}
+            <div className={styles.breadcrumb}><a href="/dashboard/accounts">Accounts</a>{'>'}<a href="/dashboard/accounts">{_data.institution_name} - {_data.account_number}</a>{'>'}<p>All transactions</p></div>
 
             <div className={styles.searchButtons}>
                 <div className={styles.searchBar}>
@@ -169,24 +164,26 @@ export const AccountInfoPage = () => {
                 </div>
 
                 <div className={styles.buttons}>
-                    <button className={styles.buttonOne} onClick={() => setOpenFilter(!openFilter)}>
-                        <img src={getImageUrl("icons/slides.png")} />
-                        All Transactions
-                        <img src={getImageUrl("icons/redDownAngle.png")} />
-                    </button>
-                    <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={popupRef}>
-                        <p>FILTER</p>
-                        <a href="">Last 7 days</a>
-                        <a href="">Last 15 days</a>
-                        <a href="">Last 30 days</a>
-                        <div className={styles.customFilter}>
-                            <p>CUSTOM DATE</p>
-                            <div className={styles.startEnd}>
-                                <input type="date" placeholder='Start Date' />-
-                                <input type="date" placeholder='End Date' />
+                    <div>
+                        <button className={styles.buttonOne} onClick={() => setOpenFilter(!openFilter)}>
+                            <img src={getImageUrl("icons/slides.png")} />
+                            All Transactions
+                            <img src={getImageUrl("icons/redDownAngle.png")} />
+                        </button>
+                        <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={popupRef}>
+                            <p>FILTER</p>
+                            <a href="">Last 7 days</a>
+                            <a href="">Last 15 days</a>
+                            <a href="">Last 30 days</a>
+                            <div className={styles.customFilter}>
+                                <p>CUSTOM DATE</p>
+                                <div className={styles.startEnd}>
+                                    <input type="date" placeholder='Start Date' />-
+                                    <input type="date" placeholder='End Date' />
+                                </div>
                             </div>
+                            <a className={styles.reset} href="">Reset All</a>
                         </div>
-                        <a className={styles.reset} href="">Reset All</a>
                     </div>
                 </div>
             </div>
@@ -197,7 +194,6 @@ export const AccountInfoPage = () => {
                 filteredTrxns.length > 0 ?
                     <>
                     <div>
-
                         {Object.keys(groupedTrxns).map((timestamp) => (
                             <div key={timestamp} className={styles.acctInfoTable}>
                                 <h4>{format(new Date (timestamp), 'MMMM dd')}</h4>

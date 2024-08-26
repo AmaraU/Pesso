@@ -346,6 +346,57 @@ export const UsersPage = () => {
                         </tbody>
                     </table>
 
+                    <div className={styles.smallUsersTable}>
+                        {currentUsers.map((user, index) => (
+                            <>
+                            <div className={styles.smallUsersTableEntry}>
+
+                                <div className={styles.smallUsersActions}>
+
+                                    <div className={styles.checkbox}><input type="checkbox" name="" id="" /></div>
+                                    <div>                                    
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                            <ul>
+                                                <li>View</li>
+                                                <li onClick={() => handleEditUser(user)}>Edit</li>
+                                                <li onClick={() => handleDeleteUser(user)} className={styles.delete}>Delete</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className={styles.smallUsersTableRow}>
+                                    <div className={styles.greyBox}>Name</div>
+                                    <div className={styles.whiteBox}>{user.full_name}</div>
+                                </div>
+
+                                <div className={styles.smallUsersTableRow}>
+                                    <div className={styles.greyBox}>Email</div>
+                                    <div className={styles.whiteBox}>{user.email_address}</div>
+                                </div>
+
+                                <div className={styles.smallUsersTableRow}>
+                                    <div className={styles.greyBox}>Role</div>
+                                    <div className={styles.whiteBox}>{user.role_name}</div>
+                                </div>
+
+                                <div className={styles.smallUsersTableRow}>
+                                    <div className={styles.greyBox}>Status</div>
+                                    <div className={styles.whiteBox}>{user.status}</div>
+                                </div>
+
+                                <div className={styles.smallUsersTableRow}>
+                                    <div className={styles.greyBox}>Last Active</div>
+                                    <div className={styles.whiteBox}>{user.last_loggedin}</div>
+                                </div>
+                            </div>
+                            </>
+                        ))}
+                    </div>
+
                     <Pagination
                         filteredData={filteredUsers}
                         currentPage={currentPage}

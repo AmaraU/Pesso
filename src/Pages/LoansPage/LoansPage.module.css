@@ -182,6 +182,7 @@
 
 .viewPopup {
     width: 40%;
+    min-width: 450px;
     max-height: 70%;
     overflow: hidden;
     overflow-y: scroll;
@@ -252,3 +253,45 @@
 h5.green {color: #19D821;}
 h5.yellow {color: #DAD106;}
 h5.red {color: #EF1C1C;}
+
+
+
+@media screen and (max-width: 850px) {
+    .searchButtons {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .searchBar {
+        margin-right: auto;
+        border-radius: 8px;
+        border: 1px solid #DEDEDE;
+        width: 100%;
+        padding: 8px 16px;
+    }
+    .searchBar input {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 62em) {
+    .whole {
+        padding: 24px;
+    }
+    .loanDivs {
+        display: grid;
+        grid-template-columns: repeat(2,auto);
+        gap: 24px;
+    }
+}
+@media screen and (max-width: 48em) {
+    .loanDivs {
+        display: grid;
+        grid-template-columns: repeat(1,auto);
+        gap: 24px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .whole {
+        margin-left: 0;
+    }
+}

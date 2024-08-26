@@ -182,3 +182,53 @@
     font-weight: 500;
     border-radius: 24px;
 }
+
+
+
+@media screen and (max-width: 850px) {
+    .searchButtons {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .searchBar {
+        margin-right: auto;
+        border-radius: 8px;
+        border: 1px solid #DEDEDE;
+        width: 100%;
+        padding: 8px 16px;
+    }
+    .searchBar input {
+        width: 100%;
+    }
+    .buttons {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    .buttonOne {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 62em) {
+    .whole {
+        padding: 24px;
+    }
+    .budgetDivs {
+        display: grid;
+        grid-template-columns: repeat(3,auto);
+        gap: 24px;
+    }
+}
+@media screen and (max-width: 48em) {
+    .budgetDivs {
+        display: grid;
+        grid-template-columns: repeat(2,auto);
+        gap: 24px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .whole {
+        margin-left: 0;
+    }
+}

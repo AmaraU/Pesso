@@ -85,6 +85,7 @@
 .export {
     display: block;
     width: 25%;
+    min-width: 200px;
     text-align: left;
     background-color: #FFFFFF;
     border: 1px solid #E5E7EB;
@@ -92,7 +93,7 @@
     box-shadow: 0px 4px 12px 0px #9CA3AF33;
     position: absolute;
     z-index: 5;
-    margin-top: 550px;
+    margin-top: 10px;
     right: 30px;
 }
 
@@ -375,4 +376,123 @@
 .theActions li:hover {
     background-color: #E5E7EB;
     border-bottom: 1px solid #7E8491;
+}
+
+
+
+
+@media screen and (max-width: 1000px) {
+    .whole {
+        margin-top: 135px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+
+    .searchButtons {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .searchBar {
+        margin-right: auto;
+        border-radius: 8px;
+        border: 1px solid #DEDEDE;
+        width: 100%;
+        padding: 8px 16px;
+    }
+    .searchBar input {
+        width: 100%;
+    }
+    .buttons {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    .buttonOne {
+        font-size: 12px;
+        font-weight: 500;
+        padding: 8px 12px;
+    }
+    .buttonTwo {
+        padding: 8px 12px;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    .export {
+        right: 10%;
+        width: 15%;
+    }
+}
+
+
+@media screen and (max-width: 62em) {
+
+    .whole {
+        padding: 24px;
+    }
+    .reportTable {
+        display: none;
+    }
+    .smallReportTable {
+        display: block;
+    }
+    .smallReportActions {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+    .smallReportActions .checkbox,
+    .smallReportActions button {
+        display: flex;
+        align-items: center;
+        border: 1px solid #B6B6B6;
+        padding: 12px;
+        border-radius: 5px;
+    }
+    .smallReportActions input,
+    .smallReportActions button img {
+        width: 18px;
+        height: 18px;
+
+    }
+    .smallReportTableEntry {
+        border: 1px solid #F6F6F6;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 16px;
+    }
+    .smallReportTableRow {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #D1D1D1;
+    }
+    .smallReportTableEntry .smallReportTableRow:last-child {
+        border-bottom: none;
+    }
+    .greyBox,
+    .whiteBox {
+        flex: 1;
+        padding: 8px 12px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: 400;
+        color: #374151;
+    }
+    .greyBox {
+        background-color: #F9FAFB;
+        font-weight: 600;
+    }
+
+    .theActions {
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .whole {
+        margin-left: 0;
+    }
 }

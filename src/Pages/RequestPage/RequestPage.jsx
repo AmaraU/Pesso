@@ -216,6 +216,70 @@ export const RequestPage = () => {
                     </tbody>
                 </table>
 
+                <div className={styles.smallRequestTable}>
+
+                    {currentRequests.map((request, index) => (
+                        <>
+                        <div className={styles.smallRequestTableEntry}>
+
+                            <div className={styles.smallRequestActions}>
+
+                                <div className={styles.checkbox}><input type="checkbox" name="" id="" /></div>
+                                
+                                <div>
+                                    <button onClick={() => toggleAction(index)}>
+                                        <img src={getImageUrl("icons/action.png")} />
+                                    </button>
+                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                        <ul>
+                                            <li>Approve</li>
+                                            <li>Decline</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={styles.smallRequestTableRow}>
+                                <div className={styles.greyBox}>Date</div>
+                                <div className={styles.whiteBox}>{request.date}</div>
+                            </div>
+
+                            <div className={styles.smallRequestTableRow}>
+                                <div className={styles.greyBox}>Name of Requester</div>
+                                <div className={styles.whiteBox}>{request.name}</div>
+                            </div>
+
+                            <div className={styles.smallRequestTableRow}>
+                                <div className={styles.greyBox}>Description</div>
+                                <div className={styles.whiteBox}>{request.description}</div>
+                            </div>
+
+                            <div className={styles.smallRequestTableRow}>
+                                <div className={styles.greyBox}>Request Type</div>
+                                <div className={styles.whiteBox}>{request.requestType}</div>
+                            </div>
+
+                            <div className={styles.smallRequestTableRow}>
+                                <div className={styles.greyBox}>Approval Level</div>
+                                <div className={styles.whiteBox}>{request.approvalLevel}</div>
+                            </div>
+
+                            <div className={styles.smallRequestTableRow}>
+                                <div className={styles.greyBox}>Status</div>
+                                <div className={`${styles.whiteBox} ${styles.status}`}>
+                                    <div className={classNames({
+                                        [styles.approved]: request.status.toLowerCase().includes('approved'),
+                                        [styles.declined]: request.status.toLowerCase().includes('declined')
+                                    })}>
+                                        {request.status}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </>
+                    ))}
+                </div>
+
                 <Pagination
                     filteredData={filteredRequests}
                     currentPage={currentPage}

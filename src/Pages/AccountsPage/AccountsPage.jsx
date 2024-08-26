@@ -18,6 +18,8 @@ import { SlRefresh } from "react-icons/sl";
 
 
 export const AccountsPage = () => {
+
+    const { isOpen: isOpenAccountInfo, onOpen: onOpenAccountInfo, onClose: onCloseAccountInfo } = useDisclosure();
     const [ accounts, setAccounts ] = useState([]);
     const [ selectedAccount, setSelectedAccount ] = useState(null);
     const [ connectWidgetIsOpen, setConnectWidgetIsOpen ] = useState(false);
@@ -25,7 +27,6 @@ export const AccountsPage = () => {
     const [ accountId, setAccountId ] = useState();
     const [ totalBalanceVisible, setTotalBalanceVisible ] = useState(true);
     const [ allAccountsVisible, setAllAccountsVisible ] = useState(true);
-    const { isOpen: isOpenAccountInfo, onOpen: onOpenAccountInfo, onClose: onCloseAccountInfo } = useDisclosure();
     const [ acctLinked, setAcctLinked ] = useState(false);
     const [ linkedAcctDetails, setLinkedAcctDetails ] = useState({});
 

@@ -377,12 +377,8 @@ export const CashflowInPage = () => {
                             }).format(trxnsInflow.length > 0 ? trxnsInflow.map(e => e.trans_amount).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) : 0) : hideBalance()}</Text>
                             
                             <Box pl={3} cursor={"pointer"}>
-                                {
-                                    totalBalanceVisible && <BiShow fontSize={"xs"} color={"#374151"} onClick={handleToggleVisibility} />
-                                }
-                                {
-                                    !totalBalanceVisible && <BiHide fontSize={"xs"} color={"#374151"} onClick={handleToggleVisibility} />
-                                }
+                                { totalBalanceVisible && <BiShow fontSize={"xs"} color={"#374151"} onClick={handleToggleVisibility} /> }
+                                { !totalBalanceVisible && <BiHide fontSize={"xs"} color={"#374151"} onClick={handleToggleVisibility} /> }
                             </Box>
                         </HStack>
                 }
@@ -494,6 +490,74 @@ export const CashflowInPage = () => {
                             ))}
                         </tbody>
                     </table>
+
+                    <div className={styles.smallCashInTable}>
+                        {currentInflows.map((inflow, index) => (
+                            <>
+                            <div className={styles.smallCashInTableEntry} key={index}>
+
+                                <div className={styles.smallCashInTableRow}>
+                                    <div className={styles.greyBox}>Invoice Number</div>
+                                    <div className={styles.whiteBox}>{inflow.trans_ref}</div>
+                                </div>
+
+                                <div className={styles.smallCashInTableRow}>
+                                    <div className={styles.greyBox}>Date Created</div>
+                                    <div className={styles.whiteBox}>{format(new Date (inflow.trans_date), 'MMM dd, yyyy')}</div>
+                                </div>
+
+                                <div className={styles.smallCashInTableRow}>
+                                    <div className={styles.greyBox}>Due Date</div>
+                                    <div className={styles.whiteBox}>{inflow.dueDate}</div>
+                                </div>
+
+                                <div className={styles.smallCashInTableRow}>
+                                    <div className={styles.greyBox}>Account Number</div>
+                                    <div className={styles.whiteBox}>{inflow.account_number}</div>
+                                </div>
+
+                                <div className={styles.smallCashInTableRow}>
+                                    <div className={styles.greyBox}>Phone Number</div>
+                                    <div className={styles.whiteBox}>{inflow.phoneNo}</div>
+                                </div>
+
+                                <div className={styles.smallCashInTableRow}>
+                                    <div className={styles.greyBox}>Email Address</div>
+                                    <div className={styles.whiteBox}>{inflow.email}</div>
+                                </div>
+
+                                <div className={styles.smallCashInTableRow}>
+                                    <div className={styles.greyBox}>Description</div>
+                                    <div className={styles.whiteBox}>{removeNumbersAndPunctuation(inflow.trans_narration)}</div>
+                                </div>
+
+                                <div className={styles.smallCashInTableRow}>
+
+                                    <div className={styles.greyBox}>Amount</div>
+                                                                        
+                                    <div className={`${classNames({
+                                        [styles.credit]: inflow.trans_type.toLowerCase() === ("credit"),
+                                        [styles.debit]: inflow.trans_type.toLowerCase() === ("debit")})}
+                                        ${styles.whiteBox}`}
+                                    >
+                                        {inflow.trans_type.toLowerCase() === ("credit") ? `+` : ''}
+                                        {inflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
+                                        {inflow.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                        {inflow.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {formatNumber(inflow.trans_amount)}
+                                    </div>
+                                </div>
+
+                                <div className={styles.smallCashInTableRow}>
+                                    <div className={styles.greyBox}>Status</div>
+                                    <div className={styles.whiteBox}>{inflow.status}</div>
+                                </div>
+                            </div>
+
+                            <div className={styles.redLine}></div>
+                            </>
+                        ))}
+                    </div>
 
                     <Pagination
                         filteredData={filteredInflows}

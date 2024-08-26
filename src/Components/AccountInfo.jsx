@@ -232,10 +232,10 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
     }, {});
 
 
-    const handleViewAll = (d) => {
-        log(`Viewed all transactions of account ${d.account_number} in ${d.institution_name}`, "Accounts");
-        setSelectedAccount(d);
-        navigate('/dashboard/account-info', { state: { d } });
+    const handleViewAll = (_data) => {
+        log(`Viewed all transactions of account ${_data.account_number} in ${_data.institution_name}`, "Accounts");
+        setSelectedAccount(_data);
+        navigate('/dashboard/account-info', { state: _data });
     };
     
     const removeNumbers = (str) => {

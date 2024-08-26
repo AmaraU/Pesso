@@ -228,6 +228,7 @@ button, a {
 }
 .nothingFound {
     width: 35%;
+    min-width: 250px;
     display: flex;
     flex-direction: column;
     justify-self: center;

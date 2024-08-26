@@ -264,55 +264,56 @@ export const ReportsHistoryPage = () => {
                         </select>
                     </div>
 
+                    <div>
+                        <button className={styles.buttonTwo} onClick={handleExportClick}>
+                            <img src={getImageUrl("icons/whiteDownload.png")} alt="" />
+                            Export
+                        </button>
 
-                    <button className={styles.buttonTwo} onClick={handleExportClick}>
-                        <img src={getImageUrl("icons/whiteDownload.png")} alt="" />
-                        Export
-                    </button>
-
-                    <div className={`${styles.exportClosed} ${openExport && styles.export}`}>
-                        <div className={styles.exportHeader}>
-                            <p>Export</p>
-                            <a onClick={() => setOpenExport(false)}><img src={getImageUrl("icons/greyClose.png")} alt="" /></a>
-                        </div>
-                        
-                        <div className={styles.exportForm}>
-                            <div className={styles.exportFormGroup}>
-                                <label htmlFor="">Account</label>
-                                <select name="account">
-                                    <option value="">Select Account</option>
-                                </select>
-                                <div className={styles.allAccts}>
-                                    <input type="checkbox" name="allaccts" />
-                                    <label htmlFor="allaccts">All Accounts</label>
-                                </div>
+                        <div className={`${styles.exportClosed} ${openExport && styles.export}`}>
+                            <div className={styles.exportHeader}>
+                                <p>Export</p>
+                                <a onClick={() => setOpenExport(false)}><img src={getImageUrl("icons/greyClose.png")} alt="" /></a>
                             </div>
+                            
+                            <div className={styles.exportForm}>
+                                <div className={styles.exportFormGroup}>
+                                    <label htmlFor="">Account</label>
+                                    <select name="account">
+                                        <option value="">Select Account</option>
+                                    </select>
+                                    <div className={styles.allAccts}>
+                                        <input type="checkbox" name="allaccts" />
+                                        <label htmlFor="allaccts">All Accounts</label>
+                                    </div>
+                                </div>
 
-                            <div className={styles.checkboxes}>
-                                <p>Categories</p>
-                                <div className={styles.checkbox}>
-                                    <input type="checkbox" name="cashflow" />
-                                    <label htmlFor="cashflow">Cashflow</label>
+                                <div className={styles.checkboxes}>
+                                    <p>Categories</p>
+                                    <div className={styles.checkbox}>
+                                        <input type="checkbox" name="cashflow" />
+                                        <label htmlFor="cashflow">Cashflow</label>
+                                    </div>
+                                    <div className={styles.checkbox}>
+                                        <input type="checkbox" name="finhealth" />
+                                        <label htmlFor="finhealth">Financial Health</label>
+                                    </div>
+                                    <div className={styles.checkbox}>
+                                        <input type="checkbox" name="burnrate" />
+                                        <label htmlFor="burnrate">Burn Rate</label>
+                                    </div>
+                                    <div className={styles.checkbox}>
+                                        <input type="checkbox" name="loans" />
+                                        <label htmlFor="loans">Loans</label>
+                                    </div>
+                                    <div className={styles.checkbox}>
+                                        <input type="checkbox" name="trxns" />
+                                        <label htmlFor="trxns">Transactions</label>
+                                    </div>
                                 </div>
-                                <div className={styles.checkbox}>
-                                    <input type="checkbox" name="finhealth" />
-                                    <label htmlFor="finhealth">Financial Health</label>
+                                <div className={styles.exportButton}>
+                                    <button onClick={() => toggleSuccess()}>Export</button>
                                 </div>
-                                <div className={styles.checkbox}>
-                                    <input type="checkbox" name="burnrate" />
-                                    <label htmlFor="burnrate">Burn Rate</label>
-                                </div>
-                                <div className={styles.checkbox}>
-                                    <input type="checkbox" name="loans" />
-                                    <label htmlFor="loans">Loans</label>
-                                </div>
-                                <div className={styles.checkbox}>
-                                    <input type="checkbox" name="trxns" />
-                                    <label htmlFor="trxns">Transactions</label>
-                                </div>
-                            </div>
-                            <div className={styles.exportButton}>
-                                <button onClick={() => toggleSuccess()}>Export</button>
                             </div>
                         </div>
                     </div>
@@ -378,6 +379,58 @@ export const ReportsHistoryPage = () => {
 
                         </tbody>
                     </table>
+
+                    <div className={styles.smallReportTable}>
+                        {currentReports.map((report, index) => (
+                            <>
+                            <div className={styles.smallReportTableEntry}>
+
+                                <div className={styles.smallReportActions}>
+
+                                    <div className={styles.checkbox}><input type="checkbox" name="" id="" /></div>
+                                    
+                                    <div>
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef} >
+                                            <p>ACTION</p>
+                                            <ul>
+                                                <li>View</li>
+                                                <li>Download pdf</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className={styles.smallReportTableRow}>
+                                    <div className={styles.greyBox}>Date</div>
+                                    <div className={styles.whiteBox}>{report.date}</div>
+                                </div>
+
+                                <div className={styles.smallReportTableRow}>
+                                    <div className={styles.greyBox}>Account Number</div>
+                                    <div className={styles.whiteBox}>{report.acctNumber}</div>
+                                </div>
+
+                                <div className={styles.smallReportTableRow}>
+                                    <div className={styles.greyBox}>Account Name</div>
+                                    <div className={styles.whiteBox}>{report.acctName}</div>
+                                </div>
+
+                                <div className={styles.smallReportTableRow}>
+                                    <div className={styles.greyBox}>Account Balance</div>
+                                    <div className={styles.whiteBox}>{report.acctBal}</div>
+                                </div>
+
+                                <div className={styles.smallReportTableRow}>
+                                    <div className={styles.greyBox}>Current Balance</div>
+                                    <div className={styles.whiteBox}>{report.currBal}</div>
+                                </div>
+                            </div>
+                            </>
+                        ))}
+                    </div>
 
                     <Pagination
                         filteredData={filteredReports}

@@ -204,6 +204,58 @@ export const AuditTrailsPage = () => {
                         </tbody>
                     </table>
 
+
+                    <div className={styles.smallAuditTable}>
+                        {currentAuditTrails.map((auditTrail, index) => (
+                            <>
+                            <div className={styles.smallAuditTableEntry}>
+
+                                <div className={styles.smallAuditActions}>
+
+                                    <div className={styles.checkbox}><input type="checkbox" name="" id="" /></div>
+                                    <div>                                    
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                            <ul>
+                                                <li>View</li>
+                                                <li>Edit</li>
+                                                <li className={styles.delete}>Delete</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className={styles.smallAuditTableRow}>
+                                    <div className={styles.greyBox}>Activity</div>
+                                    <div className={styles.whiteBox}>{auditTrail.activity_description}</div>
+                                </div>
+
+                                <div className={styles.smallAuditTableRow}>
+                                    <div className={styles.greyBox}>Module</div>
+                                    <div className={styles.whiteBox}>{auditTrail.module}</div>
+                                </div>
+
+                                <div className={styles.smallAuditTableRow}>
+                                    <div className={styles.greyBox}>Names</div>
+                                    <div className={styles.whiteBox}>{auditTrail.user}</div>
+                                </div>
+
+                                <div className={styles.smallAuditTableRow}>
+                                    <div className={styles.greyBox}>Date</div>
+                                    <div className={styles.whiteBox}>{format(new Date (auditTrail.timestamp), 'MMMM dd, yyyy')}</div>
+                                </div>
+
+                                <div className={styles.smallAuditTableRow}>
+                                    <div className={styles.greyBox}>Time</div>
+                                    <div className={styles.whiteBox}>{format(new Date (auditTrail.timestamp), 'h:mm a')}</div>
+                                </div>
+                            </div>
+                            </>
+                        ))}
+                    </div>
+
                     <Pagination
                         filteredData={filteredAuditTrails}
                         currentPage={currentPage}

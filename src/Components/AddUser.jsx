@@ -1,12 +1,10 @@
 import {
     Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Stack,
-    FormErrorMessage,
+    Input, Select,
+    Stack, HStack,
     useToast,
-    Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Select, HStack
+    FormErrorMessage, FormControl, FormLabel, 
+    Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, 
 } from '@chakra-ui/react';
 import { useEffect, useState } from "react";
 import { DEFAULT_USER_ROLE_ASSIGN_ERR_MSG, getAPIEndpoint } from '../../config';
