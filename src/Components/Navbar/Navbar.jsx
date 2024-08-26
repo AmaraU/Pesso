@@ -80,7 +80,6 @@ export const Navbar = () => {
     <div className={styles.theWhole}>
 
       <div className={`${styles.linkList} ${isWider ? styles.widerLinkList : styles.linkList}`}>
-      {/* <div className={styles.linkList}> */}
 
         <a href="/dashboard/overview" className={currentPath === "/dashboard/overview" ? styles.active : ""}>
           <img className={styles.white} src={getImageUrl("icons/dashboardWhite.png")} />

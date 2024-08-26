@@ -40,55 +40,6 @@
 }
 
 
-
-
-/* .header,
-.widerHeader {
-    height: 80px;
-    width: 100%;
-    /* display: flex; */
-    /* justify-content: space-between; *
-    align-items: center;
-    position: fixed;
-    background: #FFF;
-    z-index: 10;
-}
-
-.whole {
-    display: block;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* position: fixed;
-    background: #FFF;
-    z-index: 10; *
-}
-
-.logo {
-    height: 100%;
-    width: 232px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #0D0D0D;
-    border-right: 1px solid #E5E7EB;
-}
-.logo a {
-    width: 232px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-left: 20px;
-}
-.logo a img {
-    width: 65%;
-    height: auto;
-} */
-
-
 .menuOpen {
     display: none;
 }
@@ -202,9 +153,10 @@
         display: none;
     }
     .menuOpen {
-        margin-left: 10px;
+        margin-left: 16px;
         display: block;
         align-self: start;
+        margin-top: 8px;
     }
     .menuOpen img {
         width: 40px;
@@ -229,4 +181,84 @@
         white-space: nowrap;
         
     }    
+}
+
+
+
+
+.popupNav {
+    background-color: #0D0D0D;
+    border-right: 1px solid #E5E7EB;
+    width: 150px;
+    height: 100%;
+    position: fixed;
+    overflow: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    top: 0;
+    left: 0;
+}
+.popupNav::-webkit-scrollbar {
+    display: none;
+}
+
+.popupNav button {
+    margin-top: 16px;
+    margin-left: 14px;
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.popupNav button img {
+    width: 24px;
+    height: 24px;
+}
+
+
+.linkList {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+    width: 150px;
+}
+
+.linkList a {
+    padding: 8px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    color: #FFFFFF;
+    gap: 8px;
+    border-left: 2px solid transparent;
+}
+.linkList a:hover {
+    background-color: #7E8491;
+}
+.linkList a.active {
+    background-color: #F6CDD5;
+    color: #D2042D;
+    border-left: 2px solid #A80324;
+}
+
+.popupNav a img {
+    width: 24px;
+    height: 24px;
+}
+
+.linkList a .red {
+    display: none;
+}
+
+.linkList a.active .red {
+    display: block;
+}
+.linkList a.active .white {
+    display: none;
 }

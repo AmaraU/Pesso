@@ -607,6 +607,56 @@ export const CashflowOutPage = () => {
                                         </div>
                                     </div>
 
+                                    <div className={styles.smallOutflowTreemap}>
+                                        <div className={styles.treemapColumn}>
+                                            <div className={styles.treemapRow}>
+                                                <div className={styles.treemapColumn}>
+                                                    <div className={styles.treemapRow}>
+                                                        <div className={`${styles.treemapBox} ${styles.one}`}><h5>45%</h5><p>BAD DEBTS</p></div>
+                                                        <div className={`${styles.treemapBox} ${styles.two}`}><h5>45%</h5><p>CHARTITABLE CONTRIBUTIONS</p></div>
+                                                    </div>
+                                                    <div className={styles.treemapRow}>
+                                                        <div className={`${styles.treemapBox} ${styles.three}`}><h5>45%</h5><p>COST OF GOODS SOLD (COGS)</p></div>
+                                                        <div className={`${styles.treemapBox} ${styles.four}`}><h5>45%</h5><p>DEPRECIATION AND AMORIZATION</p></div>
+                                                        <div className={`${styles.treemapBox} ${styles.five}`}><h5>45%</h5><p>EQUIPMENT</p></div>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.treemapColumn}>
+                                                    <div className={`${styles.treemapBox} ${styles.six}`}><h5>45%</h5><p>FEES AND COMMISSIONS</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.seven}`}><h5>45%</h5><p>INSURANCE</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.eight}`}><h5>45%</h5><p>INTEREST</p></div>
+                                                </div>                            
+                                            </div>
+
+                                            
+
+                                            <div className={styles.treemapColumn}>
+                                                <div className={styles.treemapRow}>
+                                                    <div className={`${styles.treemapBox} ${styles.nine}`}><h5>20%</h5><p>MARKETING & ADVERTISING</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.ten}`}><h5>20%</h5><p>OTHER EXPENSES</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.eleven}`}><h5>20%</h5><p>PROFESSIONAL SERVICES</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.twelve}`}><h5>20%</h5><p>RENT</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.thirteen}`}><h5>20%</h5><p>REPAIRS AND MAINTENANCE</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.fourteen}`}><h5>20%</h5><p>RESEARCH AND DEVELOPMENT</p></div>
+                                                </div>
+                                                <div className={styles.treemapRow}>
+                                                    <div className={`${styles.treemapBox} ${styles.fifteen}`}><h5>10%</h5><p>SALARIES & WAGES</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.sixteen}`}><h5>10%</h5><p>SHIPPING & POSTAGE</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.seventeen}`}><h5>10%</h5><p>SOFTWARE & SUBSCRIPTIONS</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.eighteen}`}><h5>10%</h5><p>SUPPLIES</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.nineteen}`}><h5>10%</h5><p>TAXES</p></div>
+                                                    <div className={`${styles.treemapBox} ${styles.twenty}`}><h5>10%</h5><p>TRAINING & DEVELOPMENT</p></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className={styles.treemapRow}>
+                                                <div className={`${styles.treemapBox} ${styles.twentyone}`}><h5>5%</h5><p>TRAVEL</p></div>
+                                                <div className={`${styles.treemapBox} ${styles.twentytwo}`}><h5>5%</h5><p>UTILITIES</p></div>
+                                                <div className={`${styles.treemapBox} ${styles.twentythree}`}><h5>5%</h5><p>ENTERTAINMENT</p></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <table className={styles.outflowTable}>
                                         <thead>
                                             <th className={styles.tableCheckbox}><input type="checkbox" id="selectAll" /></th>

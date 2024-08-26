@@ -212,12 +212,21 @@ button, a {
 
 
 
-.inflowTreemap {
+
+.inflowTreemap,
+.smallInflowTreemap {
     width: 100%;
     height: 400px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 72px;
+}
+.smallInflowTreemap {
+    display: none;
+}
+.smallInflowTreemap div {
+    align-items: center;
+    justify-content: center;
 }
 .inflowTreemap div {
     align-items: center;
@@ -433,6 +442,14 @@ button, a {
     .whole {
         padding: 24px;
     }
+
+    .inflowTreemap {
+        display: none;
+    }
+    .smallInflowTreemap {
+        display: block;
+    }
+
     .inflowTable {
         display: none;
     }
