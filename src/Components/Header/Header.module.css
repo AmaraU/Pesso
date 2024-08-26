@@ -115,6 +115,8 @@
     }
     .widerWhole {
         height: 100%;
+        border-bottom: 1px solid #E5E7EB;
+
     }
     .logo {
         border-bottom: none;

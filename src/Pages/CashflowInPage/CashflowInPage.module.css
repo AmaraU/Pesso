@@ -389,6 +389,16 @@ button, a {
     .whole {
         margin-top: 135px;
     }
+
+    .treemapBox h5 {
+        font-size: 120%;
+        font-weight: 600;
+    }
+    .treemapBox p {
+        font-size: 60%;
+        font-weight: 500;
+        margin-top: -5px;
+    }
 }
 
 @media screen and (max-width: 850px) {
@@ -448,6 +458,15 @@ button, a {
     }
     .smallInflowTreemap {
         display: block;
+    }
+    .treemapBox h5 {
+        font-size: 100%;
+        font-weight: 600;
+    }
+    .treemapBox p {
+        font-size: 60%;
+        font-weight: 500;
+        margin-top: -5px;
     }
 
     .inflowTable {
