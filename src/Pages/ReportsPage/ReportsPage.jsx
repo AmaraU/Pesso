@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from "./ReportsPage.module.css";
 import { getImageUrl } from '../../../utils';
 import BarChart from '../../Components/BarChart';
@@ -9,12 +9,13 @@ import axios from 'axios';
 import { auditLog, logger } from '../../models/logging';
 import { DEFAULT_CASHFLOW_SUMMARY_ERR_MSG, getAPIEndpoint } from '../../../config';
 import ReactSpeedometer from "react-d3-speedometer";
+import html2canvas from 'html2canvas';
 
 
 export const ReportsPage = () => {
 
-    const [cashflowSummary, setCashflowSummary] = useState([]);
-    const [isCashflowLoading, setIsCashflowloading] = useState(false);
+    const [ cashflowSummary, setCashflowSummary ] = useState([]);
+    const [ isCashflowLoading, setIsCashflowloading ] = useState(false);
     const toast = useToast();
 
     useEffect(() => {
@@ -105,7 +106,7 @@ export const ReportsPage = () => {
 
 
     
-    const [ search, setSearch] = useState("");
+    const [ search, setSearch ] = useState("");
     const handleSearch = (event) => {
         setSearch(event.target.value);
     };

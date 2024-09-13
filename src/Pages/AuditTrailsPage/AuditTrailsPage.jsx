@@ -15,8 +15,8 @@ export const AuditTrailsPage = () => {
     const [ search, setSearch] = useState("");
     const [ actionsOpen, setActionsOpen ] = useState({});
     const [ currentPage, setCurrentPage ] = useState(1);
-    const [isLoading, setIsloading] = useState(false);
-    const [auditTrail, setAuditTrail] = useState([]);
+    const [ isLoading, setIsloading ] = useState(false);
+    const [ auditTrail, setAuditTrail ] = useState([]);
     const toast = useToast();
 
     useEffect(() => {

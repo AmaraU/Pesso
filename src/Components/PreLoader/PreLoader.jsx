@@ -5,9 +5,6 @@ import { getImageUrl } from "../../../utils";
 
 export const PreLoader = () => {
 
-    const navigate = useNavigate();
-
-
     useEffect(() => {
         
         const progressBar = document.querySelector('#progress');
