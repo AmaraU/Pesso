@@ -1,4 +1,5 @@
 const BASE_URL = "https://cashmgt.wovapt.tech/api"; //"http://localhost:7000/api";
+// const BASE_URL = "http://localhost:7000/api";
 
 export const DEFAULT_ONBOARDING_ERR_MSG = "We are unable to create your account at the moment. Please contact support or try again later.";
 export const DEFAULT_AUTH_ERR_MSG = "We are unable to authenticate you at the moment. Please contact support or try again later";
