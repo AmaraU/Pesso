@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToast, useDisclosure, Center, Spinner } from "@chakra-ui/react";
 import styles from "./UsersRolesPage.module.css";
 import { getImageUrl } from '../../../utils';
-import { userFields } from "../../models/data";
 import { auditLog, logger } from '../../models/logging';
 import axios from 'axios';
-import { DEFAULT_GET_ROLES_ERR_MSG, DEFAULT_GET_USERS_ERR_MSG, getAPIEndpoint } from '../../../config';
+import { DEFAULT_GET_ROLES_ERR_MSG, getAPIEndpoint } from '../../../config';
 import { AddRole } from "../../Components/AddRole";
 import { ConfirmDeletion } from "../../Components/ConfirmDeletion";
 
@@ -14,9 +13,9 @@ export const UsersRolesPage = () => {
 
     const { isOpen: isOpenAddRole, onOpen: onOpenAddRole, onClose: onCloseAddRole } = useDisclosure();
     const { isOpen: isOpenDeleteRole, onOpen: onOpenDeleteRole, onClose: onCloseDeleteRole } = useDisclosure();
-    const [isLoadingRoles, setIsloadingRoles] = useState(false);
-    const [selectedRole, setSelectedRole] = useState([]);
-    const [roles, setRoles] = useState([]);
+    const [ isLoadingRoles, setIsloadingRoles ] = useState(false);
+    const [ selectedRole, setSelectedRole ] = useState([]);
+    const [ roles, setRoles ] = useState([]);
     const toast = useToast();
 
     useEffect(() => {
@@ -45,7 +44,6 @@ export const UsersRolesPage = () => {
                 const { status, data } = response.data;
                 if (status === "success") {
                     setIsloadingRoles(false);
-                    console.log(data);
                     setRoles(data);
                     setSelectedRole(data[0]);
                     log();
@@ -106,89 +104,17 @@ export const UsersRolesPage = () => {
     const postDeleteRole = () => {
         setSelectedRole([]);
     }
-    const handleShowRole = (role) => {
-        console.log(role);
-        setSelectedRole(role);
-        // onOpenAddUser();
-    }
 
-    const [ name, setName ] = useState("Admin");
-    const [ details, setDetails ] = useState("This role grants users the permissions to manage everything on the dashboard");
-    const [ members, setMembers ] = useState(["Christina Elele"]);
-    const [ hasAccess, setHasAccess ] = useState([
+    const details = "This role grants users the permissions to manage everything on the dashboard";
+    const members = ["Christina Elele"];
+    const hasAccess = [
         "Access all modules and features.",
         "Manage users, permissions, and roles.",
         "Initiate transfers and bulk transfers.",
         "Configure system settings and customize dashboard.",
         "View audit trails and reports."
-    ]);
-    const [ hasNoAccess, setHasNoAccess ] = useState("No specific restrictions within the application.");
-
-
-    function clickAdmin() {
-        setName("Admin");
-        setDetails("This role grants users the permissions to manage everything on the dashboard");
-        setMembers(["Christina Elele"]);
-        setHasAccess([
-            "Access all modules and features.",
-            "Manage users, permissions, and roles.",
-            "Initiate transfers and bulk transfers.",
-            "Configure system settings and customize dashboard.",
-            "View audit trails and reports."
-        ]);
-        setHasNoAccess("No specific restrictions within the application.");
-    }
-
-    function clickFinMan() {
-        setName("Financial Manager");
-        setDetails("This role grants users fiancial manager details");
-        setMembers(["Christina Elele", "Emmanuel Ucheze"]);
-        setHasAccess([
-            "Access all modules except user management.",
-            "Initiate transfers and bulk transfers with potential approval requirement.",
-            "Create budgets, track cash flow, manage loans, and investments.",
-            "Generate reports and reconcile bank statements."
-        ]);
-        setHasNoAccess("Cannot manage users or access user management settings.");
-    }
-
-    function clickAccMan() {
-        setName("Account Manager");
-        setDetails("This role grants users acount manager details");
-        setMembers(["Amara Ude", "Sophia Momah"]);
-        setHasAccess([
-            "Access all modules except user management and system settings.",
-            "Initiate transfers for managed accounts, subject to restrictions.",
-            "View account details, track expenses, and budgets.",
-            "Access cash flows, loans, and investments functionalities."
-        ]);
-        setHasNoAccess("Cannot manage users or system settings.");
-    }
-
-    function clickEmployee() {
-        setName("Employee/User");
-        setDetails("This role grants users employee and user details");
-        setMembers(["Amara Ude"]);
-        setHasAccess([
-            "Access specific modules based on permissions.",
-            "Initiate transfers for designated accounts.",
-            "Initiate transfers and bulk transfers.",
-            "View relevant account details, transactions, and budgets.",
-            "Limited access to advanced functionalities like reconciliation and investments."
-        ]);
-        setHasNoAccess("Cannot access administrative features or manage users.");
-    }
-
-    function clickAuditor() {
-        setName("Auditor");
-        setDetails("This role grants users auditor details");
-        setMembers(["Emmanuel Ucheze"]);
-        setHasAccess([
-            "Access audit trails, reports, and relevant modules.",
-            "View detailed activity logs, financial reports, and transaction histories."
-        ]);
-        setHasNoAccess("Initiate transactions, manage users, or access administrative settings.");
-    }
+    ];
+    const hasNoAccess = "No specific restrictions within the application.";
 
 
     return (
@@ -210,13 +136,14 @@ export const UsersRolesPage = () => {
 
             {isLoadingRoles ? <Center><Spinner /></Center> :
 
-                <>
                 <div className={styles.roles}>
                     <div className={styles.rolesNav}>
                         <h4>Default Roles</h4>
                         <ul>
                             {roles.map((role, index) => (
-                                <li className={role.role_name == selectedRole.role_name ? styles.active : styles.inactive} key={index}><button onClick={() => handleShowRole(role)}>{role.role_name}</button></li>
+                                <li className={role.role_name == selectedRole.role_name ? styles.active : styles.inactive} key={index}>
+                                    <button onClick={() => setSelectedRole(role)}>{role.role_name}</button>
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -256,7 +183,6 @@ export const UsersRolesPage = () => {
                     </div>
 
                 </div>
-                </>
             }
 
         </div>

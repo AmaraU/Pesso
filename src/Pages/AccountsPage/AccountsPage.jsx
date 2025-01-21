@@ -46,6 +46,8 @@ export const AccountsPage = () => {
             navigate("/signin");
         }
         log("Viewed all accounts and summary", "Accounts");
+        console.log(sessionStorage.getItem("id"))
+
         getAllAccounts();
     }, []);
 

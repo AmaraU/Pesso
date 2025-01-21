@@ -351,10 +351,10 @@ export const AccountInfo = ({ isOpen, onClose, refreshAccounts, flag, dataset = 
                                                                     [styles.credit]: transaction.trans_type.toLowerCase() == 'credit',
                                                                     [styles.debit]: transaction.trans_type.toLowerCase() == 'debit'
                                                                 })}>
-                                                                    {transaction.trans_type.toLowerCase() === ("credit") ? `+` : ''}
-                                                                    {transaction.trans_type.toLowerCase() === ("debit") ? `-` : ''}
-                                                                    {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                                                    {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                                                    {transaction.trans_type.toLowerCase() === ("credit") ? `+` :
+                                                                    transaction.trans_type.toLowerCase() === ("debit") ? `-` : ''}
+                                                                    {transaction.currency.toLowerCase() === ("ngn") ? `₦` :
+                                                                    transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
                                                                     {formatNumber(transaction.trans_amount)}
                                                                 </div>
                                                             </div>

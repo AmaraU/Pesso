@@ -58,7 +58,7 @@
 
 .workflowDivs {
     display: grid;
-    grid-template-columns: repeat(4,25%);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 24px;
 }
 
@@ -274,7 +274,7 @@
     border: 1px dashed #E5E7EB;
     padding: 16px;
     display: grid;
-    grid-template-columns: repeat(3,auto);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     justify-content: space-between;
     text-align: center;
     gap: 12px;
@@ -316,4 +316,58 @@
 }
 .submitButton button:hover {
     background-color: #BD0429;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+    .whole {
+        margin-top: 135px;
+        padding: 24px;
+    }
+    .workflowDivs {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+}
+@media screen and (max-width: 850px) {
+    .searchButtons {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .searchBar {
+        margin-right: auto;
+        border-radius: 8px;
+        border: 1px solid #DEDEDE;
+        width: 100%;
+        padding: 8px 16px;
+    }
+    .searchBar input {
+        width: 100%;
+    }
+    .buttons {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    .buttonOne {
+        font-size: 12px;
+        font-weight: 500;
+        padding: 8px 12px;
+    }
+    .workflowDivs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+}
+@media screen and (max-width: 680px) {
+    .whole {
+        margin-left: 0;
+    }
+}
+@media screen and (max-width: 450px) {
+    .workflowDivs {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 12px;
+    }
 }

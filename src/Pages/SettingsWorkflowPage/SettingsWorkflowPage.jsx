@@ -132,7 +132,7 @@ export const SettingsWorkflowPage = () => {
 
                     {filteredWorkflows.map((workflow, index) => (
 
-                        <div className={styles.workflowDiv} id={index}>
+                        <div className={styles.workflowDiv} id={index} key={index}>
                             <div className={styles.workflowHeader}>{workflow.type} Transfer</div>
 
                             <div className={styles.row}>

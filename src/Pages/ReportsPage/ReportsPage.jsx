@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from "./ReportsPage.module.css";
 import { getImageUrl } from '../../../utils';
 import BarChart from '../../Components/BarChart';
@@ -10,12 +10,15 @@ import { auditLog, logger } from '../../models/logging';
 import { DEFAULT_CASHFLOW_SUMMARY_ERR_MSG, getAPIEndpoint } from '../../../config';
 import ReactSpeedometer from "react-d3-speedometer";
 import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
 
 
 export const ReportsPage = () => {
 
     const [ cashflowSummary, setCashflowSummary ] = useState([]);
     const [ isCashflowLoading, setIsCashflowloading ] = useState(false);
+    const popupRef = useRef(null);
     const toast = useToast();
 
     useEffect(() => {
@@ -200,6 +203,7 @@ export const ReportsPage = () => {
         document.body.removeChild(link);
 
         log("Downloaded reports (csv)", "Reports");
+        setOpenDownload(false);
     };
 
     const generatePDF = () => {
@@ -216,7 +220,7 @@ export const ReportsPage = () => {
                 pdf.save('reports.pdf');
             });
         log("Downloaded reports (pdf)", "Reports");
-        
+        setOpenDownload(false);
     };
 
 
@@ -243,7 +247,7 @@ export const ReportsPage = () => {
                         <img src={getImageUrl("icons/whiteDownArrow.png")} alt="" />
                         Download
                     </a>
-                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} >
+                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`} ref={popupRef}>
                         <p>DOWNLOAD</p>
                         <a onClick={generatePDF}>
                             <img src={getImageUrl("icons/pdf.png")} />

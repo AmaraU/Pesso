@@ -121,6 +121,7 @@ export const Overview = () => {
             }
             console.log(payload)
             const response = await axios.post(getAPIEndpoint('account-details'), payload);
+            console.log(response);
             if (response) {
                 const { status, data } = response.data;
                 if (status === "success") {

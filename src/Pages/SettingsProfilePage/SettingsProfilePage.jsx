@@ -3,7 +3,7 @@ import styles from "./SettingsProfilePage.module.css";
 import { Center, Spinner, useToast } from "@chakra-ui/react";
 import { DEFAULT_USER_INFO_ERR_MSG, getAPIEndpoint } from "../../../config";
 import axios from "axios";
-import { logger } from "../../models/logging";
+import { auditLog, logger } from "../../models/logging";
 
 export const SettingsProfilePage = () => {
 

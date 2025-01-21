@@ -63,6 +63,9 @@
 
 
 
+.smallAuditTable {
+    display: none;
+}
 
 .auditTrailsTable {
     border-collapse: collapse;

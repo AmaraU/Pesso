@@ -82,13 +82,12 @@ button, a {
     height: 16px;
 }
 
-.filterClosed {
-    display: none;
-}
+
 .filter {
     display: block;
     right: 5%;
     width: 25%;
+    min-width: 250px;
     text-align: left;
     background-color: #FFFFFF;
     border: 1px solid #E5E7EB;
@@ -171,9 +170,6 @@ button, a {
 
 
 
-.downloadClosed {
-    display: none;
-}
 .download {
     display: block;
     width: 15%;

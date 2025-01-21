@@ -72,6 +72,7 @@
 .theDiv .divHeader {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .theDiv .divHeader button {
     padding: 8px 12px;
@@ -197,4 +198,46 @@ input:checked + .sliderContainer p {
   
 .slider.round:before {
     border-radius: 50%;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+    .theWhole {
+        margin-top: 135px;
+        padding: 24px;
+    }
+}
+@media screen and (max-width: 680px) {
+    .theWhole {
+        margin-left: 0;
+        flex-direction: column;
+    }
+    .navBar {
+        position: relative;
+        flex-direction: row;
+        margin-bottom: 24px;
+    }
+    .theDivs {
+        margin: 0;
+        flex: 100%;
+    }
+    .theDiv {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 400px) {
+    .navBar {
+        flex-direction: column;
+    }
+    .navBar a {
+        font-size: 10px;
+    }
+    .theDiv {
+        width: 100%;
+        font-size: 10px;
+    }
+    .theDiv .divHeader {
+        font-size: 10px;
+    }
 }

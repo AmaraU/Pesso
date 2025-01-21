@@ -1,43 +1,3 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .react-calendar {
   width: 100%;
   background-color: #fff;
@@ -75,50 +35,6 @@ abbr[title] {
   text-decoration: none;
 }
 
-.react-calendar__tile:enabled:hover,
-.react-calendar__tile:enabled:focus {
-  background: #f8f8fa;
-  color: #1C6BFF;
-  border-radius: 10px;
-}
-
-.react-calendar__tile--now {
-  background: #6f48eb33;
-  border-radius: 10px;
-  font-weight: bold;
-  color: #1C6BFF;
-}
-
-.react-calendar__tile--now:enabled:hover,
-.react-calendar__tile--now:enabled:focus {
-  background: #6f48eb33;
-  border-radius: 10px;
-  font-weight: bold;
-  color: #1C6BFF;
-}
-
-.react-calendar__tile--hasActive:enabled:hover,
-.react-calendar__tile--hasActive:enabled:focus {
-  background: #f8f8fa;
-}
-
-.react-calendar__tile--active {
-  background: #1C6BFF;
-  border-radius: 10px;
-  font-weight: bold;
-  color: white;
-}
-
-.react-calendar__tile--active:enabled:hover,
-.react-calendar__tile--active:enabled:focus {
-  background: #1C6BFF;
-  color: white;
-}
-
-
-/* App.css */
-
-/* Change the background color and text color of the selected date */
 .react-calendar__tile--active {
   background-color: #D2042D !important;
   color: white !important;
@@ -152,4 +68,52 @@ abbr[title] {
   border-radius: 10px;
   font-weight: bold;
   color: #D2042D;
+}
+
+
+
+
+/* .apexcharts-series,
+.apexcharts-treemap-series {
+  transition: transform 0.3s ease;
+}
+.apexcharts-treemap-rect-active:hover,
+.apexcharts-treemap-rect[selected],
+.apexcharts-tooltip-actve:hover {
+  transition-delay: 0.3s;
+  /* transition: transform 0.3s ease; *
+  transform: scale(1.05);
+} */
+
+
+
+.apexcharts-series text,
+.apexcharts-treemap-series text,
+.apexcharts-treemap text {
+  /* font-size: 55%; */
+  text-anchor: middle !important;
+}
+/* 
+.apexcharts-treemap .apexcharts-treemap-rect {
+  transition: transform 0.3s ease-in-out; /* Smooth transition for scaling *
+}
+
+.apexcharts-treemap .apexcharts-treemap-rect:hover {
+  transform: scale(1.1); /* Scale the box on hover *
+  z-index: 10; /* Ensure the hovered box appears on top *
+} */
+
+
+
+
+.apexcharts-treemap .apexcharts-treemap-rect {
+  transition: transform 0.3s ease-in-out;
+  transform-origin: center;
+  position: relative;
+  z-index: 1;
+}
+
+.apexcharts-treemap .apexcharts-treemap-rect:hover {
+  /* transform: scale(1.1); */
+  z-index: 10;
 }

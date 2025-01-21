@@ -93,9 +93,6 @@ export const AccountsTable = () => {
         setIsSummaryLoading(false);
     }
 
-    console.log(current);
-    console.log(previous);
-
     const CurrentTable = () => {
 
         const [currentPage, setCurrentPage] = useState(1);
@@ -138,7 +135,7 @@ export const AccountsTable = () => {
                                         <td>{current.institution_name}</td>
                                         <td>{current.account_number}</td>
                                         <td>
-                                            {current.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                            {current.currency.toLowerCase() === ("ngn") ? `₦` : ``}
                                             {current.currency.toLowerCase() === ("usd") ? `$` : ``}
                                             {formatNumber(current.account_balance)}
                                         </td>
@@ -166,7 +163,7 @@ export const AccountsTable = () => {
                                     <div className={styles.smallAccountsTableRow}>
                                         <div className={styles.greyBox}>Opening Available</div>
                                         <div className={styles.whiteBox}>
-                                            {current.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                            {current.currency.toLowerCase() === ("ngn") ? `₦` : ``}
                                             {current.currency.toLowerCase() === ("usd") ? `$` : ``}
                                             {formatNumber(current.account_balance)}
                                         </div>
@@ -206,6 +203,7 @@ export const AccountsTable = () => {
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
         const currentPrevious = previous.slice(indexOfFirstItem, indexOfLastItem);
+        console.log(currentPrevious);
 
         const handlePageChange = (pageNumber) => {
             setCurrentPage(pageNumber);
@@ -213,7 +211,7 @@ export const AccountsTable = () => {
 
 
         return (
-            <div id="previousTable" className={styles.hide}>
+            <div id="previousTable">
                 {currentPrevious.length === 0 ? (
                     <div className={styles.nothingBigDivTable}>
                         <div className={styles.nothingFoundTable}>
@@ -224,7 +222,6 @@ export const AccountsTable = () => {
 
                 ) : (
                     <>
-
                         <table className={styles.accountsTable}>
                             <thead>
                                 <th>Account</th>
@@ -240,7 +237,7 @@ export const AccountsTable = () => {
                                         <td>{previous.institution_name}</td>
                                         <td>{previous.account_number}</td>
                                         <td>
-                                            {previous.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                            {previous.currency.toLowerCase() === ("ngn") ? `₦` : ``}
                                             {previous.currency.toLowerCase() === ("usd") ? `$` : ``}
                                             {formatNumber(previous.account_balance)}
                                         </td>
@@ -269,7 +266,7 @@ export const AccountsTable = () => {
                                         <div className={styles.smallAccountsTableRow}>
                                             <div className={styles.greyBox}>Opening Available</div>
                                             <div className={styles.whiteBox}>
-                                                {previous.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                                {previous.currency.toLowerCase() === ("ngn") ? `₦` : ``}
                                                 {previous.currency.toLowerCase() === ("usd") ? `$` : ``}
                                                 {formatNumber(previous.account_balance)}
                                             </div>
@@ -313,13 +310,6 @@ export const AccountsTable = () => {
         });
     };
 
-    function toggleSuccess() {
-        setOpenExport(false);
-        var success = document.getElementById('successpopup');
-        success.classList.toggle(`${styles.successPopped}`);
-        var popup = document.getElementById('dimmer');
-        popup.classList.toggle(`${styles.dim}`);
-    }
 
     const formatNumber = (number) => {
         return new Intl.NumberFormat('en-US').format(number);
@@ -328,10 +318,14 @@ export const AccountsTable = () => {
 
 
     const popupRef = useRef(null);
+    const exportRef = useRef(null);
 
     const handleClickOutside = (event) => {
         if (popupRef.current && !popupRef.current.contains(event.target)) {
             setOpenFilter(false);
+        }
+        if (exportRef.current && !exportRef.current.contains(event.target)) {
+            setOpenExport(false);
         }
     };
 
@@ -347,10 +341,11 @@ export const AccountsTable = () => {
     return (
         <>
         <Box bg={'white'} p={{ base: "8px", md: "16px" }}>
-            <Stack spacing={"16px"} direction={{ base: "column", lg: "row" }} justifyContent={{ base: "center", lg: "space-between" }} >
 
-                <Tabs>
-                    <Stack alignItems={"center"} spacing={"24px"} direction={{ base: "column", md: "row" }} justifyContent={{ base: "center", md: "center", lg: "auto" }} mb={'24px'} >
+            <Tabs>
+                <Stack spacing={"16px"} direction={{ base: "column", lg: "row" }} justifyContent={{ base: "center", lg: "space-between" }} alignItems={'center'} >
+                
+                    <Stack alignItems={"center"} spacing={"24px"} direction={{ base: "column", md: "row" }} justifyContent={{ base: "center", md: "center", lg: "auto" }} >
 
                         <Text fontSize={"16px"} fontWeight={600} color={"#374151"} justifyItems={{ sm: "left" }}>Account Summary</Text>
                         <TabList borderLeft={{ base: "none", md: "2px solid #D1D5DB" }} justifyItems={{ base: "center", md: "auto" }} gap={"16px"} pl={"24px"} border={"none"}>
@@ -372,7 +367,7 @@ export const AccountsTable = () => {
                                 Filter
                                 <img src={getImageUrl("icons/redDownAngle.png")} />
                             </button>
-                            <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={popupRef}>
+                            {openFilter && <div className={styles.filter} ref={popupRef}>
                                 <p>FILTER</p>
                                 <a href="">Last week</a>
                                 <a href="">Last month</a>
@@ -385,7 +380,7 @@ export const AccountsTable = () => {
                                     </div>
                                 </div>
                                 <a className={styles.reset} href="">Reset All</a>
-                            </div>
+                            </div>}
                         </div>
 
                         <div>
@@ -393,7 +388,7 @@ export const AccountsTable = () => {
                                 <img src={getImageUrl("icons/whiteDownload.png")} alt="" />
                                 Export
                             </button>
-                            <div className={`${styles.exportClosed} ${openExport && styles.export}`} ref={popupRef}>
+                            {openExport && <div className={styles.export} ref={exportRef}>
                                 <div className={styles.exportHeader}>
                                     <p>Export</p>
                                     <a onClick={() => setOpenExport(false)}><img src={getImageUrl("icons/greyClose.png")} alt="" /></a>
@@ -412,25 +407,27 @@ export const AccountsTable = () => {
                                 <div className={styles.exportButton}>
                                     <button onClick={onOpenSuccess}>Export</button>
                                 </div>
-                            </div>
+                            </div>}
                         </div>
 
                     </div>
+                </Stack>
                     
 
-                    {isSummaryLoading ? <Center mt={'24px'}><Spinner h={"20px"} w={"20px"} /></Center> :
-                        <TabPanels maxWidth={'1000px'} mt={'24px'}>
-                            <TabPanel ml={-4}>
-                                <CurrentTable />
-                            </TabPanel>
+                {isSummaryLoading ? <Center mt={'48px'}><Spinner h={"20px"} w={"20px"} /></Center> :
 
-                            <TabPanel ml={-4}>
-                                <PreviousTable />
-                            </TabPanel>
-                        </TabPanels>
-                    }
-                </Tabs>
-            </Stack>
+                    <TabPanels mt={'48px'}>
+
+                        <TabPanel my={-4} p={0}>
+                            <CurrentTable />
+                        </TabPanel>
+                        <TabPanel my={-4} p={0}>
+                            <PreviousTable />
+                        </TabPanel>
+                                       
+                    </TabPanels>
+                }
+            </Tabs>
         </Box>
 
         <Modal isCentered size={'md'} closeOnOverlayClick={true} isOpen={isOpenSuccess} onClose={onCloseSuccess} >

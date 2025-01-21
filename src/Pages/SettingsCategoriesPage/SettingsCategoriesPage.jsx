@@ -87,7 +87,7 @@ export const SettingsCategoriesPage = () => {
         return (
             category.category.toLowerCase().includes(searchLower) ||
             category.createdBy.toLowerCase().includes(searchLower) ||
-            category.color.toLowerCase().includes(searchLower) ||
+            // category.color.toLowerCase().includes(searchLower) ||
             category.type.toLowerCase().includes(searchLower)
         );
     });
@@ -197,13 +197,13 @@ export const SettingsCategoriesPage = () => {
                                     <button onClick={() => toggleAction(index)}>
                                         <img src={getImageUrl("icons/action.png")} />
                                     </button>
-                                    <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                    {actionsOpen[index] && <div className={styles.theActions} ref={popupRef}>
                                         <p>ACTION</p>
                                         <ul>
                                             <li>Remove</li>
                                             <li onClick={() => toggleColorPicker(index)}>Change Color</li>
                                         </ul>
-                                    </div>
+                                    </div>}
                                     {showColorPicker[index] && (
                                         <div className={styles.popover}>
                                             <div className={styles.cover} onClick={() => toggleColorPicker(index)}/>
@@ -218,6 +218,72 @@ export const SettingsCategoriesPage = () => {
 
                     </tbody>
                 </table>
+
+                <div className={styles.smallCategoriesTable}>
+                    {currentCategories.map((category, index) => (
+                        <>
+                            <div className={styles.smallCategoriesTableEntry} id={index} key={index}>
+
+                                <div className={styles.smallCategoriesActions}>
+
+                                    <div className={styles.checkbox}><input type="checkbox" name="" id="" /></div>
+                                    
+                                    <div className={styles.action}>
+                                        <button onClick={() => toggleAction(index)}>
+                                            <img src={getImageUrl("icons/action.png")} />
+                                        </button>
+                                        {actionsOpen[index] && <div className={styles.theActions} ref={popupRef}>
+                                            <p>ACTION</p>
+                                            <ul>
+                                                <li>Remove</li>
+                                                <li onClick={() => toggleColorPicker(index)}>Change Color</li>
+                                            </ul>
+                                        </div>}
+                                        {showColorPicker[index] && (
+                                            <div className={styles.popover}>
+                                                <div className={styles.cover} onClick={() => toggleColorPicker(index)}/>
+                                                <SketchPicker color={colorState[index] || category.color}
+                                                    onChange={(color) => handleColorChange(color, index)}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className={styles.smallCategoriesTableRow}>
+                                    <div className={styles.greyBox}>Categories</div>
+                                    <div className={styles.whiteBox}>{category.category}</div>
+                                </div>
+
+                                <div className={styles.smallCategoriesTableRow}>
+                                    <div className={styles.greyBox}>Created By</div>
+                                    <div className={styles.whiteBox}>{category.createdBy}</div>
+                                </div>
+
+                                <div className={styles.smallCategoriesTableRow}>
+                                    <div className={styles.greyBox}>Colors Assigned</div>
+                                    <div className={styles.whiteBox}>
+                                        <div className={styles.colorBox} style={{backgroundColor: colorState[index] || category.color}} />
+                                    </div>
+                                </div>
+
+                                <div className={styles.smallCategoriesTableRow}>
+                                    <div className={styles.greyBox}>Type</div>
+                                    <div className={styles.whiteBox}>
+                                        <div className={classNames({
+                                            [styles.inflow]: category.type.toLowerCase().includes('inflow'),
+                                            [styles.outflow]: category.type.toLowerCase().includes('outflow'),
+                                        })}>
+                                            {category.type}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={styles.redLine}></div>
+                        </>
+                    ))}
+                </div>
 
                 <Pagination
                     filteredData={filteredCategories}

@@ -332,13 +332,13 @@ export const UsersPage = () => {
                                         <button onClick={() => toggleAction(index)}>
                                             <img src={getImageUrl("icons/action.png")} />
                                         </button>
-                                        <div className={`${styles.actionsClosed} ${actionsOpen[index] && styles.theActions}`} ref={popupRef}>
+                                        {actionsOpen[index] && <div className={styles.theActions} ref={popupRef}>
                                             <ul>
                                                 <li>View</li>
                                                 <li onClick={() => handleEditUser(user)}>Edit</li>
                                                 <li onClick={() => handleDeleteUser(user)} className={styles.delete}>Delete</li>
                                             </ul>
-                                        </div>
+                                        </div>}
                                     </td>
                                 </tr>
                             ))}

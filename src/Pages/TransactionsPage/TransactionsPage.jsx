@@ -29,6 +29,7 @@ export const TransactionsPage = () => {
     const [trxns, setTrxns] = useState([]);
     const toast = useToast();
     const containerRefs = useRef([]);
+    const categoriesRef = useRef(null);
     const filterRef = useRef(null);
     const downloadRef = useRef(null);
     
@@ -62,7 +63,8 @@ export const TransactionsPage = () => {
                 const { status, data } = response.data;
                 if (status === "success") {
                     setIsloading(false);
-                    setTrxns(data);
+                    setTrxns(data.slice(0,100));
+                    console.log(data.slice(0,2));
                     return;
                 }
                 else {
@@ -156,15 +158,14 @@ export const TransactionsPage = () => {
         category.toLowerCase().includes(searchCategories.toLowerCase())
     );
 
-    const toggleCategories = (index) => {
+    const toggleCategories = (event, index) => {
+        event.stopPropagation();
         setOpenCategories(prevState => ({
             ...prevState,
             [index]: !prevState[index]
         }));
-        setOpenFilter(false);
-        setOpenDownload(false);
+        setSearchCategries('');
     };
-
     const handleCategorySelection = (index, category) => {
         setSelectedCategory(prevState => ({...prevState, [index]: category }));
         setOpenCategories(prevState => ({...prevState, [index]: false }));
@@ -173,33 +174,20 @@ export const TransactionsPage = () => {
 
     const handleFilterToggle = () => {
         setOpenFilter(!openFilter);
-        setOpenDownload(false);
-        setOpenCategories({});
     };
-
     const handleDownloadToggle = () => {
         setOpenDownload(!openDownload);
-        setOpenFilter(false);
-        setOpenCategories({});
     };
 
 
 
     const handleClickOutside = (event) => {
-        containerRefs.current.forEach((ref, index) => {
-            if (ref && !ref.contains(event.target)) {
-                setOpenCategories(prevState => ({...prevState, [index] : false}));
-            }
-        });     
-    };
-
-    const handleClickOutside2 = (event) => {
+        if (categoriesRef.current && !categoriesRef.current.contains(event.target)) {
+            setOpenCategories(false);
+        }
         if (filterRef.current && !filterRef.current.contains(event.target)) {
             setOpenFilter(false);
         }
-    };
-
-    const handleClickOutside3 = (event) => {
         if (downloadRef.current && !downloadRef.current.contains(event.target)) {
             setOpenDownload(false);
         }
@@ -207,12 +195,8 @@ export const TransactionsPage = () => {
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
-        document.addEventListener('click', handleClickOutside2, true);
-        document.addEventListener('click', handleClickOutside3, true);
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
-            document.removeEventListener('click', handleClickOutside2, true);
-            document.removeEventListener('click', handleClickOutside3, true);
         };
     }, []);
 
@@ -230,7 +214,7 @@ export const TransactionsPage = () => {
         ];
 
         const rows = transactions.map(transaction => [
-            transaction.trans_date,
+            format(new Date(transaction.trans_date)),
             transaction.trans_ref,
             transaction.trans_narration,
             `${transaction.account_number} - ${transaction.institution_name}`,
@@ -300,7 +284,7 @@ export const TransactionsPage = () => {
                         Filter
                         <img src={getImageUrl("icons/redDownAngle.png")} />
                     </button>
-                    <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={filterRef} >
+                    {openFilter && <div className={styles.filter} ref={filterRef} >
                         <p>FILTER</p>
                         <a href="">Last 7 days</a>
                         <a href="">Last 15 days</a>
@@ -313,13 +297,13 @@ export const TransactionsPage = () => {
                             </div>
                         </div>
                         <a className={styles.reset}>Reset All</a>
-                    </div>
+                    </div>}
 
                     <button className={styles.buttonTwo} onClick={handleDownloadToggle}>
                         <img src={getImageUrl("icons/whiteDownArrow.png")} />
                         Download
                     </button>
-                    <div className={`${styles.downloadClosed} ${openDownload && styles.download}`}>
+                    {openDownload && <div className={styles.download} ref={downloadRef}>
                         <p>DOWNLOAD</p>
                         <a onClick={generatePDF}>
                             <img src={getImageUrl("icons/pdf.png")} />
@@ -330,7 +314,7 @@ export const TransactionsPage = () => {
                             <img src={getImageUrl("icons/csv.png")} />
                             CSV Format
                         </a>
-                    </div>
+                    </div>}
 
                 </div>
             </div>
@@ -368,85 +352,12 @@ export const TransactionsPage = () => {
                                     <td>{transaction.trans_narration}</td>
                                     <td>{transaction.account_number} - {transaction.institution_name}</td>
                                     <td className={styles.category}>
-                                        <button className={styles.categoriesButton} onClick={() => toggleCategories(index)}>
+                                        <button className={styles.categoriesButton} onClick={(e) => toggleCategories(e, index)}>
                                             <p>{selectedCategory[index] || "Salaries and wage"}</p>
                                             <img src={getImageUrl("icons/blackDownAngle.png")} />
                                         </button>
 
-                                        {openCategories[index] && (
-                                            <div className={styles.theCategories} ref={el => containerRefs.current[index] = el} >
-                                                <p>CATEGORY</p>
-                                                <div className={styles.categorySearch}>
-                                                    <img src={getImageUrl("icons/search.png")} />
-                                                    <input id="search" type="text" onChange={handleSearchCategories} placeholder='Search for Category' />
-                                                </div>
-
-                                                <ul>
-                                                    {filteredCategories.map((category, catIndex) => (
-                                                        <li key={catIndex} onClick={() => handleCategorySelection(index, category)}>{category}</li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        )}
-                                        
-                                    </td>
-                                    <td className={classNames({
-                                        [styles.credit]: transaction.trans_type.toLowerCase() === ("credit"),
-                                        [styles.debit]: transaction.trans_type.toLowerCase() === ("debit")
-                                    })}>
-                                        {transaction.trans_type.toLowerCase() === ("credit") ? `+` : ``}
-                                        {transaction.trans_type.toLowerCase() === ("debit") ? `-` : ``}
-                                        {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                        {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
-                                        {formatNumber(transaction.trans_amount)}
-                                    </td>
-                                    <td>
-                                    {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                        {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
-                                        {formatNumber(transaction.account_balance)}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-
-                    <div className={styles.smallTransactionTable}>
-                        {currentTransactions.map((transaction, index) => (
-                            <>
-                            <div className={styles.smallTransactionTableEntry}>
-
-                                <div className={styles.smallTransactionTableRow}>
-                                    <div className={styles.greyBox}>Date Created</div>
-                                    <div className={styles.whiteBox}>{format(new Date (transaction.trans_date), 'MMM dd, yyyy')}</div>
-                                </div>
-
-                                <div className={styles.smallTransactionTableRow}>
-                                    <div className={styles.greyBox}>Reference No.</div>
-                                    <div className={styles.whiteBox}>{transaction.trans_ref}</div>
-                                </div>
-
-                                <div className={styles.smallTransactionTableRow}>
-                                    <div className={styles.greyBox}>Description</div>
-                                    <div className={styles.whiteBox}>{transaction.trans_narration}</div>
-                                </div>
-
-                                <div className={styles.smallTransactionTableRow}>
-                                    <div className={styles.greyBox}>Account</div>
-                                    <div className={styles.whiteBox}>{transaction.account_number} - {transaction.institution_name}</div>
-                                </div>
-
-                                <div className={styles.smallTransactionTableRow}>
-                                    <div className={styles.greyBox}>Category</div>
-
-                                    <div className={styles.whiteBox}>
-                                        <button className={styles.categoriesButton} onClick={() => toggleCategories(index)}>
-                                            <p>{selectedCategory[index] || "Salaries and wage"}</p>
-                                            <img src={getImageUrl("icons/blackDownAngle.png")} />
-                                        </button>
-                                    </div>
-
-                                    {openCategories[index] && (
-                                        <div className={styles.theCategories} ref={el => containerRefs.current[index] = el} >
+                                        {openCategories[index] && <div className={styles.theCategories} ref={categoriesRef} >
                                             <p>CATEGORY</p>
                                             <div className={styles.categorySearch}>
                                                 <img src={getImageUrl("icons/search.png")} />
@@ -458,40 +369,109 @@ export const TransactionsPage = () => {
                                                     <li key={catIndex} onClick={() => handleCategorySelection(index, category)}>{category}</li>
                                                 ))}
                                             </ul>
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className={styles.smallTransactionTableRow}>
-
-                                    <div className={styles.greyBox}>Amount</div>
-                                                                        
-                                    <div className={`${classNames({
+                                        </div>}
+                                        
+                                    </td>
+                                    <td className={classNames({
                                         [styles.credit]: transaction.trans_type.toLowerCase() === ("credit"),
-                                        [styles.debit]: transaction.trans_type.toLowerCase() === ("debit") })}
-                                        ${styles.whiteBox}`}
-                                    >
-                                        {transaction.trans_type.toLowerCase() === ("credit") ? `+` : ``}
-                                        {transaction.trans_type.toLowerCase() === ("debit") ? `-` : ``}
-                                        {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                        {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        [styles.debit]: transaction.trans_type.toLowerCase() === ("debit")
+                                    })}>
+                                        {transaction.trans_type.toLowerCase() === ("credit") ? `+` :
+                                        transaction.trans_type.toLowerCase() === ("debit") ? `-` : ``}
+                                        {transaction.currency.toLowerCase() === ("ngn") ? `₦` :
+                                        transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
                                         {formatNumber(transaction.trans_amount)}
-                                    </div>
-                                </div>
-
-                                <div className={styles.smallTransactionTableRow}>
-                                    <div className={styles.greyBox}>Balance</div>
-
-                                    <div className={styles.whiteBox}>
-                                        {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                        {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                    </td>
+                                    <td>
+                                        {transaction.currency.toLowerCase() === ("ngn") ? `₦` :
+                                        transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
                                         {formatNumber(transaction.account_balance)}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    <div className={styles.smallTransactionTable}>
+                        {currentTransactions.map((transaction, index) => (
+                            <div key={index}>
+                                <div className={styles.smallTransactionTableEntry}>
+
+                                    <div className={styles.smallTransactionTableRow}>
+                                        <div className={styles.greyBox}>Date Created</div>
+                                        <div className={styles.whiteBox}>{format(new Date (transaction.trans_date), 'MMM dd, yyyy')}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransactionTableRow}>
+                                        <div className={styles.greyBox}>Reference No.</div>
+                                        <div className={styles.whiteBox}>{transaction.trans_ref}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransactionTableRow}>
+                                        <div className={styles.greyBox}>Description</div>
+                                        <div className={styles.whiteBox}>{transaction.trans_narration}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransactionTableRow}>
+                                        <div className={styles.greyBox}>Account</div>
+                                        <div className={styles.whiteBox}>{transaction.account_number} - {transaction.institution_name}</div>
+                                    </div>
+
+                                    <div className={styles.smallTransactionTableRow}>
+                                        <div className={styles.greyBox}>Category</div>
+
+                                        <div className={styles.whiteBox}>
+                                            <button className={styles.categoriesButton} onClick={(e) => toggleCategories(e, index)}>
+                                                <p>{selectedCategory[index] || "Salaries and wage"}</p>
+                                                <img src={getImageUrl("icons/blackDownAngle.png")} />
+                                            </button>
+                                        </div>
+
+                                        {openCategories[index] && <div className={styles.theCategories} ref={categoriesRef} >
+                                            <p>CATEGORY</p>
+                                            <div className={styles.categorySearch}>
+                                                <img src={getImageUrl("icons/search.png")} />
+                                                <input id="search" type="text" onChange={handleSearchCategories} placeholder='Search for Category' />
+                                            </div>
+
+                                            <ul>
+                                                {filteredCategories.map((category, catIndex) => (
+                                                    <li key={catIndex} onClick={() => handleCategorySelection(index, category)}>{category}</li>
+                                                ))}
+                                            </ul>
+                                        </div>}
+                                    </div>
+
+                                    <div className={styles.smallTransactionTableRow}>
+
+                                        <div className={styles.greyBox}>Amount</div>
+                                                                            
+                                        <div className={`${classNames({
+                                            [styles.credit]: transaction.trans_type.toLowerCase() === ("credit"),
+                                            [styles.debit]: transaction.trans_type.toLowerCase() === ("debit") })}
+                                            ${styles.whiteBox}`}
+                                        >
+                                            {transaction.trans_type.toLowerCase() === ("credit") ? `+` : ``}
+                                            {transaction.trans_type.toLowerCase() === ("debit") ? `-` : ``}
+                                            {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                            {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                            {formatNumber(transaction.trans_amount)}
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.smallTransactionTableRow}>
+                                        <div className={styles.greyBox}>Balance</div>
+
+                                        <div className={styles.whiteBox}>
+                                            {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
+                                            {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                            {formatNumber(transaction.account_balance)}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className={styles.redLine}></div>
-                            </>
+                                <div className={styles.redLine}></div>
+                            </div>
                         ))}
                     </div>
 

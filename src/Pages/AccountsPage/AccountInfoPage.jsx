@@ -53,7 +53,7 @@ export const AccountInfoPage = () => {
         setIsloading(true);
         try {
             const payload = {
-                id: d.account_id,
+                id: _data.account_id,
                 userId: sessionStorage.getItem("id")
             }
 
@@ -170,7 +170,7 @@ export const AccountInfoPage = () => {
                             All Transactions
                             <img src={getImageUrl("icons/redDownAngle.png")} />
                         </button>
-                        <div className={`${styles.filterClosed} ${openFilter && styles.filter}`} ref={popupRef}>
+                        {openFilter && <div className={styles.filter} ref={popupRef}>
                             <p>FILTER</p>
                             <a href="">Last 7 days</a>
                             <a href="">Last 15 days</a>
@@ -183,7 +183,7 @@ export const AccountInfoPage = () => {
                                 </div>
                             </div>
                             <a className={styles.reset} href="">Reset All</a>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
@@ -208,10 +208,10 @@ export const AccountInfoPage = () => {
                                             [styles.credit]: transaction.trans_type.toLowerCase() == 'credit',
                                             [styles.debit]: transaction.trans_type.toLowerCase() == 'debit'
                                         })}>
-                                            {transaction.trans_type.toLowerCase() === ("credit") ? `+` : ''}
-                                            {transaction.trans_type.toLowerCase() === ("debit") ? `-` : ''}
-                                            {transaction.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                            {transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                            {transaction.trans_type.toLowerCase() === ("credit") ? `+` :
+                                            transaction.trans_type.toLowerCase() === ("debit") ? `-` : ''}
+                                            {transaction.currency.toLowerCase() === ("ngn") ? `₦` :
+                                            transaction.currency.toLowerCase() === ("usd") ? `$` : ``}
                                             {formatNumber(transaction.trans_amount)}
                                         </div>
                                     </div>

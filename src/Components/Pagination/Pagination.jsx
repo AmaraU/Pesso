@@ -24,7 +24,7 @@ const Pagination = ({ filteredData, currentPage, itemsPerPage, onPageChange }) =
     
     
     const getPagination = () => {
-        const delta = 2;
+        const delta = 1;
         const range = [];
         const left = currentPage - delta;
         const right = currentPage + delta;
@@ -63,19 +63,21 @@ const Pagination = ({ filteredData, currentPage, itemsPerPage, onPageChange }) =
                 <img src={getImageUrl("icons/greyLeftAngle.png")} alt="Previous" />
                 Previous
             </button>
-            {pages.map((page, index) =>
-                page === '...' ? (
-                    <span key={`ellipsis-${index}`} className={styles.ellipsis}>...</span>
-                ) : (
-                <button
-                    key={`page-${page}`}
-                    onClick={() => handlePageClick(page)}
-                    className={currentPage === page ? styles.activePage : styles.gotToPage}
-                >
-                    {page < 10 ? `0${page}` : page}
-                </button>
-                )
-            )}
+            <div className={styles.numbers}>
+                {pages.map((page, index) =>
+                    page === '...' ? (
+                        <span key={`ellipsis-${index}`} className={styles.ellipsis}>...</span>
+                    ) : (
+                    <button
+                        key={`page-${page}`}
+                        onClick={() => handlePageClick(page)}
+                        className={currentPage === page ? styles.activePage : styles.gotToPage}
+                    >
+                        {page < 10 ? `0${page}` : page}
+                    </button>
+                    )
+                )}
+            </div>
             <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.move}>
                 Next
                 <img src={getImageUrl("icons/greyRightAngle.png")} alt="Next" />

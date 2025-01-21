@@ -109,7 +109,9 @@
 
 
 
-
+.smallUsersTable {
+    display: none;
+}
 
 .userTable {
     border-collapse: collapse;

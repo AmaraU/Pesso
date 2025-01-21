@@ -8,6 +8,12 @@
     gap: 24px;
 }
 
+.numbers {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .pagination button {
     cursor: pointer;
 }
@@ -56,4 +62,38 @@
 }
 .gotToPage:hover {
     color: #878C95;
+}
+
+@media screen and (max-width: 62em) {
+    .pagination {
+        /* flex-direction: column; */
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .numbers {
+        order: -1;
+        flex: 1 0 100%;
+        justify-content: center;
+    }
+    .move {
+        flex-basis: 40%;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .activePage {
+        padding: 6px;
+        font-size: 12px;
+    }
+    .gotToPage {
+        padding: 6px;
+        font-size: 12px;
+    }
+    .pagination .move {
+        gap: 6px;
+        font-size: 12px;
+    }
 }

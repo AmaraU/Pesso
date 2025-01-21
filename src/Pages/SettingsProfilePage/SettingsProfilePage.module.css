@@ -67,3 +67,18 @@
     padding-bottom: 12px;
     padding-left: 40px;
 }
+
+
+
+
+@media screen and (max-width: 1000px) {
+    .theWhole {
+        margin-top: 135px;
+        padding: 24px;
+    }
+}
+@media screen and (max-width: 680px) {
+    .theWhole {
+        margin-left: 0;
+    }
+}

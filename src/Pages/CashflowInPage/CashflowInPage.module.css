@@ -213,98 +213,6 @@ button, a {
 
 
 
-.inflowTreemap,
-.smallInflowTreemap {
-    width: 100%;
-    height: 400px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 72px;
-}
-.smallInflowTreemap {
-    display: none;
-}
-.smallInflowTreemap div {
-    align-items: center;
-    justify-content: center;
-}
-.inflowTreemap div {
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-.treemapColumn  {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-}
-.treemapRow {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: space-between;
-}
-
-.treemapBox {
-    text-align: center;
-    color: #1D0F0068;
-    padding: 5px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.5s ease;
-    border: 2px solid #FFF;
-}
-.treemapBox h5 {
-    font-size: 150%;
-    font-weight: 600;
-}
-.treemapBox p {
-    font-size: 70%;
-    font-weight: 500;
-    margin-top: -5px;
-}
-.treemapBox:hover {
-    transition-delay: 0.3s;
-    transform: scale(1.1);
-}
-
-.one { background-color: #F0E68C;}
-.two {background-color: #E6E6FA;}
-.three {background-color: #F5DEB3;}
-.four {background-color: #FFFACD;}
-.five {background-color: #CEADCE;}
-.six {background-color: #E0FFFF;}
-.seven {background-color: #FFE4E1;}
-.eight {background-color: #F0FFF0;}
-.nine {background-color: #FAFAD2;}
-.ten {background-color: #F5F5F5;}
-.eleven {background-color: #FFF5EE;}
-.twelve {background-color: #F8F8FF;}
-.thirteen {background-color: #F0F8FF;}
-.fourteen {background-color: #F5FFFA;}
-.fifteen {background-color: #FAEBD7;}
-.sixteen {background-color: #FFDBA0;}
-.seventeen {background-color: #FBD5E2;}
-.eithteen {background-color: #FFEFD1;}
-.nineteen {background-color: #DFD5C1;}
-.twenty {background-color: #FFE168;}
-.twentyone {background-color: #FFF8DC;}
-.twentytwo {background-color: #F0FFFF;}
-.twentythree {background-color: #FAE6EA;}
-
-
-
-
-
-
-
-
-
 .smallCashInTable {
     display: none;
 }
@@ -314,6 +222,7 @@ button, a {
     width: 100%;
     white-space: nowrap;
     table-layout: fixed;
+    margin-top: 72px;
 }
 
 .inflowTable th {
@@ -443,18 +352,12 @@ button, a {
         padding: 24px;
     }
 
-    .inflowTreemap {
-        display: none;
-    }
-    .smallInflowTreemap {
-        display: block;
-    }
-
     .inflowTable {
         display: none;
     }
     .smallCashInTable {
         display: block;
+        margin-top: 72px;
     }
     .smallCashInTableEntry {
         border: 1px solid #F6F6F6;

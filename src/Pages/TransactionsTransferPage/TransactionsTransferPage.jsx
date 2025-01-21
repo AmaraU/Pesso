@@ -108,7 +108,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Once",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -117,7 +117,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "004563782, 13...",
             type: "Bulk",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Recurring",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -126,7 +126,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Once",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -135,25 +135,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
-            frequency: "Recurring",
-            scheduleDate: "July 22, 2022",
-            description: "Determing the purpose of  the transaction"
-        },
-        {
-            fromAcct: "0123456789 - Polaris Bank",
-            toAcct: "004563782, 13...",
-            type: "Bulk",
-            amount: "N300,000",
-            frequency: "Once",
-            scheduleDate: "July 22, 2022",
-            description: "Determing the purpose of  the transaction"
-        },
-        {
-            fromAcct: "0123456789 - Polaris Bank",
-            toAcct: "23412867",
-            type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Recurring",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -162,7 +144,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "004563782, 13...",
             type: "Bulk",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Once",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -171,7 +153,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Recurring",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -180,7 +162,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "004563782, 13...",
             type: "Bulk",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Once",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -189,7 +171,25 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
+            frequency: "Recurring",
+            scheduleDate: "July 22, 2022",
+            description: "Determing the purpose of  the transaction"
+        },
+        {
+            fromAcct: "0123456789 - Polaris Bank",
+            toAcct: "004563782, 13...",
+            type: "Bulk",
+            amount: "₦300,000",
+            frequency: "Once",
+            scheduleDate: "July 22, 2022",
+            description: "Determing the purpose of  the transaction"
+        },
+        {
+            fromAcct: "0123456789 - Polaris Bank",
+            toAcct: "23412867",
+            type: "Single",
+            amount: "₦300,000",
             frequency: "Recurring",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -202,7 +202,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "004563782, 13...",
             type: "Bulk",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Recurring",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -211,7 +211,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Once",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -220,25 +220,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
-            frequency: "Recurring",
-            scheduleDate: "July 22, 2022",
-            description: "Determing the purpose of  the transaction"
-        },
-        {
-            fromAcct: "0123456789 - Polaris Bank",
-            toAcct: "004563782, 13...",
-            type: "Bulk",
-            amount: "N300,000",
-            frequency: "Once",
-            scheduleDate: "July 22, 2022",
-            description: "Determing the purpose of  the transaction"
-        },
-        {
-            fromAcct: "0123456789 - Polaris Bank",
-            toAcct: "23412867",
-            type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Recurring",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -247,7 +229,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "004563782, 13...",
             type: "Bulk",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Once",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -256,7 +238,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Recurring",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -265,7 +247,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "004563782, 13...",
             type: "Bulk",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Once",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -274,34 +256,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
-            frequency: "Recurring",
-            scheduleDate: "July 22, 2022",
-            description: "Determing the purpose of  the transaction"
-        },
-        {
-            fromAcct: "0123456789 - Polaris Bank",
-            toAcct: "23412867",
-            type: "Single",
-            amount: "N300,000",
-            frequency: "Once",
-            scheduleDate: "July 22, 2022",
-            description: "Determing the purpose of  the transaction"
-        },
-        {
-            fromAcct: "0123456789 - Polaris Bank",
-            toAcct: "23412867",
-            type: "Single",
-            amount: "N300,000",
-            frequency: "Once",
-            scheduleDate: "July 22, 2022",
-            description: "Determing the purpose of  the transaction"
-        },
-        {
-            fromAcct: "0123456789 - Polaris Bank",
-            toAcct: "23412867",
-            type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Recurring",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -310,7 +265,7 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "004563782, 13...",
             type: "Bulk",
-            amount: "N300,000",
+            amount: "₦300,000",
             frequency: "Once",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"
@@ -319,7 +274,52 @@ export const TransactionsTransferPage = () => {
             fromAcct: "0123456789 - Polaris Bank",
             toAcct: "23412867",
             type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
+            frequency: "Recurring",
+            scheduleDate: "July 22, 2022",
+            description: "Determing the purpose of  the transaction"
+        },
+        {
+            fromAcct: "0123456789 - Polaris Bank",
+            toAcct: "23412867",
+            type: "Single",
+            amount: "₦300,000",
+            frequency: "Once",
+            scheduleDate: "July 22, 2022",
+            description: "Determing the purpose of  the transaction"
+        },
+        {
+            fromAcct: "0123456789 - Polaris Bank",
+            toAcct: "23412867",
+            type: "Single",
+            amount: "₦300,000",
+            frequency: "Once",
+            scheduleDate: "July 22, 2022",
+            description: "Determing the purpose of  the transaction"
+        },
+        {
+            fromAcct: "0123456789 - Polaris Bank",
+            toAcct: "23412867",
+            type: "Single",
+            amount: "₦300,000",
+            frequency: "Recurring",
+            scheduleDate: "July 22, 2022",
+            description: "Determing the purpose of  the transaction"
+        },
+        {
+            fromAcct: "0123456789 - Polaris Bank",
+            toAcct: "004563782, 13...",
+            type: "Bulk",
+            amount: "₦300,000",
+            frequency: "Once",
+            scheduleDate: "July 22, 2022",
+            description: "Determing the purpose of  the transaction"
+        },
+        {
+            fromAcct: "0123456789 - Polaris Bank",
+            toAcct: "23412867",
+            type: "Single",
+            amount: "₦300,000",
             frequency: "Recurring",
             scheduleDate: "July 22, 2022",
             description: "Determing the purpose of  the transaction"

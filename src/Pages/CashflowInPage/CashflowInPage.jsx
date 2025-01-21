@@ -12,6 +12,8 @@ import axios from 'axios';
 import { DEFAULT_RECENT_TRXNS_ERR_MSG, getAPIEndpoint } from '../../../config';
 import Pagination from "../../Components/Pagination/Pagination";
 import { AddInvoice } from "../../Components/AddInvoice";
+import ReactApexChart from "react-apexcharts";
+import '../../App.css';
 
 
 
@@ -56,6 +58,7 @@ export const CashflowInPage = () => {
                     setIsloading(false);
                     setTrxnsInflow(data.filter(e => e.trans_type === "credit"));
                     setTrxns(data);
+                    console.log(data.slice(0,2));
                     return;
                 }
                 else {
@@ -215,6 +218,125 @@ export const CashflowInPage = () => {
         }   
     ]
 
+    const inflowMaps = [
+        {
+            name: "bad debts",
+            percentage: 45,
+            boxColor: '#F0E68C',
+        },
+        {
+            name: "charitable contrbutions",
+            percentage: 45,
+            boxColor: '#E6E6FA',
+        },
+        {
+            name: "cost of goods sold (cogs)",
+            percentage: 45,
+            boxColor: '#F5DEB3',
+        },
+        {
+            name: "Depreciation and amortization",
+            percentage: 45,
+            boxColor: '#FFFACD',
+        },
+        {
+            name: "equipment",
+            percentage: 45,
+            boxColor: '#CEADCE',
+        },
+        {
+            name: "fees & commissions",
+            percentage: 45,
+            boxColor: '#E0FFFF',
+        },
+        {
+            name: "insurance",
+            percentage: 45,
+            boxColor: '#FFE4E1',
+        },
+        {
+            name: "interest",
+            percentage: 45,
+            boxColor: '#F0FFF0',
+        },
+        {
+            name: "Marketing & advertising",
+            percentage: 20,
+            boxColor: '#FAFAD2',
+        },
+        {
+            name: "other expenses",
+            percentage: 20,
+            boxColor: '#F5F5F5',
+        },
+        {
+            name: "professional services",
+            percentage: 20,
+            boxColor: '#FFF5EE',
+        },
+        {
+            name: "rent",
+            percentage: 20,
+            boxColor: '#F8F8FF',
+        },
+        {
+            name: "Repairs and maintenance",
+            percentage: 20,
+            boxColor: '#F0F8FF',
+        },
+        {
+            name: "Research and development",
+            percentage: 20,
+            boxColor: '#F5FFFA',
+        },
+        {
+            name: "Salaries & wages",
+            percentage: 10,
+            boxColor: '#FAEBD7',
+        },
+        {
+            name: "Shipping & postage",
+            percentage: 10,
+            boxColor: '#FFDBA0',
+        },
+        {
+            name: "Software & Subscriptions",
+            percentage: 10,
+            boxColor: '#FBD5E2',
+        },
+        {
+            name: "supplies",
+            percentage: 10,
+            boxColor: '#FFEFD1',
+        },
+        {
+            name: "taxes",
+            percentage: 10,
+            boxColor: '#DFD5C1',
+        },
+        {
+            name: "Training & Development",
+            percentage: 20,
+            boxColor: '#FFE168',
+        },
+        {
+            name: "travel",
+            percentage: 5,
+            boxColor: '#FFF8DC',
+        },
+        {
+            name: "utilities",
+            percentage: 5,
+            boxColor: '#F0FFFF',
+        },
+        {
+            name: "entertainment",
+            percentage: 5,
+            boxColor: '#FAE6EA',
+        }
+
+    ]
+
     const [ search, setSearch] = useState("");
     const [ currentPage, setCurrentPage ] = useState(1);
     const itemsPerPage = 10;
@@ -230,7 +352,7 @@ export const CashflowInPage = () => {
 
 
     // const filteredInflows = inflows.filter(inflow => {
-    const filteredInflows = trxnsInflow.filter(inflow => {
+    const filteredInflows = trxnsInflow.slice(0,100).filter(inflow => {
         const searchLower = search.toLowerCase();
         // return (
         //     inflow.invoiceNo.toLowerCase().includes(searchLower) ||
@@ -322,6 +444,70 @@ export const CashflowInPage = () => {
     }
 
 
+    const series = [
+        {
+            data: inflowMaps.map((item) => ({
+                x: item.name.toUpperCase(),
+                y: item.percentage,
+                fillColor: item.boxColor,
+            })),
+        },
+    ];
+    const options = {
+        chart: {
+            type: "treemap",
+            height: 350,
+            redrawOnParentResize: true,
+            redrawOnWindowResize: true,
+            toolbar: {show: false},
+            selection: {enabled: false},
+            animations: {enabled: true},
+            offsetX: 0,
+            offsetY: 0
+        },
+        legend: {show: false},
+        tooltip: {
+            y: {
+                formatter: (value) => `${value}%`,
+            },
+        },
+        dataLabels: {
+            enabled: true,
+            style: {
+                fontSize: "50px",
+                fontWeight: 600,
+                colors: ["#1D0F0068"],
+                // offsetY: "50%",
+            },
+            formatter: (val, opts) => {
+                const { x, y } = opts.w.config.series[0].data[opts.dataPointIndex];
+                // const truncatedX = x.length > 19 ? x.substring(0, 19) + "..." : x;
+                const words = x.split(" ");
+                return [y + "%", ...words];
+                // return [y + "%", truncatedX];
+                // return [y + "%", x];
+            },
+            offsetY: -15,
+            offsetX: 0,
+        },
+        grid: {
+            show: false,
+        },
+        plotOptions: {
+            treemap: {
+              distributed: true,
+              enableShades: false,
+            }
+        },
+        states: {
+            hover: {
+                filter: { type: "none" },
+            },
+        },
+    };
+
+
+
     return (
         <>
         <div className={styles.whole}>
@@ -399,7 +585,14 @@ export const CashflowInPage = () => {
                 ) : (
                     <>
 
-                    <div className={styles.inflowTreemap}>
+                    <ReactApexChart
+                        options={options}
+                        series={series}
+                        type="treemap"
+                        height={400}
+                    />
+
+                    {/* <div className={styles.inflowTreemap}>
                         <div className={styles.treemapColumn}>
                             <div className={styles.treemapRow}>
                                 <div className={`${styles.treemapBox} ${styles.one}`}><h5>45%</h5><p>BAD DEBTS</p></div>
@@ -492,7 +685,9 @@ export const CashflowInPage = () => {
                                 <div className={`${styles.treemapBox} ${styles.twentythree}`}><h5>5%</h5><p>ENTERTAINMENT</p></div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
+
+                    
 
                     <table className={styles.inflowTable}>
                         <thead>
@@ -522,10 +717,10 @@ export const CashflowInPage = () => {
                                         [styles.credit]: inflow.trans_type.toLowerCase() === ("credit"),
                                         [styles.debit]: inflow.trans_type.toLowerCase() === ("debit")
                                     })}>
-                                        {inflow.trans_type.toLowerCase() === ("credit") ? `+` : ''}
-                                        {inflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
-                                        {inflow.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                        {inflow.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {inflow.trans_type.toLowerCase() === ("credit") ? `+` :
+                                        inflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
+                                        {inflow.currency.toLowerCase() === ("ngn") ? `₦` :
+                                        inflow.currency.toLowerCase() === ("usd") ? `$` : ``}
                                         {formatNumber(inflow.trans_amount)}
                                     </td>
                                     {/* <td className={styles.status}>
@@ -591,10 +786,10 @@ export const CashflowInPage = () => {
                                         [styles.debit]: inflow.trans_type.toLowerCase() === ("debit")})}
                                         ${styles.whiteBox}`}
                                     >
-                                        {inflow.trans_type.toLowerCase() === ("credit") ? `+` : ''}
-                                        {inflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
-                                        {inflow.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                        {inflow.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                        {inflow.trans_type.toLowerCase() === ("credit") ? `+` :
+                                        inflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
+                                        {inflow.currency.toLowerCase() === ("ngn") ? `N` :
+                                        inflow.currency.toLowerCase() === ("usd") ? `$` : ``}
                                         {formatNumber(inflow.trans_amount)}
                                     </div>
                                 </div>

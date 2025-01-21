@@ -238,7 +238,7 @@
     position: absolute;
     z-index: 5;
     margin-top: 5px;
-    right: 50px;
+    right: 40px;
 }
 
 .export .exportHeader {
@@ -578,6 +578,9 @@
     .whole {
         margin-top: 135px;
     }
+    .export {
+        right: 0px;
+    }
 }
 
 @media screen and (max-width: 850px) {
@@ -675,6 +678,25 @@
         border: 1px solid #F2B4C0;
         margin-top: 16px;
         margin-bottom: 16px;
+    }
+
+
+    .export {
+        min-width: 380px;
+        right: 50px;
+    }
+    .export .exportHeader {
+        padding: 16px;
+    }
+    .exportHeader img {
+        width: 18px;
+        height: 18px;
+    }
+    .exportForm {
+        padding: 16px;
+    }
+    .exportButton {
+        padding: 12px;
     }
 }
 

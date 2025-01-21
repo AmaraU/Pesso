@@ -210,7 +210,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Washer fluid",
             type: "Single",
-            amount: "N300,000",
+            amount: "₦300,000",
             status: "Paid",
             date: "July 22, 2022",
             category: "Salaries and Wages"
@@ -219,7 +219,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Mid year bonus",
             type: " Bulk",
-            amount: "N2,300,000",
+            amount: "₦2,300,000",
             status: "Paid",
             date: "July 22, 2022",
             category: "Rent"
@@ -228,7 +228,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Office supplies",
             type: "Single",
-            amount: "N24,450",
+            amount: "₦24,450",
             status: "Paid",
             date: "July 22, 2022",
             category: "Utilities"
@@ -237,7 +237,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Office supplies",
             type: "Single",
-            amount: "N190,845",
+            amount: "₦190,845",
             status: "Paid",
             date: "July 22, 2022",
             category: "Utilities"
@@ -246,7 +246,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Transport",
             type: "Bulk",
-            amount: "N860,000",
+            amount: "₦860,000",
             status: "Paid",
             date: "July 22, 2022",
             category: "Equipment"
@@ -255,7 +255,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Office supplies",
             type: "Single",
-            amount: "N30,000",
+            amount: "₦30,000",
             status: "Pending",
             date: "July 22, 2022",
             category: "Salaries and Wages"
@@ -264,7 +264,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Data allowance",
             type: "Bulk",
-            amount: "N1,642,000",
+            amount: "₦1,642,000",
             status: "Pending",
             date: "July 22, 2022",
             category: "Supplies"
@@ -273,7 +273,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Office supplies",
             type: "Single",
-            amount: "N22,000",
+            amount: "₦22,000",
             status: "Pending",
             date: "July 22, 2022",
             category: "Travel"
@@ -282,7 +282,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Housing",
             type: "Bulk",
-            amount: "N3,673,970",
+            amount: "₦3,673,970",
             status: "Overdue",
             date: "July 22, 2022",
             category: "Travel"
@@ -291,7 +291,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Office supplies",
             type: "Single",
-            amount: "N34,780",
+            amount: "₦34,780",
             status: "Overdue",
             date: "July 22, 2022",
             category: "Salaries and Wages"
@@ -300,7 +300,7 @@ export const CashflowOutPage = () => {
             refNo: "235GDBH7",
             title: "Housing",
             type: "Bulk",
-            amount: "N300,000",
+            amount: "₦300,000",
             status: "Overdue",
             date: "July 22, 2022",
             category: "Travel"
@@ -677,10 +677,10 @@ export const CashflowOutPage = () => {
                                                     <td>{removeNumbersAndPunctuation(outflow.trans_narration)}</td>
                                                     <td>{outflow.type}</td>
                                                     <td>
-                                                        {outflow.trans_type.toLowerCase() === ("credit") ? `+` : ''}
-                                                        {outflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
-                                                        {outflow.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                                        {outflow.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                                        {outflow.trans_type.toLowerCase() === ("credit") ? `+` :
+                                                        outflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
+                                                        {outflow.currency.toLowerCase() === ("ngn") ? `₦` :
+                                                        outflow.currency.toLowerCase() === ("usd") ? `$` : ``}
                                                         {formatNumber(outflow.trans_amount)}
                                                     </td>
                                                     <td>{format(new Date(outflow.trans_date), 'MMM dd, yyyy; h:mma')}</td>
@@ -730,10 +730,10 @@ export const CashflowOutPage = () => {
                                                         <div className={styles.greyBox}>Amount</div>
 
                                                         <div className={styles.whiteBox}>
-                                                            {outflow.trans_type.toLowerCase() === ("credit") ? `+` : ''}
-                                                            {outflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
-                                                            {outflow.currency.toLowerCase() === ("ngn") ? `N` : ``}
-                                                            {outflow.currency.toLowerCase() === ("usd") ? `$` : ``}
+                                                            {outflow.trans_type.toLowerCase() === ("credit") ? `+` :
+                                                            outflow.trans_type.toLowerCase() === ("debit") ? `-` : ''}
+                                                            {outflow.currency.toLowerCase() === ("ngn") ? `₦` :
+                                                            outflow.currency.toLowerCase() === ("usd") ? `$` : ``}
                                                             {formatNumber(outflow.trans_amount)}
                                                         </div>
                                                     </div>

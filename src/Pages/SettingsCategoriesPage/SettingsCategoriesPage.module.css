@@ -63,6 +63,9 @@
 
 
 
+.smallCategoriesTable {
+    display: none;
+}
 
 .categoriestable {
     border-collapse: collapse;
@@ -98,11 +101,13 @@
 }
 
 
-.categoriestable .color {
+.categoriestable .color,
+.smallCategoriesTable .color {
     padding: 3px 12px;
 }
 
-.categoriestable .colorBox {
+.categoriestable .colorBox,
+.smallCategoriesTable .colorBox {
     border: 1px solid #141414;
     height: 100%;
     height: 20px;
@@ -111,8 +116,14 @@
 }
 
 
-.categoriestable .inflow {color: #1C6BFF;}
-.categoriestable .outflow {color: #F59E0B;}
+.categoriestable .inflow,
+.smallCategoriesTable .inflow {
+    color: #1C6BFF;
+}
+.categoriestable .outflow,
+.smallCategoriesTable .outflow {
+    color: #F59E0B;
+}
 
 
 .categoriestable .action {width: 7%;}
@@ -130,9 +141,6 @@
     cursor: pointer;
 }
 
-.actionsClosed {
-    display: none;
-}
 
 .theActions {
     display: block;
@@ -145,6 +153,7 @@
     position: absolute;
     z-index: 5;
     width: 12%;
+    min-width: 200px;
     right: 2%;
 }
 .theActions p {
@@ -183,4 +192,111 @@
     right: 0px;
     bottom: 0px;
     left: 0px;
+}
+
+
+
+
+@media screen and (max-width: 1000px) {
+    .whole {
+        margin-top: 135px;
+        padding: 24px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+
+    .searchButtons {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .searchBar {
+        margin-right: auto;
+        border-radius: 8px;
+        border: 1px solid #DEDEDE;
+        width: 100%;
+        padding: 8px 16px;
+    }
+    .searchBar input {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 62em) {
+
+    .whole {
+        padding: 24px;
+    }
+    .categoriestable {
+        display: none;
+    }
+    .smallCategoriesTable {
+        display: block;
+    }
+    .smallCategoriesTableEntry {
+        border: 1px solid #F6F6F6;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 16px;
+    }
+    
+    .smallCategoriesActions {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+    .smallCategoriesActions .checkbox,
+    .smallCategoriesActions button {
+        display: flex;
+        align-items: center;
+        border: 1px solid #B6B6B6;
+        padding: 12px;
+        border-radius: 5px;
+    }
+    .smallCategoriesActions input,
+    .smallCategoriesActions button img {
+        width: 18px;
+        height: 18px;
+
+    }
+    .theActions {
+        margin-top: 5px;
+    }
+    .smallCategoriesTableRow {
+        display: flex;
+        justify-content: space-between;
+    }
+    .greyBox,
+    .whiteBox {
+        flex: 1;
+        padding: 8px 12px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: 400;
+        color: #374151;
+    }
+    .greyBox {
+        background-color: #F9FAFB;
+        font-weight: 600;
+    }
+
+    .redLine {
+        width: 100%;
+        border: 1px solid #F2B4C0;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .whole {
+        margin-left: 0;
+    }
+    .filter {
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
 }

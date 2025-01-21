@@ -110,13 +110,17 @@
 
 @media screen and (max-width: 1000px) {
 
+    .whole {
+        border-bottom: 1px solid #E5E7EB;
+    }
     .widerHeader {
         height: 135px;
     }
     .widerWhole {
         height: 100%;
     }
-    .logo {
+    .logo,
+    .leftRight {
         border-bottom: none;
     }
     .widerLeftRight {
@@ -149,6 +153,10 @@
     .widerHeader {
         border-bottom: 1px solid #E5E7EB;
     }
+    .whole {
+        border-bottom: none;
+        padding: 0;
+    }
     .logo {
         display: none;
     }
@@ -162,9 +170,6 @@
         width: 40px;
         height: 40px;
     }
-    .leftRight {
-        border-bottom: none;
-    }
     .headerLeft {
         flex: 60%;
         display: block;
@@ -173,14 +178,17 @@
     }
     .headerLeft h2 {
         width: fit-content;
-        font-size: 24px;
+        font-size: 20px;
         line-height: 32px;
         font-weight: 600;
         color: #374151;
         margin-right: 7%;
         white-space: nowrap;
         
-    }    
+    }
+    .leftRight {
+        padding: 0 15px;
+    }
 }
 
 
