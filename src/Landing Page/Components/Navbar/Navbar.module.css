@@ -111,21 +111,23 @@
 }
 
 .whole{
-    background-color:black;
+    background-color: black;
     padding: 18px 5%;
-    position: relative;
-    display: flex;
+    position: absolute;
+    display: flex
+;
     align-items: center;
     justify-content: space-between;
     z-index: 2;
     gap: 5%;
     overflow-x: hidden;
+    width: 100%;
 }
 /* features tab */
 .wholes {
     position: fixed;
-    z-index: 9999;
-    left: 1234px;
+    z-index: 2;
+    left: 1225px;
   }
 .container{
     display:flex;
@@ -145,6 +147,7 @@
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: #DB3657;
+    padding: 5px;
 
 }
 .btn{
@@ -153,7 +156,7 @@
     background-color: #FFFFFF;
     padding-top: 24px;
     padding-inline: 12px;
-    padding-bottom: 5px;
+    padding-bottom: 25px;
 }
 .btn div{
     display: flex;
@@ -163,18 +166,23 @@
     background-color:rgba(219, 54, 87, 0.1);
 }
 .btn .btnicon{
-    border:none;
+    border: none;
     color: #D2042D;
     width: 55px;
     height: 55px;
     border-radius: 6.75px;
     margin-right: 10px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    background-color: #DFE5EC;
 }
 .btn .btncontent{
     display: flex;
     flex-direction: column;
-    text-align: justify;
     width:305px;
+    align-items: flex-start;
 }
 .btn .btncontent h5{
     font-family: Plus Jakarta Sans;

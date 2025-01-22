@@ -1,10 +1,10 @@
 .gridContainer {
     display: grid;
-    grid-template-columns: repeat(3, minmax(150px, 1fr)); /* Dynamically adjust columns */
+    grid-template-columns: repeat(3, minmax(380px, 1fr)); /* Dynamically adjust columns */
     gap: 16px;
     width: 100%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0 85px;
   }
   
   .gridItem {
@@ -12,13 +12,13 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    width: 250px;
+    width: 290px;
     height: 226px;
     gap: 5px;
   }
   .gridItem h5{
     font-family: Montserrat;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 28px;
     text-align: left;
@@ -28,7 +28,7 @@
   }
   .gridItem p{
     font-family: Montserrat;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 26px;
     text-align: left;

@@ -77,7 +77,7 @@ export const Home = () => {
             <button className={styles}>
                 Get Started
             </button>  
-            <div className={styles.img}>
+            <div className={styles.imgs}>
                 <img className={styles.img1} src={getImageUrl("icon2.png")}alt="" />
                 <img className={styles.img2} src={getImageUrl("img2.png")}alt="" />
                 <img className={styles.img3} src={getImageUrl("icon3.png")}alt="" />
@@ -86,7 +86,7 @@ export const Home = () => {
 
         </div>
 
-        <img className={styles.dash} src={getImageUrl("Dashboard.png")}alt="" />
+        <img className={styles.dash} src={getImageUrl("Dashboard copy.png")}alt="" />
     </div>
     )
 }

@@ -9,6 +9,8 @@
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .About{
@@ -42,7 +44,6 @@
     color: #ffffff;
     width: auto;
     margin: 0;
-    font-family: "BRFirma";
     margin-right: auto;
     margin-left: auto;
     letter-spacing: -0.4px;
@@ -57,7 +58,6 @@
     color: #dedfe3;
     padding: 3%;
     width: auto;
-    font-family: "BRFirma";
     
 }
 
@@ -88,10 +88,9 @@
 .red{
     color:#D2042D;
 }
-
 .img1 {
     position: absolute;
-    top: 25%;
+    top: 2%;
     left: 5%;
     display: inline-block;
     animation: bounce 2s infinite
@@ -100,14 +99,14 @@
 .img2 {
     position: absolute;
     right: 5%;
-    top: 25%;
+    top: 2%;
     display: inline-block;
     animation: bounce 2s infinite
 }
 
 .img3 {
     position: absolute;
-    bottom: 0.5%;
+    bottom: 28%;
     left: 10%;
     display: inline-block;
     animation: bounce 2s infinite

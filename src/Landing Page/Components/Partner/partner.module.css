@@ -9,6 +9,8 @@
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .About{

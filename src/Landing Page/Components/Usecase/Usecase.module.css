@@ -9,6 +9,8 @@
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .About{
@@ -42,7 +44,6 @@
     color: #ffffff;
     width: auto;
     margin: 0;
-    font-family: "BRFirma";
 }
 
 .bread p{
@@ -54,7 +55,6 @@
     color: #dedfe3;
     padding: 8%;
     width: auto;
-    font-family: "BRFirma";
     
 }
 

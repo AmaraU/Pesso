@@ -147,7 +147,7 @@ export const Details =()=>{
         {contents.map((feature, index) => (
         <div key={index} className={styles.gridItem}>
           <button className={styles.btn} aria-label={feature.title}>
-            <feature.Icon width="20px" height="20px" />
+            <feature.Icon width="40px" height="100px" />
           </button>
           <h5>{feature.title}</h5>
           <p>{feature.description}</p>
