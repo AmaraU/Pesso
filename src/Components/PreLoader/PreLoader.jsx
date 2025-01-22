@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../../../utils";
 
 export const PreLoader = () => {
-
+    const navigate = useNavigate();
     useEffect(() => {
         
         const progressBar = document.querySelector('#progress');
@@ -13,6 +13,7 @@ export const PreLoader = () => {
 
         function clear() {
             progressPage.style.display = "none";
+            navigate('/home');
         }
 
         function shrink() {

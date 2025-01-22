@@ -1,0 +1,90 @@
+.start{
+    width: 100%;
+    gap: 24px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    
+}
+
+.bread{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    gap: 40px;
+    width: auto;
+    padding: 75px 150px;
+}
+
+.bread .text {
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 450px;
+    padding-left: 40px;
+    gap: 10px;
+}
+.crumb{
+    background-color: #F4F4F4;
+    display:flex;
+    border-radius: 24px;
+}
+.start h1{
+    font-weight: 900;
+    font-size: 52px;
+    align-items: center;
+    color: #262626;
+    width: 182%;
+    max-width: 577px;
+    text-align: start;
+}
+
+.start p{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.4px;
+    color: #262626;
+    width: auto;
+    font-family: "BRFirma";
+    text-align: left;
+    
+}
+
+.start .bread button{
+    Width: 245px;
+    height: 56px;
+    border-radius: 1200px;
+    /* padding: 40px 48px; */
+    gap: 8px;
+    color: #ffffff;
+    background-color: #0D0D0D;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+}
+.bread {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    gap: 40px;
+    width: auto;
+    padding: 75px 150px;
+}
+.bread .img {
+    flex: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 654px;
+    height: 423px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

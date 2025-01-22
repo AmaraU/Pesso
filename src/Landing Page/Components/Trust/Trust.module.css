@@ -1,0 +1,35 @@
+/* .dash{
+    position: absolute;
+    bottom: 0%;
+    left: 15%;
+} */
+
+.bread{
+    width: 100%;
+    gap: 24px;
+    background-size: 100% 100%;
+    display: flex;
+    text-align: center;
+    padding: 120px;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.crumb{
+    width: 603.74px;
+    height: 93.47px;
+    gap: 30px;
+}
+
+.bread h3{
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 26px;
+    color:#D2042D;
+    gap: 24px;
+}
+
+.bread img{
+    margin-top: 35px;
+    
+}

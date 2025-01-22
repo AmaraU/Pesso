@@ -1,0 +1,110 @@
+.biggerDiv {
+    width: 100%;
+    gap: 24px;
+    background-size: 100% 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    background-color: black;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.About{
+    width: 100%;
+    gap: 24px;
+    background-size: 100% 100%;
+    display: flex;
+    text-align: center;
+    padding: 90px 120px;
+    justify-content: center;
+    background-color: black;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bread{
+    width: 70%;
+    gap: 40px;
+    display: block;
+    z-index: 3;
+    margin: 0;
+
+}
+
+
+.bread h1{
+    font-weight: 700;
+    font-size: 72px;
+    line-height: 79.2px;
+    align-items: center;
+    color: #ffffff;
+    width: auto;
+    margin: 0;
+    font-family: "BRFirma";
+}
+
+.bread p{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.4px;
+    align-items: center;
+    color: #dedfe3;
+    padding: 8%;
+    width: auto;
+    font-family: "BRFirma";
+    
+}
+
+.bread button{
+    /* Width: 156px;
+    height: 56px; */
+    border-radius: 1000px;
+    padding: 13px 48px ;
+    gap: 8px;
+    color: #ffffff;
+    background-color:  #D2042D;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+}
+.bread button:hover {
+    background-color: #D2042D;
+}
+
+.icon {
+    width: 20px;
+    height: 10px;
+    margin-left: 8px;
+}
+
+.red{
+    color: #B3B3B3;
+}
+
+.img1 {
+    position: absolute;
+    top: 25%;
+    left: 10%;
+}
+
+.img2 {
+    position: absolute;
+    right: 10%;
+    top: 25%;
+}
+
+.img3 {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+}
+
+.dash{
+    /* position: absolute; */
+    /* top: 60%; */
+    left: 15%;
+    bottom: 0;
+}

@@ -210,7 +210,7 @@ export default function Signup() {
             <Flex flex={{ base: 0.8, md: 3 }} display={'flex'} flexDirection={'column'} p={'24px'}>
 
                 <Stack direction={'row'}  display={'flex'} justifyContent={'space-between'} w={'100%'} top={0} position={'relative'}>
-                    <a href='/'><h3>Back <b>Home</b></h3></a>
+                    <a href='/home'><h3>Back <b>Home</b></h3></a>
                     <h3>Already Have An Account? <a href="/signup">Sign In</a></h3>
                 </Stack>
 

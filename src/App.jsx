@@ -31,47 +31,62 @@ import { SettingsCategoriesPage } from './Pages/SettingsCategoriesPage/SettingsC
 
 import { BlankPage } from './Pages/BlankPage';
 import { AccountInfoPage } from './Pages/AccountsPage/AccountInfoPage';
-
-
+import { Layout } from './Landing Page/Components/Layout/Layout';
+import { HomePage } from './Landing Page/Pages/Homepage/Homepage';
+import { Usecasepage } from './Landing Page/Pages/Usecasepage/Usecasepage';
+import { Featurepage } from './Landing Page/Pages/Featurepage/Featurepage';
+import { Partnerpage } from './Landing Page/Pages/Partnerpage/Partnerpage';
+import { PreLoader } from './Components/PreLoader/PreLoader';
 
 
 function App() {
 
   const router = createBrowserRouter([
-    { path: '/', element: <Signin /> },
-    { path: '/signin', element: <Signin /> },
-    { path: '/signup', element: <Signup /> },
-    { path: '/signup-security', element: <SecurityQuestions /> },
-    { path: '/verify-email', element: <VerifyEmailPage /> },
-    { path: '/forgot-password', element: <ForgotPasswordPage /> },
+    { path: "/", element: <PreLoader /> },
     {
-      path: '/dashboard', element: <DashboardLayout />,
+      path: "/",
+      element: <Layout />,
       children: [
-
-        { path: '/dashboard', element: <Navigate to="overview" /> },
-        { path: 'overview', element: <Overview /> },
-        { path: 'transactions', element: <TransactionsPage /> },
-        { path: 'transactions/transfer', element: <TransactionsTransferPage /> },
-        { path: 'accounts', element: <AccountsPage /> },
-        { path: 'account-info', element: <AccountInfoPage /> },
-        { path: 'cashflow', element: <CashflowInPage /> },
-        { path: 'cashflow/outflow', element: <CashflowOutPage /> },
-        { path: 'loans', element: <LoansPage /> },
-        { path: 'request', element: <RequestPage /> },
-        { path: 'investments', element: <InvestmentsPage /> },
-        { path: 'transfer/bulktransfers', element: <BlankPage /> },
-        { path: 'budget', element: <BudgetPage /> },
-        { path: 'reconciliations', element: <BlankPage /> },
-        { path: 'reports', element: <ReportsPage /> },
-        { path: 'reports/history', element: <ReportsHistoryPage /> },
-        { path: 'audittrails', element: <AuditTrailsPage /> },
-        { path: 'users', element: <UsersPage /> },
-        { path: 'users/roles', element: <UsersRolesPage /> },
-        { path: 'settings', element: <SettingsProfilePage /> },
-        { path: 'settings/account', element: <SettingsAccountPage /> },
-        { path: 'settings/workflow', element: <SettingsWorkflowPage /> },
-        { path: 'settings/categories', element: <SettingsCategoriesPage /> },
-      ]
+        { path: "home", element: <HomePage /> },
+        { path: "usecases", element: <Usecasepage /> },
+        { path: "features", element: <Featurepage /> },
+        { path: "partner", element: <Partnerpage /> },
+      ],
+    },
+  
+    { path: "/signin", element: <Signin /> },
+    { path: "/signup", element: <Signup /> },
+    { path: "/signup-security", element: <SecurityQuestions /> },
+    { path: "/verify-email", element: <VerifyEmailPage /> },
+    { path: "/forgot-password", element: <ForgotPasswordPage /> },
+    {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        { path: "", element: <Navigate to="overview" /> },
+        { path: "overview", element: <Overview /> },
+        { path: "transactions", element: <TransactionsPage /> },
+        { path: "transactions/transfer", element: <TransactionsTransferPage /> },
+        { path: "accounts", element: <AccountsPage /> },
+        { path: "account-info", element: <AccountInfoPage /> },
+        { path: "cashflow", element: <CashflowInPage /> },
+        { path: "cashflow/outflow", element: <CashflowOutPage /> },
+        { path: "loans", element: <LoansPage /> },
+        { path: "request", element: <RequestPage /> },
+        { path: "investments", element: <InvestmentsPage /> },
+        { path: "transfer/bulktransfers", element: <BlankPage /> },
+        { path: "budget", element: <BudgetPage /> },
+        { path: "reconciliations", element: <BlankPage /> },
+        { path: "reports", element: <ReportsPage /> },
+        { path: "reports/history", element: <ReportsHistoryPage /> },
+        { path: "audittrails", element: <AuditTrailsPage /> },
+        { path: "users", element: <UsersPage /> },
+        { path: "users/roles", element: <UsersRolesPage /> },
+        { path: "settings", element: <SettingsProfilePage /> },
+        { path: "settings/account", element: <SettingsAccountPage /> },
+        { path: "settings/workflow", element: <SettingsWorkflowPage /> },
+        { path: "settings/categories", element: <SettingsCategoriesPage /> },
+      ],
     },
   ]);
 

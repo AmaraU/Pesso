@@ -1,0 +1,163 @@
+
+.Benefit{
+    width: 100%;
+    height: auto;
+    padding: 94px 5%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.bread{
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 72px;
+    display: flex;
+    flex-direction: column;
+    
+    justify-self: center;
+    justify-content: center;
+}
+
+.bread h5{
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 14px;
+    letter-spacing: 0.5px;
+    color: #0582d2;
+    text-align:center;
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+
+.bread h1{
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 53px;
+    text-align: center;
+    color: #09101D;
+    margin-bottom: 24px;
+
+}
+
+.bread p{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: -0.4000000059604645px;
+    text-align: center;
+    align-items: center;
+    color: #000000E5;
+    margin-left:14px;
+}
+
+.crumb {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: flex-start;
+    height: 555px;
+    
+} 
+
+.text{
+    width: 100%;
+    height: 100%;
+    justify-self: baseline;
+    border: 1px solid #DEDFE3;
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+}
+
+.text .words {
+    padding: 24px 0;
+}
+.text .words h2 {
+    text-align-last: left;
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #202020;
+}
+.text .words p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #7A7A7A;
+}
+
+
+.header img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 24px;
+}
+.header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #09101d;
+    text-align: left;
+    margin-bottom: 8px;
+    line-height: 36px;
+}
+
+.text p {
+    line-height: 28px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #383B43;
+    text-align: left;
+}
+.header{
+    display: contents;
+}
+
+.texx{
+    width: 100%;
+    height: 100%;
+    justify-self: baseline;
+    border: 1px solid #DEDFE3;
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.offer{
+    width: 100%;
+    height: auto;
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+.word {
+    display: flex;
+    width: 90%;
+    gap: 32px;
+    align-items: center;
+
+}
+
+.worde{
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: center;
+    
+    
+}
+
+.img{
+    height: 356px;
+    border: 1.5px 1.5px 0px 1.5px;
+}

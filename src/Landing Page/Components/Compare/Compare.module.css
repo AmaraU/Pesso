@@ -1,0 +1,170 @@
+.flex{
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 64px 0;
+    margin-bottom: 65px;
+    overflow-x: hidden;
+}
+
+.flex p{
+    width: auto;
+    height: 54px;
+    gap: 8px;
+    
+}
+
+.flex h1{
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 24px;
+    
+}
+
+.flex span{
+    color: #D2042D;
+    font-weight: 500;
+    font-size: 18px;
+    
+}
+
+.word{
+    width: 50%;
+    height:auto;
+    gap: 24px;
+    align-self: center;
+}
+.moth{
+    border: 1px solid #CCCCCC;
+    width: auto;
+    height: 45px;
+    border-radius: 12px;
+    padding: 2px 3px;
+    align-self: center;
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+}
+.moth button{
+    border-radius: 8px;
+    background-color: #D2042D;
+    color: rgb(255, 255, 255);
+    width: 100px;
+    border: 1px solid #D2042D;
+    box-shadow: 0px 1px 3px 0px #1E1E1E1A;
+    font-size: 14px;
+    text-align: center;
+    height: 36px;
+}
+.moth .button2{
+    background-color: #ffffff;
+    color: #808080;
+    width: 100px;
+    box-shadow: 0px 1px 3px 0px #1E1E1E1A;
+    font-size: 14px;
+    text-align: center;
+    height: 36px;
+    border:none;
+}
+.gridtable {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    
+    width: 99%;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid #E6E9F5; 
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .gridheader {
+    display: contents; 
+  }
+  
+  .gridheader div {
+    background-color: #ffffff;
+    color: #252430;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #E6E9F5; 
+  }
+ .gridheader h3{
+    font-family: BR Firma;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30.17px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+ } 
+
+  .gridrow {
+    display: contents;
+  }
+  
+  .gridrow div {
+    padding: 10px;
+    border: 1px solid #E6E9F5;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: left;
+    justify-content: center;
+  }
+  .gridrow h2{
+    font-size: 18px;
+    font-weight: 500px;
+  }
+  .gridrow .page{
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+    height: 20px;
+    color: #858BA0;
+}
+  .gridrow p{
+    margin: 0px;
+    padding: 0px;
+    font-size: 15px;
+    height: 20px;
+  }
+  .header span{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+    color: #53514E;
+    
+    align-self: flex-start;
+}
+.header button{
+    border-radius: 1000px;
+    padding: 10px 20px;
+    gap: 8px;
+    background-color: #D2042D;
+    color: rgb(255, 255, 255);
+    width: 188px;
+    border: 1px solid #D2042D;
+    box-shadow: 0px -1px 0px 0px #1E1E1E1A inset;
+    box-shadow: 0px 1px 3px 0px #1E1E1E1A;
+    font-size: 14px;
+    text-align: center;
+    height: 52px;
+}
+
+.gridheader p{
+    font-weight: 200;
+    font-size: 13px;
+    line-height: 27px;
+    color: #858BA1;
+    text-align: left;
+    margin: 0px;
+}
+
+  

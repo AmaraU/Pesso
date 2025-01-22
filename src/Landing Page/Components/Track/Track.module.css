@@ -1,0 +1,124 @@
+.bread {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    background-color:#0D0D0D;
+    width:auto;
+    padding: 75px 150px;
+    overflow-x: hidden;
+    
+}
+.bread .crumb {
+    flex: 60%;
+    
+}
+.bread .words {
+    flex: 40%;
+    margin-right: 60px;
+    /* display: flex;
+    flex-direction: column; */
+    /* width: 50%; */
+    /* width: 100%; */
+
+
+}
+.bread h1{
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 60px;
+    align-items: right;
+    color:#fff;
+    width: auto;
+    margin: 0;
+    font-family: "BRFirma";
+    margin-bottom: 24px;
+    /* padding: 8px;
+    flex:50%;
+    padding:40px,0 ; */
+    
+}
+
+.bread p{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 32px;
+    letter-spacing: -0.4px;
+    align-items: right;
+    color: #A1A1AA;
+
+    margin-bottom: 32px;    
+    width: auto;
+    
+}
+.track{
+    display: flex;
+    flex-direction: column;
+}
+
+.cross{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    background-color:#ffff;
+    width:auto;
+    padding: 80px 0;
+    
+}
+
+.cross .crumb {
+    flex: 60%;
+    
+}
+.cross .words {
+    flex: 40%;
+    margin-right: 60px;
+    /* display: flex;
+    flex-direction: column; */
+    /* width: 50%; */
+    /* width: 100%; */
+
+
+}
+.cross h1{
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 60px;
+    align-items: right;
+    color:#000;
+    width: auto;
+    margin: 0;
+    font-family: "BRFirma";
+    margin-bottom: 24px;
+    /* padding: 8px;
+    flex:50%;
+    padding:40px,0 ; */
+    
+}
+
+.cross p{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 32px;
+    letter-spacing: -0.4px;
+    align-items: right;
+    color: #A1A1AA;
+
+    margin-bottom: 32px;    
+    width: auto;
+}
+
+.button{
+    /* Width: 156px;
+ height: 56px; */
+ border-radius: 1000px;
+ padding: 13px 48px ;
+ gap: 8px;
+ color: #ffffff;
+ background-color:  #D2042D;
+ border: none;
+ font-size: 16px;
+ text-align: center;
+ margin-top: 32px;
+}

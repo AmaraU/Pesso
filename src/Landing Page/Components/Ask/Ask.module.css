@@ -1,0 +1,113 @@
+.ask{
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 64px 0;
+    margin-bottom: 126px;
+}
+
+.ask .word{
+    width:100%;
+    height: auto;
+    gap: 48px;
+}
+
+.ask h1{
+    font-weight: 8npm run00;
+    font-size: 40px;
+    line-height: 44px;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.ask p{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+    align-self: center;
+    color: #666666;
+}
+
+.bread{
+    width: 100%;
+    height: auto;
+    gap: 38px;
+    display: flex;
+    justify-content:center;
+    flex-direction: column;
+    padding: 106px 81px;
+    align-items: center;
+    margin-bottom: auto;
+}
+
+.crumbs{
+    width:768px;
+    /* margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px solid #DEDFE3;
+    gap:24px;
+    padding: 25px ;
+}
+
+.crumb{
+    width:768px;
+    /* margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%; */
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px solid #DEDFE3;
+    gap:24px;
+    padding: 25px ;
+}
+.crumb h1{
+    align-items: left;
+}
+
+/* .crumb h1{
+     width: auto;
+     padding: 100px,80px;
+     gap: 150px;
+} */
+.accordian {
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 768px;
+  align-self: center;
+  }
+  
+  .accordianItem {
+    cursor: pointer;
+    padding: 15px;
+  }
+  
+  .accordianItemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .accordianItemBody {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .accordianItemBodyContent {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .active {
+    background-color: #eef;
+  }

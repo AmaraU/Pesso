@@ -1,0 +1,212 @@
+.navbar {
+    background-color:black;
+    padding: 18px 5%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+    gap: 5%;
+}
+
+
+.folding {
+    flex: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-left: 135px;
+}
+
+.onClose {
+    display: contents;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menuBtn {
+    display: none;
+}
+
+
+.links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+}
+
+.link {
+    color: #ffff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    gap: 10px;
+    display: inline-flex;
+    align-items: center;
+    border: none;
+}
+
+.link:hover {
+    color: #D2042D;
+}
+
+.link.active{
+    background-color: black;
+    color: #D2042D;
+}
+.linkactive{
+    background-color: black;
+    color: #D2042D;
+}
+.link img {
+    width: 18px;
+    height: 18px;
+    margin-left: 8px;
+}
+.link span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    gap: 16px;
+}
+.buttonOne {
+
+    color: #ffff;
+    background-color: transparent;
+    list-style: none;
+    padding: 12px 16px;
+
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+
+.buttonTwo {
+    border: none;
+    color: #FFFFFF;
+    background-color: #D2042D;
+    border-radius: 1000px;
+    padding: 13px 24px;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.whole h1{
+    color:#ffff;
+    /* font-family: "BRFirma"; */
+    height: 28.01px;
+    width: 126.77px;
+    
+}
+
+.whole{
+    background-color:black;
+    padding: 18px 5%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+    gap: 5%;
+    overflow-x: hidden;
+}
+/* features tab */
+.wholes {
+    position: fixed;
+    z-index: 9999;
+    left: 1234px;
+  }
+.container{
+    display:flex;
+    text-align: center;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 56px;
+    left:-1187px;
+}
+.container p{
+    font-family: Plus Jakarta Sans;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #DB3657;
+
+}
+.btn{
+    height: auto;
+    border:none;
+    background-color: #FFFFFF;
+    padding-top: 24px;
+    padding-inline: 12px;
+    padding-bottom: 5px;
+}
+.btn div{
+    display: flex;
+    align-items: center;
+}
+.btn:hover{
+    background-color:rgba(219, 54, 87, 0.1);
+}
+.btn .btnicon{
+    border:none;
+    color: #D2042D;
+    width: 55px;
+    height: 55px;
+    border-radius: 6.75px;
+    margin-right: 10px;
+}
+.btn .btncontent{
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    width:305px;
+}
+.btn .btncontent h5{
+    font-family: Plus Jakarta Sans;
+    font-size: 19.82px;
+    font-weight: 600;
+    line-height: 29.73px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+}
+.btn .btncontent p{
+    font-family: Space Grotesk;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color:  #808080;
+
+}
+.Grid{
+    display: flex;
+    flex-direction: column;
+}
+.Grid .rows{
+    display: flex;
+    flex-direction: row;
+}
+.clicked {
+    filter: hue-rotate(180deg); /* Change to red-like hue */
+  }
+
+

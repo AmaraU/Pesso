@@ -1,0 +1,62 @@
+.start{
+    width: 85%;
+    gap: 24px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    margin-left: 100px;
+}
+
+.text {
+    width: 100%;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 14px;
+    background-color: black;
+    padding: 100px 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.start h1{
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    align-items: center;
+    color: #ffffff;
+    width: auto;
+    margin: 0;
+    font-family: "BRFirma";
+}
+
+.start p{
+    width: 70%;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.4px;
+    align-items: center;
+    color: #dedfe3;
+    padding: 3%;
+    align-self: center;
+    text-align: center;
+    font-family: "BRFirma";
+    
+}
+
+.start button{
+    border-radius: 1000px;
+    padding: 13px 48px;
+    gap: 8px;
+    color: #ffffff;
+    background-color:  #D2042D;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    width: 25%;
+    align-self: center;
+}

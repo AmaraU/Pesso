@@ -1,0 +1,136 @@
+.footer {
+    width: 100%;
+    padding: 76px 149px;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    overflow-x: hidden;
+}
+
+.links {
+    
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+.links a {
+    color: #09101D;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+}
+.links a:hover {
+    text-decoration: underline;
+}
+
+.link p {
+    margin-bottom: 35px;
+}
+
+.crumb button{
+    border-radius: 1000px;
+    padding: 13px 48px;
+    gap: 8px;
+    color: #ffffff;
+    background-color:  #D2042D;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    width: auto;
+}
+
+
+.line {
+    width: px;
+    height: 1px;
+    border: 1px solid black;
+}
+
+.brea{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bread{
+    display: flex;
+    text-align:left;
+    margin-bottom: 24px;
+    gap: 16px;
+}
+.bread img {
+    width: 24px;
+    height: 24px;
+}
+
+.text{
+    gap: 40px;
+    margin-bottom: 22px;
+}
+
+.crumb p,
+.crumb h1,
+.crumb button {
+    margin-bottom: 24px;
+    gap: 16px;
+}
+
+.crumb h1{
+    font-family: "BRFirma";
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 32px;
+}
+
+.crumb p{
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.pad{
+    
+    width:100%;
+    color: #1A1A1A; 
+    margin-bottom: 75px;
+    gap: 18.11px;
+    height: 46.11px;
+    padding: 56px 149px;
+}
+.breed{
+    display: flex;
+    text-align:left;
+    margin-bottom: 24px;
+}
+.foot{
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}
+/* 
+.footer {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+.footer p {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer p::before {
+  content: '©';
+  margin-right: 5px;
+}
+
+.footer p::after {
+  content: ' • ';
+  margin-left: 5px;
+}
+
+ */

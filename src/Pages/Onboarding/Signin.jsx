@@ -22,7 +22,6 @@ import EmailValidator from "email-validator";
 import { auditLog, logger } from '../../models/logging';
 import { getImageUrl } from '../../../utils';
 import styles from './Onboarding.module.css';
-import { PreLoader } from '../../Components/PreLoader/PreLoader';
 
 export default function Signin() {
     const [showPassword, setShowPassword] = useState(false);
@@ -132,8 +131,6 @@ export default function Signin() {
     return (
         <>
 
-        <PreLoader />
-
         <Stack className={styles.whole} minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex display={{ base: 'none', md: 'flex' }} flex={{ base: 1.5, '2xl': 1 }} bg={"linear-gradient(180deg, #D2042D 0%, #210101 61%)"}>
                 <Stack spacing={10}>
@@ -156,7 +153,7 @@ export default function Signin() {
             <Flex flex={{ base: 0.8, md: 3 }} display={'flex'} flexDirection={'column'} p={'24px'}>
                 
                 <Stack direction={'row'}  display={'flex'} justifyContent={'space-between'} w={'100%'} top={0} position={'relative'}>
-                    <a href="/"><h3>Back <b>Home</b></h3></a>
+                    <a href="/home"><h3>Back <b>Home</b></h3></a>
                     <h3>No Account Yet? <a href="/signup">Sign Up</a></h3>
                 </Stack>
 

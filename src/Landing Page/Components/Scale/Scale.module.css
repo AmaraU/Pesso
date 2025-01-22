@@ -1,0 +1,106 @@
+
+.scale{
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 64px 0;
+    overflow-x: hidden;
+}
+
+.bread {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+    gap: 40px;
+    width: auto;
+    padding: 75px 150px;
+}
+
+.bread .crumb {
+    flex: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.bread .crumb h1 {
+    font-weight: 700;
+    font-size: 48px;
+    text-align: left;
+    margin: 0;
+    font-family: "Montserrat";
+    color: #0F141E;
+    width: max-content;
+}
+
+.bread p {
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 30px;
+    text-align: left;
+    color: #666666;
+    margin-bottom: 32px;
+}
+
+.bread .img {
+    flex: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scale h1{
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 57px;
+    align-items: center;
+
+    width: auto;
+    margin-bottom: 24px;
+    font-family: "BRFirma";
+}
+
+.spa{
+    color: #b3b3b3;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    border: 1px solid var(--secondary-color);
+    border-radius: 8px;
+    margin: 0 auto;
+    width: 80%;
+    padding: 10px;
+  }
+  
+  .navPills {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navItem {
+    margin: 0;
+  }
+  
+.buttons{
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    border: none;
+    padding: 6px 3px 6px 4px;
+    gap: 10px;
+    height: 48px;
+    background-color: white;
+    font-size: 15px;
+}
+.activeButton{
+    background-color: #FBE6EA;
+    color: #D2042D;
+}
+
+

@@ -1,0 +1,131 @@
+.biggerDiv {
+    width: 100%;
+    gap: 24px;
+    background-size: 100% 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    background-color: black;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.About{
+    gap: 24px;
+    background-size: 100% 100%;
+    display: flex;
+    text-align: center;
+    padding: 30px 120px;
+    justify-content: center;
+    background-color: black;
+    flex-direction: column;
+    align-items: center;
+    /* width: 100%; */
+    text-align: center;
+    
+}
+.bread {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    gap: 40px;
+    width: auto;
+    padding: 75px 150px;
+}
+
+.bread .crumb {
+    flex: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 450px;
+}
+
+.bread .crumb h1 {
+    font-weight: 700;
+    font-size: 72px;
+    line-height: 79.2px;
+    align-items: center;
+    color: #ffffff;
+    width: auto;
+    margin: 0;
+    font-family: "BRFirma";
+    text-align: left;
+}
+.bread .img img{
+    width: 100%;
+    height: 423px;
+}
+
+.bread p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.4px;
+    align-items: center;
+    color: #dedfe3;
+    width: auto;
+    font-family: "BRFirma";
+    text-align: left;
+}
+
+.bread .img {
+    flex: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 576px; 
+    height: 423px;
+}
+
+.bread button{
+    Width: 245px;
+    height: 56px;
+    border-radius: 1200px;
+    /* padding: 40px 48px; */
+    gap: 8px;
+    color: #ffffff;
+    background-color: #D2042D;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+}
+.bread button:hover {
+    background-color: #D2042D;
+} 
+
+.icon {
+    width: 20px;
+    height: 10px;
+    margin-left: 8px;
+}
+
+.red{
+    color: #B3B3B3;
+}
+
+.img1 {
+    position: absolute;
+    top: 25%;
+    left: 10%;
+}
+
+.img2 {
+    position: absolute;
+    right: 10%;
+    top: 25%;
+}
+
+.img3 {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+}
+
+.dash{
+    /* position: absolute; */
+    /* top: 60%; */
+    left: 15%;
+    bottom: 0;
+}
