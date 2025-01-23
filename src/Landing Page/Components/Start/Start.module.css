@@ -1,4 +1,4 @@
-.start{
+.start {
     width: 85%;
     gap: 24px;
     display: flex;
@@ -8,18 +8,31 @@
     align-items: center;
     overflow-x: hidden;
     margin-left: 100px;
+
+    /* Layered background: Black color with image on top */
+    background-color: black; /* Base layer */
+    background-image: url('../../../assets/Layer 1.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover; /* Adjust image scaling */
 }
 
 .text {
     width: 100%;
     align-self: center;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     border-radius: 14px;
-    background-color: black;
     padding: 100px 80px;
     display: flex;
     flex-direction: column;
+
+    /* Layered background for .text */
+    background-color: black; /* Base layer */
+    background-image: url('../../../assets/Layer 1.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover; /* Adjust image scaling */
+    color: white; /* Ensure text is readable */
 }
 
 .start h1{
