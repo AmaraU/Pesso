@@ -1,6 +1,6 @@
 .navbar {
     background-color:black;
-    padding: 18px 5%;
+    padding: 18px 3%;
     position: relative;
     display: flex;
     align-items: center;
@@ -8,7 +8,9 @@
     z-index: 2;
     gap: 5%;
 }
-
+.navbar img{
+    height: 30px;
+}
 
 .folding {
     flex: 75%;
@@ -127,7 +129,8 @@
 .wholes {
     position: fixed;
     z-index: 2;
-    left: 1225px;
+    left: 75%;
+    width:80%;
   }
 .container{
     display:flex;
@@ -136,6 +139,7 @@
     position: absolute;
     top: 56px;
     left:-1187px;
+    width: 100%;
 }
 .container p{
     font-family: Plus Jakarta Sans;
@@ -148,6 +152,7 @@
     text-decoration-skip-ink: none;
     color: #DB3657;
     padding: 5px;
+    gap: 6%;
 
 }
 .btn{
@@ -208,10 +213,12 @@
 .Grid{
     display: flex;
     flex-direction: column;
+    
 }
 .Grid .rows{
     display: flex;
     flex-direction: row;
+    gap: 6%;
 }
 .clicked {
     filter: hue-rotate(180deg); /* Change to red-like hue */

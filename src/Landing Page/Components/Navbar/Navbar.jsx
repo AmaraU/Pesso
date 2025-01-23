@@ -35,8 +35,7 @@ export const Navbar = ({setContents} ) => {
     return (
         <div className={styles.whole}>
             <nav className={styles.navbar}>
-                <img src={getImageUrl("Pesso.png")} alt="" />
-                <h1>PESSO</h1>
+                <img src={getImageUrl("PesoFinance_Logo.png")} alt="" />
             </nav>
 
             <div className={styles.folding}>
@@ -76,7 +75,7 @@ export const Navbar = ({setContents} ) => {
                                 href="/partner"
                                 onClick={() => handleLinkClick("/partner")}
                             >
-                                 {activeLink== "/partner"? "Pricing":"Partner"}
+                                 Partner
                             </a>
                         </li>
                     </ul>

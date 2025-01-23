@@ -15,7 +15,7 @@
 }
 
 .About{
-    width: 100%;
+    width: 80%;
     gap: 24px;
     background-size: 100% 100%;
     display: flex;
@@ -54,7 +54,7 @@
     letter-spacing: -0.4px;
     align-items: center;
     color: #dedfe3;
-    padding: 5%;
+    padding: 2%;
     width: auto;
     
 }
