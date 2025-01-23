@@ -11,6 +11,7 @@
     overflow-x: hidden;
     position: relative;
     z-index: 1;
+    top: 30px;
 }
 
 .About{
@@ -53,7 +54,7 @@
     letter-spacing: -0.4px;
     align-items: center;
     color: #dedfe3;
-    padding: 8%;
+    padding: 5%;
     width: auto;
     
 }
