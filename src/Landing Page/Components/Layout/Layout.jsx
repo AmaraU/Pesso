@@ -6,10 +6,10 @@ import { Footer } from "../Footer/Footer";
 export const Layout =()=>{
     const [content,setContents]=useState("Loan Management");
     return(
-        <>
+        <div style={{ overflowX: 'hidden' }}>
         <Navbar setContents={setContents}/>
         <Outlet context={{content}}/>
         <Footer/>
-        </>
+        </div>
     )
 }
