@@ -127,8 +127,8 @@
 .wholes {
     position: fixed;
     z-index: 2;
-    left: 85%;
-    width:95%;
+    left: 94%;
+    width:78rem;
   }
 .container{
     display:flex;
@@ -216,7 +216,6 @@
 .Grid .rows{
     display: flex;
     flex-direction: row;
-    gap: 6%;
 }
 .clicked {
     filter: hue-rotate(180deg); /* Change to red-like hue */
