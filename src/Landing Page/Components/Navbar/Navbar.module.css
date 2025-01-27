@@ -127,8 +127,8 @@
 .wholes {
     position: fixed;
     z-index: 2;
-    left: 75%;
-    width:80%;
+    left: 85%;
+    width:95%;
   }
 .container{
     display:flex;
