@@ -142,10 +142,10 @@ export const Flexible = () => {
                 <button className={styles.title}>Claim this price</button>
                 </div>
                 <div className={styles.crumb3}>
-                <div className={styles.borderText}>Recommended </div>
-                <h5>Start Up Plan</h5>
-                <h1>N24,999 <span>/month</span></h1>
-                <p>For events without complex structures.</p>
+                    <div className={styles.borderText}>Recommended </div>
+                    <h5>Start Up Plan</h5>
+                    <h1>N24,999 <span>/month</span></h1>
+                    <p>For events without complex structures.</p>
                 <div className={styles.line}></div>
                 <ul>
                     <li className={styles.icon}>

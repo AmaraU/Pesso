@@ -63,7 +63,7 @@
     position: relative;
     height: auto;
     justify-content: space-between;
-
+   
 }
 
 .icon{
@@ -177,14 +177,17 @@
     margin-top: 32px;
     background-color: #D2042D;
 }
-
+.bread .crumb3 h1{
+    font-size: 45px;
+    color: #FFFFFF;
+    margin-bottom: 0px;
+}
 .crumb h1{
     font-weight: 700;
-    font-size: 50px;
+    font-size: 45px;
     line-height: 48.41px;
-    
-    
     align-self: flex-start;
+    margin-bottom: 0px;
 }
 
 .crumb h4{
@@ -216,9 +219,7 @@
     position: relative;
     height: auto;
   }
-.crumb3 h1{
-    color: #FFFFFF;
-}
+
 .crumb3 h5{
     font-weight: 500px;
     font-size: 16px;

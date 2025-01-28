@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { CiCirclePlus ,CiCircleMinus } from "react-icons/ci";
 import styles from "./Ask.module.css";
 
 export const Ask = () => {
@@ -26,6 +26,7 @@ export const Ask = () => {
           >
             <div className={styles.accordianItemHeader} id="accordianItemHeader">
               <h5>{item.question}</h5>
+              {activeIndex ===index ?<CiCircleMinus className={styles.accordianItemIcon}/>: <CiCirclePlus className={styles.accordianItemIcon}/>}
             </div>
             {isActive(index) && (
               <div className={styles.accordianItemBody}>

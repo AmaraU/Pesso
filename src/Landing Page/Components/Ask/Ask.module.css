@@ -12,6 +12,7 @@
     width:100%;
     height: auto;
     gap: 48px;
+    margin-bottom: 15px;
 }
 
 .ask h1{
@@ -19,7 +20,7 @@
     font-size: 40px;
     line-height: 44px;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 15px;
 }
 
 .ask p{
@@ -83,8 +84,9 @@
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: 768px;
+  width: 50%;
   align-self: center;
+  margin-top: 10px;
   }
   
   .accordianItem {
@@ -97,17 +99,25 @@
     justify-content: space-between;
     align-items: center;
   }
+  .accordianItemIcon{
+    color: red;
+    height: 24px;
+    width: 24px;
+  }
   
   .accordianItemBody {
     padding: 15px;
-    border-top: 1px solid #ddd;
+    
   }
   
   .accordianItemBodyContent {
     font-size: 14px;
     color: #333;
   }
+  .accordianItemBodyContent p{
+    text-align: left;
+  }
   
   .active {
-    background-color: #eef;
+    background-color: rgb(255, 255, 255);
   }
