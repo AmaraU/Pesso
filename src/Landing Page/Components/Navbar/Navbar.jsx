@@ -64,7 +64,7 @@ export const Navbar = ({setContents} ) => {
                             onClick={() => handleLinkClick("/features")} href="/features"
                         >
                             <a className={`${styles.link} ${activeLink === "/features" && styles.linkactive}`}
-                        href="/features">
+                        >
                             Features
                         </a>
                         <img src={getImageUrl("greyDownAngle.png")} alt="" onClick={() => handleLinkClick("/features")} className={isClicked ? "clicked" : ""}/>
