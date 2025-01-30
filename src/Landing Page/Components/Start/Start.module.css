@@ -1,4 +1,4 @@
-.start {
+/* .start {
     width: 85%;
     gap: 24px;
     display: flex;
@@ -8,14 +8,40 @@
     align-items: center;
     overflow-x: hidden;
     margin-left: 8%;
-
-    /* Layered background: Black color with image on top */
-    background-color: black; /* Base layer */
+    
+    Make image more visible 
+    background-color: rgba(0, 0, 0, 0.6);  60% black transparency 
     background-image: url('/assets/Layer 1.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover; /* Adjust image scaling */
+    background-size: cover;
     border-radius: 10px;
+} */
+.start {
+     width: 85%;
+    gap: 24px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    margin-left: 8%;
+}
+
+.start::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/Layer 1.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    filter: contrast(1.2) brightness(1.1); /* Increase contrast and brightness */
+    z-index: -1;
 }
 
 .text {
@@ -43,7 +69,7 @@
     color: #ffffff;
     width: auto;
     margin: 0;
-    font-family: "BRFirma";
+    font-family: 'BR Firma',sans-serif;
 }
 
 .start p{
@@ -54,10 +80,10 @@
     letter-spacing: -0.4px;
     align-items: center;
     color: #dedfe3;
-    padding: 3%;
+    padding: 1.5%;
     align-self: center;
     text-align: center;
-    font-family: "BRFirma";
+    font-family: 'DM Sans', sans-serif
     
 }
 

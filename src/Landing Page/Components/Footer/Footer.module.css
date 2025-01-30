@@ -23,9 +23,28 @@
 .links a:hover {
     text-decoration: underline;
 }
+.link h5{
+    font-family: 'BR Firma',sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20.11px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    margin-bottom: 35px;
 
+}
 .link p {
     margin-bottom: 35px;
+    font-family: 'DM Sans';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18.23px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
 }
 
 .crumb button{
@@ -76,7 +95,7 @@
 }
 
 .crumb h1{
-    font-family: "BRFirma";
+    font-family: 'BR Firma',sans-serif;
     font-weight: 700;
     font-size: 20px;
     line-height: 32px;
@@ -86,6 +105,7 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
+    font-family: 'DM Sans';
 }
 
 .pad{

@@ -48,6 +48,7 @@
     margin-right: auto;
     margin-left: auto;
     letter-spacing: -0.4px;
+    font-family: 'BR Firma',sans-serif;
 }
 
 .bread p{
@@ -59,6 +60,7 @@
     color: #dedfe3;
     padding: 3%;
     width: auto;
+    font-family: 'DM Sans', sans-serif;
     
 }
 

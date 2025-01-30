@@ -13,6 +13,8 @@
     width: auto;
     height: 54px;
     gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+
     
 }
 
@@ -21,6 +23,7 @@
     font-size: 40px;
     line-height: 48px;
     margin-bottom: 24px;
+    font-family: 'BR Firma',sans-serif;
     
 }
 
@@ -118,6 +121,7 @@
 ;
     justify-content: center;
     align-items: center;
+    margin-top: 2%;
 }
 .moth button{
     border-radius: 8px;

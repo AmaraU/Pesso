@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: 'BRFrima';
-    src: url('../fonts/BR-Frima/BRFrima-Bold.ttf');
+    src: url('../fonts/BR-Firma/BRFirma-Bold.ttf');
     font-weight: bold;
     font-style: normal;
 }
@@ -25,10 +25,36 @@
     font-weight: 500;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/DMSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/DMSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'WorkSans', 'BRFrima', Arial, Helvetica, sans-serif;
+    font-family: 'WorkSans', 'BRFirma', Arial, Helvetica, sans-serif;
 }
