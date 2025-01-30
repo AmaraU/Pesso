@@ -11,7 +11,7 @@
 
     /* Layered background: Black color with image on top */
     background-color: black; /* Base layer */
-    background-image: url('../../../assets/Layer 1.png');
+    background-image: url('/assets/Layer 1.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover; /* Adjust image scaling */
@@ -27,9 +27,8 @@
     display: flex;
     flex-direction: column;
 
-    /* Layered background for .text */
     background-color: black; /* Base layer */
-    background-image: url('../../../assets/Layer 1.png');
+    background-image: url('/assets/Layer 1.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover; /* Adjust image scaling */
