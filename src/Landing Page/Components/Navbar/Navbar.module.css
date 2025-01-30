@@ -1,6 +1,6 @@
 .navbar {
     background-color:black;
-    padding: 18px 3%;
+    padding: 18px 2.5%;
     position: relative;
     display: flex;
     align-items: center;
@@ -132,15 +132,20 @@
   }
 .container{
     display:flex;
+    flex-direction: column;
     text-align: center;
     background-color: #FFFFFF;
     position: absolute;
     top: 56px;
     left:-1187px;
     width: 100%;
+    padding-left: 3%;
+    
 }
 .container p{
-    font-family: Plus Jakarta Sans;
+    color: #DB3657;
+    padding: 5px;
+    font-family: 'BR Firma',sans-serif;
     font-size: 14px;
     font-weight: 700;
     line-height: 21px;
@@ -148,8 +153,7 @@
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
-    color: #DB3657;
-    padding: 5px;
+
     gap: 6%;
 
 }
@@ -188,7 +192,7 @@
     align-items: flex-start;
 }
 .btn .btncontent h5{
-    font-family: Plus Jakarta Sans;
+    font-family: 'BR Firma',sans-serif;
     font-size: 19.82px;
     font-weight: 600;
     line-height: 29.73px;
@@ -196,9 +200,10 @@
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
 
+
 }
 .btn .btncontent p{
-    font-family: Space Grotesk;
+    font-family: 'DM Sans';
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
