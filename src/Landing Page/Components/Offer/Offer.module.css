@@ -96,12 +96,23 @@
     color: #7A7A7A;
     font-family: 'DM Sans', sans-serif;
 }
-
+.header2 img {
+    width: 100%;
+    height: 80%;
+}
+.header2 h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #09101d;
+    text-align: left;
+    margin-bottom: 8px;
+    line-height: 36px;
+    font-family: 'BR Firma',sans-serif;
+}
 
 .header img {
     width: 100%;
-    height: auto;
-    margin-bottom: 24px;
+    height: 80%;
 }
 .header h2 {
     font-size: 28px;

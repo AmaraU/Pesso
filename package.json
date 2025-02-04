@@ -12,7 +12,10 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
+    "@fontsource-variable/work-sans": "^5.1.1",
     "@mono.co/connect.js": "^0.2.4",
+    "@mui/x-charts": "^7.25.0",
+    "@mui/x-date-pickers": "^7.25.0",
     "apexcharts": "^3.54.1",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
@@ -32,6 +35,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-color": "^2.19.3",
     "react-d3-speedometer": "^2.2.1",
+    "react-date-picker": "^11.0.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.4.0",
     "react-router-dom": "^6.23.1",

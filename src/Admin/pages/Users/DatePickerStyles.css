@@ -1,0 +1,62 @@
+/* Wrapper styling with increased width and padding for a longer look */
+.react-date-picker{
+  width: 370px;
+}
+.react-date-picker__wrapper {
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  padding: 8px 14px; /* Increased padding */
+  font-size: 1rem;
+  width: 100%; /* Full-width by default */
+  max-width: 400px; /* Adjust max width as needed for a longer input */
+  transition: border 0.2s ease-in-out;
+}
+
+.react-date-picker__wrapper:hover {
+  border-color: #A0AEC0; 
+}
+
+/* Input styling to complement the new width */
+.react-date-picker__inputGroup__input {
+  color: #4A5568;
+  padding: 10px;
+  font-size: 1rem;
+  width: 42px; /* Increased width for a spacious feel */
+  border: none;
+}
+
+/* Calendar styling for modern look */
+.react-date-picker__calendar {
+  background-color: #F9FAFB;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  font-size: 0.9rem;
+  padding: 12px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1); 
+}
+
+/* Tile styling with hover effect */
+.react-date-picker__tile {
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Active date styling */
+.react-date-picker__tile--active {
+  background: #D2042D !important; 
+  color: white !important; 
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+/* Hover effect for tiles */
+.react-date-picker__tile:hover {
+  background-color: #EDF2F7;
+  color: #2D3748;
+}
+
+/* Custom class to further control width if necessary */
+.custom-date-picker .react-date-picker__inputGroup__input {
+  width: 48px;
+}

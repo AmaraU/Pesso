@@ -30,7 +30,7 @@
     font-size: 48px;
     text-align: left;
     margin: 0;
-    font-family: "Montserrat";
+    font-family: 'Montserrat', sans-serif;
     color: #0F141E;
     width: max-content;
     margin-bottom: 3%;
@@ -42,7 +42,8 @@
     line-height: 30px;
     text-align: left;
     color: #666666;
-    margin-bottom: 32px;
+    margin-bottom: 32px;font-family: 'Montserrat', sans-serif;
+
 }
 
 .bread .img {
@@ -60,7 +61,7 @@
 
     width: auto;
     margin-bottom: 24px;
-    font-family: "BRFirma";
+    font-family: 'Montserrat', sans-serif;
 }
 
 .spa{

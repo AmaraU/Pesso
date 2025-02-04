@@ -38,6 +38,14 @@ import { Featurepage } from './Landing Page/Pages/Featurepage/Featurepage';
 import { Partnerpage } from './Landing Page/Pages/Partnerpage/Partnerpage';
 import { PreLoader } from './Components/PreLoader/PreLoader';
 
+import { LayoutAdmin } from './Admin/components/Layout/Layout';
+import {Dashboard} from './Admin/pages/Dashboard/Dashboard'
+import {Report} from './Admin/pages/Report/Report'
+import {User} from './Admin/pages/Users/User'
+import {Communications} from './Admin/pages/Communication/Communications'
+import {Configuration} from './Admin/pages/Configurations/Configuration'
+import {Request} from './Admin/pages/Request/Request'
+import {ActivityLogs} from './Admin/pages/Activity-log/Activity-Logs'
 
 function App() {
 
@@ -86,6 +94,19 @@ function App() {
         { path: "settings/account", element: <SettingsAccountPage /> },
         { path: "settings/workflow", element: <SettingsWorkflowPage /> },
         { path: "settings/categories", element: <SettingsCategoriesPage /> },
+      ],
+    },
+    {
+      path: '/Admin',
+      element: <LayoutAdmin />,
+      children: [
+        { path:'dashboard', element: <Dashboard /> }, 
+        { path: 'user', element: <User/> },
+        { path: 'communications', element: <Communications/> },
+        { path: 'request', element: <Request/> },
+        { path: 'configurations', element: <Configuration/> },  
+        { path: 'activity-logs', element: <ActivityLogs/> }, 
+        { path: 'report', element: <Report /> }, 
       ],
     },
   ]);

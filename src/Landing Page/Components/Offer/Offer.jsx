@@ -60,8 +60,8 @@ export const Offer = () => {
             
                 <div className={styles.worde}>
                     <div className={styles.text}>
-                        <div className={styles.header}>
-                            <img src= {getImageUrl("Frame 16.png")}alt="fr" />
+                        <div className={styles.header2}>
+                            <img src= {getImageUrl("Frame 1618873151.png")}alt="fr" />
                         </div>
                         <div className={styles.words}>
                             <h2>Link Bank Accounts</h2>
